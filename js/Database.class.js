@@ -50,14 +50,18 @@ class Database {
     }
   }
 
+  // @Change
   lookup(date, account, amount, state) {
     let lastlookup = this.exec('SELECT lastlookup FROM Accounts WHERE name="'+account+'"')[0].lastlookup;
     console.log('Last lookup: '+lastlookup);
     if(moment(date, "YYYY-MM-DD").isBefore(moment(lastlookup,"YYYY-MM-DD"))){
+      alert("fullLookup");
       this.fullLookup(account);
     } else if (moment(date, "YYYY-MM-DD").isBefore(moment().format("YYYY-MM-DD"))){
+      alert("newlookup");
       this.newlookup(lastlookup,account);
     } else {
+      alert("locallookup");
       this.locallookup(account, amount, date, state);
     }
   }
@@ -65,9 +69,9 @@ class Database {
   fullLookup(account) {
     // In Bank
     let sqlstmt = this.sql.prepare(
-      "UPDATE Accounts SET inBank = (Accounts.baseAmount+(SELECT SUM(amount) FROM OPERATION WHERE account_name =:name AND state='fa fa-check-circle' AND date<=:date)) WHERE name =:name2"
+      "UPDATE Accounts SET inBank = Coalesce(Accounts.baseAmount+(SELECT SUM(amount) FROM OPERATION WHERE account_name =:name AND state='fa fa-check-circle' AND date<=:date),0) WHERE name =:name2"
     );
-    sqlstmt.bind({
+    sqlstmt.run({
       ':name':account,
       ':date': moment().format('YYYY-MM-DD'),
       ':name2': account
@@ -75,9 +79,9 @@ class Database {
     sqlstmt.free(); sqlstmt = null;
     // Today
     sqlstmt = this.sql.prepare(
-      "UPDATE Accounts SET today = (Accounts.baseAmount+(SELECT SUM(amount) FROM OPERATION WHERE account_name =:name AND date<=:date)) WHERE name =:name2"
+      "UPDATE Accounts SET today = Coalesce(Accounts.baseAmount+(SELECT SUM(amount) FROM OPERATION WHERE account_name =:name AND date<=:date),0) WHERE name =:name2"
     );
-    sqlstmt.bind({
+    sqlstmt.run({
       ':name':account,
       ':date': moment().format('YYYY-MM-DD'),
       ':name2': account
@@ -85,9 +89,9 @@ class Database {
     sqlstmt.free(); sqlstmt = null;
     //Future
     sqlstmt = this.sql.prepare(
-      "UPDATE Accounts SET future = (Accounts.baseAmount +(SELECT SUM(amount) FROM OPERATION WHERE account_name =:name)) WHERE name =:name2"
+      "UPDATE Accounts SET future = Coalesce(Accounts.baseAmount +(SELECT SUM(amount) FROM OPERATION WHERE account_name =:name),0) WHERE name =:name2"
     );
-    sqlstmt.bind({
+    sqlstmt.run({
       ':name':account,
       ':date': moment().format('YYYY-MM-DD'),
       ':name2': account
@@ -135,15 +139,13 @@ class Database {
   }
 
   locallookup(account, operation, dateBTF, stateBTF){
-    try {
       if (stateBTF === "fa fa-check-circle" && !moment(dateBTF,'YYYY-MM-DD').isAfter(moment())) {
-        this.exec("UPDATE Accounts SET future = (Accounts.future+"+operation+"), inBank = (Accounts.inBank+"+operation+"), today = (Accounts.today+"+operation+"), future = (Accounts.future+"+operation+") WHERE name ='"+account+"'");
+        this.sql.run("UPDATE Accounts SET future = (Accounts.future+"+operation+"), inBank = (Accounts.inBank+"+operation+"), today = (Accounts.today+"+operation+"), future = (Accounts.future+"+operation+") WHERE name ='"+account+"'");
       } else if(moment(dateBTF,'YYYY-MM-DD').isAfter(moment())) {
-        this.exec("UPDATE Accounts SET future = (Accounts.future+"+operation+") WHERE name ='"+account+"'");
+        this.sql.run("UPDATE Accounts SET future = (Accounts.future+"+operation+") WHERE name ='"+account+"'");
       } else {
-        this.exec("UPDATE Accounts SET today = (Accounts.today+"+operation+"), future = (Accounts.future+"+operation+") WHERE name ='"+account+"'");
+        this.sql.run("UPDATE Accounts SET today = (Accounts.today+"+operation+"), future = (Accounts.future+"+operation+") WHERE name ='"+account+"'");
       }
-    } catch (e) {}
   }
 
   insertOperation(account, data, df) {
@@ -167,6 +169,7 @@ class Database {
   editOperation(id, data, df){
     console.log(new Date() + '--- Updating Operation #'+id);
     if(data[0] === null || data[0] === undefined) throw new Error('No account provided','Database.class.js',52)
+    let formerdate = this.exec('SELECT date FROM OPERATION WHERE id='+id)[0].date
     let sqlstmt = this.sql.prepare("UPDATE OPERATION SET date=:date,state=:state,beneficiary=:beneficiary,category=:category,label=:label,amount=:amount,type=:type,account_name=:account_name WHERE id="+id)
     sqlstmt.getAsObject({
       ':date' : moment(data[1],df).format('YYYY-MM-DD'),
@@ -179,13 +182,15 @@ class Database {
       ':account_name' : data[0]
     });
     sqlstmt.free();
-    this.lookup(moment(data[1],df).format('YYYY-MM-DD'),data[0],data[6],data[2])
+    this.fullLookup(data[0]);
   }
 
   deleteOperation(id) {
     console.log(new Date() + '--- Deleting Operation');
     if( typeof id != "number") throw new Error('Invalid token')
+    let account = this.exec('SELECT account_name from OPERATION where id='+id)[0].account_name
     this.sql.run('DELETE FROM OPERATION WHERE `id`='+id);
+    this.fullLookup(account);
   }
 
   updateTable(account,date,state,amount){

@@ -582,6 +582,7 @@ function updateAccountsList(obj = null) {
   } catch (e) {
     accounts = [];
   }
+  console.log(accounts);
   let tmp = null;
   for (var i = 0; i < accounts.length; i++) {
     console.log('Creating account named ' + accounts[i].name);
@@ -666,6 +667,7 @@ function deleteOp(id) {
     updateSQL('#account');
   }
   resetOp(globSettings);
+  updateAccountsList();
   showUnsavedTag();
 }
 
