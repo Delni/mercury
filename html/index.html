@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mercury</title>
+  <link rel="icon" type="image/png" href="icons/png/64x64.png">
+</head>
+
+<body>
+  <script type="text/javascript">
+    const css = require('../js/loadCSS.js')
+  </script>
+  <section id="window" class="hero is-fullheight">
+    <div class="hero-body is-paddingless">
+      <div class="tile is-ancestor">
+
+
+        <div class="tile is-parent  is-2 is-paddingless" id="account-pane">
+          <article class="tile is-child notification hero is-fullheight is-black" style="padding-right: 24px">
+            <div class="content">
+              <p class="title">Accounts <span id="unsaved-tag"></span></p>
+              <p class="control">
+                <a class="button is-primary is-small is-outlined" data-toggle="#createAccount" onclick="showModal(this)">
+                  <span class="icon is-small">
+                    <i class="fa fa-plus-square"></i>
+                  </span>
+                  <span>Add an account</span>
+                </a>
+                <a class="button is-primary is-small is-outlined" onclick="updateAccountsList()">
+                  <span class="icon is-small">
+                    <i class="fa fa-refresh"></i>
+                  </span>
+                </a>
+              </p>
+              <div class="modal" id="createAccount">
+                <div class="modal-background"></div>
+                <div class="modal-content">
+                  <div class="notification is-dark ">
+                    <div class="media">
+                      <div class="media-left">
+                        <span class="icon is-large"><i class="fa fa-bank"></i></span>
+                      </div>
+                      <div class="media-content">
+                        <p class="title">Add a new account...</p>
+                        <form>
+                          <div class="field">
+                            <p class="control has-icons-left">
+                              <input class="input" type="text" name="a-name" placeholder="Name the account" autofocus>
+                              <span class="icon is-small is-left">
+                                <i class="fa fa-tag"></i>
+                              </span>
+                            </p>
+                          </div>
+                          <div class="columns">
+                            <div class="column is-4 field has-addons">
+                              <div class="control">
+                                <a class="button is-primary">
+                                  <span class="icon">
+                                    <i id="selected-cur" class="fa fa-money"></i>
+                                  </span>
+                                </a>
+                              </div>
+                              <div class="control select">
+                                <select id="select-cur" name="a-cur">
+                                  <option value="" disabled selected>currency</option>
+                                  <option value="btc">Bitcoin</option>
+                                  <option value="usd">Dollar</option>
+                                  <option value="eur">Euros</option>
+                                  <option value="gbp">Pound</option>
+                                  <option value="cny">Yen</option>
+                                  <option value="money">Other</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="column is-8 field has-addons">
+                              <div class="control">
+                                <p class="button is-primary">Current amount</p>
+                              </div>
+                              <p class="control">
+                                <input class='input' type="number" name="a-amount" placeholder="0.00">
+                              </p>
+                            </div>
+                          </div>
+                          <div class="field">
+                            <p class="control pull-left">
+                              <a class="button is-info is-outlined" id="createNewAccount" onclick="createNewAccount()">Create</a>
+                            </p>
+                            <p class="control pull-right">
+                              <a class="button is-danger is-outlined" onclick="closeModal()">Cancel</a>
+                            </p>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="media-right">
+                        <button class="delete" onclick="closeModal()"></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="account-list">
+              </div>
+            </div>
+          </article>
+        </div>
+
+
+        <div class="tile is-paddingless" id="main-pane">
+          <div class="tile is-parent is-vertical is-paddingless">
+            <section class="tile is-child hero notification is-paddingless is-dark is-bottomless">
+              <div class="tabs is-boxed is-small is-fullwidth is-bottomless">
+                <ul>
+                  <li class="tab is-active"><a data-toggle="#dashboard" id="first" onclick="tabToggle(this)"><span class="icon is-small"><i class="fa fa-dashboard"></i></span> Dashboard</a> </li>
+                  <li class="tab"><a data-toggle="#account" id="second" onclick="tabToggle(this)"><span class="icon is-small"><i class="fa fa-th-list"></i></span> Account</a></li>
+                  <li class="tab"><a data-toggle="#recurring" onclick="tabToggle(this)"><span class="icon is-small"><i class="fa fa-recycle"></i></span> Recurring operations</a></li>
+                </ul>
+              </div>
+              <div class="tile data" id="dashboard">
+                <div class="tile is-parent is-vertical ">
+                  <div class="hero is-marginless" id="mainScreen">
+                    <div class="container" id="dash-body">
+                      <p class="title">No data found !</p>
+                      <p class="subtitle">Add an <span  class="has-text-primary link" data-toggle="#createAccount" onclick="showModal(this)">account</span> to start or <span class="has-text-info link" onclick="ipc.send('open-file')">open a file</span> :)</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </section>
+            <section id="chart-area" class="tile is-child hero notification is-paddingless is-black">
+              <div style="position:relative, height: 25%">
+                <canvas id="chronoChart" height="75"></canvas>
+              </div>
+            </section>
+          </div>
+
+        </div>
+
+
+        <div class="tile is-parent is-paddingless is-2 hero is-fullheight " id="op-pane">
+          <article class="tile is-child notification is-black">
+            <p class="title" id="op-title">Operation</p>
+            <p id="op-delete" class="subtitle"></p>
+            <div class="content" id="op-content">
+
+              <div class="field has-addons">
+                <div class="control">
+                  <a class="button is-primary is-tag" id="op-date-btn">
+                      <span class="icon"><i class="fa fa-calendar"></i></span>
+                    </a>
+                </div>
+                <div class="control" style="margin:0">
+                  <input class="input" type="text" id="op-date" name="op-date" placeholder="Pick a date">
+                </div>
+              </div>
+
+              <div class="field has-addons">
+                <div class="control">
+                  <a class="button is-primary is-tag" id="op-amount-btn">
+                      <span class="icon"><i class="fa"></i></span>
+                    </a>
+                </div>
+                <div class="control" style="margin:0">
+                  <input class="input" type="number" id="op-amount" name="op-amount" placeholder="0.00">
+                </div>
+              </div>
+              <div class="field has-addons">
+                <div class="control">
+                  <a class="button is-primary is-tag" id="op-account-btn">
+                      <span class="icon">
+                        <i class="fa fa-bank"></i>
+                      </span>
+                    </a>
+                </div>
+                <div class="control select" style="margin:0">
+                  <select id="op-account" name="op-account">
+                  </select>
+                </div>
+              </div>
+
+              <div class="field has-addons">
+                <div class="control">
+                  <a class="button is-primary is-tag" id="op-type-btn">
+                    <span class="icon"><i class="fa fa-credit-card"></i></span>
+                  </a>
+                </div>
+                <div class="control select" style="margin:0">
+                  <select name="op-type" id="op-type">
+                      <option value="" disabled>Operation type</option>
+                      <option value="credit-card">Credit Card</option>
+                      <option value="pencil-square-o">Check</option>
+                      <option value="money">Cash</option>
+                      <option value="exchange">Transfer</option>
+                      <option value="refresh">Internal transfer</option>
+                      <option value="share">Permanent transfer</option>
+                      <option value="desktop">Electronic Paiement</option>
+                      <option value="paypal">PayPal</option>
+                      <option value="inbox">Deposit</option>
+                      <option value="bank">Bank charge</option>
+                      <option value="stop-circle-o">Direct levy</option>
+                    </select>
+                </div>
+              </div>
+
+              <div class="field has-addons">
+                <div class="control">
+                  <a class="button is-primary is-tag" id="op-benef-btn">
+                      <span class="icon">
+                        <i class="fa fa-building-o"></i>
+                      </span>
+                    </a>
+                </div>
+                <div class="control">
+                  <input class="input typeahead" id="op-benef" type="text" placeholder="Beneficiary" />
+                </div>
+              </div>
+
+              <div class="field has-addons">
+                <div class="control">
+                  <a class="button is-primary is-tag" id="op-cat-btn">
+                      <span class="icon">
+                        <i class="fa fa-flag"></i>
+                      </span>
+                    </a>
+                </div>
+                <div class="control">
+                  <input class="input typeahead" id="op-cat" type="text" placeholder="Category" />
+                </div>
+              </div>
+              <div class="field has-addons">
+                <div class="control">
+                  <a class="button is-primary is-tag" id="op-label-btn">
+                      <span class="icon">
+                        <i class="fa fa-tag"></i>
+                      </span>
+                    </a>
+                </div>
+                <div class="control">
+                  <input class="input typeahead" id="op-label" type="text" placeholder="Label" />
+                </div>
+              </div>
+
+              <div class="field is-grouped">
+                <p class="control">State :</p>
+                <p class="control">
+                  <a id="btn-state" class="button is-outlined is-primary is-small">
+                    <span class="icon is-small">
+                      <i id="btn-icon" class="fa fa-circle-o"></i>
+                    </span>
+                  </a>
+                </p>
+                <div class="control field has-addons">
+                  <p class="control">
+                    <a  class="button is-outlined is-dark is-small" onmouseleave="helper('-')" onmouseover="helper('Registered')">
+                      <span class="icon is-small">
+                        <i class="fa fa-circle-o"></i>
+                      </span>
+                    </a>
+                  </p>
+                  <p class="control">
+                    <a  class="button is-outlined is-dark is-small" onmouseleave="helper('-')" onmouseover="helper('Checked')">
+                      <span class="icon is-small">
+                        <i class="fa fa-circle"></i>
+                      </span>
+                    </a>
+                  </p>
+                  <p class="control">
+                    <a  class="button is-outlined is-dark is-small" onmouseleave="helper('-')" onmouseover="helper('Verified')">
+                      <span class="icon is-small">
+                        <i class="fa fa-check-circle"></i>
+                      </span>
+                    </a>
+                  </p>
+                  <small id="helper">-</small>
+                </div>
+              </div>
+
+              <div class="field is-grouped">
+                <div class="control">
+                  <a class="button is-small is-info is-outlined" id="op-add-btn" onclick="addOperation(this)">
+                      <span id='op-confirm'>Add operation</span>
+                      <span class="icon is-small"><i class="fa fa-check-square-o"></i></span>
+                    </a>
+                  <a class="button is-small is-danger is-outlined" id="op-cancel-btn">
+                      <span>Cancel</span>
+                      <span class="icon is-small"><i class="fa fa-times"></i></span>
+                    </a>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+  <script>
+    if (typeof module === 'object') {
+      window.module = module;
+      module = undefined;
+    }
+  </script>
+  <script src="../assets/jquery-3.2.1.min.js"></script>
+  <script>
+    if (window.module) module = window.module;
+  </script>
+  <script src="./index.js"></script>
+</body>
+
+</html>

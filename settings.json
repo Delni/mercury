@@ -1,0 +1,33 @@
+{
+  "dateFormat": "DD/MM/YYYY",
+  "defaultCurrency": "eur",
+  "language": "en",
+  "beneficiaries": [
+    "Dummy Beneficiary for example",
+    "Test",
+    "Meh",
+    "Plop",
+    "Moi",
+    "Ber"
+  ],
+  "categories": [
+    "Alimentation",
+    "Wage",
+    "Plop",
+    "Lol",
+    "Meh",
+    "Fuck"
+  ],
+  "labels": [
+    "Resto test",
+    "Plop",
+    "123",
+    "Coop",
+    "42",
+    "Pourquoi pas ? Hahahhaha",
+    "m",
+    "Meh",
+    "Test"
+  ],
+  "lastfile": "/Users/delni/Documents/moncompte.mcy"
+}

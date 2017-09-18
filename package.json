@@ -1,0 +1,39 @@
+{
+  "name": "mercury",
+  "productName": "Mercury",
+  "version": "0.10.1",
+  "description": "Mercury allow you to control your budget and plan your finance",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron app.js",
+    "test": "echo \"ERROR : no test plugin set\"",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=\"icons/mac/app.icns\" --prune=true --out=../release-builds",
+    "package-win": "electron-packager . --overwrite --asar=false --platform=win32 --arch=x64 --icon=\"./icons/win/app.ico\" --prune=true --out=release-builds --version-string.CompanyName=MercuryCE --version-string.FileDescription=MercuryCE --version-string.ProductName=\"Mercury\"",
+    "package-lin": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=\"assets/icons/png/1024x1024.png\" --prune=true --out=release-builds"
+  },
+  "keywords": [
+    "budget",
+    "chart"
+  ],
+  "build": {
+    "appID": "mercury",
+    "productName": "Mercury",
+    "icon": "./icons/png/256x256.png"
+  },
+  "author": "Delni (nicolas.delauney@outlook.fr)",
+  "license": "MIT",
+  "dependencies": {
+    "bulma": "^0.4.3",
+    "chart.js": "^2.6.0",
+    "fontawesome": "^4.7.2",
+    "jquery": "^3.2.1",
+    "jsonfile": "^3.0.1",
+    "moment": "^2.18.1",
+    "sql.js": "^0.4.0",
+    "typeahead.js": "^0.11.1"
+  },
+  "devDependencies": {
+    "electron": "^1.6.11",
+    "electron-packager": "^8.1.0"
+  }
+}

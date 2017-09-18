@@ -1,0 +1,136 @@
+exports.newAccount =function(name, currency, inB = 0, tod = 0, fut = 0) {
+  this.name = name
+  this.currency = currency
+  this.amount = [
+    {"amount": inB, "label" : "Bank"},
+    {"amount": tod, "label" : "Today"},
+    {"amount": fut, "label" : "Future"}
+  ]
+
+  this.getName= function(){
+    return this.name
+  }
+
+  this.getCurrency= function(){
+    return this.currency
+  }
+
+  this.getInBank= function(){
+    return this.amount[0].amount
+  }
+
+  this.getToday= function(value){
+    return this.amount[1].amount
+  }
+
+  this.getfuture= function(){
+    return this.amount[2].amount
+  }
+
+  this.setName= function(value){
+    this.name = value
+    return this
+  }
+
+  this.setCurrency= function(value){
+    this.currency = value
+    return this
+  }
+
+  this.setInBank= function(value){
+    this.amount[0].amount = value
+    return this
+  }
+  this.setToday= function(value){
+    this.amount[1].amount = value
+    return this
+  }
+  this.setfuture= function(value){
+    this.amount[2].amount = value
+    return this
+  }
+
+  this.render = function(where){
+    console.log(this.name +" is being rendered in "+where)
+    let list = $(where)
+    list.append(
+      $('<article>')
+      .addClass("card notification is-dark is-paddingless")
+      .attr('id',this.name)
+      .append(
+        $('<div>').addClass('card-header')
+        .append(
+          $('<div>').addClass('card-header-icon')
+          .append(
+            $('<span>').addClass("icon")
+            .append(
+              $('<i>').addClass('fa fa-bank')
+            )
+          )
+        )
+        .append(
+          $('<div>').addClass('card-header-title')
+          .text(this.name)
+        )
+        .append(
+          $('<button></button>').addClass("delete")
+          .attr({
+            onclick: "deleteAccount(this)",
+            data: this.name
+          })
+        )
+      )
+      .append(
+        $('<div>').addClass("card-content")
+        .append(
+          $('<div>').addClass("content is-paddingless is-marginless")
+          .append(
+            $('<small>').append(
+              $('<p>').text('Bank : ')
+              .append(
+                $('<span>').addClass("amount").attr('id','inBank')
+                .text(this.amount[0].amount+" ")
+                .append(
+                  $('<span>').addClass("icon is-small")
+                  .append(
+                    $('<i>').addClass("fa fa-"+this.currency)
+                  )              )
+              )
+            )
+            .append(
+              $('<p>').text('Today : ')
+              .append(
+                $('<span>').addClass("amount").attr('id','inToday')
+                .text(this.amount[1].amount+" ")
+                .append(
+                  $('<span>').addClass("icon is-small")
+                  .append(
+                    $('<i>').addClass("fa fa-"+this.currency)
+                  )              )
+              )
+            )
+            .append(
+              $('<p>').text('Future : ')
+              .append(
+                $('<span>').addClass("amount").attr('id','inFuture')
+                .text(this.amount[2].amount+" ")
+                .append(
+                  $('<span>').addClass("icon is-small")
+                  .append(
+                    $('<i>').addClass("fa fa-"+this.currency)
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+
+    )
+  }
+  return this
+}
+
+exports.clone  = function(obj){
+  return exports.newAccount(obj._name, obj._currency, obj._amount[0].amount,obj._amount[1].amount,obj._amount[2].amount)
+}
