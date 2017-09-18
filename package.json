@@ -22,7 +22,7 @@
   },
   "author": "Delni (nicolas.delauney@outlook.fr)",
   "license": "MIT",
-  "repository": "https://github.com/Delni/mercury"
+  "repository": "https://github.com/Delni/mercury",
   "dependencies": {
     "bulma": "^0.4.3",
     "chart.js": "^2.6.0",

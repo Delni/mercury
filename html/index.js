@@ -247,7 +247,7 @@ $('#op-type').on('change', () => {
 })
 
 function getOperationValues(event) {
-  let settings = jsonfile.readFileSync(__basedir + '/settings.json');
+  //let settings = jsonfile.readFileSync(__basedir + '/settings.json');
   if (!$(event).attr('disabled')) {
     let date = $('#op-date').val()
     let amount = $('#op-amount').val()
@@ -258,16 +258,16 @@ function getOperationValues(event) {
     let label = $('#op-label').val()
     let state = $('#btn-icon').attr('class')
     resetOp(globSettings)
-    if (!isInList(benef, settings.beneficiaries) && benef != "") {
-      settings.beneficiaries.push(benef)
+    if (!isInList(benef, globSettings.beneficiaries) && benef != "") {
+      globSettings.beneficiaries.push(benef)
     }
-    if (!isInList(label, settings.labels) && label != "") {
-      settings.labels.push(label)
+    if (!isInList(label, globSettings.labels) && label != "") {
+      globSettings.labels.push(label)
     }
-    if (!isInList(cat, settings.categories) && cat != "") {
-      settings.categories.push(cat)
+    if (!isInList(cat, globSettings.categories) && cat != "") {
+      globSettings.categories.push(cat)
     }
-    jsonfile.writeFile(__basedir + '/settings.json', settings, {
+    jsonfile.writeFile(__basedir + '/settings.json', globSettings, {
       spaces: 2
     }, function(err) {
       if (err != null) {
@@ -615,6 +615,7 @@ function createNewOperation(data) {
     "\t" + data[6] + "\n"
   )
   updateSQL("#account");
+  updateAccountsList();
   showUnsavedTag();
 }
 
@@ -653,6 +654,7 @@ function confirmEdit(event) {
   let id = $(event).attr('data-id');
   global.db.editOperation(id,data,globSettings.dateFormat);
   updateSQL('#account');
+  updateAccountsList()
   showUnsavedTag();
 }
 

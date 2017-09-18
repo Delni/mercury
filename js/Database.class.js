@@ -50,6 +50,102 @@ class Database {
     }
   }
 
+  lookup(date, account, amount, state) {
+    let lastlookup = this.exec('SELECT lastlookup FROM Accounts WHERE name="'+account+'"')[0].lastlookup;
+    console.log('Last lookup: '+lastlookup);
+    if(moment(date, "YYYY-MM-DD").isBefore(moment(lastlookup,"YYYY-MM-DD"))){
+      this.fullLookup(account);
+    } else if (moment(date, "YYYY-MM-DD").isBefore(moment().format("YYYY-MM-DD"))){
+      this.newlookup(lastlookup,account);
+    } else {
+      this.locallookup(account, amount, date, state);
+    }
+  }
+
+  fullLookup(account) {
+    // In Bank
+    let sqlstmt = this.sql.prepare(
+      "UPDATE Accounts SET inBank = (Accounts.baseAmount+(SELECT SUM(amount) FROM OPERATION WHERE account_name =:name AND state='fa fa-check-circle' AND date<=:date)) WHERE name =:name2"
+    );
+    sqlstmt.bind({
+      ':name':account,
+      ':date': moment().format('YYYY-MM-DD'),
+      ':name2': account
+    })
+    sqlstmt.free(); sqlstmt = null;
+    // Today
+    sqlstmt = this.sql.prepare(
+      "UPDATE Accounts SET today = (Accounts.baseAmount+(SELECT SUM(amount) FROM OPERATION WHERE account_name =:name AND date<=:date)) WHERE name =:name2"
+    );
+    sqlstmt.bind({
+      ':name':account,
+      ':date': moment().format('YYYY-MM-DD'),
+      ':name2': account
+    })
+    sqlstmt.free(); sqlstmt = null;
+    //Future
+    sqlstmt = this.sql.prepare(
+      "UPDATE Accounts SET future = (Accounts.baseAmount +(SELECT SUM(amount) FROM OPERATION WHERE account_name =:name)) WHERE name =:name2"
+    );
+    sqlstmt.bind({
+      ':name':account,
+      ':date': moment().format('YYYY-MM-DD'),
+      ':name2': account
+    })
+    sqlstmt.free(); sqlstmt = null;
+    try{
+      this.exec('UPDATE Accounts SET lastlookup='+moment().format('YYYY-MM-DD')+' WHERE name="'+account+'"');
+    } catch (e) {}
+  }
+
+  newlookup(lastlookup, account) {
+    // In Bank
+    let sqlstmt = this.sql.prepare(
+      "UPDATE Accounts SET inBank = (Accounts.inBank+(SELECT SUM(amount) FROM OPERATION LEFT JOIN Accounts ON OPERATION.account_name=Accounts.name WHERE account_name =:name AND OPERATION.date<=:date AND OPERATION.date>Accounts.lastlookup AND state='fa fa-check-circle')) WHERE name =:name2"
+    );
+    sqlstmt.bind({
+      ':name':account,
+      ':date': moment().format('YYYY-MM-DD'),
+      ':name2': account
+    })
+    sqlstmt.free(); sqlstmt = null;
+    // Today
+    sqlstmt = this.sql.prepare(
+      "UPDATE Accounts SET today = (Accounts.today+(SELECT SUM(amount) FROM OPERATION WHERE account_name =:name AND date<=:date)) WHERE name =:name2"
+    );
+    sqlstmt.bind({
+      ':name':account,
+      ':date': moment().format('YYYY-MM-DD'),
+      ':name2': account
+    })
+    sqlstmt.free(); sqlstmt = null;
+    //Future
+    sqlstmt = this.sql.prepare(
+      "UPDATE Accounts SET future = (Accounts.future +(SELECT SUM(amount) FROM OPERATION WHERE account_name =:name)) WHERE name =:name2"
+    );
+    sqlstmt.bind({
+      ':name':account,
+      ':date': moment().format('YYYY-MM-DD'),
+      ':name2': account
+    })
+    sqlstmt.free(); sqlstmt = null;
+    try {
+      this.exec('UPDATE Accounts SET lastlookup='+moment().format('YYYY-MM-DD')+' WHERE name="'+account+'"');
+    } catch(e){}
+  }
+
+  locallookup(account, operation, dateBTF, stateBTF){
+    try {
+      if (stateBTF === "fa fa-check-circle" && !moment(dateBTF,'YYYY-MM-DD').isAfter(moment())) {
+        this.exec("UPDATE Accounts SET future = (Accounts.future+"+operation+"), inBank = (Accounts.inBank+"+operation+"), today = (Accounts.today+"+operation+"), future = (Accounts.future+"+operation+") WHERE name ='"+account+"'");
+      } else if(moment(dateBTF,'YYYY-MM-DD').isAfter(moment())) {
+        this.exec("UPDATE Accounts SET future = (Accounts.future+"+operation+") WHERE name ='"+account+"'");
+      } else {
+        this.exec("UPDATE Accounts SET today = (Accounts.today+"+operation+"), future = (Accounts.future+"+operation+") WHERE name ='"+account+"'");
+      }
+    } catch (e) {}
+  }
+
   insertOperation(account, data, df) {
     console.log(new Date() + '--- Inserting New Operation');
     if(account === null || account === undefined) throw new Error('No account provided','Database.class.js',52)
@@ -65,6 +161,7 @@ class Database {
       ':account_name' : account
     });
     sqlstmt.free();
+    this.locallookup(account,data[5], moment(data[0],df).format('YYYY-MM-DD'),data[1]);
   }
 
   editOperation(id, data, df){
@@ -82,6 +179,7 @@ class Database {
       ':account_name' : data[0]
     });
     sqlstmt.free();
+    this.lookup(moment(data[1],df).format('YYYY-MM-DD'),data[0],data[6],data[2])
   }
 
   deleteOperation(id) {
