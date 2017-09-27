@@ -100,6 +100,7 @@ class Database {
     try{
       this.exec('UPDATE Accounts SET lastlookup='+moment().format('YYYY-MM-DD')+' WHERE name="'+account+'"');
     } catch (e) {}
+    this.buildChartData(account);
   }
 
   newlookup(lastlookup, account) {
@@ -164,6 +165,7 @@ class Database {
     });
     sqlstmt.free();
     this.locallookup(account,data[5], moment(data[0],df).format('YYYY-MM-DD'),data[1]);
+    this.buildChartData(account);
   }
 
   editOperation(id, data, df){
@@ -235,5 +237,24 @@ class Database {
 
   deleteAccount(name) {
     this.sql.run('DELETE FROM `Accounts` WHERE name="'+name+'"')
+  }
+
+
+  buildChartData(account){
+    this.sql.run('DELETE FROM `ChronoBase` WHERE account="'+account+'"');
+    let operations = this.exec('SELECT date, amount FROM OPERATION WHERE account_name="'+account+'"');
+    console.log(operations[5].amount);
+    let baseAmount = this.exec('SELECT baseAmount FROM Accounts WHERE name="'+account+'"')[0].baseAmount;
+    let currentAmount = baseAmount;
+    let sqlstmt = this.sql.prepare("INSERT INTO ChronoBase(date,amount,account) VALUES (:date,:amount,:account)")
+    for (var i = 0; i < operations.length; i++) {
+      currentAmount += operations[i].amount;
+      sqlstmt.run({
+        ':date' : operations[i].date,
+        ':amount' : currentAmount,
+        ':account': account
+      });
+    }
+    sqlstmt.free(); sqlstmt=null;
   }
 }
