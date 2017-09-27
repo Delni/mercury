@@ -9,7 +9,16 @@
     "Plop",
     "Moi",
     "Ber",
-    "Charlotte"
+    "Charlotte",
+    "Steam",
+    "Bank of Scotland",
+    "Caisse D'Épargne",
+    "IMT Lille Douai",
+    "Sosh",
+    "EventBrite",
+    "Circuit.co.uk",
+    "Amazon",
+    "Swatch"
   ],
   "categories": [
     "Alimentation",
@@ -18,7 +27,17 @@
     "Lol",
     "Meh",
     "Remboursement",
-    "School"
+    "School",
+    "Steam",
+    "Withdrawal",
+    "Fees",
+    "Health",
+    "Subscriptions - Phone",
+    "Hollidays - Travel",
+    "Household - Laundry",
+    "Gadgets",
+    "Presents",
+    "Refund"
   ],
   "labels": [
     "Resto test",
@@ -30,7 +49,31 @@
     "m",
     "Meh",
     "Test",
-    "Remboursement plafond"
+    "Remboursement plafond",
+    "Thales Mois d'août",
+    "Argent de poche",
+    "Oxygen Not Included",
+    "£100",
+    "Int. Com.",
+    "Sécu 2018",
+    "Fact. Aout",
+    "Harry Potter Bridge",
+    "Stonehaven",
+    "Oban & Inverarray",
+    "Com. Int. HPBridge",
+    "Com. Int. Stonehaven",
+    "Com. Int. Oban",
+    "Cottisation Futéo",
+    "£17",
+    "Souris BLE",
+    "Isle of Skye",
+    "Montre Look Left",
+    "Com. Int. Skye",
+    "Com. Int. Swatch",
+    "Refund",
+    "Loch Ness",
+    "Com. Int. Nessie",
+    "N°32"
   ],
-  "lastfile": "/Users/delni/Documents/monCompte.mcy"
+  "lastfile": "/Users/delni/Documents/withChart.mcy"
 }
