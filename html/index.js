@@ -24,6 +24,7 @@ $.getScript('../js/CustomField.class.js');
 $.getScript('../js/Database.class.js');
 $.getScript('../js/HTMLElements.class.js');
 $.getScript('../js/Mercury.class.js');
+$.getScript('../js/ChronoChart.class.js');
 
 global.__basedir = path.join(__dirname, '..');
 global.__accounts = new Array();
@@ -62,6 +63,7 @@ $(function init() {
   // let catField =  new CustomField('flag','#op-content','op-cat', { placeholder : 'Category'})
   // let labelField =  new CustomField('tag','#op-content','op-label', { placeholder : 'Label'})
   updateAccountsList();
+  global.__chronoChart = new ChronoChart($("#chronoChart"), global.__accounts)
   tabToggle($('#first').get(0));
   $('#op-amount-btn').children().children().addClass('fa-' + globSettings.defaultCurrency);
   $('input[name="op-date"]').val(moment().format(globSettings.dateFormat));
@@ -688,99 +690,3 @@ function updateSQL(sqlType) {
     //TODO
   }
 }
-
-/******************************************************************************/
-/******************************************************************************/
-/****************************** GARBAGE ***************************************/
-/******************************************************************************/
-/******************************************************************************/
-
-
-let myData = {
-  labels: [
-    01, 02, 03, 04, 05, 06, 07, 08, 09, 10,
-    11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-    20, 21, 22, 23, 24, 25, 26, 27, 28, 29
-  ],
-  datasets: [{
-    label: '€',
-    fill: "bottom",
-    data: [
-      {x: 1,y: 1}, {x: 2,y: 1}, {x: 3,y: 3}, {x: 4,y: 5}, {x: 5,y: 2}, {x: 6,y: 3}, {x: 7,y: 0}, {x: 8,y: 0}, {x: 9,y: 0}, {x: 10,y: 0},
-      {x: 11,y: 0}, {x: 12,y: 0}, {x: 13,y: 0}, {x: 14,y: 0}, {x: 15,y: 0}, {x: 16,y: 0}, {x: 17,y: 5}, {x: 18,y: 0}, {x: 19,y: 0}, {x: 20,y: 0},
-      {x: 21,y: 0}, {x: 22,y: 0}, {x: 23,y: 0}, {x: 24,y: 0}, {x: 25,y: 0}, {x: 26,y: 0}, {x: 27,y: 0}, {x: 28,y: 0}, {x: 29,y: 0}
-    ],
-    backgroundColor: 'rgba(50, 115, 221,0.2)',
-    borderColor: '#3273dc',
-    borderWidth: 1
-  }, {
-    label: "Negative area",
-    fill: "bottom",
-    pointRadius: 0,
-    data: [{
-        x: 01,
-        y: 0
-      },
-      {
-        x: 29,
-        y: 0
-      }
-    ],
-    backgroundColor: 'rgba(255, 0, 0, 0.2)',
-    borderColor: 'rgba(255, 0, 0, 1)',
-    borderWidth: 1
-  }, {
-    label: "Account 1",
-    fill: "bottom",
-    data: [{
-        x: 8,
-        y: 333
-      },
-      {
-        x: 15,
-        y: 500
-      },
-      {
-        x: 29,
-        y: 0
-      }
-    ],
-    backgroundColor: 'rgba(50, 221, 72, 0.2)',
-    borderColor: '#32dd61',
-    borderWidth: 1
-  }]
-};
-let ctx = $("#chronoChart")
-let myChart = new Chart(ctx, {
-  type: 'line',
-  data: myData,
-  options: {
-    scales: {
-      xAxes: [{
-        time: {
-          unit: 'day'
-        }
-      }],
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
-      }]
-    }
-  }
-});
-myChart.render()
-
-function rand() {
-  myData.datasets.forEach((dataset) => {
-    for (var i = 0; i < dataset.data.length; i++) {
-      if (dataset.label === '€')
-        dataset.data[i].y = Math.floor((Math.random() * (1000 + 400 + 1)) - 400)
-    }
-  })
-  myChart.update();
-}
-
-window.setInterval(function() {
-  rand();
-}, 10000);
