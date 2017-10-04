@@ -10,6 +10,9 @@ class ChronoChart {
       type: 'line',
       data: null,
       options: {
+        legend: {
+          display: false
+        },
         fill: 'bottom',
         scales: {
 					xAxes: [{
@@ -36,7 +39,7 @@ class ChronoChart {
     this.config.data = { datasets: []};
     for (var i = 0; i < accounts.length; i++) {
       let colors = this.colorsPicker();
-      let data= global.db.exec(`SELECT date, amount FROM ChronoBase WHERE account="${accounts[i].name}" AND date>="${moment().subtract(1,'months').format('YYYY-MM-DD')}" AND date<="${moment().add(10,'days').format('YYYY-MM-DD')}" GROUP BY date`)
+      let data= global.db.exec(`SELECT date, amount FROM ChronoBase WHERE account="${accounts[i].name}" AND date>="${moment().subtract(1,'months').format('YYYY-MM-DD')}" AND date<="${moment()/*.add(10,'days')*/.format('YYYY-MM-DD')}" GROUP BY date`)
       let newDataset = {
         label: this.currencyConverter(accounts[i].currency),
         backgroundColor: colors.backgroundColor,
@@ -51,7 +54,24 @@ class ChronoChart {
             y: data[j].amount.toFixed(2)
           })
       }
+      let newforeDataset = {
+        label: this.currencyConverter(accounts[i].currency),
+        backgroundColor: colors.backgroundColor,
+        borderColor: colors.borderColor,
+        borderWidth: 1,
+        data: [],
+        fill: false,
+      }
+      let foredata= global.db.exec(`SELECT date, amount FROM ChronoBase WHERE account="${accounts[i].name}" AND date>="${moment()/*.subtract(1,'months').format('YYYY-MM-DD')}" AND date<="${moment().add(10,'days')*/.format('YYYY-MM-DD')}" GROUP BY date`)
+      for (var j = 0; j < foredata.length; j++) {
+        newforeDataset.data.push(
+          {
+            x: moment(foredata[j].Date,'YYYY-MM-DD').format('DD/MM/YYYY'),
+            y: foredata[j].amount.toFixed(2)
+          })
+      }
       this.config.data.datasets.push(newDataset);
+      this.config.data.datasets.push(newforeDataset);
     }
     this.chart = new Chart(ctx, this.config);
     this.chart.render();

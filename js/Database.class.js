@@ -242,8 +242,7 @@ class Database {
 
   buildChartData(account){
     this.sql.run('DELETE FROM `ChronoBase` WHERE account="'+account+'"');
-    let operations = this.exec('SELECT date, amount FROM OPERATION WHERE account_name="'+account+'"');
-    console.log(operations[5].amount);
+    let operations = this.exec('SELECT date, amount FROM OPERATION WHERE account_name="'+account+'" ORDER BY date');
     let baseAmount = this.exec('SELECT baseAmount FROM Accounts WHERE name="'+account+'"')[0].baseAmount;
     let currentAmount = baseAmount;
     let sqlstmt = this.sql.prepare("INSERT INTO ChronoBase(date,amount,account) VALUES (:date,:amount,:account)")
