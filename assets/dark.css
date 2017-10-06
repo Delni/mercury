@@ -1,0 +1,191 @@
+body, #window {
+  background-color: #282c34;
+  color: white;
+  overflow-y: auto;
+}
+
+body::-webkit-scrollbar, *::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  overflow: hidden;
+}
+
+abbr {
+  cursor: help;
+}
+
+.title{
+  height: 50px;
+}
+
+.tabs>* {
+  background-color: #21252b;
+  border-bottom: 1px solid gray;
+}
+
+.data {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.table {
+  border-radius: 5px;
+  background: black;
+  color: inherit;
+}
+
+.is-tag {
+  cursor: default;
+}
+
+.is-future *{
+  font-style: italic;
+  color: hsl(0, 0%, 48%);
+}
+
+.table tr:hover td {
+  background: #21252b;
+}
+
+.option:first {
+  color: #999
+}
+
+.tabs *.is-active {
+  border: 1px solid gray;
+  border-bottom: 1px solid #282c34;
+  border-radius: 5px 5px 0 0;
+}
+
+.tab.is-active:hover {
+  background-color: #21252b;
+}
+
+#currency {
+  margin-left: 3px;
+}
+
+.icon {
+  border: none;
+}
+
+#op-pane {
+  min-width: 275px
+}
+
+#chart-area {
+  max-height: 30%;
+}
+
+#dash-body {
+  max-width: 64vw;
+}
+
+#account-list {
+  max-height: 700px;
+  overflow-y: auto;
+}
+
+#settings-body {
+  width: 95vw;
+  height: 69vh;
+  max-width: 95vw;
+  max-height: 69vh;
+}
+
+#helper {
+  position: relative;
+    left: -75px;
+    bottom: -25px;
+  text-align: center;
+  font-style: italic;
+  color: gray;
+}
+
+#menu-btn {
+  width: 100%
+}
+
+#table-container {
+  width: 95%;
+  height: 60%;
+  overflow:auto;
+}
+
+#mainScreen {
+  background-color: inherit;
+  height: 100%;
+  /*border: solid 2px rgb(223, 20, 221);*/
+  overflow-y: scroll;
+}
+
+#dash-body {
+  height: 100%;
+  max-height: 530px;
+  overflow-y: scroll;
+  padding-right: 1em;
+}
+
+.link {
+  cursor: pointer;
+}
+
+.link:hover{
+  text-decoration: underline;
+}
+
+th {
+  padding-right: 0;
+}
+
+.is-bottomless {
+  margin-bottom: 0 !important;
+}
+
+.notification a:not(.button) {
+  text-decoration: none;
+}
+
+.hero.is-dark .tabs.is-boxed li.is-active a, .hero.is-dark .tabs.is-boxed li.is-active a:hover {
+  background-color: #282c34;
+  border: none;
+  color: white;
+}
+
+
+/*COLORS */
+
+.notification.is-dark {
+  background-color: #282c34;
+}
+
+.input, .select select {
+  background-color: black;
+  border-color: gray;
+  color: white;
+}
+
+.footer.is-black, .notification.is-black {
+  background-color: #21252b;
+}
+
+.footer {
+  color: gray;
+  border-top: 1px solid #101010;
+}
+
+strong, .card-header-title {
+  color: inherit;
+}
+
+/* TYPEHEAD */
+/*.tt-input, .tt-hint, .tt-menu, .tt-dataset, .tt-suggestion, .tt-emty, .tt-cursor, .tt-highlight {
+  background: inherit !important;
+}*/
+.tt-hint {
+  background-color: black  !important;
+  border-color: gray  !important;
+  color: gray  !important;
+}

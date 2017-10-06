@@ -1,6 +1,6 @@
 body, #window {
-  background-color: #282c34;
-  color: white;
+  background-color: #e3e6e9;
+  color: #282c34;
   overflow-y: auto;
 }
 
@@ -20,8 +20,8 @@ abbr {
   height: 50px;
 }
 
-.tabs * {
-  background-color: #21252b;
+.tabs>* {
+  background-color: #b2b8c3;
   border-bottom: 1px solid gray;
 }
 
@@ -32,8 +32,8 @@ abbr {
 
 .table {
   border-radius: 5px;
-  background: black;
-  color: inherit;
+  background: #ffffff;
+  color: #282c34;
 }
 
 .is-tag {
@@ -46,7 +46,7 @@ abbr {
 }
 
 .table tr:hover td {
-  background: #21252b;
+  background: #b9c0cf;
 }
 
 .option:first {
@@ -55,7 +55,7 @@ abbr {
 
 .tabs *.is-active {
   border: 1px solid gray;
-  border-bottom: 1px solid #282c34;
+  border-bottom: 0px solid #282c34;
   border-radius: 5px 5px 0 0;
 }
 
@@ -128,6 +128,10 @@ abbr {
   padding-right: 1em;
 }
 
+#dashboard {
+  background-color: #e3e6e9;
+}
+
 .link {
   cursor: pointer;
 }
@@ -149,26 +153,30 @@ th {
 }
 
 .hero.is-dark .tabs.is-boxed li.is-active a, .hero.is-dark .tabs.is-boxed li.is-active a:hover {
-  background-color: #282c34;
+  background-color: #d8d9da;
   border: none;
-  color: white;
+  color: #282c34;
 }
 
 
 /*COLORS */
+.hero.is-black, .hero.is-black .title, .hero.is-black .subtitle, .hero.is-dark, .hero.is-dark .tabs.is-boxed a, .hero.is-dark .title, .hero.is-dark .subtitle, .notification .title,.notification .subtitle, .notification .content{
+  color: #282c34;
+}
 
 .notification.is-dark {
-  background-color: #282c34;
+  background-color: #cfcfcf;
+  color: #282c34;
 }
 
 .input, .select select {
-  background-color: black;
+  background-color: whitesmoke;
   border-color: gray;
-  color: white;
+  color: #282c34;
 }
 
 .footer.is-black, .notification.is-black {
-  background-color: #21252b;
+  background-color: #d8d9da;
 }
 
 .footer {
@@ -180,12 +188,12 @@ strong, .card-header-title {
   color: inherit;
 }
 
-/* TYPEHEAD */
+/* TYPEAHEAD */
 /*.tt-input, .tt-hint, .tt-menu, .tt-dataset, .tt-suggestion, .tt-emty, .tt-cursor, .tt-highlight {
   background: inherit !important;
 }*/
 .tt-hint {
-  background-color: black  !important;
+  background-color: whitesmoke  !important;
   border-color: gray  !important;
   color: gray  !important;
 }

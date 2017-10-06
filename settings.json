@@ -2,6 +2,7 @@
   "dateFormat": "DD/MM/YYYY",
   "defaultCurrency": "eur",
   "language": "en",
+  "theme": "dark",
   "beneficiaries": [
     "Dummy Beneficiary for example",
     "Test",
