@@ -49,7 +49,6 @@ $('#save-btn').on("click", () => {
   globSettings.categories.sort(function(a, b) {
     return a.toLowerCase().localeCompare(b.toLowerCase())
   })
-  console.log(globSettings);
   jsonfile.writeFile(__basedir + '/settings.json', globSettings, {
     spaces: 2
   }, function(err) {
@@ -117,7 +116,6 @@ function eject(target) {
     }
   }
   return false;
-  console.log($(target).attr('data'));
 }
 
 console.log("*** SETTINGS.JS IS LOADED ***");

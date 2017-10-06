@@ -42,7 +42,7 @@ let unsaved = false;
 //  888   888   888   888    888 .
 // o888o o888o o888o o888o   "888"
 
-$(function init() {
+$(function() {
   if (!globSettings.lastfile) {
     global.db = new Database(dbPath);
   } else {
@@ -83,7 +83,7 @@ $(function init() {
 //               `Y8P'       o888o
 
 let substringMatcher = function(strs) {
-  return function findMatches(q, cb) {
+  return function(q, cb) {
     var matches, substringRegex;
 
     // an array that will be populated with substring matches
@@ -209,7 +209,6 @@ $('#op-account').on('change', () => {
 
 $('#op-date').on('change', () => {
   let inputDate = $('#op-date').val()
-  console.log('inputDate : ' + inputDate + ' is ' + moment(inputDate, globSettings.dateFormat).isValid());
   if (moment(inputDate, globSettings.dateFormat).isValid()) {
     $('#op-date').removeClass('is-danger')
     $('#op-date-btn').removeClass('is-danger')
@@ -609,15 +608,6 @@ function createNewOperation(data) {
   }
   let account = data.shift();
   global.db.insertOperation(account, data, globSettings.dateFormat);
-  console.log("Creating an Operation on " + account + ": \n" +
-    "\t" + data[0] + "\n" +
-    "\t" + data[1] + "\n" +
-    "\t" + data[2] + "\n" +
-    "\t" + data[3] + "\n" +
-    "\t" + data[4] + "\n" +
-    "\t" + data[5] + "\n" +
-    "\t" + data[6] + "\n"
-  )
   updateSQL("#account");
   updateAccountsList();
   try {

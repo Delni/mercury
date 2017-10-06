@@ -53,7 +53,6 @@ class Database {
   // @Change
   lookup(date, account, amount, state) {
     let lastlookup = this.exec('SELECT lastlookup FROM Accounts WHERE name="'+account+'"')[0].lastlookup;
-    console.log('Last lookup: '+lastlookup);
     if(moment(date, "YYYY-MM-DD").isBefore(moment(lastlookup,"YYYY-MM-DD"))){
       alert("fullLookup");
       this.fullLookup(account);
