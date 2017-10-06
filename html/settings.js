@@ -20,8 +20,13 @@ $(() => {
   //INIT
   $('#table-container').css('height', 0.30 * window.innerHeight)
   $('#select-cur').val(globSettings.defaultCurrency).change();
-  $('#select-lang').val(globSettings.language);
-  let beneficiaries = globSettings.beneficiaries
+  toggleTheme($(`#${globSettings.theme}`).get(0))
+  // if (globSettings.theme === "light") {
+  //   $('.btn-theme[data="enable"]').addClass('is-outlined');
+  // } else {
+  //   $('.btn-theme[data="disable"]').addClass('is-outlined');
+  // }
+  let beneficiaries = globSettings.beneficiaries;
   updatePresetsTable(beneficiaries)
 })
 $('#select-cur').on('change', () => {
@@ -34,8 +39,10 @@ $('#select-cur').on('change', () => {
 $('#save-btn').on("click", () => {
   let defaultCurrency = $('#select-cur').val();
   let language = $('#select-lang').val();
+  let theme = ($('.btn-theme.is-outlined').attr('data') == 'enable') ? "light":"dark";
   globSettings.language = language;
   globSettings.defaultCurrency = defaultCurrency;
+  globSettings.theme = theme;
   globSettings.beneficiaries.sort(function(a, b) {
     return a.toLowerCase().localeCompare(b.toLowerCase())
   })
@@ -64,6 +71,11 @@ function togglePresets(obj) {
   } else {
     updatePresetsTable(globSettings.categories);
   }
+}
+
+function toggleTheme(obj) {
+  $('.btn-theme').addClass('is-outlined');
+  $(obj).removeClass('is-outlined');
 }
 
 function updatePresetsTable(list) {

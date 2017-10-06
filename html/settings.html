@@ -38,41 +38,60 @@
             <div class="tile">
               <div class="tile is-parent is-vertical">
                 <article class="tile is-child notification is-dark">
-                  <p class="title">Language</p>
-                  <div class="subtitle field has-addons">
-                    <div class="control">
-                      <a class="button is-primary" id="op-lang-btn">
-                          <span class="icon"><i class="fa fa-language"></i></span>
-                        </a>
-                    </div>
-                    <div class="control select">
-                      <select id="select-lang" name="select-lang">
-                        <option value="en">English</option>
-                      </select>
+                  <p class="title is-marginless">General</p>
+                  <small style="position: relative; top: -1.5em">You'll have to restart to see change</small>
+                  <div class="level is-marginless">
+                    <p class="subtitle level-left">Dark theme</p>
+                    <div class="level-right">
+                      <div class="control field has-addons" id="menu-btn">
+                        <p class="control">
+                          <a id="dark" class="button is-small is-outlined is-primary btn-theme" data="enable" onclick='toggleTheme(this)'>
+                            <span>Enable</span>
+                          </a>
+                        </p>
+                        <p class="control">
+                          <a id="light" class="button is-small is-outlined is-primary btn-theme" data="disable" onclick='toggleTheme(this)'>
+                            <span>Disable</span>
+                          </a>
+                        </p>
+                      </div>
                     </div>
                   </div>
-                  <small>You'll have to restart to see change</small>
-                </article>
-                <article class="tile is-child notification is-dark">
-                  <p class="title">Default Currency</p>
-                  <div class="subtitle field has-addons">
-                    <div class="control">
-                      <a class="button is-primary">
-                          <span class="icon">
-                            <i id="selected-cur" class="fa fa-money"></i>
-                          </span>
-                        </a>
-                    </div>
-                    <div class="control select">
-                      <select id="select-cur" name="a-cur">
-                          <option value="" disabled selected>currency</option>
-                          <option value="btc">Bitcoin</option>
-                          <option value="usd">Dollar</option>
-                          <option value="eur">Euros</option>
-                          <option value="gbp">Pound</option>
-                          <option value="cny">Yen</option>
-                          <option value="money">Other</option>
+                  <div class="level is-marginless">
+                    <p class="subtitle level-left">Language</p>
+                    <div class="level-right field has-addons is-marginless">
+                      <div class="control">
+                        <a class="button is-primary" id="op-lang-btn">
+                            <span class="icon"><i class="fa fa-language"></i></span>
+                          </a>
+                      </div>
+                      <div class="control select">
+                        <select id="select-lang" name="select-lang">
+                          <option value="en">English</option>
                         </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="level is-marginless">
+                    <p class="subtitle level-left">Default <br>Currency</p>
+                    <div class="level-right field has-addons is-marginless">
+                      <div class="control">
+                        <a class="button is-primary">
+                            <span class="icon">
+                              <i id="selected-cur" class="fa fa-money"></i>
+                            </span>
+                          </a>
+                      </div>
+                      <div class="control select">
+                        <select id="select-cur" name="a-cur">
+                            <option value="btc">Bitcoin</option>
+                            <option value="usd">Dollar</option>
+                            <option value="eur">Euros</option>
+                            <option value="gbp">Pound</option>
+                            <option value="cny">Yen</option>
+                            <option value="money">- Other</option>
+                          </select>
+                      </div>
                     </div>
                   </div>
                 </article>
