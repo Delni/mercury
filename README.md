@@ -1,5 +1,5 @@
 # Mercury
-`v0.10.1`  
+`v0.11.0`  
 The budget planner of the 21st century
 
 :construction: Please be aware that Mercury is currently under development, you should not try it before v1.0.0+ :construction:

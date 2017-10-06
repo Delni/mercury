@@ -1,7 +1,7 @@
 {
   "name": "mercury",
   "productName": "Mercury",
-  "version": "0.10.2",
+  "version": "0.11.0",
   "description": "Mercury allow you to control your budget and plan your finance",
   "main": "app.js",
   "scripts": {
