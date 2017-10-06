@@ -579,6 +579,7 @@ function updateAccountsList(obj = null) {
   $('#filter-account').empty()
   $('#op-account').append($('<option>').attr("disabled", "true").text("Select your account"))
   let accounts;
+  global.__accounts = new Array();
   try {
     accounts = global.db.exec("SELECT * FROM Accounts");
   } catch (e) {
@@ -619,6 +620,11 @@ function createNewOperation(data) {
   )
   updateSQL("#account");
   updateAccountsList();
+  try {
+    global.__chronoChart.refresh(global.__accounts);
+  } catch (e) {
+    console.error(e);
+  }
   showUnsavedTag();
 }
 
@@ -658,6 +664,11 @@ function confirmEdit(event) {
   global.db.editOperation(id,data,globSettings.dateFormat);
   updateSQL('#account');
   updateAccountsList()
+  try {
+    global.__chronoChart.refresh(global.__accounts);
+  } catch (e) {
+    console.error(e);
+  }
   showUnsavedTag();
 }
 
@@ -670,6 +681,11 @@ function deleteOp(id) {
   }
   resetOp(globSettings);
   updateAccountsList();
+  try {
+    global.__chronoChart.refresh(global.__accounts);
+  } catch (e) {
+    console.error(e);
+  }
   showUnsavedTag();
 }
 

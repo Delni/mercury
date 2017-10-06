@@ -47,12 +47,14 @@ class ChronoChart {
         borderWidth: 1,
         data: []
       }
+      let lastDate;
       for (var j = 0; j < data.length; j++) {
         newDataset.data.push(
           {
             x: moment(data[j].Date,'YYYY-MM-DD').format('DD/MM/YYYY'),
             y: data[j].amount.toFixed(2)
           })
+          lastDate = data[j].Date;
       }
       let newforeDataset = {
         label: this.currencyConverter(accounts[i].currency),
@@ -62,7 +64,7 @@ class ChronoChart {
         data: [],
         fill: false,
       }
-      let foredata= global.db.exec(`SELECT date, amount FROM ChronoBase WHERE account="${accounts[i].name}" AND date>="${moment()/*.subtract(1,'months').format('YYYY-MM-DD')}" AND date<="${moment().add(10,'days')*/.format('YYYY-MM-DD')}" GROUP BY date`)
+      let foredata= global.db.exec(`SELECT date, amount FROM ChronoBase WHERE account="${accounts[i].name}" AND date>="${lastDate}" GROUP BY date`)
       for (var j = 0; j < foredata.length; j++) {
         newforeDataset.data.push(
           {
@@ -100,25 +102,27 @@ class ChronoChart {
   }
 
   refresh(accounts){
-    this.chart.data = { datasets: []};
-    for (var i = 0; i < accounts.length; i++) {
-      let colors = this.colorsPicker();
-      let data= global.db.exec(`SELECT date, amount FROM ChronoBase WHERE account="${accounts[i].name}" GROUP BY date`)
-      let newDataset = {
-        label: this.currencyConverter(accounts[i].currency),
-        backgroundColor: colors.backgroundColor,
-        borderColor: colors.borderColor,
-        borderWidth: 1,
-        data: []
-      }
+    for (var i = 0; i < accounts.length; i+=2) {
+      let data= global.db.exec(`SELECT date, amount FROM ChronoBase WHERE account="${accounts[i].name}" AND date>="${moment().subtract(1,'months').format('YYYY-MM-DD')}" AND date<="${moment()/*.add(10,'days')*/.format('YYYY-MM-DD')}" GROUP BY date`)
+      let lastDate;
+      if (typeof this.config.data.datasets[i] === "undefined") throw new Error("No #"+i+" dataset found");
       for (var j = 0; j < data.length; j++) {
-        newDataset.data.push(
-          {
+        this.config.data.datasets[i].data[j] ={
             x: moment(data[j].Date,'YYYY-MM-DD').format('DD/MM/YYYY'),
             y: data[j].amount.toFixed(2)
-          })
+          };
+          lastDate = data[j].Date;
       }
-      this.chart.data.datasets.push(newDataset);
+      while (this.config.data.datasets[i].data.length !== data.length) {
+        this.config.data.datasets[i].data.pop();
+      }
+      let foredata= global.db.exec(`SELECT date, amount FROM ChronoBase WHERE account="${accounts[i].name}" AND date>="${lastDate}" GROUP BY date`)
+      for (var j = 0; j < foredata.length; j++) {
+        this.config.data.datasets[i+1].data[j] = {
+            x: moment(foredata[j].Date,'YYYY-MM-DD').format('DD/MM/YYYY'),
+            y: foredata[j].amount.toFixed(2)
+          };
+      }
     }
     this.chart.update();
   }
