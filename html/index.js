@@ -491,7 +491,7 @@ function resetFilters() {
   $('#filter-date').val('-30');
   $('#filter-state').val('*');
   $('#filter-amount').val('*');
-  updateSQL('#amount');
+  updateSQL('#account');
 }
 
 function showUnsavedTag(){
