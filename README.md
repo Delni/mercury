@@ -1,3 +1,5 @@
+<a style="text-align:center">![icon](/img/icon.png =128x128)</a>
+
 # Mercury
 `v0.11.0`  
 The budget planner of the 21st century
@@ -14,6 +16,9 @@ Developped with ♥ for you
 
 ---
 # Preview
+![mainView](/img/mainView.png)  
+![add account](/img/addaccount.png =192x)
+![Settings view](/img/settings.png =165x)  
 :construction: *WIP*
 
 # Features
