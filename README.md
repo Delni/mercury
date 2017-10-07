@@ -16,9 +16,7 @@ Developped with ♥ for you
 
 ---
 # Preview
-![mainView](/img/mainView.png)  
-![add account](/img/addaccount.png =192x)
-![Settings view](/img/settings.png =165x)  
+![mainView](/img/mainView.png)   
 :construction: *WIP*
 
 # Features
