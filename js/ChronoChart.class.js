@@ -1,5 +1,6 @@
 class ChronoChart {
   constructor(ctx, accounts) {
+    this.belowZ = false;
     this.colors = [
       {backgroundColor: 'rgba(50, 115, 221,0.2)', borderColor: '#3273dc'},
       {backgroundColor: 'rgba(50, 221, 72, 0.2)', borderColor: '#32dd61'},
@@ -39,7 +40,13 @@ class ChronoChart {
     this.config.data = { datasets: []};
     for (var i = 0; i < accounts.length; i++) {
       let colors = this.colorsPicker();
-      let data= global.db.exec(`SELECT date, amount FROM ChronoBase WHERE account="${accounts[i].name}" AND date>="${moment().subtract(1,'months').format('YYYY-MM-DD')}" AND date<="${moment()/*.add(10,'days')*/.format('YYYY-MM-DD')}" GROUP BY date`)
+      let data;
+      try {
+        data = global.db.exec(`SELECT date, amount FROM ChronoBase WHERE account="${accounts[i].name}" AND date>="${moment().subtract(1,'months').format('YYYY-MM-DD')}" AND date<="${moment()/*.add(10,'days')*/.format('YYYY-MM-DD')}" GROUP BY date`);
+      } catch (e) {
+        data = [];
+        console.error(e);
+      }
       let newDataset = {
         label: this.currencyConverter(accounts[i].currency),
         backgroundColor: colors.backgroundColor,
@@ -54,6 +61,7 @@ class ChronoChart {
             x: moment(data[j].Date,'YYYY-MM-DD').format('DD/MM/YYYY'),
             y: data[j].amount.toFixed(2)
           })
+          if(data[j].amount.toFixed(2) < 0) this.belowZ = true;
           lastDate = data[j].Date;
       }
       let newforeDataset = {
@@ -74,6 +82,9 @@ class ChronoChart {
       }
       this.config.data.datasets.push(newDataset);
       this.config.data.datasets.push(newforeDataset);
+    }
+    if(this.belowZ) {
+      this.addDangerZone();
     }
     this.chart = new Chart(ctx, this.config);
     this.chart.render();
@@ -101,6 +112,22 @@ class ChronoChart {
     }
   }
 
+  addDangerZone(){
+    let datasetslength = this.config.data.datasets.length - 1;
+    this.config.data.datasets.push({
+      label: 'Warning zone',
+      backgroundColor: 'rgba(221, 50, 50, 0.2)',
+      borderColor: '#dd3232',
+      borderWidth: 1,
+      pointRadius: 0,
+      fill: 'bottom',
+      data: [
+        {x:this.config.data.datasets[0].data[0].x,y:0},
+        {x:this.config.data.datasets[datasetslength].data[this.config.data.datasets[datasetslength].data.length-1].x,y:0}
+      ]
+    })
+  }
+  
   refresh(accounts){
     for (var i = 0; i < accounts.length; i+=2) {
       let data= global.db.exec(`SELECT date, amount FROM ChronoBase WHERE account="${accounts[i].name}" AND date>="${moment().subtract(1,'months').format('YYYY-MM-DD')}" AND date<="${moment()/*.add(10,'days')*/.format('YYYY-MM-DD')}" GROUP BY date`)
