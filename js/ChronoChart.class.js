@@ -72,13 +72,20 @@ class ChronoChart {
         data: [],
         fill: false,
       }
-      let foredata= global.db.exec(`SELECT date, amount FROM ChronoBase WHERE account="${accounts[i].name}" AND date>="${lastDate}" GROUP BY date`)
+      let foredata
+      try {
+        foredata = global.db.exec(`SELECT date, amount FROM ChronoBase WHERE account="${accounts[i].name}" AND date>="${lastDate}" GROUP BY date`);
+      } catch (e) {
+        console.error(e);
+        foredata = [];
+      }
       for (var j = 0; j < foredata.length; j++) {
         newforeDataset.data.push(
           {
             x: moment(foredata[j].Date,'YYYY-MM-DD').format('DD/MM/YYYY'),
             y: foredata[j].amount.toFixed(2)
           })
+          if(foredata[j].amount.toFixed(2) < 0) this.belowZ = true;
       }
       this.config.data.datasets.push(newDataset);
       this.config.data.datasets.push(newforeDataset);
@@ -127,7 +134,7 @@ class ChronoChart {
       ]
     })
   }
-  
+
   refresh(accounts){
     for (var i = 0; i < accounts.length; i+=2) {
       let data= global.db.exec(`SELECT date, amount FROM ChronoBase WHERE account="${accounts[i].name}" AND date>="${moment().subtract(1,'months').format('YYYY-MM-DD')}" AND date<="${moment()/*.add(10,'days')*/.format('YYYY-MM-DD')}" GROUP BY date`)
