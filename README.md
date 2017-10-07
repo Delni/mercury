@@ -1,4 +1,4 @@
-<a style="text-align:center">![icon](/img/icon.png)</a>
+<center>![icon](/img/icon.png)</center>
 
 # Mercury
 `v0.11.0`  
@@ -17,7 +17,7 @@ Developped with ♥ for you
 ---
 # Preview
 ![mainView](/img/mainView.png)  
-  
+
 :construction: *WIP*
 
 # Features
