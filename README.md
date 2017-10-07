@@ -1,4 +1,4 @@
-<a style="text-align:center">![icon](/img/icon.png =128x128)</a>
+<a style="text-align:center">![icon](/img/icon.png)</a>
 
 # Mercury
 `v0.11.0`  
@@ -17,8 +17,7 @@ Developped with ♥ for you
 ---
 # Preview
 ![mainView](/img/mainView.png)  
-![add account](/img/addaccount.png =192x)
-![Settings view](/img/settings.png =165x)  
+  
 :construction: *WIP*
 
 # Features
