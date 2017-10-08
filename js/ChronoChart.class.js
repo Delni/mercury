@@ -61,7 +61,7 @@ class ChronoChart {
             x: moment(data[j].Date,'YYYY-MM-DD').format('DD/MM/YYYY'),
             y: data[j].amount.toFixed(2)
           })
-          if(data[j].amount.toFixed(2) < 0) this.belowZ = true;
+          if(data[j].amount < 0) this.belowZ = true;
           lastDate = data[j].Date;
       }
       let newforeDataset = {
@@ -121,6 +121,8 @@ class ChronoChart {
 
   addDangerZone(){
     let datasetslength = this.config.data.datasets.length - 1;
+    let lastDate = this.lastof(this.config.data.datasets);
+    let firstDate = this.firstof(this.config.data.datasets);
     this.config.data.datasets.push({
       label: 'Warning zone',
       backgroundColor: 'rgba(221, 50, 50, 0.2)',
@@ -129,10 +131,27 @@ class ChronoChart {
       pointRadius: 0,
       fill: 'bottom',
       data: [
-        {x:this.config.data.datasets[0].data[0].x,y:0},
-        {x:this.config.data.datasets[datasetslength].data[this.config.data.datasets[datasetslength].data.length-1].x,y:0}
+        {x:firstDate,y:0},
+        {x:lastDate,y:0}
       ]
     })
+  }
+
+  lastof(datasets){
+    let lastDate = "1901-01-01";
+    for (var i = 0; i < datasets.length; i++) {
+      lastDate = (moment(datasets[i].data[datasets[i].data.length-1].x,'YYYY-MM-DD').isAfter(moment(lastDate,'YYYY-MM-DD'))) ? datasets[i].data[datasets[i].data.length-1].x : lastDate;
+    }
+    return lastDate;
+  }
+
+  firstof(datasets){
+    let firstDate = "01/01/2999";
+    for (var i = 0; i < datasets.length; i++) {
+      firstDate = (moment(datasets[i].data[0].x,'DD/MM/YYYY').isBefore(moment(firstDate,'DD/MM/YYYY'))) ? datasets[i].data[0].x : firstDate;
+      console.log(datasets[i].data[0].x);
+    }
+    return firstDate;
   }
 
   refresh(accounts){
