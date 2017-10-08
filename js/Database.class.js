@@ -1,8 +1,5 @@
 class Database {
   constructor(file = null) {
-    this.request = [
-      "SELECT * FROM Accounts"
-    ]
     if (file != null) {
       console.log('Reading '+file);
       let filebuffer = fs.readFileSync(file);

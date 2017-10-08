@@ -1,4 +1,4 @@
-class HTMLElements {
+let HTMLElements  = {
 //       .o.                 oooooooooo.
 //      .888.                `888'   `Y8b
 //     .8"888.      .ooooo.   888     888  .oooo.   oooo d8b
@@ -6,7 +6,7 @@ class HTMLElements {
 //   .88ooo8888.   888        888    `88b  .oP"888   888
 //  .8'     `888.  888   .o8  888    .88P d8(  888   888
 // o88o     o8888o `Y8bod8P' o888bood8P'  `Y888""8o d888b
-  static acBar(accountList) {
+   acBar: function(accountList) {
     return $('<nav>')
       .addClass('field is-grouped')
       .attr('id','acBar')
@@ -16,9 +16,9 @@ class HTMLElements {
       .append(HTMLElements.amountFilter())
       .append(HTMLElements.moreFilter())
       .append(HTMLElements.resetFilter())
-  }
+  },
 
-  static accountFilter(accountList){
+   accountFilter: function(accountList){
     let options = {
       options : []
     }
@@ -26,9 +26,9 @@ class HTMLElements {
       options.options.push([accountList[i].name, accountList[i].name]);
     }
     return new CustomField('university','filter-account',options,null,'select').generate()
-  }
+  },
 
-  static dateFilter(){
+   dateFilter: function(){
     let options =
     {
       options : [
@@ -41,9 +41,9 @@ class HTMLElements {
       ]
     }
     return new CustomField('calendar-o','filter-date',options,null,'select').generate().attr('value','-30');
-  }
+  },
 
-  static stateFilter(){
+   stateFilter: function(){
     let options = {
       options: [
         ['*','All'],
@@ -53,9 +53,9 @@ class HTMLElements {
       ]
     }
     return new CustomField('adjust','filter-state',options,null,'select').generate()
-  }
+  },
 
-  static amountFilter(){
+   amountFilter: function(){
     let options = {
       options: [
         ['*','Any'],
@@ -64,9 +64,9 @@ class HTMLElements {
       ]
     }
     return new CustomField('balance-scale','filter-amount',options,null,'select').generate()
-  }
+  },
 
-  static moreFilter(){
+   moreFilter: function(){
     return $('<p>')
       .addClass('control')
       .append(
@@ -80,9 +80,9 @@ class HTMLElements {
               )
           )
       )
-  }
+  },
 
-  static resetFilter(){
+   resetFilter: function(){
     return $('<p>')
       .addClass('control')
       .append(
@@ -96,7 +96,7 @@ class HTMLElements {
               )
           )
       )
-  }
+  },
 
 
 //       .o.                 ooooooooooooo            .o8       oooo
@@ -107,7 +107,7 @@ class HTMLElements {
 //  .8'     `888.  888   .o8      888      d8(  888   888   888  888  888    .o
 // o88o     o8888o `Y8bod8P'     o888o     `Y888""8o  `Y8bod8P' o888o `Y8bod8P'
 
-  static acTable(){
+   acTable: function(){
     return $('<table>').addClass('table')
     .append(
       $('<thead>').append(
@@ -125,17 +125,17 @@ class HTMLElements {
     .append(
       $('<tbody>').attr('id','table-sql')
     )
-  }
+  },
 
 
-  static unsavedTag(){
+   unsavedTag: function(){
     return $('<abbr>').attr('title','You have unsaved modification(s)')
       .append(
         $('<span>').addClass('tag is-warning is-small icon is-rounded').text('!')
       )
-  }
+  },
 
-  static noData(){
+   noData: function(){
     return $('<div>')
     .append($('<p>').addClass("title").text('No data found !'))
     .append(
