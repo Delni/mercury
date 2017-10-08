@@ -696,3 +696,12 @@ function updateSQL(sqlType) {
     //TODO
   }
 }
+
+
+
+
+(function() {
+  'use strict';
+  $("#cover").hide();
+
+}());
