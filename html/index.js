@@ -28,7 +28,7 @@ $.getScript('../js/ChronoChart.class.js');
 
 global.__basedir = path.join(__dirname, '..');
 global.__accounts = new Array();
-const dbPath = path.join(__dirname, '..', 'data/template.sqlite');
+const dbPath = path.join(global.__basedir, 'data/template.sqlite');
 
 let globSettings = jsonfile.readFileSync(__basedir + '/settings.json');
 let unsaved = false;
@@ -196,6 +196,13 @@ ipc.on('open-new-file',() => {
   delete globSettings.lastfile;
 })
 
+ipc.on('open-recurring',() => {
+  tabToggle($('#third').get(0));
+})
+
+ipc.on('open-detail',() => {
+  tabToggle($('#second').get(0));
+})
 
 $.getScript('../js/HTMLEventHandler.js')
 //

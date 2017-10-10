@@ -155,33 +155,86 @@ let HTMLElements  = {
     )
   },
 
+// //
+// oooooooooo.                      oooo         .o8                                          .o8
+// `888'   `Y8b                     `888        "888                                         "888
+//  888      888  .oooo.    .oooo.o  888 .oo.    888oooo.   .ooooo.   .oooo.   oooo d8b  .oooo888
+//  888      888 `P  )88b  d88(  "8  888P"Y88b   d88' `88b d88' `88b `P  )88b  `888""8P d88' `888
+//  888      888  .oP"888  `"Y88b.   888   888   888   888 888   888  .oP"888   888     888   888
+//  888     d88' d8(  888  o.  )88b  888   888   888   888 888   888 d8(  888   888     888   888
+// o888bood8P'   `Y888""8o 8""888P' o888o o888o  `Y8bod8P' `Y8bod8P' `Y888""8o d888b    `Y8bod88P"
+// //
+
+
   dashbody: function() {
-    return $('<div>').addClass('tile ancestor notification is-dark')
+    return $('<div>').addClass('tile ancestor notification is-dark is-paddingless')
     .append(
       $('<div>').addClass('tile is-parent is-vertical')
       .append(
         $('<div>').addClass('tile is-child is-vertical notification is-black')
-        .append($('<p>').addClass('title is-marginless').text('Top outcome'))
-        .append($('<canvas>').attr('id','doughnut').attr('height','375%'))
+        .append(
+          $('<div>').addClass('level')
+          .append($('<p>').addClass('level-left title is-marginless').text('Top outcome'))
+          .append(
+            $('<p>').addClass('level-right subtitle is-6 is-marginless')
+            .text(moment().subtract(1,'months').format('MMMM YYYY'))
+            .attr('style','position: relative; top: 0.35em')
+          )
+        )
+        .append($('<canvas>').attr('id','doughnut').attr('height','350%'))
       )
     )
     .append(
       $('<div>').addClass('tile is-parent is-vertical')
       .append(
-        $('<div>').addClass('tile is-child is-vertical notification is-black')
+        $('<div>').addClass('tile is-child is-vertical hero notification is-black')
+        .append($('<div>').addClass('level')
+          .append($('<p>').addClass('title level-item').text('What do you want to do ?'))
+        )
+        .append(
+          $('<div>').addClass('hero-body').append(
+          $('<ul>')
+          .append(HTMLElements.addCustomAction('settings','info','sliders','open-swin'))
+          .append(HTMLElements.addCustomAction('chrono Chart','primary','area-chart','open-chronowin'))
+          .append(HTMLElements.addCustomAction('recurring operations','success','recycle','open-recurring'))
+          .append(HTMLElements.addCustomAction('statistic report','warning','pie-chart','open-piewin'))
+          .append(HTMLElements.addCustomAction('balance report','danger','line-chart','open-balancewin'))
+          .append(HTMLElements.addCustomAction('account detail','purple','th-list','open-detail'))
+        ))
       )
     )
   },
 
+  addCustomAction: function(text,color,icon,ipcmsg){
+    return $('<li>').addClass('subtitle')
+    .append($('<span>').text("• Open the "))
+    .append($('<span>').addClass('has-text-'+color+' link')
+      .attr('onclick',"ipc.send('action-trigger','"+ipcmsg+"')")
+      .text(text+' ')
+      .append($('<span>').addClass('icon').append($('<i>').addClass('fa fa-'+icon)))
+    )
+  },
+
   topChart: function(){
-    let firstDateofMonth = moment().startOf('month').format('YYYY-MM-DD');
-    let lastDateofMonth = moment().endOf('month').format('YYYY-MM-DD');
-    let data_db = global.db.exec(`SELECT category, SUM(amount) as s FROM OPERATION WHERE amount<=0 AND date BETWEEN "${firstDateofMonth}" AND "${lastDateofMonth}" GROUP BY category ORDER BY s ASC LIMIT 5`)
+    let ctx = $("#doughnut");
+    let firstDateofMonth = moment().subtract(1,'months').startOf('month').format('YYYY-MM-DD');
+    let lastDateofMonth = moment().subtract(1,'months').endOf('month').format('YYYY-MM-DD');
+    let data_db;
+    try {
+      data_db = global.db.exec(`SELECT category, SUM(amount) as s FROM OPERATION WHERE amount<=0 AND date BETWEEN "${firstDateofMonth}" AND "${lastDateofMonth}" GROUP BY category ORDER BY s ASC LIMIT 6`)
+    } catch (e) {
+      console.warn(e);
+      data_db = {s: 1, category:'No data to display'}
+    }
     console.log(data_db);
     let data = [], labels = [];
+    let max = 0;
     for (var i = 0; i < data_db.length; i++) {
-      data.push(-data_db[i].s)
-      labels.push((data_db[i].category === "") ? "Autre" : data_db[i].category)
+      max+= -data_db[i].s.toFixed(2);
+    }
+    for (var i = 0; i < data_db.length; i++) {
+      data.push(-data_db[i].s.toFixed(2));
+      labels.push(((data_db[i].category === "") ? "Autre" : data_db[i].category)+` (${(-data_db[i].s.toFixed(2)/max*100).toFixed(2)}%)`)
     }
 
     var config = {
@@ -190,11 +243,12 @@ let HTMLElements  = {
             datasets: [{
                 data: data,
                 backgroundColor: [
-                  'rgba(77, 0, 255, 0.5)',
-                  'rgba(0, 56, 255, 0.5)',
-                  'rgba(76, 219, 64, 0.5)',
-                  'rgba(255, 218, 0, 0.5)',
-                  'rgba(255, 0, 69, 0.5)',
+                  'rgba(50, 114, 221, 0.60)',
+                  'rgba(0, 209, 178, 0.60)',
+                  'rgba(35, 209, 96, 0.60)',
+                  'rgba(255, 221, 87, 0.60)',
+                  'rgba(255, 56, 96, 0.60)',
+                  'rgba(132, 69, 214, 0.60)',
                 ],
                 borderWidth : 0,
                 label: 'Dataset 1'
@@ -205,9 +259,6 @@ let HTMLElements  = {
             responsive: true,
             legend: {
                 position: 'bottom',
-                labels: {
-                  fontcolor: 'rgb(237, 237, 237)'
-                }
             },
             title: {
                 display: false
@@ -219,7 +270,10 @@ let HTMLElements  = {
         }
     };
 
-    var ctx = $("#doughnut");
+    if(globSettings.theme === 'dark'){
+      config.options.legend.labels = {fontColor: 'rgb(237, 237, 237)',}
+    }
+
     doughnut = new Chart(ctx, config);
   }
 }

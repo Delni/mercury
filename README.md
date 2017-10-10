@@ -1,7 +1,7 @@
 ![icon](/img/icon.png)
 
 # Mercury
-`v0.11.5`  
+`v0.11.6`  
 The budget planner of the 21st century
 
 :construction: Please be aware that Mercury is currently under development, you should not try it before v1.0.0+ :construction:
@@ -15,8 +15,11 @@ This application is built on top of [Electron](electron.atom.io)
 Developped with ♥ for you
 
 ---
-# Preview
-![mainView](/img/mainView.png)   
+# Previews
+![mainView](/img/mainViewDark.png)
+![mainView](/img/mainView.png)
+Now with white theme !
+![mainView](/img/mainViewLight.png)   
 :construction: *WIP*
 
 # Features
@@ -26,6 +29,7 @@ Developped with ♥ for you
  * Filter operation with easy-to-access basic filters
  * Manage beneficiaries and categories
  * `MacOS` TouchBar integration
+ * Choose your (theme) side
 
 
  *Next to come : advanced filters, chart, Dashboard with summary of main account, recurring operations, TouchBar improvments, ...*

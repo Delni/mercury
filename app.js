@@ -250,6 +250,17 @@ ipcMain.on('delete-op-warning',(event)=> {
   })
 })
 
+ipcMain.on('action-trigger',(event,args) => {
+  switch (args) {
+    case 'open-swin':
+      exports.openSettingWindow();
+      break;
+    default:
+      win.webContents.send(args);
+      break;
+  }
+})
+
 function newfile() {
   filePath = "";
   win.webContents.send('open-new-file');
