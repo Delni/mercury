@@ -1,16 +1,5 @@
 // Import all necessary CSS
 
-// Bootstrap
-/*let bootstrap = document.createElement("link")
-bootstrap.setAttribute("rel","stylesheet")
-bootstrap.setAttribute("href","../node_modules/bootstrap/dist/css/bootstrap.min.css")
-document.head.appendChild(bootstrap)*/
-
-//Photon
-/*let photon = document.createElement("link")
-photon.setAttribute("rel","stylesheet")
-photon.setAttribute("href","assets/photon/dist/css/photon.min.css")
-document.head.appendChild(photon)*/
 
 //Bulma
 let bulma=document.createElement("link")

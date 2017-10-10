@@ -117,7 +117,6 @@ abbr {
 #mainScreen {
   background-color: inherit;
   height: 100%;
-  /*border: solid 2px rgb(223, 20, 221);*/
   overflow-y: scroll;
 }
 
@@ -154,6 +153,9 @@ th {
   color: white;
 }
 
+.has-text-purple {
+  color: #8445d6
+}
 
 /*COLORS */
 

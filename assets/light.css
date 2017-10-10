@@ -117,7 +117,6 @@ abbr {
 #mainScreen {
   background-color: inherit;
   height: 100%;
-  /*border: solid 2px rgb(223, 20, 221);*/
   overflow-y: scroll;
 }
 
@@ -158,7 +157,13 @@ th {
   color: #282c34;
 }
 
+.has-text-purple {
+  color: #8445d6
+}
 
+.has-text-warning{
+  color: #d4b642
+}
 /*COLORS */
 .hero.is-black, .hero.is-black .title, .hero.is-black .subtitle, .hero.is-dark, .hero.is-dark .tabs.is-boxed a, .hero.is-dark .title, .hero.is-dark .subtitle, .notification .title,.notification .subtitle, .notification .content{
   color: #282c34;
