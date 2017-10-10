@@ -167,6 +167,12 @@ ipc.on('selected-file', (event, arg) => {
     }
   })
   updateAccountsList();
+  try {
+    global.__chronoChart= new ChronoChart($("#chronoChart"),global.__accounts);
+  } catch (e) {
+    console.error(e);
+  }
+  tabToggle($('.tab.is-active').children()[0]);
 })
 
 ipc.on('saved-file', (event, arg) => {
