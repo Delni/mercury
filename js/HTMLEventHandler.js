@@ -181,6 +181,7 @@ function tabToggle(event) {
     sqlType = "#reccuring";
   }
   $('#dash-body').append(visible);
+  if(sqlType==="#dashboard") HTMLElements.topChart();
   updateSQL(sqlType);
 
   $('#filter-account').on('change', () => {
@@ -227,9 +228,7 @@ function writeDashBoard() {
     html = $('<div>').addClass('hero-body').append(HTMLElements.noData())
   } else {
     html = $('<div>').append(
-      $('<p>').addClass('title').text('DashBoard')
-    ).append(
-      $('<p>').addClass('subtitle').text('🚧 Work in progress... Please wait update 🚧')
+      HTMLElements.dashbody()
     )
   }
   return html;

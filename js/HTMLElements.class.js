@@ -153,5 +153,73 @@ let HTMLElements  = {
           .text('open a file')
       ).append(' :)')
     )
+  },
+
+  dashbody: function() {
+    return $('<div>').addClass('tile ancestor notification is-dark')
+    .append(
+      $('<div>').addClass('tile is-parent is-vertical')
+      .append(
+        $('<div>').addClass('tile is-child is-vertical notification is-black')
+        .append($('<p>').addClass('title is-marginless').text('Top outcome'))
+        .append($('<canvas>').attr('id','doughnut').attr('height','375%'))
+      )
+    )
+    .append(
+      $('<div>').addClass('tile is-parent is-vertical')
+      .append(
+        $('<div>').addClass('tile is-child is-vertical notification is-black')
+      )
+    )
+  },
+
+  topChart: function(){
+    let firstDateofMonth = moment().startOf('month').format('YYYY-MM-DD');
+    let lastDateofMonth = moment().endOf('month').format('YYYY-MM-DD');
+    let data_db = global.db.exec(`SELECT category, SUM(amount) as s FROM OPERATION WHERE amount<=0 AND date BETWEEN "${firstDateofMonth}" AND "${lastDateofMonth}" GROUP BY category ORDER BY s ASC LIMIT 5`)
+    console.log(data_db);
+    let data = [], labels = [];
+    for (var i = 0; i < data_db.length; i++) {
+      data.push(-data_db[i].s)
+      labels.push((data_db[i].category === "") ? "Autre" : data_db[i].category)
+    }
+
+    var config = {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: data,
+                backgroundColor: [
+                  'rgba(77, 0, 255, 0.5)',
+                  'rgba(0, 56, 255, 0.5)',
+                  'rgba(76, 219, 64, 0.5)',
+                  'rgba(255, 218, 0, 0.5)',
+                  'rgba(255, 0, 69, 0.5)',
+                ],
+                borderWidth : 0,
+                label: 'Dataset 1'
+            }],
+            labels: labels
+        },
+        options: {
+            responsive: true,
+            legend: {
+                position: 'bottom',
+                labels: {
+                  fontcolor: 'rgb(237, 237, 237)'
+                }
+            },
+            title: {
+                display: false
+            },
+            animation: {
+                animateScale: true,
+                animateRotate: true
+            }
+        }
+    };
+
+    var ctx = $("#doughnut");
+    doughnut = new Chart(ctx, config);
   }
 }

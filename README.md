@@ -1,7 +1,7 @@
 ![icon](/img/icon.png)
 
 # Mercury
-`v0.11.0`  
+`v0.11.5`  
 The budget planner of the 21st century
 
 :construction: Please be aware that Mercury is currently under development, you should not try it before v1.0.0+ :construction:
