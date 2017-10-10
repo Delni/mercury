@@ -8,7 +8,7 @@ The budget planner of the 21st century
 
 ---
 
-*Mercury* offer basic budget planner functionnality, such as managing account, add / edit / delete operation... I always wanted a tool as MSMoney or [HomeBank](http://homebank.free.fr) with added features like charts and so on.
+*Mercury* offer basic budget planner functionnality, such as managing account, add / edit / delete operation... I always wanted a tool as MSMoney or [HomeBank](http://homebank.free.fr), but with improved and modern UI. HomeBank was the software I used to use, and many features come from there.  
 This application is built on top of [Electron](electron.atom.io)
 
 
@@ -32,10 +32,10 @@ Now with white theme !
  * Choose your (theme) side
 
 
- *Next to come : advanced filters, chart, Dashboard with summary of main account, recurring operations, TouchBar improvments, ...*
+ *Next to come : advanced filters, recurring operations, TouchBar improvements, ...*
 
 # How to use
-Clone the github repository. You need [Node.js](https://nodesjs.org) and [npm](https://npmjs.com) installed your system. Go to terminal:
+Clone the GitHub repository. You need [Node.js](https://nodesjs.org) and [npm](https://npmjs.com) installed your system. Go to terminal:
 
 ```
 # Clone the repository
