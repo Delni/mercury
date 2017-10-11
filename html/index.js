@@ -204,6 +204,23 @@ ipc.on('open-detail',() => {
   tabToggle($('#second').get(0));
 })
 
+ipc.on('toggle', (event, args) => {
+  switch (args) {
+    case 0:
+      tabToggle($("#first").get(0));
+      break;
+    case 1:
+      tabToggle($("#second").get(0));
+      break;
+    case 2:
+      tabToggle($("#third").get(0));
+      break;
+    default:
+    tabToggle($("#first").get(0));
+
+  }
+})
+
 $.getScript('../js/HTMLEventHandler.js')
 //
 // ooo        ooooo
