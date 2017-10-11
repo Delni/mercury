@@ -264,6 +264,12 @@ function createNewAccount() {
   global.db.addAccount(name, currency, amount)
   setTimeout(() => {
     updateAccountsList();
+    tabToggle($("#first").get(0));
+    try {
+      global.__chronoChart= new ChronoChart($("#chronoChart"),global.__accounts);
+    } catch (e) {
+      console.error(e);
+    }
     closeModal();
     $('input[name="a-name"]').val(null)
     $('select[name="a-cur"]').change().val(null)
@@ -282,6 +288,12 @@ function deleteAccount(obj) {
     global.db.deleteAccount(name);
     removeDiv($(obj).parent());
     updateAccountsList();
+    try {
+      global.__chronoChart= new ChronoChart($("#chronoChart"),global.__accounts);
+    } catch (e) {
+      console.error(e);
+    }
+    tabToggle($("#first").get(0));
     showUnsavedTag();
   }
 }

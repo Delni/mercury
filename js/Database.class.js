@@ -65,7 +65,7 @@ class Database {
   fullLookup(account) {
     // In Bank
     let sqlstmt = this.sql.prepare(
-      "UPDATE Accounts SET inBank = Coalesce(Accounts.baseAmount+(SELECT SUM(amount) FROM OPERATION WHERE account_name =:name AND state='fa fa-check-circle' AND date<=:date),0) WHERE name =:name2"
+      "UPDATE Accounts SET inBank = Coalesce(Accounts.baseAmount+(SELECT SUM(amount) FROM OPERATION WHERE account_name =:name AND state='fa fa-check-circle' AND date<=:date),Accounts.baseAmount) WHERE name =:name2"
     );
     sqlstmt.run({
       ':name':account,
@@ -75,7 +75,7 @@ class Database {
     sqlstmt.free(); sqlstmt = null;
     // Today
     sqlstmt = this.sql.prepare(
-      "UPDATE Accounts SET today = Coalesce(Accounts.baseAmount+(SELECT SUM(amount) FROM OPERATION WHERE account_name =:name AND date<=:date),0) WHERE name =:name2"
+      "UPDATE Accounts SET today = Coalesce(Accounts.baseAmount+(SELECT SUM(amount) FROM OPERATION WHERE account_name =:name AND date<=:date),Accounts.baseAmount) WHERE name =:name2"
     );
     sqlstmt.run({
       ':name':account,
@@ -85,7 +85,7 @@ class Database {
     sqlstmt.free(); sqlstmt = null;
     //Future
     sqlstmt = this.sql.prepare(
-      "UPDATE Accounts SET future = Coalesce(Accounts.baseAmount +(SELECT SUM(amount) FROM OPERATION WHERE account_name =:name),0) WHERE name =:name2"
+      "UPDATE Accounts SET future = Coalesce(Accounts.baseAmount +(SELECT SUM(amount) FROM OPERATION WHERE account_name =:name),Accounts.baseAmount) WHERE name =:name2"
     );
     sqlstmt.run({
       ':name':account,
