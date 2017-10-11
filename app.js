@@ -218,9 +218,21 @@ function createWindow() {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     win = null
-    if (typeof swin != 'undefined') {
+    if (typeof swin !== 'undefined' && swin !== null) {
       swin.close()
       swin = null
+    }
+    if (typeof chronoWin !== 'undefined' && chronoWin !== null) {
+      chronoWin.close()
+      chronoWin = null
+    }
+    if (typeof statisticWin !== 'undefined' && statisticWin !== null) {
+      statisticWin.close()
+      statisticWin = null
+    }
+    if (typeof balanceWin !== 'undefined' && balanceWin !== null) {
+      balanceWin.close()
+      balanceWin = null
     }
     menu = null
   })
@@ -254,18 +266,96 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+var swin= null, chronoWin= null, statisticWin= null, balanceWin= null;
 
 exports.openSettingWindow = function() {
-  let swin = new BrowserWindow({
-    background: true,
-    frame: false,
-    width: 825,
-    minWidth: 300,
-    height: 600,
-    backgroundColor: '#282c34',
-    icon: path.join(__dirname, '/icons/png/64x64.png')
-  })
-  swin.loadURL(`file://${__dirname}/html/settings.html`)
+  if (swin === null) {
+    swin = new BrowserWindow({
+      background: true,
+      frame: false,
+      width: 825,
+      minWidth: 300,
+      height: 600,
+      backgroundColor: '#282c34',
+      icon: path.join(__dirname, '/icons/png/64x64.png')
+    })
+    swin.loadURL(`file://${__dirname}/html/settings.html`)
+    swin.setTouchBar(new TouchBar([
+      openTBPopover
+    ]));
+    swin.on('closed',() => {
+      swin = null;
+    })
+  } else {
+    swin.focus();
+  }
+}
+
+exports.openChronoWindow = function() {
+  if (chronoWin === null) {
+    chronoWin = new BrowserWindow({
+      background: true,
+      frame: false,
+      width: 1000,
+      height: 600,
+      backgroundColor: '#282c34',
+      icon: path.join(__dirname, '/icons/png/64x64.png')
+    })
+    chronoWin.loadURL(`file://${__dirname}/html/chronoView.html`)
+    chronoWin.setTouchBar(new TouchBar([
+      openTBPopover
+    ]));
+    chronoWin.on('closed',() => {
+      chronoWin = null;
+    })
+  } else {
+    chronoWin.focus();
+  }
+
+}
+
+exports.openStatisticWindow = function() {
+  if (statisticWin === null) {
+    statisticWin = new BrowserWindow({
+      background: true,
+      frame: false,
+      width: 1000,
+      height: 600,
+      backgroundColor: '#282c34',
+      icon: path.join(__dirname, '/icons/png/64x64.png')
+    })
+    statisticWin.loadURL(`file://${__dirname}/html/statisticView.html`)
+    statisticWin.setTouchBar(new TouchBar([
+      openTBPopover
+    ]));
+    statisticWin.on('closed',() => {
+      statisticWin = null;
+    })
+  } else {
+    statisticWin.focus();
+  }
+}
+
+exports.openBalanceWindow = function() {
+  if (balanceWin === null) {
+    balanceWin = new BrowserWindow({
+      background: true,
+      frame: false,
+      width: 1000,
+      height: 600,
+      backgroundColor: '#282c34',
+      icon: path.join(__dirname, '/icons/png/64x64.png')
+    })
+    balanceWin.loadURL(`file://${__dirname}/html/balanceView.html`)
+    balanceWin.setTouchBar(new TouchBar([
+      openTBPopover
+    ]));
+    balanceWin.on('closed',() => {
+      balanceWin = null;
+    })
+  } else {
+    balanceWin.focus();
+  }
 }
 
 ipcMain.on('open-file', (event) => {
@@ -308,6 +398,15 @@ ipcMain.on('action-trigger',(event,args) => {
   switch (args) {
     case 'open-swin':
       exports.openSettingWindow();
+      break;
+    case 'open-chronowin':
+      exports.openChronoWindow();
+      break;
+    case 'open-piewin':
+      exports.openStatisticWindow();
+      break;
+    case 'open-balancewin':
+      exports.openBalanceWindow();
       break;
     default:
       win.webContents.send(args);
