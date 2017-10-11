@@ -10,7 +10,10 @@ const {
 const {
   TouchBarLabel,
   TouchBarButton,
-  TouchBarSpacer
+  TouchBarSpacer,
+  TouchBarPopover,
+  TouchBarGroup,
+  TouchBarSegmentedControl
 } = TouchBar
 const path = require('path')
 const url = require('url')
@@ -25,115 +28,161 @@ let isDev = false;
 let template = [{
   label: 'File',
   submenu: [{
-    label: 'About Mercury'
-  }, {
-    type: 'separator'
-  }, {
-    label: 'Settings',
-    accelerator: 'CmdOrCtrl+,',
-    click() {
-      exports.openSettingWindow()
-    }
-  }, {
-    type: 'separator'
-  }, {
-    label: 'New file',
-    accelerator: 'CmdOrCtrl+N',
-    click() { newfile() }
-  }, {
-    label: 'Open',
-    accelerator: 'CmdOrCtrl+O',
-    click() { openfile(() => {}) }
-  }, {
-    label: 'Save',
-    accelerator: "CmdOrCtrl+S",
-    click() {
-      if(filePath === "") {
-        saveAs();
-      } else {
-        console.log('Saving in '+filePath);
-        win.webContents.send('saved-file', filePath)
-      }
-    }
-  }, {
-    label: 'Save As',
-    accelerator: 'CmdOrCtrl+Shift+S',
-    click() { saveAs()}
-  }, {
-    type: 'separator'
-  }, {
-    label: 'Quit',
-    role: 'quit'
-  }]
-}, {
-  label: 'About',
-  submenu: [{
-    label: 'Version ' + pjson.version,
-    type: 'checkbox',
-    checked: true,
-    enabled: false
-  }, {
-    label: 'ChartJS',
-    submenu: [{
-      label: 'Samples',
+      label: 'About Mercury'
+    }, {
+      type: 'separator'
+    }, {
+      label: 'Settings',
+      accelerator: 'CmdOrCtrl+,',
       click() {
-        shell.openExternal("http://www.chartjs.org/samples/latest/")
+        exports.openSettingWindow()
       }
     }, {
-      label: 'Doc',
+      type: 'separator'
+    }, {
+      label: 'New file',
+      accelerator: 'CmdOrCtrl+N',
+      click() { newfile() }
+    }, {
+      label: 'Open',
+      accelerator: 'CmdOrCtrl+O',
+      click() { openfile(() => {}) }
+    }, {
+      label: 'Save',
+      accelerator: "CmdOrCtrl+S",
       click() {
-        shell.openExternal("http://www.chartjs.org/docs/latest/")
+        if(filePath === "") {
+          saveAs();
+        } else {
+          console.log('Saving in '+filePath);
+          win.webContents.send('saved-file', filePath)
+        }
       }
+    }, {
+      label: 'Save As',
+      accelerator: 'CmdOrCtrl+Shift+S',
+      click() { saveAs()}
+    }, {
+      type: 'separator'
+    }, {
+      label: 'Quit',
+      role: 'quit'
     }]
   }, {
-    label: 'Bulma',
+    label: 'About',
     submenu: [{
-      label: 'Doc',
+      label: 'Version ' + pjson.version,
+      type: 'checkbox',
+      checked: true,
+      enabled: false
+    }, {
+      label: 'ChartJS',
+      submenu: [{
+        label: 'Samples',
+        click() {
+          shell.openExternal("http://www.chartjs.org/samples/latest/")
+        }
+      }, {
+        label: 'Doc',
+        click() {
+          shell.openExternal("http://www.chartjs.org/docs/latest/")
+        }
+      }]
+    }, {
+      label: 'Bulma',
+      submenu: [{
+        label: 'Doc',
+        click() {
+          shell.openExternal("http://bulma.io/documentation/overview/start/")
+        }
+      }]
+    }, {
+      label: 'Font Awesome',
+      submenu: [{
+        label: 'Icons',
+        click() {
+          shell.openExternal("http://fontawesome.io/icons/")
+        }
+      }]
+    }, {
+      type: 'separator'
+    }, {
+      label: 'Enable DevTools',
+      type: 'checkbox',
+      checked: isDev,
+      role: 'toggledevtools',
       click() {
-        shell.openExternal("http://bulma.io/documentation/overview/start/")
+        isDev = !isDev
       }
     }]
-  }, {
-    label: 'Font Awesome',
+  } ,{
+    label: 'Windows',
     submenu: [{
-      label: 'Icons',
-      click() {
-        shell.openExternal("http://fontawesome.io/icons/")
-      }
+      label: 'Minimize',
+      accelerator: 'CmdOrCtrl+M',
+      role: 'minimize'
+    }, {
+      label: 'Close',
+      accelerator: 'CmdOrCtrl+W',
+      role: 'close'
     }]
-  }, {
-    type: 'separator'
-  }, {
-    label: 'Enable DevTools',
-    type: 'checkbox',
-    checked: isDev,
-    role: 'toggledevtools',
-    click() {
-      isDev = !isDev
-    }
   }]
-} ,{
-  label: 'Windows',
-  submenu: [{
-    label: 'Minimize',
-    accelerator: 'CmdOrCtrl+M',
-    role: 'minimize'
-  }, {
-    label: 'Close',
-    accelerator: 'CmdOrCtrl+W',
-    role: 'close'
-  }]
-}]
 
-const touchBar = new TouchBar([
-  new TouchBarButton({
-    backgroundColor: '#00d1b2',
-    label: 'Add account',
-    click() {
-      win.webContents.send('add-account')
-    }
-  })
-])
+
+const settingTBButton = new TouchBarButton({
+  backgroundColor: '#3272dd',
+  icon: 'assets/img/fa-sliders_16.png',
+  click() {
+    exports.openSettingWindow();
+  }
+})
+
+const chronoTBButton = new TouchBarButton({
+  backgroundColor: '#00d1b2',
+  icon: 'assets/img/fa-area-chart_16.png',
+  click() {
+    exports.openChronoWindow();
+  }
+})
+
+const statisticTBButton = new TouchBarButton({
+  backgroundColor: '#ffdd57',
+  icon: 'assets/img/fa-pie-chart_16.png',
+  click() {
+    exports.openStatisticWindow();
+  }
+})
+
+const balanceTBButton = new TouchBarButton({
+  backgroundColor: '#ff3860',
+  icon: 'assets/img/fa-line-chart_16.png',
+  click() {
+    exports.openBalanceWindow();
+  }
+})
+
+const openTBPopover = new TouchBarPopover({
+  icon: 'assets/img/fa-bars_16.png',
+  iconPosition: 'left',
+  items: [
+    settingTBButton,
+    chronoTBButton,
+    statisticTBButton,
+    balanceTBButton
+  ]
+})
+
+
+const tabTBButton = new TouchBarSegmentedControl({
+  segments: [
+    new TouchBarLabel({label: 'Dashboard'}),
+    new TouchBarLabel({label: 'Account'}),
+    new TouchBarLabel({label: 'Recurring Operations'})
+  ],
+  change(selectedIndex){
+    win.webContents.send('toggle',selectedIndex)
+  }
+})
 
 function createWindow() {
   // Create the browser window.
@@ -153,7 +202,12 @@ function createWindow() {
     title: 'Mercury',
     slashes: true
   }))
-  win.setTouchBar(touchBar)
+  win.setTouchBar(new TouchBar([
+    openTBPopover,
+    new TouchBarSpacer({size: 'flexible'}),
+    tabTBButton,
+    new TouchBarSpacer({size: 'flexible'})
+  ]))
 
   win.once('ready-to-show', () => {
     win.show();
