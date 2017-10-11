@@ -234,7 +234,7 @@ let HTMLElements  = {
     }
     for (var i = 0; i < data_db.length; i++) {
       data.push(-data_db[i].s.toFixed(2));
-      labels.push(((data_db[i].category === "") ? "Autre" : data_db[i].category)+` (${(-data_db[i].s.toFixed(2)/max*100).toFixed(2)}%)`)
+      labels.push(((data_db[i].category === "") ? "Other" : data_db[i].category)+` (${(-data_db[i].s.toFixed(2)/max*100).toFixed(2)}%)`)
     }
 
     var config = {
