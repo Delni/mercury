@@ -20,7 +20,7 @@
         <p class="title">
           <span style="margin-left:2%;-webkit-app-region: drag">
               <span class="icon is-medium has-text-warning"><i class="fa fa-pie-chart"></i></span>
-          <span>Statistic Report</span>
+              <span>Statistic Report</span>
           </span>
           <a href="#" onclick="window.close()" class="button is-outlined is-danger pull-right">
               <span class="icon">
@@ -29,12 +29,35 @@
             </a><br>
         </p>
       </div>
-      <div class="hero-body">
-        <p class="title">🚧 Work in progress... Please wait update 🚧</p>
+      <div class="hero-body is-paddingless">
+        <article class="is-main-pane" style="overflow-y: scroll">
+          <div class="columns">
+
+            <div class="column is-two-thirds">
+              <nav id="mainOptions" class="field is-grouped"></nav>
+              <canvas id="myChart" height="250%"></canvas>
+            </div>
+            <div class="column" id="option-pane" style="border-left: 1px grey solid">
+              <p class="title is-marginless">Options</p>
+            </div>
+          </div>
+
+        </article>
       </div>
       <div class="hero-footer">
 
       </div>
     </section>
+
+    <script>
+      if (typeof module === 'object') {
+        window.module = module;
+        module = undefined;
+      }
+    </script>
+    <script>
+      if (window.module) module = window.module;
+    </script>
+    <script src="./statisticView.js"></script>
   </body>
 </html>

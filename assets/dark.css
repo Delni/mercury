@@ -63,8 +63,27 @@ abbr {
   background-color: #21252b;
 }
 
+.is-main-pane{
+  width:95vw;
+  height: 90vh;
+  max-height: 90vh;
+  margin:auto;
+}
+
+.is-main-pane>*{
+  height: 100%;
+}
+
+input[type='range'] {
+    background:grey;
+}
+
 #currency {
   margin-left: 3px;
+}
+
+.checkbox:hover{
+  color: whitesmoke;
 }
 
 .icon {
