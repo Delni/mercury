@@ -116,6 +116,31 @@ let template = [{
       }
     }]
   } ,{
+    label: 'Reports',
+    submenu:[{
+        label: 'Time Report',
+        accelerator: 'Alt+T',
+        icon: 'assets/img/fa-area-chart_16.png',
+        click() {
+          exports.openChronoWindow();
+        }
+      },{
+        label: 'Statistic Report',
+        accelerator: 'Alt+S',
+        icon: 'assets/img/fa-pie-chart_16.png',
+        click() {
+          exports.openStatisticWindow();
+        }
+      },{
+        label: 'Balance Report',
+        accelerator: 'Alt+B',
+        icon: 'assets/img/fa-line-chart_16.png',
+        click() {
+          exports.openBalanceWindow();
+        }
+      }
+    ]
+  },{
     label: 'Windows',
     submenu: [{
       label: 'Minimize',
@@ -286,6 +311,8 @@ exports.openSettingWindow = function() {
     swin.on('closed',() => {
       swin = null;
     })
+  } else if(swin.isFocused()){
+    swin.close();
   } else {
     swin.focus();
   }
@@ -308,6 +335,8 @@ exports.openChronoWindow = function() {
     chronoWin.on('closed',() => {
       chronoWin = null;
     })
+  } else if(chronoWin.isFocused()){
+    chronoWin.close();
   } else {
     chronoWin.focus();
   }
@@ -331,6 +360,8 @@ exports.openStatisticWindow = function() {
     statisticWin.on('closed',() => {
       statisticWin = null;
     })
+  } else if(statisticWin.isFocused()){
+    statisticWin.close();
   } else {
     statisticWin.focus();
   }
@@ -353,6 +384,8 @@ exports.openBalanceWindow = function() {
     balanceWin.on('closed',() => {
       balanceWin = null;
     })
+  } else if(balanceWin.isFocused()){
+    balanceWin.close();
   } else {
     balanceWin.focus();
   }
