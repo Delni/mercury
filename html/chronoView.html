@@ -29,12 +29,35 @@
             </a><br>
         </p>
       </div>
-      <div class="hero-body">
-        <p class="title">🚧 Work in progress... Please wait update 🚧</p>
+      <div class="hero-body is-paddingless">
+        <article class="is-main-pane">
+          <div class="columns">
+
+            <div class="column is-two-thirds">
+              <nav id="mainOptions" class="field is-grouped"></nav>
+              <canvas id="myChart" height="200%"></canvas>
+            </div>
+            <div class="column" style="border-left: 1px grey solid">
+              <p class="title">🚧 Work in progress... Please wait update 🚧</p><br>
+            </div>
+          </div>
+
+        </article>
       </div>
       <div class="hero-footer">
 
       </div>
     </section>
+
+    <script>
+      if (typeof module === 'object') {
+        window.module = module;
+        module = undefined;
+      }
+    </script>
+    <script>
+      if (window.module) module = window.module;
+    </script>
+    <script src="./chronoView.js"></script>
   </body>
 </html>
