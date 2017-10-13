@@ -1,4 +1,24 @@
 let HTMLElements  = {
+
+   noData: function(){
+    return $('<div>')
+    .append($('<p>').addClass("title").text('No data found !'))
+    .append(
+      $('<p>').addClass("subtitle").text('Add an ')
+      .append(
+        $('<span>')
+          .addClass('has-text-primary link')
+          .attr('data-toggle','#createAccount')
+          .attr('onclick','showModal(this)')
+          .text('account')
+      ).append(' to start or ')
+      .append(
+        $('<span>').addClass('has-text-info link')
+          .attr('onclick',"ipc.send('open-file')")
+          .text('open a file')
+      ).append(' :)')
+    )
+  },
 //       .o.                 oooooooooo.
 //      .888.                `888'   `Y8b
 //     .8"888.      .ooooo.   888     888  .oooo.   oooo d8b
@@ -135,26 +155,6 @@ let HTMLElements  = {
       )
   },
 
-   noData: function(){
-    return $('<div>')
-    .append($('<p>').addClass("title").text('No data found !'))
-    .append(
-      $('<p>').addClass("subtitle").text('Add an ')
-      .append(
-        $('<span>')
-          .addClass('has-text-primary link')
-          .attr('data-toggle','#createAccount')
-          .attr('onclick','showModal(this)')
-          .text('account')
-      ).append(' to start or ')
-      .append(
-        $('<span>').addClass('has-text-info link')
-          .attr('onclick',"ipc.send('open-file')")
-          .text('open a file')
-      ).append(' :)')
-    )
-  },
-
 // //
 // oooooooooo.                      oooo         .o8                                          .o8
 // `888'   `Y8b                     `888        "888                                         "888
@@ -211,8 +211,8 @@ let HTMLElements  = {
     .append($('<span>').addClass('has-text-'+color+' link')
       .attr('onclick',"ipc.send('action-trigger','"+ipcmsg+"')")
       .text(text+' ')
-      .append($('<span>').addClass('icon').append($('<i>').addClass('fa fa-'+icon)))
     )
+    .append($('<span>').addClass('icon has-text-'+color).append($('<i>').addClass('fa fa-'+icon)))
   },
 
   topChart: function(){
