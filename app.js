@@ -13,6 +13,7 @@ const {
   TouchBarSpacer,
   TouchBarPopover,
   TouchBarGroup,
+  TouchBarSlider,
   TouchBarSegmentedControl
 } = TouchBar
 const path = require('path')
@@ -343,7 +344,40 @@ exports.openChronoWindow = function() {
 
 }
 
+
 exports.openStatisticWindow = function() {
+  const statisticTBar = new TouchBar([
+    openTBPopover,
+    new TouchBarSpacer({size:'large'}),
+    new TouchBarSlider({
+      label: 'Category',
+      value: 6,
+      minValue: 3,
+      maxValue: 12,
+      change(newValue){ statisticWin.webContents.send('slider-input',newValue)}
+    }),
+    new TouchBarSpacer({size:'large'}),
+    new TouchBarPopover({
+      label: 'Time span',
+      items: [
+        new TouchBarSegmentedControl({
+          segments: [
+            new TouchBarLabel({label: 'This month'}),
+            new TouchBarLabel({label: 'Last month'}),
+            new TouchBarLabel({label: 'This quarter'}),
+            new TouchBarLabel({label: 'Last quarter'}),
+            new TouchBarLabel({label: 'This year'}),
+            new TouchBarLabel({label: 'Last year'}),
+            new TouchBarLabel({label: 'All Dates'}),
+          ],
+          change(selectedIndex){
+            statisticWin.webContents.send('toggle-time-span',selectedIndex)
+          }
+        })
+      ]
+    }),
+  ])
+
   if (statisticWin === null) {
     statisticWin = new BrowserWindow({
       background: true,
@@ -354,9 +388,7 @@ exports.openStatisticWindow = function() {
       icon: path.join(__dirname, '/icons/png/64x64.png')
     })
     statisticWin.loadURL(`file://${__dirname}/html/statisticView.html`)
-    statisticWin.setTouchBar(new TouchBar([
-      openTBPopover
-    ]));
+    statisticWin.setTouchBar(statisticTBar);
     statisticWin.on('closed',() => {
       statisticWin = null;
     })

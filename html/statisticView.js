@@ -19,6 +19,7 @@ global.opt = {
   periodOffset: 0,
   firstDate: moment().startOf('month').format('YYYY-MM-DD'),
   lastDate: moment().endOf('month').format('YYYY-MM-DD'),
+  allDates: false,
   order: 's',
   percent: true,
   previous: false,
@@ -146,66 +147,54 @@ $(document).ready(() => {
   },'#period-select','select').render()
 
   $('#period').on('change',() => {
-    let previousVal = $('#append-data').get(0).checked
+    global.opt.allDates = false;
+    let previousVal = $('#append-data').get(0).checked;
     $('#append-data').get(0).checked = false;
-    $('input[type="checkbox"]').attr('disabled',false)
-    $('label[for="append-data"]').attr('disabled',false)
+    $('input[type="checkbox"]').attr('disabled',false);
+    $('label[for="append-data"]').attr('disabled',false);
     switch ($('#period').val()){
       case 'thismonth':
         global.opt.period = 'month';
         global.opt.periodOffset =0;
         $('#append-data').get(0).checked = previousVal;
-        global.opt.firstDate = moment().startOf(global.opt.period).format('YYYY-MM-DD');
-        global.opt.lastDate = moment().endOf(global.opt.period).format('YYYY-MM-DD');
         break;
       case 'lastmonth':
         global.opt.period = 'month';
         global.opt.periodOffset =1;
         $('#append-data').get(0).checked = previousVal;
-        global.opt.firstDate = moment().subtract(1,global.opt.period).startOf(global.opt.period).format('YYYY-MM-DD');
-        global.opt.lastDate = moment().subtract(1,global.opt.period).endOf(global.opt.period).format('YYYY-MM-DD');
         break;
       case 'thisquarter':
         global.opt.period = 'quarter';
         global.opt.periodOffset =0;
         $('#append-data').get(0).checked = previousVal;
-        global.opt.firstDate = moment().startOf(global.opt.period).format('YYYY-MM-DD');
-        global.opt.lastDate = moment().endOf(global.opt.period).format('YYYY-MM-DD');
         break;
       case 'lastquarter':
         global.opt.period = 'quarter';
         global.opt.periodOffset =1;
         $('#append-data').get(0).checked = previousVal;
-        global.opt.firstDate = moment().subtract(1,global.opt.period).startOf(global.opt.period).format('YYYY-MM-DD');
-        global.opt.lastDate = moment().subtract(1,global.opt.period).endOf(global.opt.period).format('YYYY-MM-DD');
         break;
       case 'thisyear':
         global.opt.period = 'year';
         global.opt.periodOffset =0;
         $('#append-data').get(0).checked = previousVal;
-        global.opt.firstDate = moment().startOf(global.opt.period).format('YYYY-MM-DD');
-        global.opt.lastDate = moment().endOf(global.opt.period).format('YYYY-MM-DD');
         break;
       case 'lastyear':
         global.opt.period = 'year';
         global.opt.periodOffset =1;
         $('#append-data').get(0).checked = previousVal;
-        global.opt.firstDate = moment().subtract(1,global.opt.period).startOf(global.opt.period).format('YYYY-MM-DD');
-        global.opt.lastDate = moment().subtract(1,global.opt.period).endOf(global.opt.period).format('YYYY-MM-DD');
         break;
       default:
+        global.opt.allDates = true;
         $('input[type="checkbox"]').attr('disabled',true)
         $('label[for="append-data"]').attr('disabled',true)
         break;
     }
-    console.log(global.opt.period);
-    console.log(global.opt.periodOffset);
-    console.log(global.opt.firstDate);
-    console.log(global.opt.lastDate);
+    global.opt.firstDate = moment().startOf(global.opt.period).format('YYYY-MM-DD');
+    global.opt.lastDate = moment().endOf(global.opt.period).format('YYYY-MM-DD');
     throwPrevious();
-    updateConfig();
-    global.myChart.update();
   })
+
+
   let ctx = $("#myChart");
 
   updateConfig();
@@ -292,7 +281,13 @@ function updateConfig(){
   let lowDate  = moment(global.opt.firstDate,'YYYY-MM-DD').subtract(global.opt.periodOffset,global.opt.period).format('YYYY-MM-DD');
   let highDate = moment(global.opt.lastDate,'YYYY-MM-DD').subtract(global.opt.periodOffset,global.opt.period).format('YYYY-MM-DD');
   try {
-    data_db = global.db.exec(`SELECT category, SUM(amount) as s FROM OPERATION WHERE amount<=0 AND date BETWEEN "${lowDate}" AND "${highDate}" GROUP BY category ORDER BY ${global.opt.order} ASC LIMIT ${global.opt.nbCat}`)
+    if (global.opt.allDates) {
+      console.log(`SELECT category, SUM(amount) as s FROM OPERATION WHERE amount<=0 GROUP BY category ORDER BY ${global.opt.order} ASC LIMIT ${global.opt.nbCat}`);
+      data_db = global.db.exec(`SELECT category, SUM(amount) as s FROM OPERATION WHERE amount<=0 GROUP BY category ORDER BY ${global.opt.order} ASC LIMIT ${global.opt.nbCat}`)
+    } else {
+      console.log(`SELECT category, SUM(amount) as s FROM OPERATION WHERE amount<=0 AND date BETWEEN "${lowDate}" AND "${highDate}" GROUP BY category ORDER BY ${global.opt.order} ASC LIMIT ${global.opt.nbCat}`);
+      data_db = global.db.exec(`SELECT category, SUM(amount) as s FROM OPERATION WHERE amount<=0 AND date BETWEEN "${lowDate}" AND "${highDate}" GROUP BY category ORDER BY ${global.opt.order} ASC LIMIT ${global.opt.nbCat}`)
+    }
   } catch (e) {
     console.warn(e);
     data_db = {s: 1, category:'No data to display'}
@@ -325,7 +320,6 @@ function updateConfig(){
         data_db2.push({s: 0, category:'data_db[i].category}'});
       }
     }
-    console.log(data_db2);
     for (var i = 0; i < data_db2.length; i++) {
       data2.push(-data_db2[i].s.toFixed(2));
     }
@@ -406,3 +400,14 @@ function toggleButtons(id1,id2,opt, callback1,callback2 = null, color = 'primary
   )
 }
 console.log('*** Statistic JS loaded ***');
+
+
+ipc.on('slider-input',(event,arg) => {
+  $('#nb-cat').val(arg).trigger('input');
+})
+
+ipc.on('toggle-time-span',(event,args) => {
+  let options = document.getElementById('period').options;
+  console.log(options);
+  $('#period').val(options[args].value).change();
+})
