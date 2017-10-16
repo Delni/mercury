@@ -248,6 +248,7 @@ function throwVal(event) {
   $('#nb-cat-display').text(global.opt.nbCat);
   updateConfig();
   global.myChart.update();
+  ipc.send('slider-display',global.opt.nbCat)
 }
 
 function throwOrderby(){
@@ -282,11 +283,11 @@ function updateConfig(){
   let highDate = moment(global.opt.lastDate,'YYYY-MM-DD').subtract(global.opt.periodOffset,global.opt.period).format('YYYY-MM-DD');
   try {
     if (global.opt.allDates) {
-      console.log(`SELECT category, SUM(amount) as s FROM OPERATION WHERE amount<=0 GROUP BY category ORDER BY ${global.opt.order} ASC LIMIT ${global.opt.nbCat}`);
-      data_db = global.db.exec(`SELECT category, SUM(amount) as s FROM OPERATION WHERE amount<=0 GROUP BY category ORDER BY ${global.opt.order} ASC LIMIT ${global.opt.nbCat}`)
+      console.log(`SELECT * FROM (SELECT category, SUM(amount) as s FROM OPERATION WHERE amount<=0 GROUP BY category ORDER BY s LIMIT ${global.opt.nbCat}) ORDER BY ${global.opt.order} ASC`);
+      data_db = global.db.exec(`SELECT * FROM (SELECT category, SUM(amount) as s FROM OPERATION WHERE amount<=0 GROUP BY category ORDER BY s LIMIT ${global.opt.nbCat}) ORDER BY ${global.opt.order} ASC`)
     } else {
-      console.log(`SELECT category, SUM(amount) as s FROM OPERATION WHERE amount<=0 AND date BETWEEN "${lowDate}" AND "${highDate}" GROUP BY category ORDER BY ${global.opt.order} ASC LIMIT ${global.opt.nbCat}`);
-      data_db = global.db.exec(`SELECT category, SUM(amount) as s FROM OPERATION WHERE amount<=0 AND date BETWEEN "${lowDate}" AND "${highDate}" GROUP BY category ORDER BY ${global.opt.order} ASC LIMIT ${global.opt.nbCat}`)
+      console.log(`SELECT * FROM (SELECT category, SUM(amount) as s FROM OPERATION WHERE amount<=0 AND date BETWEEN "${lowDate}" AND "${highDate}" GROUP BY category ORDER BY s LIMIT ${global.opt.nbCat}) ORDER BY ${global.opt.order} ASC`);
+      data_db = global.db.exec(`SELECT * FROM (SELECT category, SUM(amount) as s FROM OPERATION WHERE amount<=0 AND date BETWEEN "${lowDate}" AND "${highDate}" GROUP BY category ORDER BY s LIMIT ${global.opt.nbCat}) ORDER BY ${global.opt.order} ASC`)
     }
   } catch (e) {
     console.warn(e);
@@ -326,12 +327,6 @@ function updateConfig(){
     let dataset2 = {
       data: data2,
       backgroundColor: [
-        // 'rgba(50, 114, 221, 0.42)',
-        // 'rgba(0, 209, 178, 0.42)',
-        // 'rgba(35, 209, 96, 0.42)',
-        // 'rgba(255, 221, 87, 0.42)',
-        // 'rgba(255, 56, 96, 0.42)',
-        // 'rgba(132, 69, 214, 0.42)',
         'rgba(20, 91, 213, 0.60)',
         'rgba(0, 209, 178, 0.60)',
         'rgba(41, 235, 0, 0.6)',
