@@ -55,8 +55,8 @@ let HTMLElements  = {
         ['-30','30 last days'],
         ['m','This month'],
         ['-1m','Last month'],
-        ['-1t','Last trimester'],
-        ['-1y','Last year'],
+        ['-1q','This quarter'],
+        ['-1y','This year'],
         ['*','All dates']
       ]
     }

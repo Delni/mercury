@@ -437,7 +437,26 @@ function updateSQL(sqlType) {
   } else if (sqlType === "#account") {
 
     let account = $('#filter-account').val();
-    let date = moment($('#filter-date').val(), globSettings.dateFormat).format('YYYY-MM-DD');
+    let date;
+    switch ($('#filter-date').val()) {
+      case '-30':
+        date = moment().subtract(30,'days');
+        break;
+      case 'm':
+        date = moment().startOf('month');
+        break;
+      case '-1m':
+        date = moment().subtract(1,'month').startOf('month');
+        break;
+      case '-1q':
+        date = moment().startOf('quarter');
+        break;
+      case '-1y':
+        date = moment().startOf('year');
+        break;
+
+    }
+    date = date.format('YYYY-MM-DD');
     let state = $('#filter-state').val();
     let amount = $('#filter-amount').val();
     let resSQL = global.db.updateTable(account, date, state, amount);

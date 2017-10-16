@@ -202,7 +202,8 @@ class Database {
     } else if(amount === "minus"){
       sqlstr += " AND `amount`<=0";
     }
-    sqlstr += " ORDER BY `date` DESC"
+    sqlstr += " AND `date`>=:date ORDER BY `date` DESC"
+    console.log(sqlstr);
     let sqlstmt = this.sql.prepare(sqlstr);
     sqlstmt.bind({
       ':account' : account,
