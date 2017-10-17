@@ -148,6 +148,10 @@ let template = [{
       accelerator: 'CmdOrCtrl+M',
       role: 'minimize'
     }, {
+      label: 'Toggle fullscreen',
+      accelerator: 'CmdOrCtrl+F',
+      role: 'togglefullscreen'
+    }, {
       label: 'Close',
       accelerator: 'CmdOrCtrl+W',
       role: 'close'
@@ -329,7 +333,7 @@ exports.openChronoWindow = function() {
     chronoWin = new BrowserWindow({
       background: true,
       frame: false,
-      width: 1200,
+      width: 1000,
       height: 600,
       backgroundColor: '#282c34',
       icon: path.join(__dirname, '/icons/png/64x64.png')

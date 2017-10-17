@@ -104,6 +104,56 @@ $(document).ready(() => {
       $('<span>').attr('id','period-select').text('Time span: ')
     )
     .append($('<hr>'))
+    .append($('<p>').addClass('subtitle is-5').text('Custom time span'))
+    .append(
+      $('<div>').addClass('field columns')
+      .append(
+        $('<div>').addClass('control field has-addons column')
+        .append(
+          $('<div>').addClass('control')
+          .append(
+            $('<a>').addClass('button is-primary')
+            .append(
+              $('<span>').addClass('icon')
+              .append($('<i>').addClass('fa fa-calendar-minus-o'))
+            )
+          )
+        )
+        .append(
+          $('<div>').addClass('control')
+          .attr('style','width: 70%')
+          .append(
+            $('<input>').addClass('input')
+            .attr('type','text')
+            .attr('placeholder','Pick a date')
+            .attr('id','fCustomDate')
+          )
+        )
+      )
+      .append(
+        $('<div>').addClass('control field has-addons column')
+        .append(
+          $('<div>').addClass('control')
+          .append(
+            $('<a>').addClass('button is-primary')
+            .append(
+              $('<span>').addClass('icon')
+              .append($('<i>').addClass('fa fa-calendar-plus-o'))
+            )
+          )
+        )
+        .append(
+          $('<div>').addClass('control')
+          .attr('style','width: 70%')
+          .append(
+            $('<input>').addClass('input')
+            .attr('type','text')
+            .attr('placeholder','Pick a date')
+            .attr('id','lCustomDate')
+          )
+        )
+      )
+    )
   )
 
   new CustomField('calendar-check-o','period',
@@ -121,6 +171,54 @@ $(document).ready(() => {
   $('#period').on('change',() => {
     throwPeriod();
   })
+
+  $('#fCustomDate').keydown(function(event) {
+    if (event.keyCode == 38) {
+      $('#fCustomDate').val(
+        moment(
+          moment($('#fCustomDate').val(), globSettings.dateFormat)
+          .add(1, 'day'))
+        .format(globSettings.dateFormat)
+      )
+      $('#fCustomDate').change();
+    } else if (event.keyCode == 40) {
+      $('#fCustomDate').val(
+        moment(
+          moment($('#fCustomDate').val(), globSettings.dateFormat)
+          .subtract(1, 'day'))
+        .format(globSettings.dateFormat)
+      )
+      $('#fCustomDate').change();
+    }
+  })
+
+  $('#lCustomDate').keydown(function(event) {
+    if (event.keyCode == 38) {
+      $('#lCustomDate').val(
+        moment(
+          moment($('#lCustomDate').val(), globSettings.dateFormat)
+          .add(1, 'day'))
+        .format(globSettings.dateFormat)
+      )
+      $('#lCustomDate').change();
+    } else if (event.keyCode == 40) {
+      $('#lCustomDate').val(
+        moment(
+          moment($('#lCustomDate').val(), globSettings.dateFormat)
+          .subtract(1, 'day'))
+        .format(globSettings.dateFormat)
+      )
+      $('#lCustomDate').change();
+    }
+  })
+
+  $('#fCustomDate').on('change',() => {
+    throwCustom();
+  });
+
+  $('#lCustomDate').on('change',() => {
+    throwCustom();
+  });
 
   let ctx = $("#myChart");
 
@@ -175,7 +273,17 @@ function throwPeriod(){
   global.myChart.update();
 }
 
+
+function throwCustom() {
+  opt.firstDate= moment($('#fCustomDate').val(),globSettings.dateFormat).format('YYYY-MM-DD');
+  opt.lastDate= moment($('#lCustomDate').val(),globSettings.dateFormat).format('YYYY-MM-DD');
+  updateConfig();
+  global.myChart.update();
+}
+
 function updateConfig() {
+  $('#fCustomDate').val(moment(opt.firstDate,'YYYY-MM-DD').format(globSettings.dateFormat))
+  $('#lCustomDate').val(moment(opt.lastDate,'YYYY-MM-DD').format(globSettings.dateFormat))
   let lastDate, chartFirstDate;
   for (var i = 0; i < accounts.length; i++) {
     let data = null;
