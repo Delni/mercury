@@ -25,7 +25,6 @@ const pjson = require('./package.json')
 global.__basedir = __dirname;
 let filePath = "";
 let win;
-let isDev = false;
 const template = [{
   label: 'File',
   submenu: [{
@@ -69,54 +68,7 @@ const template = [{
       label: 'Quit',
       role: 'quit'
     }]
-  }, {
-    label: 'About',
-    submenu: [{
-      label: 'Version ' + pjson.version,
-      type: 'checkbox',
-      checked: true,
-      enabled: false
-    }, {
-      label: 'ChartJS',
-      submenu: [{
-        label: 'Samples',
-        click() {
-          shell.openExternal("http://www.chartjs.org/samples/latest/")
-        }
-      }, {
-        label: 'Doc',
-        click() {
-          shell.openExternal("http://www.chartjs.org/docs/latest/")
-        }
-      }]
-    }, {
-      label: 'Bulma',
-      submenu: [{
-        label: 'Doc',
-        click() {
-          shell.openExternal("http://bulma.io/documentation/overview/start/")
-        }
-      }]
-    }, {
-      label: 'Font Awesome',
-      submenu: [{
-        label: 'Icons',
-        click() {
-          shell.openExternal("http://fontawesome.io/icons/")
-        }
-      }]
-    }, {
-      type: 'separator'
-    }, {
-      label: 'Enable DevTools',
-      type: 'checkbox',
-      checked: isDev,
-      role: 'toggledevtools',
-      click() {
-        isDev = !isDev
-      }
-    }]
-  } ,{
+  },{
     label: 'Reports',
     submenu:[{
         label: 'Time Report',
@@ -142,7 +94,7 @@ const template = [{
       }
     ]
   },{
-    label: 'Windows',
+    label: 'Window',
     submenu: [{
       label: 'Minimize',
       accelerator: 'CmdOrCtrl+M',
