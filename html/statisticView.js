@@ -290,7 +290,7 @@ function updateConfig(){
     console.warn(e);
     data_db = {s: 1, category:'No data to display'}
   }
-  let data = [], labels = [];
+  const data = [], labels = [];
   let max = 0;
   if(global.opt.percent){
     for (var i = 0; i < data_db.length; i++) {
@@ -306,9 +306,9 @@ function updateConfig(){
   global.config.data.datasets[0].data= data;
 
   if(global.opt.previous){
-    let data_db2=[], data2 = [];
-    let lowDate  = moment(global.opt.firstDate,'YYYY-MM-DD').subtract(1+global.opt.periodOffset,global.opt.period).format('YYYY-MM-DD');
-    let highDate = moment(global.opt.lastDate,'YYYY-MM-DD').subtract(1+global.opt.periodOffset,global.opt.period).format('YYYY-MM-DD');
+    const data_db2=[], data2 = [];
+    const lowDate  = moment(global.opt.firstDate,'YYYY-MM-DD').subtract(1+global.opt.periodOffset,global.opt.period).format('YYYY-MM-DD');
+    const highDate = moment(global.opt.lastDate,'YYYY-MM-DD').subtract(1+global.opt.periodOffset,global.opt.period).format('YYYY-MM-DD');
     for (var i = 0; i < data_db.length; i++) {
       try {
         data_db2.push(global.db.exec(`SELECT category, SUM(amount) as s FROM OPERATION WHERE amount<=0 AND category="${data_db[i].category}" AND date BETWEEN "${lowDate}" AND "${highDate}" GROUP BY category ORDER BY ${global.opt.order} ASC LIMIT ${global.opt.nbCat}`)[0]);
@@ -320,7 +320,7 @@ function updateConfig(){
     for (var i = 0; i < data_db2.length; i++) {
       data2.push(-data_db2[i].s.toFixed(2));
     }
-    let dataset2 = {
+    const dataset2 = {
       data: data2,
       backgroundColor: [
         'rgba(20, 91, 213, 0.60)',
@@ -390,7 +390,6 @@ function toggleButtons(id1,id2,opt, callback1,callback2 = null, color = 'primary
     )
   )
 }
-console.log('*** Statistic JS loaded ***');
 
 
 ipc.on('slider-input',(event,arg) => {
@@ -398,6 +397,6 @@ ipc.on('slider-input',(event,arg) => {
 })
 
 ipc.on('toggle-time-span',(event,args) => {
-  let options = document.getElementById('period').options;
+  const options = document.getElementById('period').options;
   $('#period').val(options[args].value).change();
 })

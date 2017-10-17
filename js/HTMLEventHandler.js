@@ -1,13 +1,13 @@
 $('#select-cur').on('change', () => {
-  let val = $('#select-cur').val();
+  const val = $('#select-cur').val();
   $('#selected-cur').removeClass();
   $('#selected-cur').addClass('fa')
   $('#selected-cur').addClass('fa fa-' + val)
 })
 
 $('#op-account').on('change', () => {
-  let inputAccount = $('#op-account').val()
-  let cur = getObjectByName(global.__accounts, inputAccount)._currency
+  const inputAccount = $('#op-account').val()
+  const cur = getObjectByName(global.__accounts, inputAccount)._currency
   $('#op-amount-btn').children().children().removeClass()
   $('#op-amount-btn').children().children().addClass("fa")
   $('#op-amount-btn').children().children().addClass("fa-" + cur)
@@ -15,7 +15,7 @@ $('#op-account').on('change', () => {
 
 
 $('#op-date').on('change', () => {
-  let inputDate = $('#op-date').val()
+  const inputDate = $('#op-date').val()
   if (moment(inputDate, globSettings.dateFormat).isValid()) {
     $('#op-date').removeClass('is-danger')
     $('#op-date-btn').removeClass('is-danger')
@@ -30,14 +30,14 @@ $('#op-date').on('change', () => {
 })
 
 $('#op-date').keydown(function(event) {
-  if (event.keyCode == 38) {
+  if (event.keyCode === 38) {
     $('#op-date').val(
       moment(
         moment($('#op-date').val(), globSettings.dateFormat)
         .add(1, 'day'))
       .format(globSettings.dateFormat)
     )
-  } else if (event.keyCode == 40) {
+  } else if (event.keyCode === 40) {
     $('#op-date').val(
       moment(
         moment($('#op-date').val(), globSettings.dateFormat)
@@ -48,14 +48,13 @@ $('#op-date').keydown(function(event) {
 })
 
 $('#op-type').on('change', () => {
-  let val = $('#op-type').val();
+  const val = $('#op-type').val();
   $('#op-type-btn').children().children().removeClass();
   $('#op-type-btn').children().children().addClass('fa')
   $('#op-type-btn').children().children().addClass('fa fa-' + val)
 })
 
 function getOperationValues(event) {
-  //let settings = jsonfile.readFileSync(__basedir + '/settings.json');
   if (!$(event).attr('disabled')) {
     const date = $('#op-date').val()
     const amount = $('#op-amount').val()

@@ -1,8 +1,7 @@
 class Database {
   constructor(file = null) {
     if (file != null) {
-      console.log('Reading '+file);
-      let filebuffer = fs.readFileSync(file);
+      const filebuffer = fs.readFileSync(file);
       this.sql = new SQL.Database(filebuffer);
     } else {
       throw new Error('No file provided', 'Database.class.js',7)
@@ -10,9 +9,9 @@ class Database {
   }
 
   exec(sqlstr) {
-    let aux = this.sql.exec(sqlstr)[0];
+    const aux = this.sql.exec(sqlstr)[0];
     if(aux === undefined) throw new Error("Empty response",'Database.class.js',15)
-    let res = [];
+    const res = [];
     for (var i = 0; i < aux.values.length; i++) {
       res[i] = {}
       for (var j = 0; j < aux.columns.length; j++) {
@@ -23,7 +22,7 @@ class Database {
   }
 
   export(filepath) {
-    let binArray = this.sql.export()
+    const binArray = this.sql.export()
     fs.writeFile(filepath, binArray, (err) => {
       if (err) {
         throw err;
@@ -36,28 +35,23 @@ class Database {
     for (var i = 0; i < res[0].columns.length; i++) {
       str += res[0].columns[i].toUpperCase() + "\t|\t"
     }
-    console.log(str);
     for (var i = 0; i < res[0].values.length; i++) {
       str = "|\t";
       for (var j = 0; j < res[0].columns.length; j++) {
         str += res[0].values[i][j]
         str += "\t|\t"
       }
-      console.log(str);
     }
   }
 
   // @Change
   lookup(date, account, amount, state) {
-    let lastlookup = this.exec('SELECT lastlookup FROM Accounts WHERE name="'+account+'"')[0].lastlookup;
+    const lastlookup = this.exec('SELECT lastlookup FROM Accounts WHERE name="'+account+'"')[0].lastlookup;
     if(moment(date, "YYYY-MM-DD").isBefore(moment(lastlookup,"YYYY-MM-DD"))){
-      alert("fullLookup");
       this.fullLookup(account);
     } else if (moment(date, "YYYY-MM-DD").isBefore(moment().format("YYYY-MM-DD"))){
-      alert("newlookup");
       this.newlookup(lastlookup,account);
     } else {
-      alert("locallookup");
       this.locallookup(account, amount, date, state);
     }
   }
@@ -146,9 +140,8 @@ class Database {
   }
 
   insertOperation(account, data, df) {
-    console.log(new Date() + '--- Inserting New Operation');
     if(account === null || account === undefined) throw new Error('No account provided','Database.class.js',52)
-    let sqlstmt = this.sql.prepare("INSERT INTO OPERATION(date,state,beneficiary,category,label,amount,type,account_name) VALUES(:date,:state,:beneficiary,:category,:label,:amount,:type,:account_name)")
+    const sqlstmt = this.sql.prepare("INSERT INTO OPERATION(date,state,beneficiary,category,label,amount,type,account_name) VALUES(:date,:state,:beneficiary,:category,:label,:amount,:type,:account_name)")
     sqlstmt.getAsObject({
       ':date' : moment(data[0],df).format('YYYY-MM-DD'),
       ':state' : data[1],
@@ -165,10 +158,8 @@ class Database {
   }
 
   editOperation(id, data, df){
-    console.log(new Date() + '--- Updating Operation #'+id);
     if(data[0] === null || data[0] === undefined) throw new Error('No account provided','Database.class.js',52)
-    let formerdate = this.exec('SELECT date FROM OPERATION WHERE id='+id)[0].date
-    let sqlstmt = this.sql.prepare("UPDATE OPERATION SET date=:date,state=:state,beneficiary=:beneficiary,category=:category,label=:label,amount=:amount,type=:type,account_name=:account_name WHERE id="+id)
+    const sqlstmt = this.sql.prepare("UPDATE OPERATION SET date=:date,state=:state,beneficiary=:beneficiary,category=:category,label=:label,amount=:amount,type=:type,account_name=:account_name WHERE id="+id)
     sqlstmt.getAsObject({
       ':date' : moment(data[1],df).format('YYYY-MM-DD'),
       ':state' : data[2],
@@ -184,17 +175,16 @@ class Database {
   }
 
   deleteOperation(id) {
-    console.log(new Date() + '--- Deleting Operation');
     if( typeof id != "number") throw new Error('Invalid token')
-    let account = this.exec('SELECT account_name from OPERATION where id='+id)[0].account_name
+    const account = this.exec('SELECT account_name from OPERATION where id='+id)[0].account_name
     this.sql.run('DELETE FROM OPERATION WHERE `id`='+id);
     this.fullLookup(account);
   }
 
   updateTable(account,date,state,amount){
-    let res = new Array()
+    const res = [];
     let sqlstr = "SELECT `id`,`state`,`date`,`type`,`beneficiary`,`category`,`label`,`amount` FROM OPERATION WHERE `account_name`=:account";
-    if (state != "*") {
+    if (state !== "*") {
       sqlstr += " AND `state`=:state";
     }
     if(amount === "plus"){
@@ -203,7 +193,7 @@ class Database {
       sqlstr += " AND `amount`<=0";
     }
     sqlstr += " AND `date`>=:date ORDER BY `date` DESC"
-    let sqlstmt = this.sql.prepare(sqlstr);
+    const sqlstmt = this.sql.prepare(sqlstr);
     sqlstmt.bind({
       ':account' : account,
       ':date' : date,
@@ -218,7 +208,7 @@ class Database {
   }
 
   addAccount(name, currency, baseAmount){
-    let sqlstmt = this.sql.prepare("INSERT INTO Accounts VALUES (:name, :currency, :inBank, :today, :future,:amount,:date)");
+    const sqlstmt = this.sql.prepare("INSERT INTO Accounts VALUES (:name, :currency, :inBank, :today, :future,:amount,:date)");
     sqlstmt.getAsObject({
       ':name' :name,
       ':currency' : currency,
@@ -238,8 +228,8 @@ class Database {
 
   buildChartData(account){
     this.sql.run('DELETE FROM `ChronoBase` WHERE account="'+account+'"');
-    let operations = this.exec('SELECT date, amount FROM OPERATION WHERE account_name="'+account+'" ORDER BY date');
-    let baseAmount = this.exec('SELECT baseAmount FROM Accounts WHERE name="'+account+'"')[0].baseAmount;
+    const operations = this.exec('SELECT date, amount FROM OPERATION WHERE account_name="'+account+'" ORDER BY date');
+    const baseAmount = this.exec('SELECT baseAmount FROM Accounts WHERE name="'+account+'"')[0].baseAmount;
     let currentAmount = baseAmount;
     let sqlstmt = this.sql.prepare("INSERT INTO ChronoBase(date,amount,account) VALUES (:date,:amount,:account)")
     for (var i = 0; i < operations.length; i++) {

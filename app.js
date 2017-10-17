@@ -26,7 +26,7 @@ global.__basedir = __dirname;
 let filePath = "";
 let win;
 let isDev = false;
-let template = [{
+const template = [{
   label: 'File',
   submenu: [{
       label: 'About Mercury'
@@ -152,7 +152,7 @@ let template = [{
       accelerator: 'CmdOrCtrl+F',
       role: 'togglefullscreen'
     }, {
-      label: 'Close',
+      label: 'Close Window',
       accelerator: 'CmdOrCtrl+W',
       role: 'close'
     }]
@@ -232,7 +232,7 @@ function createWindow() {
     title: 'Mercury',
     slashes: true
   }))
-  let mainTBar = new TouchBar([
+  const mainTBar = new TouchBar([
     openTBPopover,
     new TouchBarSpacer({size: 'flexible'}),
     tabTBButton,
@@ -437,8 +437,6 @@ exports.openBalanceWindow = function() {
 
 ipcMain.on('open-file', (event) => {
   openfile((file) => {
-    console.log('--- File selected ');
-    console.log(file);
     event.returnValue = file;
   });
 })

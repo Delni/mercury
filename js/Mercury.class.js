@@ -5,13 +5,12 @@ class Mercury {
 
    createNewAccount() {
     $('#createNewAccount').addClass('is-loading')
-    //let data = jsonfile.readFileSync(__basedir + '/data/data.json');
-    let name = $('input[name="a-name"]').val()
+    const name = $('input[name="a-name"]').val()
     let currency = $('select[name="a-cur"]').val()
     let amount = $('input[name="a-amount"]').val()
     amount = Number((amount === '') ? 0 : amount);
     currency = (currency === null) ? 'money' : currency;
-    account = {
+    const account = {
       "name": name,
       "currency": currency,
       "amount": [{
@@ -28,7 +27,7 @@ class Mercury {
         }
       ]
     }
-    let bAccount = new BankAccount(name, currency, amount, amount, amount)
+    const bAccount = new BankAccount(name, currency, amount, amount, amount)
     global.__accounts.push(bAccount)
     global.db.addAccount(name, currency, amount)
     setTimeout(() => {
@@ -39,14 +38,12 @@ class Mercury {
       $('input[name="a-amount"]').val(null)
       $('#createNewAccount').removeClass('is-loading')
     }, 1000)
-    //tabToggle($('.tab.is-active').children()[0]);
     showUnsavedTag();
-    // updateAccountsList(data);
   };
 
    deleteAccount(obj) {
-    let name = $(obj).attr('data')
-    let ipcr = (ipc.sendSync('delete-warning', name));
+    const name = $(obj).attr('data')
+    const ipcr = (ipc.sendSync('delete-warning', name));
     if (ipcr === 0) {
       global.db.deleteAccount(name);
       removeDiv($(obj).parent());
@@ -56,15 +53,13 @@ class Mercury {
   }
 
    updateAccountsList(obj = null) {
-    console.log('----- UPDATE -----')
     $('#account-list').empty()
     $('#op-account').empty()
     $('#filter-account').empty()
     $('#op-account').append($('<option>').attr("disabled", "true").text("Select your account"))
-    let accounts = global.db.exec("SELECT * FROM Accounts");
+    const accounts = global.db.exec("SELECT * FROM Accounts");
     let tmp = null;
     for (var i = 0; i < accounts.length; i++) {
-      console.log('Creating account named ' + accounts[i].name);
       tmp = BankAccount.clone(accounts[i]);
       tmp.render('#account-list');
       global.__accounts.push(tmp)
@@ -75,7 +70,6 @@ class Mercury {
         $('<option>').attr("value", accounts[i].name).text(accounts[i].name)
       );
     }
-    console.log('------------------')
   }
 
 
@@ -83,25 +77,16 @@ class Mercury {
     if (!$('#second').parent().hasClass('is-active')) {
       tabToggle($('#second').get(0));
     }
-    let account = data.shift();
+    const account = data.shift();
     global.db.insertOperation(account, data, globSettings.dateFormat);
-    console.log("Creating an Operation on " + account + ": \n" +
-      "\t" + data[0] + "\n" +
-      "\t" + data[1] + "\n" +
-      "\t" + data[2] + "\n" +
-      "\t" + data[3] + "\n" +
-      "\t" + data[4] + "\n" +
-      "\t" + data[5] + "\n" +
-      "\t" + data[6] + "\n"
-    )
     updateSQL("#account");
     showUnsavedTag();
   }
 
    editOp(event) {
-    let id = $(event).attr('data-id');
-    let data = new Array()
-    let fields = ['#op-state','#op-date','#op-type','#op-benef','#op-cat','#op-label','#op-amount']
+    const id = $(event).attr('data-id');
+    const data = [];
+    const fields = ['#op-state','#op-date','#op-type','#op-benef','#op-cat','#op-label','#op-amount']
     $('#op-account').val($('#filter-account').val())
     $('tr').removeClass('is-selected')
     $('#op-title').text('Edit operation')
@@ -129,15 +114,15 @@ class Mercury {
   }
 
    confirmEdit(event) {
-    let data = getOperationValues(event);
-    let id = $(event).attr('data-id');
+    const data = getOperationValues(event);
+    const id = $(event).attr('data-id');
     global.db.editOperation(id,data,globSettings.dateFormat);
     updateSQL('#account');
     showUnsavedTag();
   }
 
    deleteOp(id) {
-    let confirm;
+    const confirm;
     confirm = ipc.sendSync('delete-op-warning');
     if (confirm === 0) {
       global.db.deleteOperation(id);

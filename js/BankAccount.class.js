@@ -52,8 +52,7 @@ class BankAccount {
   }
 
   render(where){
-    console.log(this.name +" is being rendered in "+where)
-    let list = $(where)
+    const list = $(where)
     list.append(
       $('<article>')
       .addClass("card notification is-dark is-paddingless")

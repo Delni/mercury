@@ -27,10 +27,10 @@ $.getScript('../js/Mercury.class.js');
 $.getScript('../js/ChronoChart.class.js');
 
 global.__basedir = path.join(__dirname, '..');
-global.__accounts = new Array();
+global.__accounts = [];
 const dbPath = path.join(global.__basedir, 'data/template.sqlite');
 
-let globSettings = jsonfile.readFileSync(__basedir + '/settings.json');
+const globSettings = jsonfile.readFileSync(__basedir + '/settings.json');
 let unsaved = false;
 
 
@@ -55,13 +55,6 @@ $(function() {
     }
   }
 
-  // let dateField = new CustomField('calendar','#op-content','op-date', { placeholder : 'Pick a Date'});
-  // let amountField =  new CustomField(globSettings.defaultCurrency,'#op-content','op-amount', { placeholder : '0.00'}, 'number')
-  // let accountField =  new CustomField('bank','#op-content','op-account', { placeholder : 'Select account'}, 'select')
-  // let typeField =  new CustomField('credit-card','#op-content','op-type', { placeholder : 'Select account'}, 'select')
-  // let benefField =  new CustomField('building-o','#op-content','op-benef', { placeholder : 'Beneficiary'})
-  // let catField =  new CustomField('flag','#op-content','op-cat', { placeholder : 'Category'})
-  // let labelField =  new CustomField('tag','#op-content','op-label', { placeholder : 'Label'})
   updateAccountsList();
   global.__chronoChart = new ChronoChart($("#chronoChart"), global.__accounts)
   tabToggle($('#first').get(0));
@@ -82,9 +75,9 @@ $(function() {
 //               .o..P'       888
 //               `Y8P'       o888o
 
-let substringMatcher = function(strs) {
+const substringMatcher = function(strs) {
   return function(q, cb) {
-    var matches, substringRegex;
+    var matches, substrRegex;
 
     // an array that will be populated with substring matches
     matches = [];
@@ -236,13 +229,12 @@ $.getScript('../js/HTMLEventHandler.js')
 
 function createNewAccount() {
   $('#createNewAccount').addClass('is-loading')
-  //let data = jsonfile.readFileSync(__basedir + '/data/data.json');
-  let name = $('input[name="a-name"]').val()
+  const name = $('input[name="a-name"]').val()
   let currency = $('select[name="a-cur"]').val()
   let amount = $('input[name="a-amount"]').val()
   amount = Number((amount === '') ? 0 : amount);
   currency = (currency === null) ? 'money' : currency;
-  account = {
+  const account = {
     "name": name,
     "currency": currency,
     "amount": [{
@@ -259,7 +251,7 @@ function createNewAccount() {
       }
     ]
   }
-  let bAccount = new BankAccount(name, currency, amount, amount, amount)
+  const bAccount = new BankAccount(name, currency, amount, amount, amount)
   global.__accounts.push(bAccount)
   global.db.addAccount(name, currency, amount)
   setTimeout(() => {
@@ -276,14 +268,12 @@ function createNewAccount() {
     $('input[name="a-amount"]').val(null)
     $('#createNewAccount').removeClass('is-loading')
   }, 1000)
-  //tabToggle($('.tab.is-active').children()[0]);
   showUnsavedTag();
-  // updateAccountsList(data);
 };
 
 function deleteAccount(obj) {
-  let name = $(obj).attr('data')
-  let ipcr = (ipc.sendSync('delete-warning', name));
+  const name = $(obj).attr('data')
+  const ipcr = (ipc.sendSync('delete-warning', name));
   if (ipcr === 0) {
     global.db.deleteAccount(name);
     removeDiv($(obj).parent());
@@ -299,7 +289,6 @@ function deleteAccount(obj) {
 }
 
 function updateAccountsList(obj = null) {
-  console.log('----- UPDATE -----')
   $('#account-list').empty()
   $('#op-account').empty()
   $('#filter-account').empty()
@@ -314,7 +303,6 @@ function updateAccountsList(obj = null) {
   console.log(accounts);
   let tmp = null;
   for (var i = 0; i < accounts.length; i++) {
-    console.log('Creating account named ' + accounts[i].name);
     tmp = BankAccount.clone(accounts[i]);
     tmp.render('#account-list');
     global.__accounts.push(tmp)
@@ -325,7 +313,6 @@ function updateAccountsList(obj = null) {
       $('<option>').attr("value", accounts[i].name).text(accounts[i].name)
     );
   }
-  console.log('------------------')
 }
 
 
@@ -333,7 +320,7 @@ function createNewOperation(data) {
   if (!$('#second').parent().hasClass('is-active')) {
     tabToggle($('#second').get(0));
   }
-  let account = data.shift();
+  const account = data.shift();
   global.db.insertOperation(account, data, globSettings.dateFormat);
   updateSQL("#account");
   updateAccountsList();
@@ -346,9 +333,9 @@ function createNewOperation(data) {
 }
 
 function editOp(event) {
-  let id = $(event).attr('data-id');
-  let data = new Array()
-  let fields = ['#op-state','#op-date','#op-type','#op-benef','#op-cat','#op-label','#op-amount']
+  const id = $(event).attr('data-id');
+  const data = [];
+  const fields = ['#op-state','#op-date','#op-type','#op-benef','#op-cat','#op-label','#op-amount']
   $('#op-account').val($('#filter-account').val())
   $('tr').removeClass('is-selected')
   $('#op-title').text('Edit operation')
@@ -401,8 +388,8 @@ function inheritOp() {
 }
 
 function confirmEdit(event) {
-  let data = getOperationValues(event);
-  let id = $(event).attr('data-id');
+  const data = getOperationValues(event);
+  const id = $(event).attr('data-id');
   global.db.editOperation(id,data,globSettings.dateFormat);
   updateSQL('#account');
   updateAccountsList()
@@ -450,7 +437,7 @@ function updateSQL(sqlType) {
     //TODO
   } else if (sqlType === "#account") {
 
-    let account = $('#filter-account').val();
+    const account = $('#filter-account').val();
     let date;
     switch ($('#filter-date').val()) {
       case '-30':
@@ -473,9 +460,9 @@ function updateSQL(sqlType) {
 
     }
     date = date.format('YYYY-MM-DD');
-    let state = $('#filter-state').val();
-    let amount = $('#filter-amount').val();
-    let resSQL = global.db.updateTable(account, date, state, amount);
+    const state = $('#filter-state').val();
+    const amount = $('#filter-amount').val();
+    const resSQL = global.db.updateTable(account, date, state, amount);
     generateTable(resSQL);
 
   } else if (sqlType === "Filter") {

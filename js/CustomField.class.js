@@ -80,7 +80,7 @@ class CustomField {
   }
 
   generateSelect(){
-    let select = $('<select>').attr('id', this.id).attr('name', this.id);
+    const select = $('<select>').attr('id', this.id).attr('name', this.id);
 
     for (var i = 0; i < this.opt.options.length; i++) {
       select.append(

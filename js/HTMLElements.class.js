@@ -1,4 +1,4 @@
-let HTMLElements  = {
+const HTMLElements  = {
 
    noData: function(){
     return $('<div>')
@@ -39,7 +39,7 @@ let HTMLElements  = {
   },
 
    accountFilter: function(accountList){
-    let options = {
+    const options = {
       options : []
     }
     for (var i = 0; i < accountList.length; i++) {
@@ -49,7 +49,7 @@ let HTMLElements  = {
   },
 
    dateFilter: function(){
-    let options =
+    const options =
     {
       options : [
         ['-30','30 last days'],
@@ -64,7 +64,7 @@ let HTMLElements  = {
   },
 
    stateFilter: function(){
-    let options = {
+    const options = {
       options: [
         ['*','All'],
         ['fa fa-circle-o','Registered'],
@@ -76,7 +76,7 @@ let HTMLElements  = {
   },
 
    amountFilter: function(){
-    let options = {
+    const options = {
       options: [
         ['*','Any'],
         ['plus','Collection'],
@@ -216,9 +216,9 @@ let HTMLElements  = {
   },
 
   topChart: function(){
-    let ctx = $("#doughnut");
-    let firstDateofMonth = moment().subtract(1,'months').startOf('month').format('YYYY-MM-DD');
-    let lastDateofMonth = moment().subtract(1,'months').endOf('month').format('YYYY-MM-DD');
+    const ctx = $("#doughnut");
+    const firstDateofMonth = moment().subtract(1,'months').startOf('month').format('YYYY-MM-DD');
+    const lastDateofMonth = moment().subtract(1,'months').endOf('month').format('YYYY-MM-DD');
     let data_db;
     try {
       data_db = global.db.exec(`SELECT category, SUM(amount) as s FROM OPERATION WHERE amount<=0 AND date BETWEEN "${firstDateofMonth}" AND "${lastDateofMonth}" GROUP BY category ORDER BY s ASC LIMIT 6`)
@@ -226,7 +226,7 @@ let HTMLElements  = {
       console.warn(e);
       data_db = {s: 1, category:'No data to display'}
     }
-    let data = [], labels = [];
+    const data = [], labels = [];
     let max = 0;
     for (var i = 0; i < data_db.length; i++) {
       max+= -data_db[i].s.toFixed(2);
@@ -273,6 +273,6 @@ let HTMLElements  = {
       config.options.legend.labels = {fontColor: 'rgb(237, 237, 237)',}
     }
 
-    doughnut = new Chart(ctx, config);
+    let doughnut = new Chart(ctx, config);
   }
 }

@@ -9,7 +9,7 @@ const moment = require('moment')
 window.$ = $;
 global.__basedir = __dirname + "/..";
 
-let globSettings = jsonfile.readFileSync(__basedir + '/settings.json');
+const globSettings = jsonfile.readFileSync(__basedir + '/settings.json');
 
 $(window).resize(() => {
   $('#table-container').css('max-height', 0.30 * window.innerHeight);
@@ -21,25 +21,20 @@ $(() => {
   $('#table-container').css('height', 0.30 * window.innerHeight)
   $('#select-cur').val(globSettings.defaultCurrency).change();
   toggleTheme($(`#${globSettings.theme}`).get(0))
-  // if (globSettings.theme === "light") {
-  //   $('.btn-theme[data="enable"]').addClass('is-outlined');
-  // } else {
-  //   $('.btn-theme[data="disable"]').addClass('is-outlined');
-  // }
-  let beneficiaries = globSettings.beneficiaries;
-  updatePresetsTable(beneficiaries)
+  updatePresetsTable(globSettings.beneficiaries)
 })
+
 $('#select-cur').on('change', () => {
-  let val = $('#select-cur').val();
+  const val = $('#select-cur').val();
   $('#selected-cur').removeClass();
   $('#selected-cur').addClass('fa')
   $('#selected-cur').addClass('fa fa-' + val)
 })
 
 $('#save-btn').on("click", () => {
-  let defaultCurrency = $('#select-cur').val();
-  let language = $('#select-lang').val();
-  let theme = ($('.btn-theme.is-outlined').attr('data') == 'enable') ? "light":"dark";
+  const defaultCurrency = $('#select-cur').val();
+  const language = $('#select-lang').val();
+  const theme = ($('.btn-theme.is-outlined').attr('data') === 'enable') ? "light":"dark";
   globSettings.language = language;
   globSettings.defaultCurrency = defaultCurrency;
   globSettings.theme = theme;
@@ -80,11 +75,11 @@ function toggleTheme(obj) {
 function updatePresetsTable(list) {
   $('#table-b').empty();
   for (var i = 0; i < list.length; i++) {
-    addRow(list[i],list);
+    addRow(list[i]);
   }
 }
 
-function addRow(obj,parent) {
+function addRow(obj) {
   $('#table-b').append(
     $('<tr>').append(
       $('<td>').text(obj)
@@ -117,5 +112,3 @@ function eject(target) {
   }
   return false;
 }
-
-console.log("*** SETTINGS.JS IS LOADED ***");

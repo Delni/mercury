@@ -39,7 +39,7 @@ class ChronoChart {
     this.ctx = ctx;
     this.config.data = { datasets: []};
     for (var i = 0; i < accounts.length; i++) {
-      let colors = this.colorsPicker();
+      const colors = this.colorsPicker();
       let data;
       try {
         data = global.db.exec(`SELECT date, amount FROM ChronoBase WHERE account="${accounts[i].name}" AND date>="${moment().subtract(1,'months').format('YYYY-MM-DD')}" AND date<="${moment()/*.add(10,'days')*/.format('YYYY-MM-DD')}" GROUP BY date`);
@@ -47,7 +47,7 @@ class ChronoChart {
         data = [];
         console.error(e);
       }
-      let newDataset = {
+      const newDataset = {
         label: this.currencyConverter(accounts[i].currency),
         backgroundColor: colors.backgroundColor,
         borderColor: colors.borderColor,
@@ -64,7 +64,7 @@ class ChronoChart {
           if(data[j].amount < 0) this.belowZ = true;
           lastDate = data[j].Date;
       }
-      let newforeDataset = {
+      const newforeDataset = {
         label: this.currencyConverter(accounts[i].currency),
         backgroundColor: colors.backgroundColor,
         borderColor: colors.borderColor,
@@ -98,7 +98,7 @@ class ChronoChart {
   }
 
   colorsPicker(){
-    let tmp = this.colors.shift();
+    const tmp = this.colors.shift();
     this.colors.push(tmp);
     return tmp;
   }
@@ -120,9 +120,8 @@ class ChronoChart {
   }
 
   addDangerZone(){
-    let datasetslength = this.config.data.datasets.length - 1;
-    let lastDate = this.lastof(this.config.data.datasets);
-    let firstDate = this.firstof(this.config.data.datasets);
+    const lastDate = this.lastof(this.config.data.datasets);
+    const firstDate = this.firstof(this.config.data.datasets);
     this.config.data.datasets.push({
       label: 'Warning zone',
       backgroundColor: 'rgba(221, 50, 50, 0.2)',
@@ -155,7 +154,7 @@ class ChronoChart {
 
   refresh(accounts){
     for (var i = 0; i < accounts.length; i+=2) {
-      let data= global.db.exec(`SELECT date, amount FROM ChronoBase WHERE account="${accounts[i].name}" AND date>="${moment().subtract(1,'months').format('YYYY-MM-DD')}" AND date<="${moment()/*.add(10,'days')*/.format('YYYY-MM-DD')}" GROUP BY date`)
+      const data= global.db.exec(`SELECT date, amount FROM ChronoBase WHERE account="${accounts[i].name}" AND date>="${moment().subtract(1,'months').format('YYYY-MM-DD')}" AND date<="${moment()/*.add(10,'days')*/.format('YYYY-MM-DD')}" GROUP BY date`)
       let lastDate;
       if (typeof this.config.data.datasets[i] === "undefined") throw new Error("No #"+i+" dataset found");
       for (var j = 0; j < data.length; j++) {
@@ -168,7 +167,7 @@ class ChronoChart {
       while (this.config.data.datasets[i].data.length !== data.length) {
         this.config.data.datasets[i].data.pop();
       }
-      let foredata= global.db.exec(`SELECT date, amount FROM ChronoBase WHERE account="${accounts[i].name}" AND date>="${lastDate}" GROUP BY date`)
+      const foredata= global.db.exec(`SELECT date, amount FROM ChronoBase WHERE account="${accounts[i].name}" AND date>="${lastDate}" GROUP BY date`)
       for (var j = 0; j < foredata.length; j++) {
         this.config.data.datasets[i+1].data[j] = {
             x: moment(foredata[j].Date,'YYYY-MM-DD').format('DD/MM/YYYY'),
