@@ -432,6 +432,20 @@ function deleteOp(id) {
 }
 
 function updateSQL(sqlType) {
+  switch (sqlType) {
+    case "#dashboard":
+      ipc.send('tab-update',0);
+      break;
+    case "#account":
+      ipc.send('tab-update',1);
+      break;
+    case "#reccuring":
+      ipc.send('tab-update',2);
+      break;
+    default:
+      ipc.send('tab-update',0)
+
+  }
   if (sqlType === "#dashboard") {
     //TODO
   } else if (sqlType === "#account") {

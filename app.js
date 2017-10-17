@@ -228,12 +228,17 @@ function createWindow() {
     title: 'Mercury',
     slashes: true
   }))
-  win.setTouchBar(new TouchBar([
+  let mainTBar = new TouchBar([
     openTBPopover,
     new TouchBarSpacer({size: 'flexible'}),
     tabTBButton,
     new TouchBarSpacer({size: 'flexible'})
-  ]))
+  ]);
+  win.setTouchBar(mainTBar);
+
+  ipcMain.on('tab-update',(event,args) => {
+    mainTBar.items['9'].selectedIndex=args
+  })
 
   win.once('ready-to-show', () => {
     win.show();
@@ -324,7 +329,7 @@ exports.openChronoWindow = function() {
     chronoWin = new BrowserWindow({
       background: true,
       frame: false,
-      width: 1000,
+      width: 1200,
       height: 600,
       backgroundColor: '#282c34',
       icon: path.join(__dirname, '/icons/png/64x64.png')
@@ -397,6 +402,9 @@ exports.openStatisticWindow = function() {
   } else {
     statisticWin.focus();
   }
+  // ipcMain.on('slider-display',(event,args) => {
+  //   //statisticTBar.items['13'].value = args
+  // })
 }
 
 exports.openBalanceWindow = function() {
