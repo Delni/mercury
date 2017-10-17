@@ -149,7 +149,6 @@ class ChronoChart {
     let firstDate = "01/01/2999";
     for (var i = 0; i < datasets.length; i++) {
       firstDate = (moment(datasets[i].data[0].x,'DD/MM/YYYY').isBefore(moment(firstDate,'DD/MM/YYYY'))) ? datasets[i].data[0].x : firstDate;
-      console.log(datasets[i].data[0].x);
     }
     return firstDate;
   }

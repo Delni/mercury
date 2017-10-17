@@ -57,22 +57,22 @@ $('#op-type').on('change', () => {
 function getOperationValues(event) {
   //let settings = jsonfile.readFileSync(__basedir + '/settings.json');
   if (!$(event).attr('disabled')) {
-    let date = $('#op-date').val()
-    let amount = $('#op-amount').val()
-    let account = $('#op-account').val()
-    let type = $('#op-type').val()
-    let benef = $('#op-benef').val()
-    let cat = $('#op-cat').val()
-    let label = $('#op-label').val()
-    let state = $('#btn-icon').attr('class')
+    const date = $('#op-date').val()
+    const amount = $('#op-amount').val()
+    const account = $('#op-account').val()
+    const type = $('#op-type').val()
+    const benef = $('#op-benef').val()
+    const cat = $('#op-cat').val()
+    const label = $('#op-label').val()
+    const state = $('#btn-icon').attr('class')
     resetOp(globSettings)
-    if (!isInList(benef, globSettings.beneficiaries) && benef != "") {
+    if (!isInList(benef, globSettings.beneficiaries) && benef !== "") {
       globSettings.beneficiaries.push(benef)
     }
-    if (!isInList(label, globSettings.labels) && label != "") {
+    if (!isInList(label, globSettings.labels) && label !== "") {
       globSettings.labels.push(label)
     }
-    if (!isInList(cat, globSettings.categories) && cat != "") {
+    if (!isInList(cat, globSettings.categories) && cat !== "") {
       globSettings.categories.push(cat)
     }
     jsonfile.writeFile(__basedir + '/settings.json', globSettings, {
@@ -82,13 +82,13 @@ function getOperationValues(event) {
         console.error(err);
       }
     })
-    return new Array(account,date, state, benef, cat, label, amount, type);
+    return [account,date, state, benef, cat, label, amount, type];
   }
   return null;
 }
 
 function addOperation(event) {
-  let formValues = getOperationValues(event);
+  const formValues = getOperationValues(event);
   if (formValues != null) {
     createNewOperation(formValues)
   }
@@ -100,7 +100,7 @@ $('#op-cancel-btn').on('click', () => {
 
 
 $('#btn-state').on('click', () => {
-  let icon = $('#btn-icon')
+  const icon = $('#btn-icon')
   if (icon.hasClass('fa-circle-o')) {
     icon.removeClass();
     icon.addClass('fa fa-circle')
@@ -272,7 +272,7 @@ function toggleClass(obj, classStr) {
 function generateTable(list) {
   $('#table-sql').empty()
   for (var i = 0; i < list.length; i++) {
-    let row = $('<tr>').attr('data-id', list[i][0]).attr('onclick','editOp(this)');
+    const row = $('<tr>').attr('data-id', list[i][0]).attr('onclick','editOp(this)');
     if (moment(list[i][2], 'YYYY-MM-DD').isAfter(moment())) {
       row.addClass('is-future has-text-grey');
     }

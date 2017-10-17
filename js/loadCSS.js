@@ -18,7 +18,7 @@ const jsonfile = require('jsonfile')
 // Personnal CSS
 let myCSS = document.createElement("link")
 myCSS.setAttribute("rel","stylesheet")
-if(jsonfile.readFileSync(__dirname+'/../settings.json').theme == 'light'){
+if(jsonfile.readFileSync(__dirname+'/../settings.json').theme === 'light'){
   myCSS.setAttribute("href","../assets/light.css");
 } else {
   myCSS.setAttribute("href","../assets/dark.css");

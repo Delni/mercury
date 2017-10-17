@@ -226,7 +226,6 @@ let HTMLElements  = {
       console.warn(e);
       data_db = {s: 1, category:'No data to display'}
     }
-    console.log(data_db);
     let data = [], labels = [];
     let max = 0;
     for (var i = 0; i < data_db.length; i++) {

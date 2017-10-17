@@ -305,7 +305,7 @@ function updateAccountsList(obj = null) {
   $('#filter-account').empty()
   $('#op-account').append($('<option>').attr("disabled", "true").text("Select your account"))
   let accounts;
-  global.__accounts = new Array();
+  global.__accounts = [];
   try {
     accounts = global.db.exec("SELECT * FROM Accounts");
   } catch (e) {
@@ -383,13 +383,13 @@ function editOp(event) {
 }
 
 function inheritOp() {
-  let amount = $('#op-amount').val();
-  let account = $('#op-account').val();
-  let type = $('#op-type').val();
-  let benef = $('#op-benef').val();
-  let cat = $('#op-cat').val();
-  let label = $('#op-label').val();
-  let state = $('#btn-icon').attr('class');
+  const amount = $('#op-amount').val();
+  const account = $('#op-account').val();
+  const type = $('#op-type').val();
+  const benef = $('#op-benef').val();
+  const cat = $('#op-cat').val();
+  const label = $('#op-label').val();
+  const state = $('#btn-icon').attr('class');
   resetOp(globSettings);
   $('#op-amount').val(amount);
   $('#op-account').val(account);
@@ -468,6 +468,8 @@ function updateSQL(sqlType) {
       case '-1y':
         date = moment().startOf('year');
         break;
+      default:
+        date = moment().subtract(30,'days');
 
     }
     date = date.format('YYYY-MM-DD');
@@ -487,7 +489,5 @@ function updateSQL(sqlType) {
 
 
 (function() {
-  'use strict';
   $("#cover").hide();
-
 }());

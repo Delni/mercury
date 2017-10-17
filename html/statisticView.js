@@ -12,7 +12,7 @@ global.__basedir = __dirname + "/..";
 $.getScript(path.join(global.__basedir,'js/CustomField.class.js'));
 $.getScript(path.join(global.__basedir,'js/Database.class.js'));
 
-let globSettings = jsonfile.readFileSync(__basedir + '/settings.json');
+const globSettings = jsonfile.readFileSync(__basedir + '/settings.json');
 global.opt = {
   nbCat: 6,
   period: 'month',
@@ -148,7 +148,7 @@ $(document).ready(() => {
 
   $('#period').on('change',() => {
     global.opt.allDates = false;
-    let previousVal = $('#append-data').get(0).checked;
+    const previousVal = $('#append-data').get(0).checked;
     $('#append-data').get(0).checked = false;
     $('input[type="checkbox"]').attr('disabled',false);
     $('label[for="append-data"]').attr('disabled',false);
@@ -195,7 +195,7 @@ $(document).ready(() => {
   })
 
 
-  let ctx = $("#myChart");
+  const ctx = $("#myChart");
 
   updateConfig();
 
@@ -208,7 +208,7 @@ $(document).ready(() => {
 
 
   $('#chart-type').on('change', () => {
-    let val = $('#chart-type').val();
+    const val = $('#chart-type').val();
     $('#chart-type-btn').children().children().removeClass();
     $('#chart-type-btn').children().children().addClass('fa')
     $('#chart-type-btn').children().children().addClass('fa fa-' + val)
@@ -241,7 +241,6 @@ $(document).ready(() => {
     myChart = new Chart(ctx, temp);
   };
 })
-
 
 function throwVal(event) {
   global.opt.nbCat = $(event).val();
@@ -279,14 +278,12 @@ function throwPrevious(){
 
 function updateConfig(){
   let data_db;
-  let lowDate  = moment(global.opt.firstDate,'YYYY-MM-DD').subtract(global.opt.periodOffset,global.opt.period).format('YYYY-MM-DD');
-  let highDate = moment(global.opt.lastDate,'YYYY-MM-DD').subtract(global.opt.periodOffset,global.opt.period).format('YYYY-MM-DD');
+  const lowDate  = moment(global.opt.firstDate,'YYYY-MM-DD').subtract(global.opt.periodOffset,global.opt.period).format('YYYY-MM-DD');
+  const highDate = moment(global.opt.lastDate,'YYYY-MM-DD').subtract(global.opt.periodOffset,global.opt.period).format('YYYY-MM-DD');
   try {
     if (global.opt.allDates) {
-      console.log(`SELECT * FROM (SELECT category, SUM(amount) as s FROM OPERATION WHERE amount<=0 GROUP BY category ORDER BY s LIMIT ${global.opt.nbCat}) ORDER BY ${global.opt.order} ASC`);
       data_db = global.db.exec(`SELECT * FROM (SELECT category, SUM(amount) as s FROM OPERATION WHERE amount<=0 GROUP BY category ORDER BY s LIMIT ${global.opt.nbCat}) ORDER BY ${global.opt.order} ASC`)
     } else {
-      console.log(`SELECT * FROM (SELECT category, SUM(amount) as s FROM OPERATION WHERE amount<=0 AND date BETWEEN "${lowDate}" AND "${highDate}" GROUP BY category ORDER BY s LIMIT ${global.opt.nbCat}) ORDER BY ${global.opt.order} ASC`);
       data_db = global.db.exec(`SELECT * FROM (SELECT category, SUM(amount) as s FROM OPERATION WHERE amount<=0 AND date BETWEEN "${lowDate}" AND "${highDate}" GROUP BY category ORDER BY s LIMIT ${global.opt.nbCat}) ORDER BY ${global.opt.order} ASC`)
     }
   } catch (e) {
@@ -302,18 +299,17 @@ function updateConfig(){
   }
   for (var i = 0; i < data_db.length; i++) {
     data.push(-data_db[i].s.toFixed(2));
-    let legend = global.opt.percent ? (-data_db[i].s.toFixed(2)/max*100).toFixed(2)+'%' : -data_db[i].s.toFixed(2)
+    const legend = global.opt.percent ? (-data_db[i].s.toFixed(2)/max*100).toFixed(2)+'%' : -data_db[i].s.toFixed(2)
     labels.push(((data_db[i].category === "") ? "Other" : data_db[i].category)+` (${legend})`)
   }
   global.config.data.labels = labels;
   global.config.data.datasets[0].data= data;
 
   if(global.opt.previous){
-    let data_db2=[], data2 = [], labels2 = [], collection ='(';
+    let data_db2=[], data2 = [];
     let lowDate  = moment(global.opt.firstDate,'YYYY-MM-DD').subtract(1+global.opt.periodOffset,global.opt.period).format('YYYY-MM-DD');
     let highDate = moment(global.opt.lastDate,'YYYY-MM-DD').subtract(1+global.opt.periodOffset,global.opt.period).format('YYYY-MM-DD');
     for (var i = 0; i < data_db.length; i++) {
-      console.log(`SELECT category, SUM(amount) as s FROM OPERATION WHERE amount<=0 AND category="${data_db[i].category}" AND date BETWEEN "${lowDate}" AND "${highDate}" GROUP BY category ORDER BY ${global.opt.order} ASC LIMIT ${global.opt.nbCat}`);
       try {
         data_db2.push(global.db.exec(`SELECT category, SUM(amount) as s FROM OPERATION WHERE amount<=0 AND category="${data_db[i].category}" AND date BETWEEN "${lowDate}" AND "${highDate}" GROUP BY category ORDER BY ${global.opt.order} ASC LIMIT ${global.opt.nbCat}`)[0]);
       } catch (e) {
@@ -403,6 +399,5 @@ ipc.on('slider-input',(event,arg) => {
 
 ipc.on('toggle-time-span',(event,args) => {
   let options = document.getElementById('period').options;
-  console.log(options);
   $('#period').val(options[args].value).change();
 })

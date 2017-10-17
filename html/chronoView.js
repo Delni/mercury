@@ -13,10 +13,10 @@ $.getScript(path.join(global.__basedir,'js/CustomField.class.js'));
 $.getScript(path.join(global.__basedir,'js/Database.class.js'));
 $.getScript(path.join(global.__basedir,'js/BankAccount.class.js'));
 
-let globSettings = jsonfile.readFileSync(__basedir + '/settings.json');
+const globSettings = jsonfile.readFileSync(__basedir + '/settings.json');
 
 
-let colors = [
+const colors = [
   {backgroundColor: 'rgba(50, 115, 221,0.2)', borderColor: '#3273dc'},
   {backgroundColor: 'rgba(50, 221, 72, 0.2)', borderColor: '#32dd61'},
   {backgroundColor: 'rgba(221, 188, 50, 0.2)', borderColor: '#d9dd32'},
@@ -74,9 +74,9 @@ $(document).ready(() => {
   }
 
   {
-    global.accounts = new Array();
+    global.accounts = [];
     try {
-      db_accounts = global.db.exec("SELECT * FROM Accounts");
+      var db_accounts = global.db.exec("SELECT * FROM Accounts");
     } catch (e) {
       db_accounts = [];
     }
@@ -173,7 +173,7 @@ $(document).ready(() => {
   })
 
   $('#fCustomDate').keydown(function(event) {
-    if (event.keyCode == 38) {
+    if (event.keyCode === 38) {
       $('#fCustomDate').val(
         moment(
           moment($('#fCustomDate').val(), globSettings.dateFormat)
@@ -181,7 +181,7 @@ $(document).ready(() => {
         .format(globSettings.dateFormat)
       )
       $('#fCustomDate').change();
-    } else if (event.keyCode == 40) {
+    } else if (event.keyCode === 40) {
       $('#fCustomDate').val(
         moment(
           moment($('#fCustomDate').val(), globSettings.dateFormat)
@@ -193,7 +193,7 @@ $(document).ready(() => {
   })
 
   $('#lCustomDate').keydown(function(event) {
-    if (event.keyCode == 38) {
+    if (event.keyCode === 38) {
       $('#lCustomDate').val(
         moment(
           moment($('#lCustomDate').val(), globSettings.dateFormat)
@@ -201,7 +201,7 @@ $(document).ready(() => {
         .format(globSettings.dateFormat)
       )
       $('#lCustomDate').change();
-    } else if (event.keyCode == 40) {
+    } else if (event.keyCode === 40) {
       $('#lCustomDate').val(
         moment(
           moment($('#lCustomDate').val(), globSettings.dateFormat)
@@ -220,7 +220,7 @@ $(document).ready(() => {
     throwCustom();
   });
 
-  let ctx = $("#myChart");
+  const ctx = $("#myChart");
 
   updateConfig();
 
@@ -239,7 +239,7 @@ function throwFloor() {
 }
 
 function throwPeriod(){
-  let period = $('#period').val();
+  const period = $('#period').val();
   opt.allDates = false;
   switch (period) {
     case 'thismonth':
@@ -284,7 +284,7 @@ function throwCustom() {
 function updateConfig() {
   $('#fCustomDate').val(moment(opt.firstDate,'YYYY-MM-DD').format(globSettings.dateFormat))
   $('#lCustomDate').val(moment(opt.lastDate,'YYYY-MM-DD').format(globSettings.dateFormat))
-  let lastDate, chartFirstDate;
+  let lastDate, chartFirstDate, tmpColors;
   for (var i = 0; i < accounts.length; i++) {
     let data = null;
     try {
@@ -296,7 +296,7 @@ function updateConfig() {
     } catch (e) {
       data= [{Date: moment().format('YYYY-MM-DD'), amount: 0}];
     }
-    let tmpColors = getColors();
+    tmpColors = getColors();
     chartFirstDate = moment(data[0].Date,'YYYY-MM-DD').isAfter(moment(opt.firstDate,'YYYY-MM-DD')) ? data[0].Date : opt.firstDate;
     if (typeof config.data.datasets[i] === 'undefined') {
       config.data.datasets.push({
@@ -304,10 +304,10 @@ function updateConfig() {
         backgroundColor: tmpColors.backgroundColor,
         borderColor: tmpColors.borderColor,
         borderWidth: 1,
-        data: new Array()
+        data: []
       });
     } else {
-      config.data.datasets[i].data=new Array();
+      config.data.datasets[i].data=[];
     }
 
     for (var j = 0; j < data.length; j++) {
@@ -370,7 +370,7 @@ function updateConfig() {
 }
 
 function getColors() {
-  let tmp = colors.shift();
+  const tmp = colors.shift();
   colors.push(tmp);
   return tmp;
 }

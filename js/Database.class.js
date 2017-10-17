@@ -203,7 +203,6 @@ class Database {
       sqlstr += " AND `amount`<=0";
     }
     sqlstr += " AND `date`>=:date ORDER BY `date` DESC"
-    console.log(sqlstr);
     let sqlstmt = this.sql.prepare(sqlstr);
     sqlstmt.bind({
       ':account' : account,
