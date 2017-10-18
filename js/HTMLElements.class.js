@@ -192,7 +192,7 @@ const HTMLElements  = {
           .append($('<p>').addClass('title level-item').text('What do you want to do ?'))
         )
         .append(
-          $('<div>').addClass('hero-body').append(
+          $('<div>').addClass('hero-body').attr('style','padding-right: 0;').append(
           $('<ul>')
           .append(HTMLElements.addCustomAction('settings','info','sliders','open-swin'))
           .append(HTMLElements.addCustomAction('chrono Chart','primary','area-chart','open-chronowin'))

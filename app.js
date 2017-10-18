@@ -73,21 +73,21 @@ const template = [{
     submenu:[{
         label: 'Time Report',
         accelerator: 'Alt+T',
-        icon: 'assets/img/fa-area-chart_16.png',
+        icon: path.join(__dirname, '/assets/img/fa-area-chart_16.png'),
         click() {
           exports.openChronoWindow();
         }
       },{
         label: 'Statistic Report',
         accelerator: 'Alt+S',
-        icon: 'assets/img/fa-pie-chart_16.png',
+        icon: path.join(__dirname, '/assets/img/fa-pie-chart_16.png'),
         click() {
           exports.openStatisticWindow();
         }
       },{
         label: 'Balance Report',
         accelerator: 'Alt+B',
-        icon: 'assets/img/fa-line-chart_16.png',
+        icon: path.join(__dirname, '/assets/img/fa-line-chart_16.png'),
         click() {
           exports.openBalanceWindow();
         }
@@ -113,7 +113,7 @@ const template = [{
 
 const settingTBButton = new TouchBarButton({
   backgroundColor: '#3272dd',
-  icon: 'assets/img/fa-sliders_16.png',
+  icon: path.join(__dirname, '/assets/img/fa-sliders_16.png'),
   click() {
     exports.openSettingWindow();
   }
@@ -121,7 +121,7 @@ const settingTBButton = new TouchBarButton({
 
 const chronoTBButton = new TouchBarButton({
   backgroundColor: '#00d1b2',
-  icon: 'assets/img/fa-area-chart_16.png',
+  icon: path.join(__dirname, '/assets/img/fa-area-chart_16.png'),
   click() {
     exports.openChronoWindow();
   }
@@ -129,7 +129,7 @@ const chronoTBButton = new TouchBarButton({
 
 const statisticTBButton = new TouchBarButton({
   backgroundColor: '#ffdd57',
-  icon: 'assets/img/fa-pie-chart_16.png',
+  icon: path.join(__dirname, '/assets/img/fa-pie-chart_16.png'),
   click() {
     exports.openStatisticWindow();
   }
@@ -137,14 +137,14 @@ const statisticTBButton = new TouchBarButton({
 
 const balanceTBButton = new TouchBarButton({
   backgroundColor: '#ff3860',
-  icon: 'assets/img/fa-line-chart_16.png',
+  icon: path.join(__dirname, '/assets/img/fa-line-chart_16.png'),
   click() {
     exports.openBalanceWindow();
   }
 })
 
 const openTBPopover = new TouchBarPopover({
-  icon: 'assets/img/fa-bars_16.png',
+  icon: path.join(__dirname, '/assets/img/fa-bars_16.png'),
   iconPosition: 'left',
   items: [
     settingTBButton,
