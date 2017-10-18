@@ -169,9 +169,9 @@ const HTMLElements  = {
   dashbody: function() {
     return $('<div>').addClass('tile ancestor notification is-dark is-paddingless')
     .append(
-      $('<div>').addClass('tile is-parent is-vertical')
+      $('<div>').addClass('tile is-parent is-vertical').attr('style','padding-bottom:0')
       .append(
-        $('<div>').addClass('tile is-child is-vertical notification is-black')
+        $('<div>').addClass('tile is-child is-vertical notification is-black is-bottomless')
         .append(
           $('<div>').addClass('level')
           .append($('<p>').addClass('level-left title is-marginless').text('Top outcome'))
@@ -181,13 +181,13 @@ const HTMLElements  = {
             .attr('style','position: relative; top: 0.35em')
           )
         )
-        .append($('<canvas>').attr('id','doughnut').attr('height','350%'))
+        .append($('<canvas>').attr('id','doughnut').attr('height','340%'))
       )
     )
     .append(
-      $('<div>').addClass('tile is-parent is-vertical')
+      $('<div>').addClass('tile is-parent is-vertical').attr('style','padding-bottom:0')
       .append(
-        $('<div>').addClass('tile is-child is-vertical hero notification is-black')
+        $('<div>').addClass('tile is-child is-vertical hero notification is-black is-bottomless')
         .append($('<div>').addClass('level')
           .append($('<p>').addClass('title level-item').text('What do you want to do ?'))
         )

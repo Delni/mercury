@@ -18,9 +18,15 @@ const jsonfile = require('jsonfile')
 // Personnal CSS
 const myCSS = document.createElement("link")
 myCSS.setAttribute("rel","stylesheet")
-if(jsonfile.readFileSync(__dirname+'/../settings.json').theme === 'light'){
-  myCSS.setAttribute("href","../assets/light.css");
-} else {
-  myCSS.setAttribute("href","../assets/dark.css");
-}
+myCSS.setAttribute("href","../assets/master.css");
 document.head.appendChild(myCSS)
+
+// Theme (Black or white)
+const themeCSS = document.createElement("link")
+themeCSS.setAttribute("rel","stylesheet")
+if(jsonfile.readFileSync(__dirname+'/../settings.json').theme === 'light'){
+  themeCSS.setAttribute("href","../assets/light.css");
+} else {
+  themeCSS.setAttribute("href","../assets/dark.css");
+}
+document.head.appendChild(themeCSS)
