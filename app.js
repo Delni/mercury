@@ -121,21 +121,21 @@ const template = [{
     submenu:[{
         label: 'Time Report',
         accelerator: 'Alt+T',
-        icon: 'assets/img/fa-area-chart_16.png',
+        icon: path.join(__dirname,'/assets/img/fa-area-chart_16.png'),
         click() {
           exports.openChronoWindow();
         }
       },{
         label: 'Statistic Report',
         accelerator: 'Alt+S',
-        icon: 'assets/img/fa-pie-chart_16.png',
+        icon: path.join(__dirname,'/assets/img/fa-pie-chart_16.png'),
         click() {
           exports.openStatisticWindow();
         }
       },{
         label: 'Balance Report',
         accelerator: 'Alt+B',
-        icon: 'assets/img/fa-line-chart_16.png',
+        icon: path.join(__dirname,'/assets/img/fa-line-chart_16.png'),
         click() {
           exports.openBalanceWindow();
         }
@@ -161,7 +161,7 @@ const template = [{
 
 const settingTBButton = new TouchBarButton({
   backgroundColor: '#3272dd',
-  icon: 'assets/img/fa-sliders_16.png',
+  icon: path.join(__dirname,'/assets/img/fa-sliders_16.png'),
   click() {
     exports.openSettingWindow();
   }
@@ -169,7 +169,7 @@ const settingTBButton = new TouchBarButton({
 
 const chronoTBButton = new TouchBarButton({
   backgroundColor: '#00d1b2',
-  icon: 'assets/img/fa-area-chart_16.png',
+  icon: path.join(__dirname,'/assets/img/fa-area-chart_16.png'),
   click() {
     exports.openChronoWindow();
   }
@@ -177,7 +177,7 @@ const chronoTBButton = new TouchBarButton({
 
 const statisticTBButton = new TouchBarButton({
   backgroundColor: '#ffdd57',
-  icon: 'assets/img/fa-pie-chart_16.png',
+  icon: path.join(__dirname,'/assets/img/fa-pie-chart_16.png'),
   click() {
     exports.openStatisticWindow();
   }
@@ -185,14 +185,14 @@ const statisticTBButton = new TouchBarButton({
 
 const balanceTBButton = new TouchBarButton({
   backgroundColor: '#ff3860',
-  icon: 'assets/img/fa-line-chart_16.png',
+  icon: path.join(__dirname,'/assets/img/fa-line-chart_16.png'),
   click() {
     exports.openBalanceWindow();
   }
 })
 
 const openTBPopover = new TouchBarPopover({
-  icon: 'assets/img/fa-bars_16.png',
+  icon: path.join(__dirname,'/assets/img/fa-bars_16.png'),
   iconPosition: 'left',
   items: [
     settingTBButton,
@@ -220,7 +220,7 @@ function createWindow() {
     width: 1600,
     height: 1000,
     minWidth: 1270,
-    icon: path.join(__dirname, '/icons/png/64x64.png'),
+    icon: path.join(__dirname, '/icons/png/Round/64x64.png'),
     backgroundColor: '#282c34',
     titleBarStyle: 'hidden-inset',
   })
@@ -312,7 +312,7 @@ exports.openSettingWindow = function() {
       minWidth: 300,
       height: 600,
       backgroundColor: '#282c34',
-      icon: path.join(__dirname, '/icons/png/64x64.png')
+      icon: path.join(__dirname, '/icons/png/Round/64x64.png')
     })
     swin.loadURL(`file://${__dirname}/html/settings.html`)
     swin.setTouchBar(new TouchBar([
@@ -336,7 +336,7 @@ exports.openChronoWindow = function() {
       width: 1000,
       height: 600,
       backgroundColor: '#282c34',
-      icon: path.join(__dirname, '/icons/png/64x64.png')
+      icon: path.join(__dirname, '/icons/png/Round/64x64.png')
     })
     chronoWin.loadURL(`file://${__dirname}/html/chronoView.html`)
     chronoWin.setTouchBar(new TouchBar([
@@ -394,7 +394,7 @@ exports.openStatisticWindow = function() {
       width: 1000,
       height: 600,
       backgroundColor: '#282c34',
-      icon: path.join(__dirname, '/icons/png/64x64.png')
+      icon: path.join(__dirname, '/icons/png/Round/64x64.png')
     })
     statisticWin.loadURL(`file://${__dirname}/html/statisticView.html`)
     statisticWin.setTouchBar(statisticTBar);
@@ -419,7 +419,7 @@ exports.openBalanceWindow = function() {
       width: 1000,
       height: 600,
       backgroundColor: '#282c34',
-      icon: path.join(__dirname, '/icons/png/64x64.png')
+      icon: path.join(__dirname, '/icons/png/Round/64x64.png')
     })
     balanceWin.loadURL(`file://${__dirname}/html/balanceView.html`)
     balanceWin.setTouchBar(new TouchBar([
