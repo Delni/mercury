@@ -67,7 +67,7 @@ const HTMLElements  = {
     const options = {
       options: [
         ['*','All'],
-        ['fa fa-circle-o','Registered'],
+        ['fa fa-circle-o','Regist.'],
         ['fa fa-circle','Checked'],
         ['fa fa-check-circle','Verified']
       ]
@@ -79,7 +79,7 @@ const HTMLElements  = {
     const options = {
       options: [
         ['*','Any'],
-        ['plus','Collection'],
+        ['plus','Income'],
         ['minus','Debit']
       ]
     }
@@ -171,9 +171,9 @@ const HTMLElements  = {
     .append(
       $('<div>').addClass('tile is-parent is-vertical').attr('style','padding-bottom:0')
       .append(
-        $('<div>').addClass('tile is-child is-vertical notification is-black is-bottomless')
+        $('<div>').addClass('tile is-child is-vertical notification is-black')
         .append(
-          $('<div>').addClass('level')
+          $('<div>').addClass('level is-marginless')
           .append($('<p>').addClass('level-left title is-marginless').text('Top outcome'))
           .append(
             $('<p>').addClass('level-right subtitle is-6 is-marginless')
@@ -181,15 +181,20 @@ const HTMLElements  = {
             .attr('style','position: relative; top: 0.35em')
           )
         )
-        .append($('<canvas>').attr('id','doughnut').attr('height','340%'))
+        .append(
+          $('<canvas>')
+            .attr('id','doughnut')
+            .attr('height','340%')
+            .attr('style','position:relative; top:-2em')
+        )
       )
     )
     .append(
       $('<div>').addClass('tile is-parent is-vertical').attr('style','padding-bottom:0')
       .append(
-        $('<div>').addClass('tile is-child is-vertical hero notification is-black is-bottomless')
-        .append($('<div>').addClass('level')
-          .append($('<p>').addClass('title level-item').text('What do you want to do ?'))
+        $('<div>').addClass('tile is-child is-vertical hero notification is-black')
+        .append($('<div>').addClass('level is-marginless')
+          .append($('<p>').addClass('title level-item').text('Quick Access'))
         )
         .append(
           $('<div>').addClass('hero-body').append(
@@ -206,7 +211,7 @@ const HTMLElements  = {
   },
 
   addCustomAction: function(text,color,icon,ipcmsg){
-    return $('<li>').addClass('subtitle')
+    return $('<li>').addClass('subtitle is-5')
     .append($('<span>').text("• Open the "))
     .append($('<span>').addClass('has-text-'+color+' link')
       .attr('onclick',"ipc.send('action-trigger','"+ipcmsg+"')")
@@ -255,17 +260,19 @@ const HTMLElements  = {
             labels: labels
         },
         options: {
-            responsive: true,
-            legend: {
-                position: 'bottom',
-            },
-            title: {
-                display: false
-            },
-            animation: {
-                animateScale: true,
-                animateRotate: true
-            }
+          rotation: Math.PI,
+          circumference: Math.PI,
+          responsive: true,
+          legend: {
+              position: 'bottom',
+          },
+          title: {
+              display: false
+          },
+          animation: {
+              animateScale: true,
+              animateRotate: true
+          }
         }
     };
 

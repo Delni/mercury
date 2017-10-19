@@ -53,7 +53,7 @@ abbr {
 }
 
 .is-main-pane>*{
-  height: 100%;
+  height: 90%;
 }
 
 .icon {
@@ -74,7 +74,7 @@ abbr {
 
 #dash-body {
   max-width: 64vw;
-  height: 100%;
+  height: 95%;
   max-height: 60vh;
   overflow-y: scroll;
   padding-right: 1em;

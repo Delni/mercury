@@ -310,16 +310,18 @@ function updateConfig() {
       config.data.datasets[i].data=[];
     }
 
+    let negative = false;
     for (var j = 0; j < data.length; j++) {
           config.data.datasets[i].data.push({
           x: moment(data[j].Date,'YYYY-MM-DD').format('DD/MM/YYYY'),
           y: data[j].amount.toFixed(2)
         });
         if (data[j].amount < 0) {
+          negative = true;
           opt.floor = (data[j].amount < 0) ? true : opt.floor;
           $('input[type="checkbox"]').attr('disabled',true);
           $('label[for="floor-check"]').attr('disabled',true);
-        } else {
+        } else if(!negative){
           $('input[type="checkbox"]').attr('disabled',false);
           $('label[for="floor-check"]').attr('disabled',false);
         }
