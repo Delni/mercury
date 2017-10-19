@@ -7,9 +7,9 @@
   "scripts": {
     "start": "electron app.js",
     "test": "echo \"ERROR : no test plugin set\"",
-    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=\"icons/mac/app.icns\" --prune=true --out=../release-builds",
-    "package-win": "electron-packager . --overwrite --asar=false --platform=win32 --arch=x64 --icon=\"./icons/win/app.ico\" --prune=true --out=../release-builds --version-string.CompanyName=MercuryCE --version-string.FileDescription=MercuryCE --version-string.ProductName=\"Mercury\"",
-    "package-lin": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=\"icons/png/512x512.png\" --prune=true --out=../release-builds"
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=\"icons/mac/app_r.icns\" --prune=true --out=../release-builds",
+    "package-win": "electron-packager . --overwrite --asar=false --platform=win32 --arch=x64 --icon=\"./icons/win/app_r.ico\" --prune=true --out=../release-builds --version-string.CompanyName=MercuryCE --version-string.FileDescription=MercuryCE --version-string.ProductName=\"Mercury\"",
+    "package-lin": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=\"icons/png/Round/512x512.png\" --prune=true --out=../release-builds"
   },
   "keywords": [
     "budget",
