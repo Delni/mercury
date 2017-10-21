@@ -214,6 +214,20 @@ ipc.on('toggle', (event, args) => {
   }
 })
 
+ipc.on('new-settings',(event,args) => {
+  setTimeout(() => {
+      if (unsaved) {
+          let confirm = ipc.sendSync('warning-reload');
+          if (confirm === 0) {
+            let saved = ipc.sendSync('save');
+            if(saved) location.reload();
+          }
+      } else {
+        location.reload();
+      }
+  },1000);
+})
+
 $.getScript('../js/HTMLEventHandler.js')
 //
 // ooo        ooooo
@@ -479,14 +493,19 @@ function updateSQL(sqlType) {
   $("#cover").hide();
 }());
 
+var force = false;
 window.onbeforeunload = function(evt) {
-  if (unsaved) {
+  if (unsaved && !force) {
     setTimeout(() => {
       let saving = ipc.sendSync('warning-onclose')
       if (saving === 0) {
        ipc.send('save');
        window.close();
-      }
+     } else if (saving === 1){
+       force = true;
+       window.close();
+       ipc.send('quit')
+     }
     },1)
     return false
   }

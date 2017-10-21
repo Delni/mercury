@@ -32,11 +32,14 @@ $('#select-cur').on('change', () => {
 })
 
 $('#save-btn').on("click", () => {
+  const prevdefaultCurrency = globSettings.defaultCurrency;
   const defaultCurrency = $('#select-cur').val();
+  const prevlanguage = globSettings.language;
   const language = $('#select-lang').val();
+  const prevTheme = globSettings.theme;
   const theme = ($('.btn-theme.is-outlined').attr('data') === 'enable') ? "light":"dark";
-  globSettings.language = language;
   globSettings.defaultCurrency = defaultCurrency;
+  globSettings.language = language;
   globSettings.theme = theme;
   globSettings.beneficiaries.sort(function(a, b) {
     return a.toLowerCase().localeCompare(b.toLowerCase())
@@ -54,7 +57,10 @@ $('#save-btn').on("click", () => {
   $('#save-btn').addClass('is-loading')
   setTimeout(() => {
     window.close()
-  },1000)
+  },1000);
+  if (prevdefaultCurrency !== defaultCurrency || prevlanguage !== language || prevTheme !== theme) {
+    ipc.send('new-settings')
+  }
 });
 
 function togglePresets(obj) {
