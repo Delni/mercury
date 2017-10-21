@@ -41,12 +41,7 @@ const template = [{
       label: 'Save',
       accelerator: "CmdOrCtrl+S",
       click() {
-        if(filePath === "") {
-          saveAs();
-        } else {
-          console.log('Saving in '+filePath);
-          win.webContents.send('saved-file', filePath)
-        }
+        simpleSave();
       }
     }, {
       label: 'Save As',
@@ -493,6 +488,41 @@ ipcMain.on('action-trigger',(event,args) => {
   }
 })
 
+ipcMain.on('new-settings',(event) => {
+  win.webContents.send('new-settings');
+})
+
+ipcMain.on('warning-reload',(event) => {
+  const options = {
+    type: 'warning',
+    title: 'Warning !',
+    message: `You have unsaved modifications and Mercury is about to reload.`,
+    detail: `Any unsaved modification will be lost in the process`,
+    buttons: ['Save & Continue', 'Cancel reload']
+  }
+  dialog.showMessageBox(win, options, function (index) {
+    event.returnValue = index;
+  })
+})
+
+ipcMain.on('save',(event) => {
+  simpleSave();
+  event.returnValue = true;
+  app.quit();
+})
+
+ipcMain.on('warning-onclose',(event) => {
+  const options = {
+    type: 'warning',
+    title: 'Warning !',
+    message: `Are you sure to quit ? There are some modifications unsaved`,
+    buttons: ['Save & Quit', 'Cancel']
+  }
+  dialog.showMessageBox(win, options, function (index) {
+    event.returnValue = index;
+  })
+})
+
 function newfile() {
   filePath = "";
   win.webContents.send('open-new-file');
@@ -510,6 +540,15 @@ function openfile(callback) {
       callback(files[0]);
     }
   })
+}
+
+function simpleSave(){
+  if(filePath === "") {
+    saveAs();
+  } else {
+    console.log('Saving in '+filePath);
+    win.webContents.send('saved-file', filePath)
+  }
 }
 
 function saveAs() {

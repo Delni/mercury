@@ -478,3 +478,16 @@ function updateSQL(sqlType) {
 (function() {
   $("#cover").hide();
 }());
+
+window.onbeforeunload = function(evt) {
+  if (unsaved) {
+    setTimeout(() => {
+      let saving = ipc.sendSync('warning-onclose')
+      if (saving === 0) {
+       ipc.send('save');
+       window.close();
+      }
+    },1)
+    return false
+  }
+}
