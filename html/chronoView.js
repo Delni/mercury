@@ -376,3 +376,5 @@ function getColors() {
   colors.push(tmp);
   return tmp;
 }
+
+ipc.send('open-report','chronoWin');

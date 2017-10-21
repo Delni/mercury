@@ -400,3 +400,6 @@ ipc.on('toggle-time-span',(event,args) => {
   const options = document.getElementById('period').options;
   $('#period').val(options[args].value).change();
 })
+
+
+ipc.send('open-report','statisticWin');

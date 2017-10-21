@@ -18,6 +18,7 @@ const {
 } = TouchBar
 const path = require('path')
 const url = require('url')
+const jsonfile = require('jsonfile')
 const pjson = require('./package.json')
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -27,6 +28,8 @@ let filePath = "";
 let win;
 let isDev = false;
 let authorizeDev = true;
+const globSettings = jsonfile.readFileSync(__basedir + '/settings.json');
+
 const template = [{
   label: 'File',
   submenu: [{
@@ -444,7 +447,7 @@ ipcMain.on('delete-warning', (event,args) => {
   const options = {
     type: 'warning',
     title: 'Warning !',
-    message: `You are about to delete the account \"${args}\" \n\nAre you sure?`,
+    message: `You are about to delete the account "${args}" \n\nAre you sure?`,
     buttons: ['Continue', 'Cancel']
   }
   dialog.showMessageBox(win, options, function (index) {
@@ -511,16 +514,59 @@ ipcMain.on('save',(event) => {
   app.quit();
 })
 
+ipcMain.on('quit',(event) => {
+  app.quit();
+})
+
 ipcMain.on('warning-onclose',(event) => {
   const options = {
     type: 'warning',
     title: 'Warning !',
-    message: `Are you sure to quit ? There are some modifications unsaved`,
-    buttons: ['Save & Quit', 'Cancel']
+    message: `Are you sure to quit ?`,
+    detail: `There are some modifications unsaved`,
+    buttons: ['Save & Quit', 'Quit', 'Cancel']
   }
   dialog.showMessageBox(win, options, function (index) {
     event.returnValue = index;
   })
+})
+
+ipcMain.on('open-report',(event,args) => {
+  if (globSettings.displayHelpers === false || globSettings.displayHelpers === 'undefined') {
+    let displayWindow = null
+    switch (args) {
+      case 'balanceWin':
+      displayWindow = balanceWin;
+      break;
+      case 'chronoWin':
+      displayWindow = chronoWin;
+      break;
+      case 'statisticWin':
+      displayWindow = statisticWin;
+      break;
+      default:
+      displayWindow = win;
+    }
+    const options = {
+      type: 'info',
+      title: 'Before you continue ...',
+      message: `You should save before opening report`,
+      detail: `The info displayed are the most accurate only if all data are saved`,
+      checkboxLabel: 'Don\'t show this again'
+    }
+    dialog.showMessageBox(displayWindow, options, function (response,checkboxChecked) {
+      if (checkboxChecked) {
+        globSettings.displayHelpers = true;
+        jsonfile.writeFile(__basedir + '/settings.json', globSettings, {
+          spaces: 2
+        }, function(err) {
+          if (err != null) {
+            console.error(err);
+          }
+        })
+      }
+    })
+  }
 })
 
 function newfile() {

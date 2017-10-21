@@ -3,8 +3,15 @@
   "defaultCurrency": "eur",
   "language": "en",
   "theme": "dark",
-  "beneficiaries": [],
-  "categories": [],
-  "labels": [],
+  "displayHelpers": false,
+  "beneficiaries": [
+    "Charlotte"
+  ],
+  "categories": [
+    "Cadeaux"
+  ],
+  "labels": [
+    "Cadeau Papa"
+  ],
   "lastfile": "/Users/delni/Documents/withChart.mcy"
 }
