@@ -26,21 +26,10 @@ global.__basedir = __dirname;
 let filePath = "";
 let win;
 let isDev = false;
+let authorizeDev = true;
 const template = [{
   label: 'File',
   submenu: [{
-      label: 'About Mercury'
-    }, {
-      type: 'separator'
-    }, {
-      label: 'Settings',
-      accelerator: 'CmdOrCtrl+,',
-      click() {
-        exports.openSettingWindow()
-      }
-    }, {
-      type: 'separator'
-    }, {
       label: 'New file',
       accelerator: 'CmdOrCtrl+N',
       click() { newfile() }
@@ -66,57 +55,19 @@ const template = [{
     }, {
       type: 'separator'
     }, {
-      label: 'Quit',
-      role: 'quit'
-    }]
-  }, {
-    label: 'About',
-    submenu: [{
-      label: 'Version ' + pjson.version,
-      type: 'checkbox',
-      checked: true,
-      enabled: false
-    }, {
-      label: 'ChartJS',
-      submenu: [{
-        label: 'Samples',
+        label: 'Settings',
+        accelerator: 'CmdOrCtrl+,',
         click() {
-          shell.openExternal("http://www.chartjs.org/samples/latest/")
+          exports.openSettingWindow()
         }
       }, {
-        label: 'Doc',
-        click() {
-          shell.openExternal("http://www.chartjs.org/docs/latest/")
-        }
-      }]
-    }, {
-      label: 'Bulma',
-      submenu: [{
-        label: 'Doc',
-        click() {
-          shell.openExternal("http://bulma.io/documentation/overview/start/")
-        }
-      }]
-    }, {
-      label: 'Font Awesome',
-      submenu: [{
-        label: 'Icons',
-        click() {
-          shell.openExternal("http://fontawesome.io/icons/")
-        }
-      }]
-    }, {
-      type: 'separator'
-    }, {
-      label: 'Enable DevTools',
-      type: 'checkbox',
-      checked: isDev,
-      role: 'toggledevtools',
-      click() {
-        isDev = !isDev
-      }
+        type: 'separator'
+      }, {
+      role: 'quit'
     }]
-  } ,{
+  },{
+    role: 'editMenu'
+  },{
     label: 'Reports',
     submenu:[{
         label: 'Time Report',
@@ -143,20 +94,73 @@ const template = [{
     ]
   },{
     label: 'Windows',
+    role: 'window',
     submenu: [{
-      label: 'Minimize',
-      accelerator: 'CmdOrCtrl+M',
+      role: 'reload'
+    },{
       role: 'minimize'
     }, {
-      label: 'Toggle fullscreen',
-      accelerator: 'CmdOrCtrl+F',
       role: 'togglefullscreen'
     }, {
-      label: 'Close Window',
-      accelerator: 'CmdOrCtrl+W',
       role: 'close'
     }]
+  },{
+    role: 'help',
+    submenu: [
+      {
+        label: 'Learn More',
+        click () { require('electron').shell.openExternal('https://electron.atom.io') }
+      }],
   }]
+
+if (authorizeDev) {
+  template.push({
+    label: 'About',
+    submenu: [{
+      label: 'Version ' + pjson.version,
+      type: 'checkbox',
+      checked: true,
+      enabled: false
+    }, {
+      type: 'separator'
+    }, {
+      label: 'Enable DevTools',
+      type: 'checkbox',
+      checked: isDev,
+      role: 'toggledevtools',
+      click() {
+        isDev = !isDev
+      }
+    }]
+  });
+}
+if (process.platform === 'darwin') {
+  template.unshift({
+    label: app.getName(),
+    submenu: [
+      {role: 'about'},
+      {type: 'separator'},
+      {
+          label: 'Settings',
+          accelerator: 'CmdOrCtrl+,',
+          click() {
+            exports.openSettingWindow()
+          }
+        },
+      {type: 'separator'},
+      {role: 'services', submenu: []},
+      {type: 'separator'},
+      {role: 'hide'},
+      {role: 'hideothers'},
+      {role: 'unhide'},
+      {type: 'separator'},
+      {role: 'quit'}
+    ]
+  });
+  template[1].submenu.pop();
+  template[1].submenu.pop();
+  template[1].submenu.pop();
+}
 
 
 const settingTBButton = new TouchBarButton({
