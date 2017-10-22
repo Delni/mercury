@@ -122,8 +122,7 @@ class Mercury {
   }
 
    deleteOp(id) {
-    const confirm;
-    confirm = ipc.sendSync('delete-op-warning');
+    const confirm = ipc.sendSync('delete-op-warning');
     if (confirm === 0) {
       global.db.deleteOperation(id);
       updateSQL('#account');
