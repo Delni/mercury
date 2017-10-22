@@ -508,10 +508,12 @@ ipcMain.on('warning-reload',(event) => {
   })
 })
 
-ipcMain.on('save',(event) => {
+ipcMain.on('save',(event,arg) => {
   simpleSave();
   event.returnValue = true;
-  app.quit();
+  if (arg) {
+    app.quit();
+  }
 })
 
 ipcMain.on('quit',(event) => {

@@ -498,7 +498,7 @@ window.onbeforeunload = function(evt) {
     setTimeout(() => {
       let saving = ipc.sendSync('warning-onclose')
       if (saving === 0) {
-       ipc.send('save');
+       ipc.send('save',true);
        window.close();
      } else if (saving === 1){
        force = true;
@@ -506,6 +506,6 @@ window.onbeforeunload = function(evt) {
        ipc.send('quit')
      }
     },1)
-    return false
+    return false;
   }
 }
