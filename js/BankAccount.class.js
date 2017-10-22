@@ -88,7 +88,7 @@ class BankAccount {
             $('<small>').append(
               $('<p>').text('Bank : ')
               .append(
-                $('<span>').addClass("amount").attr('id','inBank')
+                $('<span>').addClass("amount"+(this.inBank <=0 ? ' has-text-danger':'')).attr('id','inBank')
                 .text(this.inBank.toFixed(2)+" ")
                 .append(
                   $('<span>').addClass("icon is-small")
@@ -100,7 +100,7 @@ class BankAccount {
             .append(
               $('<p>').text('Today : ')
               .append(
-                $('<span>').addClass("amount").attr('id','inToday')
+                $('<span>').addClass("amount"+(this.today <=0 ? ' has-text-danger':'')).attr('id','inToday')
                 .text(this.today.toFixed(2)+" ")
                 .append(
                   $('<span>').addClass("icon is-small")
@@ -112,7 +112,7 @@ class BankAccount {
             .append(
               $('<p>').text('Future : ')
               .append(
-                $('<span>').addClass("amount").attr('id','inFuture')
+                $('<span>').addClass("amount"+(this.future <=0 ? ' has-text-danger':'')).attr('id','inFuture')
                 .text(this.future.toFixed(2)+" ")
                 .append(
                   $('<span>').addClass("icon is-small")
