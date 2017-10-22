@@ -314,7 +314,6 @@ function updateAccountsList(obj = null) {
   } catch (e) {
     accounts = [];
   }
-  console.log(accounts);
   let tmp = null;
   for (var i = 0; i < accounts.length; i++) {
     tmp = BankAccount.clone(accounts[i]);
