@@ -151,7 +151,14 @@ var force = false;
 window.onbeforeunload = function(evt) {
   if (unsaved && !force) {
     setTimeout(() => {
-      let saving = ipc.sendSync('warning-onclose')
+      const options = {
+        type: 'warning',
+        title: 'Warning !',
+        message: `Are you sure to quit ?`,
+        detail: `There are some modifications unsaved`,
+        buttons: ['Save & Quit', 'Quit', 'Cancel']
+      }
+      let saving = ipc.sendSync('warning',options);
       if (saving === 0) {
        ipc.send('save',true);
        window.close();

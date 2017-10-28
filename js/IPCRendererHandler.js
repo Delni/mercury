@@ -68,12 +68,20 @@ ipc.on('toggle', (event, args) => {
 })
 
 ipc.on('new-settings',(event,args) => {
+  globSettings = args;
   setTimeout(() => {
       if (unsaved) {
-        let confirm = ipc.sendSync('warning-reload');
+        const options = {
+          type: 'warning',
+          title: 'Warning !',
+          message: `You have unsaved modifications and Mercury is about to reload.`,
+          detail: `Any unsaved modification will be lost in the process`,
+          buttons: ['Save & Continue', 'Cancel reload'],
+          cancelId: 1
+        }
+        let confirm = ipc.sendSync('warning',options);
         if (confirm === 0) {
-           let saved = ipc.sendSync('save',false);
-          if(saved) {
+          if(ipc.sendSync('save',false)) {
             location.reload();
           }
         }
