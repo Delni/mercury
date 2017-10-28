@@ -1,4 +1,4 @@
-![icon](/img/icon2.png)
+![icon](/icons/png/Round/256x256.png)
 
 # Mercury
 `v1.0.0`  
