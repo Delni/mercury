@@ -1,0 +1,33 @@
+{
+  "values": {
+    "Accounts" : "Comptes",
+    "Add an account": "Ajouter un compte",
+    "Add a new account..." : "Créer un compte...",
+    "Name the account" : "Nom du compte",
+    "currency": "Devise",
+    "Current amount" : "Solde actuel",
+    "Create" : "Créer",
+    "Cancel" : "Annuler",
+    "Dashboard": "Tableau de bord",
+    "Account": "Détail des comptes",
+    "Recurring operations": "Opérations récurrentes",
+    "Operation" : "Opération",
+    "Operation type" : "Type d'opération",
+    "Credit Card" : "Carte de crédit",
+    "Check" : "Chèque",
+    "Cash" : "Liquide",
+    "Transfer" : "Transfert",
+    "Internal transfer" : "Transfert interne",
+    "Permanent transfer" : "Transfert Permanent",
+    "Electronic Paiement" : "Paiement Électronique",
+    "Deposit" : "Dépôt",
+    "Bank charge" : "Frais bancaires",
+    "Direct levy" : "Taxe directe",
+    "Beneficiary" : "Bénéficiaire",
+    "Category" : "Catégorie",
+    "Label" : "Note",
+    "State" : "État",
+    "Add operation" : "Ajouter",
+    "No data found" : "Aucune donnée"
+  }
+}

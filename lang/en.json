@@ -1,0 +1,33 @@
+{
+  "values": {
+    "Accounts" : "Accounts",
+    "Add an account": "Add an account",
+    "Add a new account..." : "Add a new account...",
+    "Name the account": "Name the account",
+    "currency" : "currency",
+    "Current amount" : "Current amount",
+    "Create" : "Create",
+    "Cancel" : "Cancel",
+    "Dashboard": "Dashboard",
+    "Account": "Account",
+    "Recurring operations": "Recurring operations",
+    "Operation": "Operation",
+    "Operation type" : "Operation type",
+    "Credit Card" : "Credit Card",
+    "Check" : "Check",
+    "Cash" : "Cash",
+    "Transfer" : "Transfer",
+    "Internal transfer" : "Internal transfer",
+    "Permanent transfer" : "Permanent transfer",
+    "Electronic Paiement" : "Electronic Paiement",
+    "Deposit" : "Deposit",
+    "Bank charge" : "Bank charge",
+    "Direct levy" : "Direct levy",
+    "Beneficiary" : "Beneficiary",
+    "Category" : "Category",
+    "Label" : "Label",
+    "State" : "State",
+    "Add operation" : "Add operation",
+    "No data found" : "No data found"
+  }
+}
