@@ -291,6 +291,9 @@ class Database {
 
   deleteAccount(name) {
     this.sql.run('DELETE FROM `Accounts` WHERE name="'+name+'"')
+    this.sql.run('DELETE FROM `OPERATIONS` WHERE account_name="'+name+'"')
+    this.sql.run('DELETE FROM `Recurrings` WHERE account_name="'+name+'"')
+    this.sql.run('DELETE FROM `Chronobase` WHERE account="'+name+'"')
   }
 
 
