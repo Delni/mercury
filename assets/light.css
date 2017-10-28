@@ -3,6 +3,10 @@ body, #window {
   color: #282c34;
 }
 
+.is-tag.is-black, .is-tag.is-black:hover {
+  background-color: white;
+  color: #282c34;
+}
 
 .tabs>* {
   background-color: #b2b8c3;

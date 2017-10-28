@@ -59,7 +59,7 @@ $('#save-btn').on("click", () => {
     window.close()
   },1000);
   if (prevdefaultCurrency !== defaultCurrency || prevlanguage !== language || prevTheme !== theme) {
-    ipc.send('new-settings')
+    ipc.send('new-settings',globSettings)
   }
 });
 

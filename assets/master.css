@@ -14,6 +14,10 @@ abbr {
   cursor: help;
 }
 
+div.field.has-addons{
+  height: 36px;
+}
+
 .title{
   height: 50px;
 }
