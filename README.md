@@ -16,24 +16,23 @@ Developped with ♥ for you
 
 ---
 # Previews
-| Dark UI (default) | White UI     |
-| :------------- | :------------- |
-| ![mainView](/img/mainViewDark.png) | ![mainView](/img/mainViewLight.png)       |
-| ![mainView](/img/accountViewDark.png) | ![mainView](/img/accountViewLight.png) |
-
+![mainView](/img/mainViewDark.png)
+![mainView](/img/mainView.png)
+Now with white theme !
+![mainView](/img/mainViewLight.png)   
+:construction: *WIP*
 
 # Features
+:construction: *WIP*
  * Create or delete any account
  * Create / Edit / Delete any operation
- * Create / Edit / Delete recurring operation
  * Filter operation with easy-to-access basic filters
- * Manage your outcome with reports over time / categories
- * Manage beneficiaries and categories in the settings
+ * Manage beneficiaries and categories
  * `MacOS` TouchBar integration
  * Choose your (theme) side
 
 
- *Next to come : advanced filters, TouchBar improvements, i18n...*
+ *Next to come : advanced filters, recurring operations, TouchBar improvements, ...*
 
 # How to use
 Clone the GitHub repository. You need [Node.js](https://nodesjs.org) and [npm](https://npmjs.com) installed your system. Go to terminal:
