@@ -227,7 +227,6 @@ class Database {
 
   launchPending(id){
     let resSQL = this.exec('SELECT * FROM Recurrings WHERE id='+id)[0]
-    console.log(resSQL);
     this.insertOperation(resSQL.account_name,[resSQL.date,"fa fa-circle-o",resSQL.beneficiary,resSQL.category,resSQL.label, resSQL.amount, resSQL.type],'YYYY-MM-DD')
     let newDate = moment(resSQL.date,'YYYY-MM-DD').add(resSQL.offset,resSQL.timespan).format('YYYY-MM-DD');
     resSQL.times = Number(resSQL.times)

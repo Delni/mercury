@@ -321,7 +321,11 @@ function hideUnsavedTag(){
 }
 
 function showFilters(){
-  alert('🚧 Work in progress... Please wait update 🚧')
+  const options = {
+    title: '🚧 Work in progress 🚧',
+    body: 'Please wait future update'
+  }
+  ipc.send('notification',options)
 }
 
 function inputDate(event) {
@@ -538,7 +542,6 @@ function deleteRec(fromContext = false) {
   let confirm = ipc.sendSync('warning',options);
   if (confirm === 0) {
     const id = Number($('#recTable > .is-selected').attr('data-id'));
-    console.log(id);
     global.db.deleteRec(id)
     removeDiv($('#recTable > .is-selected').children()[0]);
     if (!fromContext) {
