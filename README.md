@@ -52,7 +52,9 @@ $ npm start
 ```
 
 # Download
-Download for MacOS, Windows & Linux !  
+Download for MacOS  
+
+*Windows and Linux coming soon (as soon as they are tested)*  
 *Not available at the moment.*
 
 # Contribute
@@ -70,6 +72,7 @@ The request would be merged if it fixes the bug & does not disturb the whole app
   * [typehead.js](https://github.com/twitter/typeahead.js/)
   * [ChartJS](http://www.chartjs.org/)
   * [sql.js](https://github.com/kripken/sql.js)
+  * [i18njs](http://i18njs.com/)
 
 # License
 
