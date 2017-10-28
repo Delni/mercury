@@ -398,6 +398,9 @@ function bindRecListener() {
     $('#rec-amount-btn').children().children().addClass("fa")
     $('#rec-amount-btn').children().children().addClass("fa-" + cur)
   });
+  $('#rec-benef').parent().parent().addClass('is-36h');
+  $('#rec-cat').parent().parent().addClass('is-36h');
+  $('#rec-label').parent().parent().addClass('is-36h');
   $('#rec-benef').addClass('typeahead');
   $('#rec-cat').addClass('typeahead');
   $('#rec-label').addClass('typeahead');
