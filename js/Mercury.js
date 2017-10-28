@@ -178,7 +178,7 @@ function inheritOp() {
 }
 
 function confirmEdit(event) {
-  const data = getOperationValues(event);
+  const data = getOperationValues(event,'op');
   const id = $(event).attr('data-id');
   global.db.editOperation(id,data,globSettings.dateFormat);
   updateSQL('#account');

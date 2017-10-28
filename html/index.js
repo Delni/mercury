@@ -17,6 +17,7 @@ const chartJS = require('chart.js')
 const jsonfile = require('jsonfile')
 const typeahead = require('typeahead.js')
 const app = remote.require('./app.js')
+const {MenuItem, Menu} = remote
 
 window.$ = $;
 $.getScript('../js/BankAccount.class.js');
@@ -29,7 +30,7 @@ global.__basedir = path.join(__dirname, '..');
 global.__accounts = [];
 const dbPath = path.join(global.__basedir, 'data/template.sqlite');
 
-const globSettings = jsonfile.readFileSync(__basedir + '/settings.json');
+let globSettings = jsonfile.readFileSync(__basedir + '/settings.json');
 let unsaved = false;
 
 
@@ -129,7 +130,7 @@ $.getScript('../js/HTMLEventHandler.js');
 //                                                                    `Y8P'
 //
 
-$.getScript('../js/Mercury.js')
+$.getScript('../js/Mercury.js');
 //@function    createNewAccount
 //@function    deleteAccount
 //@function    updateAccountsList

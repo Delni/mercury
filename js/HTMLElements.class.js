@@ -19,6 +19,14 @@ const HTMLElements  = {
       ).append(' :)')
     )
   },
+
+
+   unsavedTag: function(){
+    return $('<abbr>').attr('title','You have unsaved modification(s)')
+      .append(
+        $('<span>').addClass('tag is-warning is-small icon is-rounded').text('!')
+      )
+  },
 //       .o.                 oooooooooo.
 //      .888.                `888'   `Y8b
 //     .8"888.      .ooooo.   888     888  .oooo.   oooo d8b
@@ -147,14 +155,6 @@ const HTMLElements  = {
     )
   },
 
-
-   unsavedTag: function(){
-    return $('<abbr>').attr('title','You have unsaved modification(s)')
-      .append(
-        $('<span>').addClass('tag is-warning is-small icon is-rounded').text('!')
-      )
-  },
-
 // //
 // oooooooooo.                      oooo         .o8                                          .o8
 // `888'   `Y8b                     `888        "888                                         "888
@@ -281,5 +281,381 @@ const HTMLElements  = {
     }
 
     let doughnut = new Chart(ctx, config);
+  },
+
+  //
+  // ooooooooo.                         .oooooo.
+  // `888   `Y88.                      d8P'  `Y8b
+  //  888   .d88'  .ooooo.   .ooooo.  888      888 oo.ooooo.
+  //  888ooo88P'  d88' `88b d88' `"Y8 888      888  888' `88b
+  //  888`88b.    888ooo888 888       888      888  888   888
+  //  888  `88b.  888    .o 888   .o8 `88b    d88'  888   888
+  // o888o  o888o `Y8bod8P' `Y8bod8P'  `Y8bood8P'   888bod8P'
+  //                                                888
+  //                                               o888o
+
+  recurrings: function(){
+    return $('<div>')
+    .append(
+      $('<p>').addClass('title is-marginless')
+      .append(
+        $('<span>').addClass('icon is-medium has-text-success')
+        .append($('<i>').addClass('fa fa-recycle'))
+      )
+      .append(' Recurring Operations')
+    )
+    .append( HTMLElements.recBar())
+    .append( HTMLElements.recTable())
+  },
+
+  recTable: function(){
+    return $('<div>').addClass('notification is-black').attr('style','height: 42vh; max-height:42vh; overflow-y:scroll')
+    .append($('<table>').addClass('table')
+      // .append(
+      //   $('<thead>').append(
+      //     $('<tr>')
+      //       .append($('<th>').text('Due Date').addClass('has-text-centered'))
+      //       .append($('<th>').text('Type').addClass('has-text-centered'))
+      //       .append($('<th>').text('Beneficiary').addClass('has-text-centered'))
+      //       .append($('<th>').text('Category').addClass('has-text-centered'))
+      //       .append($('<th>').text('Label').addClass('has-text-centered'))
+      //       .append($('<th>').text('Amount').addClass('has-text-centered'))
+      //   )
+      // )
+      .append(
+        $('<tbody>').attr('id','recTable')
+      )
+    )
+  },
+
+  recBar: function() {
+    return $('<nav>')
+      .addClass('level')
+      .append( HTMLElements.createRec())
+      .append( HTMLElements.lauchRec())
+      .append( HTMLElements.editRec())
+      .append( HTMLElements.addModal())
+  },
+
+  createRec: function(){
+    return $('<div>').addClass('level-item')
+    .append(
+      $('<a>').addClass('button is-info')
+      .attr('data-toggle','#rec-modal')
+      .attr('data-type','create')
+      .attr('onclick',"showModal(this)")
+      .append(
+        $('<span>').addClass('icon')
+          .append($('<i>').addClass('fa fa-plus-circle'))
+      )
+      .append($('<span>').text('Create'))
+    )
+  },
+
+  lauchRec: function(){
+    return $('<div>').addClass('level-item')
+    .append(
+      $('<a>').addClass('button is-large is-danger')
+      .attr('data-toggle','#rec-modal')
+      .attr('data-type','launch')
+      .attr('onclick',"showModal(this)")
+      .append(
+        $('<span>').addClass('icon is-medium')
+          .append($('<i>').addClass('fa fa-rocket'))
+      )
+      .append($('<span>').text('Launch'))
+    )
+  },
+
+  editRec: function(){
+    return $('<div>').addClass('level-item')
+    .append(
+      $('<a>').addClass('button is-success')
+      .attr('data-toggle','#rec-modal')
+      .attr('data-type','edit')
+      .attr('onclick',"showModal(this)")
+      .append(
+        $('<span>').addClass('icon')
+          .append($('<i>').addClass('fa fa-pencil'))
+      )
+      .append($('<span>').text('Edit'))
+    )
+  },
+
+  addModal: function() {
+    return $('<div>').addClass('modal').attr('id','rec-modal')
+    .append($('<div>').addClass('modal-background'))
+    .append(
+      $('<div>').addClass('modal-content').attr('style','width: 60vw')
+      .append(
+        $('<div>').addClass('notification is-dark')
+        .append(
+          $('<div>').addClass('media')
+          .append($('<div>').addClass('media-left').attr('id','modalicon'))
+          .append($('<div>').addClass('media-content').attr('id','modalbody'))
+          .append($('<div>').addClass('media-right').append($('<button>').addClass('delete').attr('onclick','closeModal()')))
+        )
+      )
+    )
+  },
+
+  generateModal: function(type,accountList = null){
+    switch (type) {
+      case 'create':
+        HTMLElements.createModal(accountList);
+        break;
+      case 'edit':
+        HTMLElements.editModal(accountList);
+        break;
+      case 'launch':
+        HTMLElements.launchModal();
+        break;
+      default:
+    }
+    bindRecListener();
+  },
+
+  createModal: function(accountList){
+    $('#modalicon').empty().append(
+      $('<span>').addClass('icon is-large has-text-info').append($('<i>').addClass('fa fa-plus-circle'))
+    )
+    $('#modalbody').empty();
+    $('#modalbody').append(
+      $('<p>').addClass('title').text('Create new recurring operation')
+    )
+    .append(
+      $('<div>').addClass('columns')
+      .append(
+        $('<div>').addClass('content column')
+        .append(HTMLElements.datePicker())
+        .append(HTMLElements.timeSpanPicker())
+        .append(HTMLElements.repeatPicker())
+      )
+      .append(
+        $('<div>').addClass('content column')
+        .append(HTMLElements.accountFilter(accountList))
+        .append(HTMLElements.typePicker())
+        .append(HTMLElements.amountPicker())
+      )
+      .append(
+        $('<div>').addClass('content column')
+        .append(HTMLElements.beneficiaryPicker())
+        .append(HTMLElements.categoryPicker())
+        .append(HTMLElements.labelPicker())
+      )
+    )
+    .append(
+      $('<div>').addClass('field')
+      .append(
+        $('<p>').addClass('control pull-left')
+        .append($('<a>').addClass('button is-info').attr('id','rec-create').attr('onclick','createNewRecurringOperation()').text('Create'))
+      ).append(
+        $('<p>').addClass('control pull-right')
+        .append($('<a>').addClass('button is-danger').attr('onclick','closeModal()').text('Cancel'))
+      )
+    )
+    $('#rec-date').val(moment().format(globSettings.dateFormat))
+  },
+
+  datePicker: function() {
+    return new CustomField('calendar','rec-date',{placeholder: 'Pick a date'},null,'text').generate();
+  },
+
+  amountPicker: function() {
+    return new CustomField(globSettings.defaultCurrency,'rec-amount',{placeholder: '0.00'},null,'number').generate();
+  },
+
+  typePicker: function() {
+    let options = {
+        options: [
+          ['credit-card','Credit Card'],
+          ['pencil-square-o','Check'],
+          ['money','Cash'],
+          ['exchange','Transfer'],
+          ['refresh','Internal transfer'],
+          ['share','Permanent transfer'],
+          ['desktop','Electronic Paiement'],
+          ['paypal','PayPal'],
+          ['inbox','Deposit'],
+          ['bank','Bank charge'],
+          ['stop-circle-o','Direct levy'],
+        ],
+    };
+    return new CustomField('credit-card','rec-type',options,null,'select').generate();
+  },
+
+  beneficiaryPicker: function(){
+    return new CustomField('building-o','rec-benef',{placeholder:'Beneficiary'},null,'text').generate();
+  },
+
+  categoryPicker: function(){
+    return new CustomField('flag','rec-cat',{placeholder:'Category'},null,'text').generate();
+  },
+
+  labelPicker: function(){
+    return new CustomField('tag','rec-label',{placeholder:'Label'},null,'text').generate();
+  },
+
+  timeSpanPicker: function(){
+    return $('<div>').addClass('field has-addons')
+    .append(
+      $('<div>').addClass('control')
+      .append($('<a>').addClass('button is-tag is-primary').append(
+        $('<span>').addClass('icon')
+        .append($('<i>').addClass('fa fa-retweet'))
+      ))
+    )
+    // .append($('<p>').addClass('help is-marginless').text('Repeat every'))
+    .append(
+      $('<div>').addClass('control').attr('style','width: 5vw')
+      .append(
+        $('<input>').addClass('input')
+        .attr('id','rec-time-offset')
+        .attr('type','number')
+        .attr('value',2)
+        .attr('min',1)
+      )
+    )
+    .append(
+      $('<div>').addClass('control select')
+      .append(
+        $('<select>').attr('id','rec-time-span')
+        .append(
+          $('<option>').attr('value','days').text('days')
+        )
+        .append(
+          $('<option>').attr('value','weeks').text('weeks')
+        )
+        .append(
+          $('<option>').attr('value','months').text('months')
+        )
+        .append(
+          $('<option>').attr('value','quarters').text('quarters')
+        )
+        .append(
+          $('<option>').attr('value','years').text('years')
+        )
+      )
+    )
+  },
+
+  repeatPicker: function(){
+    return $('<div>').addClass('field has-addons')
+    .append(
+      $('<div>').addClass('control')
+      .append(
+        $('<a>').addClass('button is-info').append($('<input>').attr('type','checkbox').attr('id','do-repeat'))
+      )
+    )
+    .append(
+      $('<div>').addClass('control')
+      .append($('<a>').addClass('button is-tag is-black').text('Repeat').attr('style','padding-left: 0.5em'))
+    )
+    .append(
+      $('<div>').addClass('control')
+      .append(
+        $('<input>').addClass('input')
+        .attr('style','width: 4vw')
+        .attr('id','rec-repeat')
+        .attr('type','number')
+        .attr('value',2)
+        .attr('min',1)
+      )
+    )
+    .append(
+      $('<div>').addClass('control')
+      .append('<a>').addClass('button is-tag is-black').text('times')
+    )
+  },
+
+  editModal: function(accountList){
+    $('#modalicon').empty().append(
+      $('<span>').addClass('icon is-large has-text-success').append($('<i>').addClass('fa fa-pencil'))
+    )
+    $('#modalbody').empty();
+    if ($('#recTable > .is-selected').get(0) === undefined) {
+      $('#modalbody').append(
+        $('<p>').addClass('title').text('Edit operation')
+      ).append(
+        $('<p>').addClass('title is-4').text('No operation selected !')
+      )
+    } else {
+      $('#modalbody').append(
+        $('<p>').addClass('title').text('Edit operation')
+      ).append(
+        $('<div>').addClass('columns')
+        .append(
+          $('<div>').addClass('content column')
+          .append(HTMLElements.datePicker())
+          .append(HTMLElements.timeSpanPicker())
+          .append(HTMLElements.repeatPicker())
+        )
+        .append(
+          $('<div>').addClass('content column')
+          .append(HTMLElements.accountFilter(accountList))
+          .append(HTMLElements.typePicker())
+          .append(HTMLElements.amountPicker())
+        )
+        .append(
+          $('<div>').addClass('content column')
+          .append(HTMLElements.beneficiaryPicker())
+          .append(HTMLElements.categoryPicker())
+          .append(HTMLElements.labelPicker())
+        )
+      ).append(
+        $('<div>').addClass('field')
+        .append(
+          $('<p>').addClass('control pull-left')
+          .append($('<a>').addClass('button is-success').attr('id','rec-create').attr('onclick','editRecurringOperation()').text('Edit'))
+        ).append(
+          $('<p>').addClass('control pull-right')
+          .append($('<a>').addClass('button is-danger').attr('onclick','closeModal()').text('Cancel'))
+        )
+        .append(
+          $('<p>').addClass('level-item')
+          .append($('<a>').addClass('button is-warning').attr('onclick','deleteRec()').text('Delete'))
+        )
+      )
+      fillEditModal();
+    }
+  },
+
+  launchModal: function(){
+    $('#modalicon').empty().append(
+      $('<span>').addClass('icon is-large has-text-danger').append($('<i>').addClass('fa fa-rocket'))
+    )
+    $('#modalbody').empty();
+    $('#modalbody').append(
+      $('<p>').addClass('title').text('Launch pending operations')
+    ).append(
+      $('<form>').addClass('field has-addons').attr('style','padding-left:3em').append(
+        $('<a>').addClass('button is-warning is-tag control '+ (globSettings.theme === 'dark' ? 'is-outlined':'')).text('Launch pending operations for the next')
+      ).append(
+        $('<div>').addClass('control').append(
+          $('<input>').addClass('input is-warning')
+          .attr('id','offset')
+          .attr('type','number')
+          .attr('value',globSettings.defaultOffset)
+          .attr('style','width: 5em')
+        )
+      ).append(
+        $('<div>').addClass('control select is-warning').append(
+          $('<select>').attr('id','timespan').append(
+            $('<option>').attr('value','day').text('days')
+          ).append(
+            $('<option>').attr('value','month').text('months')
+          ).append(
+            $('<option>').attr('value','quarter').text('quarter')
+          ).val(globSettings.defaultTimeSpan)
+        )
+      ).append(
+        $('<a>').addClass('control button is-warning '+ (globSettings.theme === 'dark' ? 'is-outlined':'')).append(
+          $('<span>').addClass('icon').append($('<i>').addClass('fa fa-rocket'))
+        ).attr('onclick','launchPending()')
+      )
+    ).append(
+      $('<hr>')
+    )
   }
+
 }

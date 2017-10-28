@@ -1,5 +1,6 @@
 const {
   BrowserWindow,
+  Notification,
   Menu,
   app,
   dialog,
@@ -549,6 +550,10 @@ ipcMain.on('open-report',(event,args) => {
       }
     })
   }
+})
+
+ipcMain.on('notification', (event,args) => {
+  new Notification(args).show();
 })
 
 function newfile() {
