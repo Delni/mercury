@@ -12,8 +12,8 @@
 function createNewAccount() {
   $('#createNewAccount').addClass('is-loading')
   const name = $('input[name="a-name"]').val()
-  const currency = $('select[name="a-cur"]').val()
-  const amount = $('input[name="a-amount"]').val()
+  let currency = $('select[name="a-cur"]').val()
+  let amount = $('input[name="a-amount"]').val()
   amount = Number((amount === '') ? 0 : amount);
   currency = (currency === null) ? 'money' : currency;
   const account = {
