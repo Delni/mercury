@@ -21,6 +21,7 @@ const path = require('path')
 const url = require('url')
 const jsonfile = require('jsonfile')
 const pjson = require('./package.json')
+const i18njs = require('./assets/i18n.min.js')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -30,6 +31,10 @@ let win;
 let isDev = false;
 let authorizeDev = true;
 const globSettings = jsonfile.readFileSync(__basedir + '/settings.json');
+
+const lang = jsonfile.readFileSync(__dirname+'/lang/'+globSettings.language+'.json')
+
+i18njs.translator.add(lang);
 
 const template = [{
   label: 'File',
@@ -208,9 +213,9 @@ const openTBPopover = new TouchBarPopover({
 
 const tabTBButton = new TouchBarSegmentedControl({
   segments: [
-    new TouchBarLabel({label: 'Dashboard'}),
-    new TouchBarLabel({label: 'Account'}),
-    new TouchBarLabel({label: 'Recurring Operations'})
+    new TouchBarLabel({label: i18njs('Dashboard')}),
+    new TouchBarLabel({label: i18njs('Account')}),
+    new TouchBarLabel({label: i18njs('Recurring operations')})
   ],
   change(selectedIndex){
     win.webContents.send('toggle',selectedIndex)

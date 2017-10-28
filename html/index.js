@@ -61,6 +61,13 @@ $(function() {
   $('#op-amount-btn').children().children().addClass('fa-' + globSettings.defaultCurrency);
   $('input[name="op-date"]').val(moment().format(globSettings.dateFormat));
   $('#op-account').change();
+  // i18n
+  $('input[name="a-name"]').attr('placeholder',i18njs("Name the account"))
+  $('#op-date').attr('placeholder',globSettings.dateFormat)
+  $('#op-benef').attr('placeholder', i18njs("Beneficiary"))
+  $('#op-cat').attr('placeholder', i18njs("Category"))
+  $('#op-label').attr('placeholder', i18njs("Label"))
+  $('select[name="a-cur"]').children()[0].text = i18njs('currency')
   // Load Settings
 });
 

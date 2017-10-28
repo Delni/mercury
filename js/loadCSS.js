@@ -23,10 +23,16 @@ document.head.appendChild(myCSS)
 
 // Theme (Black or white)
 const themeCSS = document.createElement("link")
+let settings = jsonfile.readFileSync(__dirname+'/../settings.json')
 themeCSS.setAttribute("rel","stylesheet")
-if(jsonfile.readFileSync(__dirname+'/../settings.json').theme === 'light'){
+if(settings.theme === 'light'){
   themeCSS.setAttribute("href","../assets/light.css");
 } else {
   themeCSS.setAttribute("href","../assets/dark.css");
 }
-document.head.appendChild(themeCSS)
+document.head.appendChild(themeCSS);
+
+const i18njs = require('../assets/i18n.min.js')
+const lang = jsonfile.readFileSync(__dirname+'/../lang/'+settings.language+'.json')
+i18njs.translator.add(lang)
+settings = null;
