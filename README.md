@@ -16,24 +16,23 @@ Developped with ♥ for you
 
 ---
 # Previews
-| Dark UI (default) | White UI     |
-| :------------- | :------------- |
-| ![mainView](/img/mainViewDark.png) | ![mainView](/img/mainViewLight.png)       |
-| ![mainView](/img/accountViewDark.png) | ![mainView](/img/accountViewLight.png) |
-
+![mainView](/img/mainViewDark.png)
+![mainView](/img/mainView.png)
+Now with white theme !
+![mainView](/img/mainViewLight.png)   
+:construction: *WIP*
 
 # Features
+:construction: *WIP*
  * Create or delete any account
  * Create / Edit / Delete any operation
- * Create / Edit / Delete recurring operation
  * Filter operation with easy-to-access basic filters
- * Manage your outcome with reports over time / categories
- * Manage beneficiaries and categories in the settings
+ * Manage beneficiaries and categories
  * `MacOS` TouchBar integration
  * Choose your (theme) side
 
 
- *Next to come : advanced filters, TouchBar improvements, i18n...*
+ *Next to come : advanced filters, recurring operations, TouchBar improvements, ...*
 
 # How to use
 Clone the GitHub repository. You need [Node.js](https://nodesjs.org) and [npm](https://npmjs.com) installed your system. Go to terminal:
@@ -53,8 +52,7 @@ $ npm start
 ```
 
 # Download
-Download for MacOS
-*Windows and Linux coming soon (as soon as they are tested)*  
+Download for MacOS, Windows & Linux !  
 *Not available at the moment.*
 
 # Contribute
@@ -72,7 +70,6 @@ The request would be merged if it fixes the bug & does not disturb the whole app
   * [typehead.js](https://github.com/twitter/typeahead.js/)
   * [ChartJS](http://www.chartjs.org/)
   * [sql.js](https://github.com/kripken/sql.js)
-  * [i18nhs](http://i18njs.com/)
 
 # License
 
