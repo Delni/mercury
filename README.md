@@ -1,14 +1,14 @@
 ![icon](/img/icon.png)
 
 # Mercury
-`v0.11.6`  
+`v1.0.0`  
 The budget planner of the 21st century
 
-:construction: Please be aware that Mercury is currently under development, you should not try it before v1.0.0+ :construction:
+:construction: Please be aware that Mercury is in constant development, you may encounter unknown bug :construction:
 
 ---
 
-*Mercury* offer basic budget planner functionnality, such as managing account, add / edit / delete operation... I always wanted a tool as MSMoney or [HomeBank](http://homebank.free.fr), but with improved and modern UI. HomeBank was the software I used to use, and many features come from there.  
+*Mercury* offer basic budget planner functionality, such as managing account, add / edit / delete operation... I always wanted a tool as MSMoney or [HomeBank](http://homebank.free.fr), but with improved and modern UI. HomeBank was the software I used to use, and many features come from there.  
 This application is built on top of [Electron](electron.atom.io)
 
 
@@ -53,7 +53,8 @@ $ npm start
 ```
 
 # Download
-Download for MacOS
+Download for MacOS  
+
 *Windows and Linux coming soon (as soon as they are tested)*  
 *Not available at the moment.*
 
@@ -72,7 +73,7 @@ The request would be merged if it fixes the bug & does not disturb the whole app
   * [typehead.js](https://github.com/twitter/typeahead.js/)
   * [ChartJS](http://www.chartjs.org/)
   * [sql.js](https://github.com/kripken/sql.js)
-  * [i18nhs](http://i18njs.com/)
+  * [i18njs](http://i18njs.com/)
 
 # License
 
