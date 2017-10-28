@@ -491,44 +491,24 @@ ipcMain.on('action-trigger',(event,args) => {
   }
 })
 
-ipcMain.on('new-settings',(event) => {
-  win.webContents.send('new-settings');
-})
-
-ipcMain.on('warning-reload',(event) => {
-  const options = {
-    type: 'warning',
-    title: 'Warning !',
-    message: `You have unsaved modifications and Mercury is about to reload.`,
-    detail: `Any unsaved modification will be lost in the process`,
-    buttons: ['Save & Continue', 'Cancel reload']
-  }
-  dialog.showMessageBox(win, options, function (index) {
-    event.returnValue = index;
-  })
+ipcMain.on('new-settings',(event,args) => {
+  win.webContents.send('new-settings',args);
 })
 
 ipcMain.on('save',(event,arg) => {
   simpleSave();
-  event.returnValue = true;
   if (arg) {
     app.quit();
   }
+  event.returnValue = true;
 })
 
 ipcMain.on('quit',(event) => {
   app.quit();
 })
 
-ipcMain.on('warning-onclose',(event) => {
-  const options = {
-    type: 'warning',
-    title: 'Warning !',
-    message: `Are you sure to quit ?`,
-    detail: `There are some modifications unsaved`,
-    buttons: ['Save & Quit', 'Quit', 'Cancel']
-  }
-  dialog.showMessageBox(win, options, function (index) {
+ipcMain.on('warning',(event,args) => {
+  dialog.showMessageBox(win, args, function (index) {
     event.returnValue = index;
   })
 })
