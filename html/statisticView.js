@@ -81,13 +81,13 @@ $(document).ready(() => {
     .append(
       $('<div>').addClass('columns')
       .append(
-        $('<span>').addClass('column').text('Display: ')
+        $('<span>').addClass('column').text(i18njs('Display: '))
         .append(
           toggleButtons('pie','bar',[['pie-chart',null],['bar-chart',null]],()=>{ change('doughnut')},()=>{change('bar')})
         )
       )
       .append(
-        $('<span>').addClass('column').text('Order by: ')
+        $('<span>').addClass('column').text(i18njs('Order by: '))
         .append(
           toggleButtons('num','alpha',[['sort-numeric-asc',null], ['sort-alpha-asc',null]],() => {
             throwOrderby();
@@ -95,7 +95,7 @@ $(document).ready(() => {
         )
       )
       .append(
-        $('<span>').addClass('column').text('Legend: ')
+        $('<span>').addClass('column').text(i18njs('Legend: '))
         .append(
           toggleButtons('percent','number',[['percent',null],['hashtag',null]],() => {
             throwDisplay();
@@ -104,7 +104,7 @@ $(document).ready(() => {
       )
     )
     .append(
-      $('<label>').attr('for','nb-cat').text('Categories (').append($('<span>').attr('id','nb-cat-display').text('6'))
+      $('<label>').attr('for','nb-cat').text(i18njs("Category",2)+' (').append($('<span>').attr('id','nb-cat-display').text('6'))
       .append(') :')
     )
     .append(
@@ -118,7 +118,7 @@ $(document).ready(() => {
         .addClass('progress')
     )
     .append(
-      $('<span>').attr('id','period-select').text('Time span: ')
+      $('<span>').attr('id','period-select').text(i18njs('Time span: '))
     )
     .append(
       $('<label>').attr('for','append-data').addClass('checkbox')
@@ -128,21 +128,19 @@ $(document).ready(() => {
         .attr('id','append-data')
         .attr('onclick','throwPrevious()')
       )
-      .append(' Append ')
-      .append($('<abbr>').attr('title','TIP: In doughnut view, if some category can\'t be shown for both datasets, try hide it by clicking its label in the legend').text('previous'))
-      .append(' data')
+      .append(i18njs(' Append <abbr title="TIP: In doughnut view, if some category can\'t be shown for both datasets, try hide it by clicking its label in the legend">previous</abbr> data'))
     )
     .append($('<br>'))
   )
   new CustomField('calendar-check-o','period',
   { options:[
-    ['thismonth','This Month'],
-    ['lastmonth','Last Month'],
-    ['thisquarter','This Quarter'],
-    ['lastquarter','Last Quarter'],
-    ['thisyear','This Year'],
-    ['lastyear','Last Year'],
-    ['*','All dates']
+    ['thismonth',i18njs('This Month')],
+    ['lastmonth',i18njs('Last Month')],
+    ['thisquarter',i18njs('This Quarter')],
+    ['lastquarter',i18njs('Last Quarter')],
+    ['thisyear',i18njs('This Year')],
+    ['lastyear',i18njs('Last Year')],
+    ['*',i18njs('All dates')]
   ]
   },'#period-select','select').render()
 
@@ -300,7 +298,7 @@ function updateConfig(){
   for (var i = 0; i < data_db.length; i++) {
     data.push(-data_db[i].s.toFixed(2));
     const legend = global.opt.percent ? (-data_db[i].s.toFixed(2)/max*100).toFixed(2)+'%' : -data_db[i].s.toFixed(2)
-    labels.push(((data_db[i].category === "") ? "Other" : data_db[i].category)+` (${legend})`)
+    labels.push(((data_db[i].category === "") ? i18njs("Other") : data_db[i].category)+` (${legend})`)
   }
   global.config.data.labels = labels;
   global.config.data.datasets[0].data= data;

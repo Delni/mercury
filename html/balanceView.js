@@ -46,13 +46,13 @@ global.config = {
         },
         scaleLabel: {
           display: true,
-          labelString: 'Date'
+          labelString: i18njs('Date')
         }
       }],
       yAxes: [{
         scaleLabel: {
           display: true,
-          labelString: 'value'
+          labelString: i18njs('Value')
         }
       }],
     }
@@ -86,10 +86,10 @@ $(document).ready(() => {
   $('#option-pane').append(
     $('<div>')
     .append(
-      $('<span>').attr('id','period-select').text('Time span: ')
+      $('<span>').attr('id','period-select').text(i18njs('Time span: '))
     )
     .append($('<hr>'))
-    .append($('<p>').addClass('subtitle is-5').text('Custom time span'))
+    .append($('<p>').addClass('subtitle is-5').text(i18njs('Custom time span')))
     .append(
       $('<div>').addClass('field columns')
       .append(
@@ -110,7 +110,7 @@ $(document).ready(() => {
           .append(
             $('<input>').addClass('input')
             .attr('type','text')
-            .attr('placeholder','Pick a date')
+            .attr('placeholder',i18njs('Pick a date'))
             .attr('id','fCustomDate')
           )
         )
@@ -133,7 +133,7 @@ $(document).ready(() => {
           .append(
             $('<input>').addClass('input')
             .attr('type','text')
-            .attr('placeholder','Pick a date')
+            .attr('placeholder',i18njs('Pick a date'))
             .attr('id','lCustomDate')
           )
         )
@@ -143,13 +143,13 @@ $(document).ready(() => {
 
   new CustomField('calendar-check-o','period',
     { options:[
-      ['thismonth','This Month'],
-      ['lastmonth','Last Month'],
-      ['thisquarter','This Quarter'],
-      ['lastquarter','Last Quarter'],
-      ['thisyear','This Year'],
-      ['lastyear','Last Year'],
-      ['*','All dates']
+      ['thismonth',i18njs('This Month')],
+      ['lastmonth',i18njs('Last Month')],
+      ['thisquarter',i18njs('This Quarter')],
+      ['lastquarter',i18njs('Last Quarter')],
+      ['thisyear',i18njs('This Year')],
+      ['lastyear',i18njs('Last Year')],
+      ['*',i18njs('All dates')]
     ]
     },'#period-select','select').render()
 

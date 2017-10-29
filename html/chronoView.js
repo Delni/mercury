@@ -48,13 +48,13 @@ global.config = {
         },
         scaleLabel: {
           display: true,
-          labelString: 'Date'
+          labelString: i18njs('Date')
         }
       }],
       yAxes: [{
         scaleLabel: {
           display: true,
-          labelString: 'value'
+          labelString: i18njs('Value')
         }
       }],
     }
@@ -97,14 +97,14 @@ $(document).ready(() => {
           .attr('id','floor-check')
           .attr('onclick','throwFloor()')
         )
-        .append(' Floor data to 0 ')
+        .append(i18njs(' Floor data to 0 '))
       )
     )
     .append(
-      $('<span>').attr('id','period-select').text('Time span: ')
+      $('<span>').attr('id','period-select').text(i18njs('Time span: '))
     )
     .append($('<hr>'))
-    .append($('<p>').addClass('subtitle is-5').text('Custom time span'))
+    .append($('<p>').addClass('subtitle is-5').text(i18njs('Custom time span')))
     .append(
       $('<div>').addClass('field columns')
       .append(
@@ -125,7 +125,7 @@ $(document).ready(() => {
           .append(
             $('<input>').addClass('input')
             .attr('type','text')
-            .attr('placeholder','Pick a date')
+            .attr('placeholder',i18njs('Pick a date'))
             .attr('id','fCustomDate')
           )
         )
@@ -148,7 +148,7 @@ $(document).ready(() => {
           .append(
             $('<input>').addClass('input')
             .attr('type','text')
-            .attr('placeholder','Pick a date')
+            .attr('placeholder',i18njs('Pick a date'))
             .attr('id','lCustomDate')
           )
         )
@@ -158,13 +158,13 @@ $(document).ready(() => {
 
   new CustomField('calendar-check-o','period',
     { options:[
-      ['thismonth','This Month'],
-      ['lastmonth','Last Month'],
-      ['thisquarter','This Quarter'],
-      ['lastquarter','Last Quarter'],
-      ['thisyear','This Year'],
-      ['lastyear','Last Year'],
-      ['*','All dates']
+      ['thismonth',i18njs('This Month')],
+      ['lastmonth',i18njs('Last Month')],
+      ['thisquarter',i18njs('This Quarter')],
+      ['lastquarter',i18njs('Last Quarter')],
+      ['thisyear',i18njs('This Year')],
+      ['lastyear',i18njs('Last Year')],
+      ['*',i18njs('All dates')]
     ]
     },'#period-select','select').render()
 
@@ -334,7 +334,7 @@ function updateConfig() {
 
   let alreadyWarning = false
   for (var i = 0; i < config.data.datasets.length; i++) {
-    if( config.data.datasets[i].label === 'Warning zone'){
+    if( config.data.datasets[i].label === i18njs('Warning zone')){
       alreadyWarning = true;
     }
   }
@@ -349,7 +349,7 @@ function updateConfig() {
     $('#floor-check').get(0).checked = true;
     $('#floor-check').change();
     global.config.data.datasets.push({
-      label: 'Warning zone',
+      label: i18njs('Warning zone'),
       backgroundColor: 'rgba(221, 50, 50, 0.2)',
       borderColor: '#dd3232',
       borderWidth: 1,

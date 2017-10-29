@@ -64,8 +64,8 @@ $(function() {
   // i18n
   $('input[name="a-name"]').attr('placeholder',i18njs("Name the account"))
   $('#op-date').attr('placeholder',globSettings.dateFormat)
-  $('#op-benef').attr('placeholder', i18njs("Beneficiary"))
-  $('#op-cat').attr('placeholder', i18njs("Category"))
+  $('#op-benef').attr('placeholder', i18njs("Beneficiary",1))
+  $('#op-cat').attr('placeholder', i18njs("Category",1))
   $('#op-label').attr('placeholder', i18njs("Label"))
   $('select[name="a-cur"]').children()[0].text = i18njs('currency')
   // Load Settings
@@ -161,10 +161,11 @@ window.onbeforeunload = function(evt) {
     setTimeout(() => {
       const options = {
         type: 'warning',
-        title: 'Warning !',
-        message: `Are you sure to quit ?`,
-        detail: `There are some modifications unsaved`,
-        buttons: ['Save & Quit', 'Quit', 'Cancel']
+        title: i18njs('Warning !'),
+        message: i18njs(`Are you sure to quit?`),
+        detail: i18njs(`There are some unsaved modifications`),
+        buttons: [i18njs('Save & Quit'), i18njs('Quit'), i18njs('Cancel')],
+        cancelId: 2,
       }
       let saving = ipc.sendSync('warning',options);
       if (saving === 0) {

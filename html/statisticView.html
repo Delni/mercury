@@ -13,6 +13,7 @@
     </style>
     <script type="text/javascript">
       const css = require('../js/loadCSS.js')
+      const i18njs = require('../assets/i18n.min.js')
     </script>
 
     <section id="window" class="hero is-fullheight is-dark">
@@ -20,7 +21,7 @@
         <p class="title">
           <span style="margin-left:2%;-webkit-app-region: drag">
               <span class="icon is-medium has-text-warning"><i class="fa fa-pie-chart"></i></span>
-              <span>Statistic Report</span>
+              <span><script>document.write(i18njs("Statistic Report"))</script></span>
           </span>
           <a href="#" onclick="window.close()" class="button is-outlined is-danger pull-right">
               <span class="icon">
@@ -38,7 +39,7 @@
               <canvas id="myChart" height="225%"></canvas>
             </div>
             <div class="column" id="option-pane" style="border-left: 1px grey solid">
-              <p class="title is-marginless">Options</p>
+              <p class="title is-marginless"><script>document.write(i18njs('Options'))</script></p>
             </div>
           </div>
 

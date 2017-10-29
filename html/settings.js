@@ -20,6 +20,7 @@ $(() => {
   //INIT
   $('#table-container').css('height', 0.30 * window.innerHeight)
   $('#select-cur').val(globSettings.defaultCurrency).change();
+  $('#select-lang').val(globSettings.language).change();
   toggleTheme($(`#${globSettings.theme}`).get(0))
   updatePresetsTable(globSettings.beneficiaries)
 })
