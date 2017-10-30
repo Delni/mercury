@@ -29,7 +29,7 @@ global.__basedir = __dirname;
 let filePath = "";
 let win;
 let isDev = false;
-let authorizeDev = true;
+let authorizeDev = false;
 const globSettings = jsonfile.readFileSync(__basedir + '/settings.json');
 
 const lang = jsonfile.readFileSync(__dirname+'/lang/'+globSettings.language+'.json')
