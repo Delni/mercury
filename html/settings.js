@@ -20,6 +20,7 @@ $(() => {
   //INIT
   $('#table-container').css('height', 0.30 * window.innerHeight)
   $('#select-cur').val(globSettings.defaultCurrency).change();
+  $('#select-lang').val(globSettings.language).change();
   toggleTheme($(`#${globSettings.theme}`).get(0))
   updatePresetsTable(globSettings.beneficiaries)
 })
@@ -32,11 +33,14 @@ $('#select-cur').on('change', () => {
 })
 
 $('#save-btn').on("click", () => {
+  const prevdefaultCurrency = globSettings.defaultCurrency;
   const defaultCurrency = $('#select-cur').val();
+  const prevlanguage = globSettings.language;
   const language = $('#select-lang').val();
+  const prevTheme = globSettings.theme;
   const theme = ($('.btn-theme.is-outlined').attr('data') === 'enable') ? "light":"dark";
-  globSettings.language = language;
   globSettings.defaultCurrency = defaultCurrency;
+  globSettings.language = language;
   globSettings.theme = theme;
   globSettings.beneficiaries.sort(function(a, b) {
     return a.toLowerCase().localeCompare(b.toLowerCase())
@@ -54,7 +58,16 @@ $('#save-btn').on("click", () => {
   $('#save-btn').addClass('is-loading')
   setTimeout(() => {
     window.close()
-  },1000)
+  },1000);
+  if (prevdefaultCurrency !== defaultCurrency || prevlanguage !== language || prevTheme !== theme) {
+    if (prevlanguage !== language) {
+      const options = {
+        title: i18njs('Language for the menu will be updated on restart')
+      }
+      ipc.send('notification',options)
+    }
+    ipc.send('new-settings',globSettings)
+  }
 });
 
 function togglePresets(obj) {

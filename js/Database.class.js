@@ -157,6 +157,45 @@ class Database {
     this.buildChartData(account);
   }
 
+  insertRecurringOperation(account,data,df){
+    //[amount,type,benef,cat,label,date,offset,timespan,time]
+    if(account === null || account === undefined) throw new Error('No account provided','Database.class.js',52)
+    const sqlstmt = this.sql.prepare("INSERT INTO Recurrings(amount,type,beneficiary,category,label,date,offset,timespan,times,account_name) VALUES(:amount,:type,:benef,:cat,:label,:date,:offset,:timespan,:time,:account_name)")
+    sqlstmt.getAsObject({
+      ':amount' : data[0],
+      ':type' : data[1],
+      ':benef' : data[2],
+      ':cat' : data[3],
+      ':label' : data[4],
+      ':date' : moment(data[5],df).format('YYYY-MM-DD'),
+      ':offset' : data[6],
+      ':timespan' : data[7],
+      ':time' : data[8],
+      ':account_name' : account
+    });
+    sqlstmt.free();
+  }
+
+  editRecurringOperation(id,account,data,df){
+    //[amount,type,benef,cat,label,date,offset,timespan,time]
+    if(account === null || account === undefined) throw new Error('No account provided','Database.class.js',52)
+    if(id === null || id === undefined) throw new Error('No id provided','Database.class.js',52)
+    const sqlstmt = this.sql.prepare("UPDATE Recurrings SET amount=:amount,type=:type,beneficiary=:benef,category=:cat,label=:label,date=:date,offset=:offset,timespan=:timespan,times=:time,account_name=:account_name WHERE id="+id)
+    sqlstmt.getAsObject({
+      ':amount' : data[0],
+      ':type' : data[1],
+      ':benef' : data[2],
+      ':cat' : data[3],
+      ':label' : data[4],
+      ':date' : moment(data[5],df).format('YYYY-MM-DD'),
+      ':offset' : data[6],
+      ':timespan' : data[7],
+      ':time' : data[8],
+      ':account_name' : account
+    });
+    sqlstmt.free();
+  }
+
   editOperation(id, data, df){
     if(data[0] === null || data[0] === undefined) throw new Error('No account provided','Database.class.js',52)
     const sqlstmt = this.sql.prepare("UPDATE OPERATION SET date=:date,state=:state,beneficiary=:beneficiary,category=:category,label=:label,amount=:amount,type=:type,account_name=:account_name WHERE id="+id)
@@ -181,6 +220,35 @@ class Database {
     this.fullLookup(account);
   }
 
+  deleteRec(id){
+    if( typeof id != "number") throw new Error('Invalid token')
+    this.sql.run('DELETE FROM Recurrings WHERE `id`='+id);
+  }
+
+  launchPending(id){
+    let resSQL = this.exec('SELECT * FROM Recurrings WHERE id='+id)[0]
+    this.insertOperation(resSQL.account_name,[resSQL.date,"fa fa-circle-o",resSQL.beneficiary,resSQL.category,resSQL.label, resSQL.amount, resSQL.type],'YYYY-MM-DD')
+    let newDate = moment(resSQL.date,'YYYY-MM-DD').add(resSQL.offset,resSQL.timespan).format('YYYY-MM-DD');
+    resSQL.times = Number(resSQL.times)
+    if (resSQL.times !== null) {
+      if (resSQL.times === 1) {
+        this.deleteRec(id);
+      } else {
+        const sqlstmt = this.sql.prepare("UPDATE Recurrings SET date=:date, times=:times WHERE id="+id)
+        sqlstmt.getAsObject({
+          ":date" : newDate,
+          ":times": resSQL.times - 1
+        });
+        sqlstmt.free();
+      }
+    } else {
+      const sqlstmt = this.sql.prepare("UPDATE Recurrings SET date=:date, WHERE id="+id)
+      sqlstmt.getAsObject({
+        ":date" : newDate
+      });
+      sqlstmt.free();
+    }
+  }
   updateTable(account,date,state,amount){
     const res = [];
     let sqlstr = "SELECT `id`,`state`,`date`,`type`,`beneficiary`,`category`,`label`,`amount` FROM OPERATION WHERE `account_name`=:account";
@@ -223,6 +291,9 @@ class Database {
 
   deleteAccount(name) {
     this.sql.run('DELETE FROM `Accounts` WHERE name="'+name+'"')
+    this.sql.run('DELETE FROM `OPERATION` WHERE account_name="'+name+'"')
+    this.sql.run('DELETE FROM `Recurrings` WHERE account_name="'+name+'"')
+    this.sql.run('DELETE FROM `Chronobase` WHERE account="'+name+'"')
   }
 
 

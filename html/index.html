@@ -8,6 +8,7 @@
   <link rel="icon" type="image/png" href="icons/png/64x64.png">
   <script type="text/javascript">
   const css = require('../js/loadCSS.js')
+  const i18njs = require('../assets/i18n.min.js')
   </script>
 </head>
 
@@ -30,13 +31,16 @@
         <div class="tile is-parent  is-2 is-paddingless" id="account-pane">
           <article class="tile is-child notification hero is-fullheight is-black" style="padding-right: 24px">
             <div class="content">
-              <p class="title">Accounts <span id="unsaved-tag"></span></p>
+              <p class="title">
+                <script>document.write(i18njs("Accounts"));</script>
+                <span id="unsaved-tag"></span>
+              </p>
               <p class="control">
                 <a class="button is-primary is-small is-outlined" data-toggle="#createAccount" onclick="showModal(this)">
                   <span class="icon is-small">
                     <i class="fa fa-plus-square"></i>
                   </span>
-                  <span>Add an account</span>
+                  <span><script>document.write(i18njs("Add an account"));</script></span>
                 </a>
                 <a class="button is-primary is-small is-outlined" onclick="updateAccountsList()">
                   <span class="icon is-small">
@@ -53,11 +57,11 @@
                         <span class="icon is-large"><i class="fa fa-bank"></i></span>
                       </div>
                       <div class="media-content">
-                        <p class="title">Add a new account...</p>
+                        <p class="title"><script>document.write(i18njs("Add a new account..."));</script></p>
                         <form>
                           <div class="field">
                             <p class="control has-icons-left">
-                              <input class="input" type="text" name="a-name" placeholder="Name the account" autofocus>
+                              <input class="input" type="text" name="a-name" autofocus>
                               <span class="icon is-small is-left">
                                 <i class="fa fa-tag"></i>
                               </span>
@@ -66,7 +70,7 @@
                           <div class="columns">
                             <div class="column is-4 field has-addons">
                               <div class="control">
-                                <a class="button is-primary">
+                                <a class="button is-tag is-primary">
                                   <span class="icon">
                                     <i id="selected-cur" class="fa fa-money"></i>
                                   </span>
@@ -77,7 +81,7 @@
                                   <option value="" disabled selected>currency</option>
                                   <option value="btc">Bitcoin</option>
                                   <option value="usd">Dollar</option>
-                                  <option value="eur">Euros</option>
+                                  <option value="eur">Euro</option>
                                   <option value="gbp">Pound</option>
                                   <option value="cny">Yen</option>
                                   <option value="money">Other</option>
@@ -86,7 +90,7 @@
                             </div>
                             <div class="column is-8 field has-addons">
                               <div class="control">
-                                <p class="button is-primary">Current amount</p>
+                                <p class="button is-tag is-primary"><script>document.write(i18njs("Current amount"))</script></p>
                               </div>
                               <p class="control">
                                 <input class='input' type="number" name="a-amount" placeholder="0.00">
@@ -95,10 +99,10 @@
                           </div>
                           <div class="field">
                             <p class="control pull-left">
-                              <a class="button is-info is-outlined" id="createNewAccount" onclick="createNewAccount()">Create</a>
+                              <a class="button is-info is-outlined" id="createNewAccount" onclick="createNewAccount()"><script>document.write(i18njs("Create"))</script></a>
                             </p>
                             <p class="control pull-right">
-                              <a class="button is-danger is-outlined" onclick="closeModal()">Cancel</a>
+                              <a class="button is-danger is-outlined" onclick="closeModal()"><script>document.write(i18njs("Cancel"))</script></a>
                             </p>
                           </div>
                         </form>
@@ -122,9 +126,9 @@
             <section class="tile is-child hero notification is-paddingless is-dark is-bottomless">
               <div class="tabs is-boxed is-small is-fullwidth is-bottomless">
                 <ul>
-                  <li class="tab is-active"><a data-toggle="#dashboard" id="first" onclick="tabToggle(this)"><span class="icon is-small"><i class="fa fa-dashboard"></i></span> Dashboard</a> </li>
-                  <li class="tab"><a data-toggle="#account" id="second" onclick="tabToggle(this)"><span class="icon is-small"><i class="fa fa-th-list"></i></span> Account</a></li>
-                  <li class="tab"><a data-toggle="#recurring" id="third" onclick="tabToggle(this)"><span class="icon is-small"><i class="fa fa-recycle"></i></span> Recurring operations</a></li>
+                  <li class="tab is-active"><a data-toggle="#dashboard" id="first" onclick="tabToggle(this)"><span class="icon is-small"><i class="fa fa-dashboard"></i></span> <script>document.write(i18njs("Dashboard"))</script></a> </li>
+                  <li class="tab"><a data-toggle="#account" id="second" onclick="tabToggle(this)"><span class="icon is-small"><i class="fa fa-th-list"></i></span> <script>document.write(i18njs("Account"))</script></a></li>
+                  <li class="tab"><a data-toggle="#recurring" id="third" onclick="tabToggle(this)"><span class="icon is-small"><i class="fa fa-recycle"></i></span> <script>document.write(i18njs("Recurring operations"))</script> </a></li>
                 </ul>
               </div>
               <div class="tile data" id="dashboard">
@@ -151,22 +155,22 @@
 
         <div class="tile is-parent is-paddingless is-2 hero is-fullheight " id="op-pane">
           <article class="tile is-child notification is-black">
-            <p class="title" id="op-title">Operation</p>
+            <p class="title" id="op-title"><script>document.write(i18njs("Operation"))</script></p>
             <p id="op-delete" class="subtitle"></p>
             <div class="content" id="op-content">
 
-              <div class="field has-addons">
+              <div class="field has-addons key-enter" data='op-add-btn'>
                 <div class="control">
                   <a class="button is-primary is-tag" id="op-date-btn">
                       <span class="icon"><i class="fa fa-calendar"></i></span>
                     </a>
                 </div>
                 <div class="control" style="margin:0">
-                  <input class="input" type="text" id="op-date" name="op-date" placeholder="Pick a date">
+                  <input class="input" type="text" id="op-date" name="op-date">
                 </div>
               </div>
 
-              <div class="field has-addons">
+              <div class="field has-addons key-enter" data='op-add-btn'>
                 <div class="control">
                   <a class="button is-primary is-tag" id="op-amount-btn">
                       <span class="icon"><i class="fa"></i></span>
@@ -176,7 +180,7 @@
                   <input class="input" type="number" id="op-amount" name="op-amount" placeholder="0.00">
                 </div>
               </div>
-              <div class="field has-addons">
+              <div class="field has-addons key-enter" data='op-add-btn'>
                 <div class="control">
                   <a class="button is-primary is-tag" id="op-account-btn">
                       <span class="icon">
@@ -190,7 +194,7 @@
                 </div>
               </div>
 
-              <div class="field has-addons">
+              <div class="field has-addons key-enter" data='op-add-btn'>
                 <div class="control">
                   <a class="button is-primary is-tag" id="op-type-btn">
                     <span class="icon"><i class="fa fa-credit-card"></i></span>
@@ -198,23 +202,23 @@
                 </div>
                 <div class="control select" style="margin:0">
                   <select name="op-type" id="op-type">
-                      <option value="" disabled>Operation type</option>
-                      <option value="credit-card">Credit Card</option>
-                      <option value="pencil-square-o">Check</option>
-                      <option value="money">Cash</option>
-                      <option value="exchange">Transfer</option>
-                      <option value="refresh">Internal transfer</option>
-                      <option value="share">Permanent transfer</option>
-                      <option value="desktop">Electronic Paiement</option>
+                      <option value="" disabled><script> document.write(i18njs("Operation type"))</script></option>
+                      <option value="credit-card"><script> document.write(i18njs("Credit Card"))</script></option>
+                      <option value="pencil-square-o"><script> document.write(i18njs("Check"))</script></option>
+                      <option value="money"><script> document.write(i18njs("Cash"))</script></option>
+                      <option value="exchange"><script> document.write(i18njs("Transfer"))</script></option>
+                      <option value="refresh"><script> document.write(i18njs("Internal transfer"))</script></option>
+                      <option value="share"><script> document.write(i18njs("Permanent transfer"))</script></option>
+                      <option value="desktop"><script> document.write(i18njs("Electronic Paiement"))</script></option>
                       <option value="paypal">PayPal</option>
-                      <option value="inbox">Deposit</option>
-                      <option value="bank">Bank charge</option>
-                      <option value="stop-circle-o">Direct levy</option>
+                      <option value="inbox"><script> document.write(i18njs("Deposit"))</script></option>
+                      <option value="bank"><script> document.write(i18njs("Bank charge"))</script></option>
+                      <option value="stop-circle-o"><script> document.write(i18njs("Direct levy"))</script></option>
                     </select>
                 </div>
               </div>
 
-              <div class="field has-addons">
+              <div class="field has-addons key-enter" data='op-add-btn'>
                 <div class="control">
                   <a class="button is-primary is-tag" id="op-benef-btn">
                       <span class="icon">
@@ -227,7 +231,7 @@
                 </div>
               </div>
 
-              <div class="field has-addons">
+              <div class="field has-addons key-enter" data='op-add-btn'>
                 <div class="control">
                   <a class="button is-primary is-tag" id="op-cat-btn">
                       <span class="icon">
@@ -239,7 +243,7 @@
                   <input class="input typeahead" id="op-cat" type="text" placeholder="Category" />
                 </div>
               </div>
-              <div class="field has-addons">
+              <div class="field has-addons key-enter" data='op-add-btn'>
                 <div class="control">
                   <a class="button is-primary is-tag" id="op-label-btn">
                       <span class="icon">
@@ -253,7 +257,7 @@
               </div>
 
               <div class="field is-grouped">
-                <p class="control">State :</p>
+                <p class="control"><script>document.write(i18njs("State"))</script> :</p>
                 <p class="control">
                   <a id="btn-state" class="button is-outlined is-primary is-small">
                     <span class="icon is-small">
@@ -290,11 +294,11 @@
               <div class="field is-grouped">
                 <div class="control">
                   <a class="button is-small is-info is-outlined" id="op-add-btn" onclick="addOperation(this)">
-                      <span id='op-confirm'>Add operation</span>
+                      <span id='op-confirm'><script> document.write(i18njs("Add operation"))</script></span>
                       <span class="icon is-small"><i class="fa fa-check-square-o"></i></span>
                     </a>
                   <a class="button is-small is-danger is-outlined" id="op-cancel-btn">
-                      <span>Cancel</span>
+                      <span><script> document.write(i18njs("Cancel"))</script></span>
                       <span class="icon is-small"><i class="fa fa-times"></i></span>
                     </a>
                 </div>

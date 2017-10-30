@@ -1,14 +1,14 @@
-![icon](/img/icon.png)
+![icon](/icons/png/Round/256x256.png)
 
 # Mercury
-`v0.11.6`  
+`v1.0.1`  
 The budget planner of the 21st century
 
-:construction: Please be aware that Mercury is currently under development, you should not try it before v1.0.0+ :construction:
+:construction: Please be aware that Mercury is in constant development, you may encounter unknown bug :construction:
 
 ---
 
-*Mercury* offer basic budget planner functionnality, such as managing account, add / edit / delete operation... I always wanted a tool as MSMoney or [HomeBank](http://homebank.free.fr), but with improved and modern UI. HomeBank was the software I used to use, and many features come from there.  
+*Mercury* offer basic budget planner functionality, such as managing account, add / edit / delete operation... I always wanted a tool as MSMoney or [HomeBank](http://homebank.free.fr), but with improved and modern UI. HomeBank was the software I used to use, and many features come from there.  
 This application is built on top of [Electron](electron.atom.io)
 
 
@@ -16,23 +16,24 @@ Developped with ♥ for you
 
 ---
 # Previews
-![mainView](/img/mainViewDark.png)
-![mainView](/img/mainView.png)
-Now with white theme !
-![mainView](/img/mainViewLight.png)   
-:construction: *WIP*
+| Dark UI (default) | White UI     |
+| :------------- | :------------- |
+| ![mainView](/img/mainViewDark.png) | ![mainView](/img/mainViewLight.png)       |
+| ![mainView](/img/accountViewDark.png) | ![mainView](/img/accountViewLight.png) |
+
 
 # Features
-:construction: *WIP*
  * Create or delete any account
  * Create / Edit / Delete any operation
+ * Create / Edit / Delete recurring operation
  * Filter operation with easy-to-access basic filters
- * Manage beneficiaries and categories
+ * Manage your outcome with reports over time / categories
+ * Manage beneficiaries and categories in the settings
  * `MacOS` TouchBar integration
  * Choose your (theme) side
 
 
- *Next to come : advanced filters, recurring operations, TouchBar improvements, ...*
+ *Next to come : advanced filters, TouchBar improvements, i18n...*
 
 # How to use
 Clone the GitHub repository. You need [Node.js](https://nodesjs.org) and [npm](https://npmjs.com) installed your system. Go to terminal:
@@ -52,7 +53,9 @@ $ npm start
 ```
 
 # Download
-Download for MacOS, Windows & Linux !  
+Download for MacOS  
+
+*Windows and Linux coming soon (as soon as they are tested)*  
 *Not available at the moment.*
 
 # Contribute
@@ -70,6 +73,7 @@ The request would be merged if it fixes the bug & does not disturb the whole app
   * [typehead.js](https://github.com/twitter/typeahead.js/)
   * [ChartJS](http://www.chartjs.org/)
   * [sql.js](https://github.com/kripken/sql.js)
+  * [i18njs](http://i18njs.com/)
 
 # License
 

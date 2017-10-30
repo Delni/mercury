@@ -1,0 +1,154 @@
+body, #window {
+  overflow-y: auto;
+}
+
+body::-webkit-scrollbar, *::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  overflow: hidden;
+}
+
+abbr {
+  cursor: help;
+}
+
+.is-36h{
+  height: 36px;
+}
+
+.title{
+  height: 50px;
+}
+
+.data {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.table {
+  border-radius: 5px;
+}
+
+.is-tag {
+  cursor: default;
+}
+
+.is-future {
+  font-style: italic;
+}
+
+.option:first {
+  color: #999
+}
+
+.tabs *.is-active {
+  border: 1px solid gray;
+  border-bottom: 1px solid #282c34;
+  border-radius: 5px 5px 0 0;
+}
+
+.is-main-pane{
+  width:95vw;
+  height: 90vh;
+  max-height: 90vh;
+  margin:auto;
+}
+
+.is-main-pane>*{
+  height: 90%;
+}
+
+.icon {
+  border: none;
+}
+
+#currency {
+  margin-left: 3px;
+}
+
+#op-pane {
+  min-width: 275px
+}
+
+#chart-area {
+  max-height: 30%;
+}
+
+#dash-body {
+  max-width: 64vw;
+  height: 95%;
+  max-height: 60vh;
+  overflow-y: scroll;
+  padding-right: 1em;
+}
+
+#account-list {
+  max-height: 700px;
+  overflow-y: auto;
+}
+
+#settings-body {
+  width: 95vw;
+  height: 69vh;
+  max-width: 95vw;
+  max-height: 69vh;
+}
+
+#helper {
+  position: relative;
+    left: -75px;
+    bottom: -25px;
+  text-align: center;
+  font-style: italic;
+  color: gray;
+}
+
+#menu-btn {
+  width: 100%
+}
+
+#table-container {
+  width: 95%;
+  height: 60%;
+  overflow:auto;
+}
+
+#mainScreen {
+  background-color: inherit;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.link {
+  cursor: pointer;
+}
+
+.link:hover{
+  text-decoration: underline;
+}
+
+th {
+  padding-right: 0;
+}
+
+.is-bottomless {
+  margin-bottom: 0 !important;
+}
+
+.notification a:not(.button) {
+  text-decoration: none;
+}
+
+.hero.is-dark .tabs.is-boxed li.is-active a, .hero.is-dark .tabs.is-boxed li.is-active a:hover {
+  border: none;
+}
+
+.has-text-purple {
+  color: #8445d6
+}
+
+strong, .card-header-title {
+  color: inherit;
+}

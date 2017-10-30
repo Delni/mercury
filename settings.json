@@ -2,27 +2,19 @@
   "dateFormat": "DD/MM/YYYY",
   "defaultCurrency": "eur",
   "language": "en",
+  "defaultOffset": 15,
+  "defaultTimeSpan": "day",
+  "displayHelpers": true,
   "theme": "dark",
+  "displayHelpers": false,
   "beneficiaries": [
+    "Charlotte"
   ],
   "categories": [
-    "Alimentation",
-    "Fees",
-    "Gadgets",
-    "Health",
-    "Holidays: Transport",
-    "Holidays: Travel",
-    "Household: Laundry",
-    "Presents",
-    "Refund",
-    "Remboursement",
-    "Restaurant",
-    "School",
-    "Steam",
-    "Subscriptions: Phone",
-    "Taxes",
-    "Wage",
-    "Withdrawal"
+    "Cadeaux"
+  ],
+  "labels": [
+    "Cadeau Papa"
   ],
   "labels": []
 }

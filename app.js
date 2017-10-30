@@ -1,5 +1,6 @@
 const {
   BrowserWindow,
+  Notification,
   Menu,
   app,
   dialog,
@@ -18,102 +19,157 @@ const {
 } = TouchBar
 const path = require('path')
 const url = require('url')
+const jsonfile = require('jsonfile')
 const pjson = require('./package.json')
+const i18njs = require('./assets/i18n.min.js')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 global.__basedir = __dirname;
 let filePath = "";
 let win;
+let isDev = false;
+let authorizeDev = true;
+const globSettings = jsonfile.readFileSync(__basedir + '/settings.json');
+
+const lang = jsonfile.readFileSync(__dirname+'/lang/'+globSettings.language+'.json')
+
+i18njs.translator.add(lang);
+
 const template = [{
-  label: 'File',
+  label: i18njs('File'),
   submenu: [{
-      label: 'About Mercury'
-    }, {
-      type: 'separator'
-    }, {
-      label: 'Settings',
-      accelerator: 'CmdOrCtrl+,',
-      click() {
-        exports.openSettingWindow()
-      }
-    }, {
-      type: 'separator'
-    }, {
-      label: 'New file',
+      label: i18njs('New file'),
       accelerator: 'CmdOrCtrl+N',
       click() { newfile() }
     }, {
-      label: 'Open',
+      label: i18njs('Open'),
       accelerator: 'CmdOrCtrl+O',
       click() { openfile(() => {}) }
     }, {
-      label: 'Save',
+      label: i18njs('Save'),
       accelerator: "CmdOrCtrl+S",
       click() {
-        if(filePath === "") {
-          saveAs();
-        } else {
-          console.log('Saving in '+filePath);
-          win.webContents.send('saved-file', filePath)
-        }
+        simpleSave();
       }
     }, {
-      label: 'Save As',
+      label: i18njs('Save As'),
       accelerator: 'CmdOrCtrl+Shift+S',
       click() { saveAs()}
     }, {
       type: 'separator'
     }, {
-      label: 'Quit',
+        label: i18njs('Settings'),
+        accelerator: 'CmdOrCtrl+,',
+        click() {
+          exports.openSettingWindow()
+        }
+      }, {
+        type: 'separator'
+      }, {
       role: 'quit'
     }]
   },{
-    label: 'Reports',
+    role: 'editMenu'
+  },{
+    label: i18njs('Reports'),
     submenu:[{
-        label: 'Time Report',
+        label: i18njs('Time Report'),
         accelerator: 'Alt+T',
-        icon: path.join(__dirname, '/assets/img/fa-area-chart_16.png'),
+        icon: path.join(__dirname,'/assets/img/fa-area-chart_16.png'),
         click() {
           exports.openChronoWindow();
         }
       },{
-        label: 'Statistic Report',
+        label: i18njs('Statistic Report'),
         accelerator: 'Alt+S',
-        icon: path.join(__dirname, '/assets/img/fa-pie-chart_16.png'),
+        icon: path.join(__dirname,'/assets/img/fa-pie-chart_16.png'),
         click() {
           exports.openStatisticWindow();
         }
       },{
-        label: 'Balance Report',
+        label: i18njs('Balance Report'),
         accelerator: 'Alt+B',
-        icon: path.join(__dirname, '/assets/img/fa-line-chart_16.png'),
+        icon: path.join(__dirname,'/assets/img/fa-line-chart_16.png'),
         click() {
           exports.openBalanceWindow();
         }
       }
     ]
   },{
-    label: 'Window',
+    label: i18njs('Windows'),
+    role: 'window',
     submenu: [{
-      label: 'Minimize',
-      accelerator: 'CmdOrCtrl+M',
+      role: 'reload'
+    },{
       role: 'minimize'
     }, {
-      label: 'Toggle fullscreen',
-      accelerator: 'CmdOrCtrl+F',
       role: 'togglefullscreen'
     }, {
-      label: 'Close Window',
-      accelerator: 'CmdOrCtrl+W',
       role: 'close'
     }]
+  },{
+    role: 'help',
+    submenu: [
+      {
+        label: 'Learn More',
+        click () { require('electron').shell.openExternal('https://electron.atom.io') }
+      }],
   }]
+
+if (authorizeDev) {
+  template.push({
+    label: i18njs('About'),
+    submenu: [{
+      label: i18njs('Version ') + pjson.version,
+      type: 'checkbox',
+      checked: true,
+      enabled: false
+    }, {
+      type: 'separator'
+    }, {
+      label: 'Enable DevTools',
+      type: 'checkbox',
+      checked: isDev,
+      role: 'toggledevtools',
+      click() {
+        isDev = !isDev
+      }
+    }]
+  });
+}
+if (process.platform === 'darwin') {
+  template.unshift({
+    label: app.getName(),
+    submenu: [
+      {role: 'about'},
+      {type: 'separator'},
+      {
+          label: i18njs('Settings'),
+          accelerator: 'CmdOrCtrl+,',
+          click() {
+            exports.openSettingWindow()
+          }
+        },
+      {type: 'separator'},
+      {role: 'services', submenu: []},
+      {type: 'separator'},
+      {role: 'hide'},
+      {role: 'hideothers'},
+      {role: 'unhide'},
+      {type: 'separator'},
+      {role: 'quit'}
+    ]
+  });
+  template[1].submenu.pop();
+  template[1].submenu.pop();
+  template[1].submenu.pop();
+}
 
 
 const settingTBButton = new TouchBarButton({
   backgroundColor: '#3272dd',
-  icon: path.join(__dirname, '/assets/img/fa-sliders_16.png'),
+  icon: path.join(__dirname,'/assets/img/fa-sliders_16.png'),
   click() {
     exports.openSettingWindow();
   }
@@ -121,7 +177,7 @@ const settingTBButton = new TouchBarButton({
 
 const chronoTBButton = new TouchBarButton({
   backgroundColor: '#00d1b2',
-  icon: path.join(__dirname, '/assets/img/fa-area-chart_16.png'),
+  icon: path.join(__dirname,'/assets/img/fa-area-chart_16.png'),
   click() {
     exports.openChronoWindow();
   }
@@ -129,7 +185,7 @@ const chronoTBButton = new TouchBarButton({
 
 const statisticTBButton = new TouchBarButton({
   backgroundColor: '#ffdd57',
-  icon: path.join(__dirname, '/assets/img/fa-pie-chart_16.png'),
+  icon: path.join(__dirname,'/assets/img/fa-pie-chart_16.png'),
   click() {
     exports.openStatisticWindow();
   }
@@ -137,14 +193,14 @@ const statisticTBButton = new TouchBarButton({
 
 const balanceTBButton = new TouchBarButton({
   backgroundColor: '#ff3860',
-  icon: path.join(__dirname, '/assets/img/fa-line-chart_16.png'),
+  icon: path.join(__dirname,'/assets/img/fa-line-chart_16.png'),
   click() {
     exports.openBalanceWindow();
   }
 })
 
 const openTBPopover = new TouchBarPopover({
-  icon: path.join(__dirname, '/assets/img/fa-bars_16.png'),
+  icon: path.join(__dirname,'/assets/img/fa-bars_16.png'),
   iconPosition: 'left',
   items: [
     settingTBButton,
@@ -157,9 +213,9 @@ const openTBPopover = new TouchBarPopover({
 
 const tabTBButton = new TouchBarSegmentedControl({
   segments: [
-    new TouchBarLabel({label: 'Dashboard'}),
-    new TouchBarLabel({label: 'Account'}),
-    new TouchBarLabel({label: 'Recurring Operations'})
+    new TouchBarLabel({label: i18njs('Dashboard')}),
+    new TouchBarLabel({label: i18njs('Account')}),
+    new TouchBarLabel({label: i18njs('Recurring operations')})
   ],
   change(selectedIndex){
     win.webContents.send('toggle',selectedIndex)
@@ -172,7 +228,7 @@ function createWindow() {
     width: 1600,
     height: 1000,
     minWidth: 1270,
-    icon: path.join(__dirname, '/icons/png/64x64.png'),
+    icon: path.join(__dirname, '/icons/png/Round/64x64.png'),
     backgroundColor: '#282c34',
     titleBarStyle: 'hidden-inset',
   })
@@ -264,7 +320,7 @@ exports.openSettingWindow = function() {
       minWidth: 300,
       height: 600,
       backgroundColor: '#282c34',
-      icon: path.join(__dirname, '/icons/png/64x64.png')
+      icon: path.join(__dirname, '/icons/png/Round/64x64.png')
     })
     swin.loadURL(`file://${__dirname}/html/settings.html`)
     swin.setTouchBar(new TouchBar([
@@ -288,7 +344,7 @@ exports.openChronoWindow = function() {
       width: 1000,
       height: 600,
       backgroundColor: '#282c34',
-      icon: path.join(__dirname, '/icons/png/64x64.png')
+      icon: path.join(__dirname, '/icons/png/Round/64x64.png')
     })
     chronoWin.loadURL(`file://${__dirname}/html/chronoView.html`)
     chronoWin.setTouchBar(new TouchBar([
@@ -311,7 +367,7 @@ exports.openStatisticWindow = function() {
     openTBPopover,
     new TouchBarSpacer({size:'large'}),
     new TouchBarSlider({
-      label: 'Category',
+      label: i18njs('Category',2),
       value: 6,
       minValue: 3,
       maxValue: 12,
@@ -319,17 +375,17 @@ exports.openStatisticWindow = function() {
     }),
     new TouchBarSpacer({size:'large'}),
     new TouchBarPopover({
-      label: 'Time span',
+      label: i18njs('Time span'),
       items: [
         new TouchBarSegmentedControl({
           segments: [
-            new TouchBarLabel({label: 'This month'}),
-            new TouchBarLabel({label: 'Last month'}),
-            new TouchBarLabel({label: 'This quarter'}),
-            new TouchBarLabel({label: 'Last quarter'}),
-            new TouchBarLabel({label: 'This year'}),
-            new TouchBarLabel({label: 'Last year'}),
-            new TouchBarLabel({label: 'All Dates'}),
+            new TouchBarLabel({label: i18njs('This Month')}),
+            new TouchBarLabel({label: i18njs('Last Month')}),
+            new TouchBarLabel({label: i18njs('This Quarter')}),
+            new TouchBarLabel({label: i18njs('Last Quarter')}),
+            new TouchBarLabel({label: i18njs('This Year')}),
+            new TouchBarLabel({label: i18njs('Last Year')}),
+            new TouchBarLabel({label: i18njs('All dates')}),
           ],
           change(selectedIndex){
             statisticWin.webContents.send('toggle-time-span',selectedIndex)
@@ -346,7 +402,7 @@ exports.openStatisticWindow = function() {
       width: 1000,
       height: 600,
       backgroundColor: '#282c34',
-      icon: path.join(__dirname, '/icons/png/64x64.png')
+      icon: path.join(__dirname, '/icons/png/Round/64x64.png')
     })
     statisticWin.loadURL(`file://${__dirname}/html/statisticView.html`)
     statisticWin.setTouchBar(statisticTBar);
@@ -371,7 +427,7 @@ exports.openBalanceWindow = function() {
       width: 1000,
       height: 600,
       backgroundColor: '#282c34',
-      icon: path.join(__dirname, '/icons/png/64x64.png')
+      icon: path.join(__dirname, '/icons/png/Round/64x64.png')
     })
     balanceWin.loadURL(`file://${__dirname}/html/balanceView.html`)
     balanceWin.setTouchBar(new TouchBar([
@@ -393,32 +449,8 @@ ipcMain.on('open-file', (event) => {
   });
 })
 
-ipcMain.on('delete-warning', (event,args) => {
-  const options = {
-    type: 'warning',
-    title: 'Warning !',
-    message: `You are about to delete the account \"${args}\" \n\nAre you sure?`,
-    buttons: ['Continue', 'Cancel']
-  }
-  dialog.showMessageBox(win, options, function (index) {
-    event.returnValue = index;
-  })
-})
-
 ipcMain.on('file-to-save', (event, args) => {
   filePath = args;
-})
-
-ipcMain.on('delete-op-warning',(event)=> {
-  const options = {
-    type: 'warning',
-    title: 'Warning !',
-    message: `You are about to delete an operation.\n\nAre you sure?`,
-    buttons: ['Continue', 'Cancel']
-  }
-  dialog.showMessageBox(win, options, function (index) {
-    event.returnValue = index;
-  })
 })
 
 ipcMain.on('action-trigger',(event,args) => {
@@ -441,6 +473,70 @@ ipcMain.on('action-trigger',(event,args) => {
   }
 })
 
+ipcMain.on('new-settings',(event,args) => {
+  win.webContents.send('new-settings',args);
+})
+
+ipcMain.on('save',(event,arg) => {
+  simpleSave();
+  if (arg) {
+    app.quit();
+  }
+  event.returnValue = true;
+})
+
+ipcMain.on('quit',(event) => {
+  app.quit();
+})
+
+ipcMain.on('warning',(event,args) => {
+  dialog.showMessageBox(win, args, function (index) {
+    event.returnValue = index;
+  })
+})
+
+ipcMain.on('open-report',(event,args) => {
+  if (globSettings.displayHelpers === false || globSettings.displayHelpers === 'undefined') {
+    let displayWindow = null
+    switch (args) {
+      case 'balanceWin':
+      displayWindow = balanceWin;
+      break;
+      case 'chronoWin':
+      displayWindow = chronoWin;
+      break;
+      case 'statisticWin':
+      displayWindow = statisticWin;
+      break;
+      default:
+      displayWindow = win;
+    }
+    const options = {
+      type: 'info',
+      title: i18njs('Before you continue ...'),
+      message: i18njs(`You should save before opening report`),
+      detail: i18njs(`The info displayed are the most accurate only if all data are saved`),
+      checkboxLabel: i18njs(`Don't show this again`)
+    }
+    dialog.showMessageBox(displayWindow, options, function (response,checkboxChecked) {
+      if (checkboxChecked) {
+        globSettings.displayHelpers = true;
+        jsonfile.writeFile(__basedir + '/settings.json', globSettings, {
+          spaces: 2
+        }, function(err) {
+          if (err != null) {
+            console.error(err);
+          }
+        })
+      }
+    })
+  }
+})
+
+ipcMain.on('notification', (event,args) => {
+  new Notification(args).show();
+})
+
 function newfile() {
   filePath = "";
   win.webContents.send('open-new-file');
@@ -450,7 +546,7 @@ function openfile(callback) {
   dialog.showOpenDialog(win, {
     filters: [{name : 'Mercury Files', extensions: ['mcy']}],
     properties: ['openFile'],
-    message : 'Choose your Mercury file'
+    message : i18njs('Choose your Mercury file')
   }, function(files) {
     if (files) {
       win.webContents.send('selected-file', files[0]);
@@ -460,9 +556,18 @@ function openfile(callback) {
   })
 }
 
+function simpleSave(){
+  if(filePath === "") {
+    saveAs();
+  } else {
+    console.log('Saving in '+filePath);
+    win.webContents.send('saved-file', filePath)
+  }
+}
+
 function saveAs() {
   const options = {
-    title: 'Save your data',
+    title: i18njs('Save your data'),
     filters: [
       { name: 'Mercury Files', extensions: ['mcy'] }
     ]

@@ -24,13 +24,13 @@ class ChronoChart {
 						},
 						scaleLabel: {
 							display: true,
-							labelString: 'Date'
+							labelString: i18njs('Date')
 						}
 					}],
 					yAxes: [{
 						scaleLabel: {
 							display: true,
-							labelString: 'value'
+							labelString: i18njs('Value')
 						}
 					}],
         }

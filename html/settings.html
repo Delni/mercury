@@ -15,6 +15,7 @@
   </style>
   <script type="text/javascript">
     const css = require('../js/loadCSS.js')
+    const i18njs = require('../assets/i18n.min.js')
   </script>
 
   <section id="window" class="hero is-fullheight is-dark">
@@ -22,7 +23,7 @@
       <p class="title">
         <span style="margin-left:2%;-webkit-app-region: drag">
             <span class="icon is-medium has-text-info"><i class="fa fa-sliders"></i></span>
-        <span>Settings</span>
+        <span><script>document.write(i18njs("Settings"))</script></span>
         </span>
         <a href="#" onclick="window.close()" class="button is-outlined is-danger pull-right">
             <span class="icon">
@@ -38,45 +39,45 @@
             <div class="tile">
               <div class="tile is-parent is-vertical">
                 <article class="tile is-child notification is-dark">
-                  <p class="title is-marginless">General</p>
-                  <small style="position: relative; top: -1.5em">You'll have to restart to see change</small>
+                  <p class="title is-marginless"><script>document.write(i18njs("General"))</script></p>
                   <div class="level is-marginless">
-                    <p class="subtitle level-left">Dark theme</p>
+                    <p class="subtitle level-left"><script>document.write(i18njs("Dark theme"))</script></p>
                     <div class="level-right">
                       <div class="control field has-addons" id="menu-btn">
                         <p class="control">
                           <a id="dark" class="button is-small is-outlined is-primary btn-theme" data="enable" onclick='toggleTheme(this)'>
-                            <span>Enable</span>
+                            <span><script>document.write(i18njs("Enable"))</script></span>
                           </a>
                         </p>
                         <p class="control">
                           <a id="light" class="button is-small is-outlined is-primary btn-theme" data="disable" onclick='toggleTheme(this)'>
-                            <span>Disable</span>
+                            <span><script>document.write(i18njs("Disable"))</script></span>
                           </a>
                         </p>
                       </div>
                     </div>
                   </div>
                   <div class="level is-marginless">
-                    <p class="subtitle level-left">Language</p>
+                    <p class="subtitle level-left"><script>document.write(i18njs('Language'))</script></p>
                     <div class="level-right field has-addons is-marginless">
                       <div class="control">
-                        <a class="button is-primary" id="op-lang-btn">
+                        <a class="button is-tag is-primary" id="op-lang-btn">
                             <span class="icon"><i class="fa fa-language"></i></span>
                           </a>
                       </div>
                       <div class="control select">
                         <select id="select-lang" name="select-lang">
                           <option value="en">English</option>
+                          <option value="fr">Français</option>
                         </select>
                       </div>
                     </div>
                   </div>
                   <div class="level is-marginless">
-                    <p class="subtitle level-left">Default <br>Currency</p>
+                    <p class="subtitle level-left"><script>document.write(i18njs("Default <br>Currency"))</script></p>
                     <div class="level-right field has-addons is-marginless">
                       <div class="control">
-                        <a class="button is-primary">
+                        <a class="button is-tag is-primary">
                             <span class="icon">
                               <i id="selected-cur" class="fa fa-money"></i>
                             </span>
@@ -86,10 +87,10 @@
                         <select id="select-cur" name="a-cur">
                             <option value="btc">Bitcoin</option>
                             <option value="usd">Dollar</option>
-                            <option value="eur">Euros</option>
-                            <option value="gbp">Pound</option>
+                            <option value="eur">Euro</option>
+                            <option value="gbp"><script>document.write(i18njs("Pound"))</script></option>
                             <option value="cny">Yen</option>
-                            <option value="money">- Other</option>
+                            <option value="money"><script>document.write(i18njs("Other"))</script></option>
                           </select>
                       </div>
                     </div>
@@ -98,14 +99,14 @@
               </div>
               <div class="tile is-parent">
                 <article class="tile is-child notification is-dark">
-                  <p class="title">Manage presets</p>
+                  <p class="title"><script> document.write(i18njs("Manage presets"))</script></p>
                   <div class="subtitle control field has-addons" id="menu-btn">
                     <p class="control">
                       <a class="button is-primary btn-state" data="beneficiaries" onclick='togglePresets(this)'>
                         <span class="icon is-small">
                           <i class="fa fa-building-o"></i>
                         </span>
-                        <span>Beneficiaries</span>
+                        <span><script>document.write(i18njs("Beneficiary",2))</script></span>
                       </a>
                     </p>
                     <p class="control">
@@ -113,7 +114,7 @@
                         <span class="icon is-small">
                           <i class="fa fa-flag"></i>
                         </span>
-                        <span>Categories</span>
+                        <span><script>document.write(i18njs("Category",2))</script></span>
                       </a>
                     </p>
                   </div>
@@ -137,7 +138,7 @@
               <span class="icon">
                 <i class="fa fa-floppy-o"></i>
               </span>
-              <span>Save</span>
+              <span><script>document.write(i18njs("Save"))</script></span>
             </a>
         </p>
       </div>
