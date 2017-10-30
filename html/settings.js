@@ -60,6 +60,12 @@ $('#save-btn').on("click", () => {
     window.close()
   },1000);
   if (prevdefaultCurrency !== defaultCurrency || prevlanguage !== language || prevTheme !== theme) {
+    if (prevlanguage !== language) {
+      const options = {
+        title: i18njs('Language for the menu will be updated on restart')
+      }
+      ipc.send('notification',options)
+    }
     ipc.send('new-settings',globSettings)
   }
 });
