@@ -5,3 +5,4 @@ node_modules/
 .scannerwork
 sonar-*
 settings.json
+dist/
