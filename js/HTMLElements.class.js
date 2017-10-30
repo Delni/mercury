@@ -10,7 +10,7 @@ const HTMLElements  = {
           .addClass('has-text-primary link')
           .attr('data-toggle','#createAccount')
           .attr('onclick','showModal(this)')
-          .text(i18jns('account'))
+          .text(i18njs('account'))
       ).append(i18njs(' to start or '))
       .append(
         $('<span>').addClass('has-text-info link')
