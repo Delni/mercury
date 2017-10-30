@@ -2,19 +2,13 @@
   "dateFormat": "DD/MM/YYYY",
   "defaultCurrency": "eur",
   "language": "en",
+  "theme": "dark",
   "defaultOffset": 15,
   "defaultTimeSpan": "day",
   "displayHelpers": true,
-  "theme": "dark",
   "displayHelpers": false,
-  "beneficiaries": [
-    "Charlotte"
-  ],
-  "categories": [
-    "Cadeaux"
-  ],
-  "labels": [
-    "Cadeau Papa"
-  ],
+  "beneficiaries": [],
+  "categories": [],
+  "labels": [],
   "labels": []
 }
