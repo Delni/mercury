@@ -13,7 +13,6 @@ $('#op-account').on('change', () => {
   $('#op-amount-btn').children().children().addClass("fa-" + cur)
 })
 
-
 $('#op-date').on('change', () => {
   const inputDate = $('#op-date').val()
   if (moment(inputDate, globSettings.dateFormat).isValid()) {
@@ -33,14 +32,12 @@ $('#op-date').keydown(function(event) {
   inputDate(event);
 })
 
-
 $('#op-type').on('change', () => {
   const val = $('#op-type').val();
   $('#op-type-btn').children().children().removeClass();
   $('#op-type-btn').children().children().addClass('fa')
   $('#op-type-btn').children().children().addClass('fa fa-' + val)
 })
-
 
 $('#op-cancel-btn').on('click', () => {
   resetOp(globSettings)
@@ -61,6 +58,7 @@ $('#btn-state').on('click', () => {
   }
 })
 
+// TODO
 // $('.key-enter').on('keypress',(event) => {
 //   if (event.keyCode === 13) {
 //     console.log($("#"+$(event.target).lookAncestryFor('key-enter').attr('data')));
@@ -162,9 +160,9 @@ function resetOp(settings) {
   $('#op-cat').val(null).change()
   $('#op-label').val(null).change()
   $('tr').removeClass('is-selected')
-  $('#op-title').text('Operation')
+  $('#op-title').text(i18njs('Operation'))
   $('#op-delete').empty()
-  $('#op-confirm').text('Add operation')
+  $('#op-confirm').text(i18njs('Add operation'))
   $('#op-add-btn').attr('onclick','addOperation(this)')
 }
 
@@ -322,8 +320,8 @@ function hideUnsavedTag(){
 
 function showFilters(){
   const options = {
-    title: '🚧 Work in progress 🚧',
-    body: 'Please wait future update'
+    title: i18njs('🚧 Work in progress 🚧'),
+    body: i18njs('Please wait update')
   }
   ipc.send('notification',options)
 }
@@ -352,22 +350,22 @@ function contextMenu(id){
   contextualMenu = new Menu();
   // menu.append({type: 'separator'})
   const nextDate = moment(resSQL.date,'YYYY-MM-DD').add(resSQL.offset,resSQL.timespan).format(globSettings.dateFormat)
-  contextualMenu.append(new MenuItem({label: 'Account: '+resSQL.account_name, enabled: false}))
-  contextualMenu.append(new MenuItem({label: 'Next: '+nextDate, enabled: false}))
-  contextualMenu.append(new MenuItem({label: 'Recurrence: every '+resSQL.offset+' '+resSQL.timespan, enabled: false}))
+  contextualMenu.append(new MenuItem({label: i18njs('Account: %{name}',{name: resSQL.account_name}), enabled: false}))
+  contextualMenu.append(new MenuItem({label: i18njs('Next: ')+nextDate, enabled: false}))
+  contextualMenu.append(new MenuItem({label: i18njs('Recurrence: every %n ',resSQL.offset)+i18njs(resSQL.timespan,resSQL.offset), enabled: false}))
   if (resSQL.times !== null) {
-    contextualMenu.append(new MenuItem({label: 'Left: '+resSQL.times, enabled: false}))
+    contextualMenu.append(new MenuItem({label: i18njs('Left',Number(resSQL.times)), enabled: false}))
   }
   contextualMenu.append(new MenuItem({type: 'separator'}))
-  contextualMenu.append(new MenuItem({label: 'Launch', click(){
+  contextualMenu.append(new MenuItem({label: i18njs('Launch'), click(){
     launchPending(id,true);
   }}))
-  contextualMenu.append(new MenuItem({label: 'Edit', click(){
+  contextualMenu.append(new MenuItem({label: i18njs('Edit'), click(){
     $('tr').removeClass('is-selected');
     $("tr[data-id='"+id+"']").addClass('is-selected');
     showModal($("a[data-type='edit']").get(0));
   }}))
-  contextualMenu.append(new MenuItem({label: 'Delete', click(){
+  contextualMenu.append(new MenuItem({label: i18njs('Delete'), click(){
     $('tr').removeClass('is-selected');
     $("tr[data-id='"+id+"']").addClass('is-selected');
     deleteRec(true);
@@ -463,7 +461,12 @@ function launchPending(id = null, fromContext=false){
     let offset=$('#offset').val();
     let timespan=$('#timespan').val();
     let upperBound = moment().add(offset,timespan).format('YYYY-MM-DD');
-    let operations = global.db.exec(`SELECT id FROM Recurrings WHERE date <="${upperBound}"`)
+    let operations = [];
+    try {
+      operations = global.db.exec(`SELECT id FROM Recurrings WHERE date <="${upperBound}"`)
+    } catch (e) {
+      operations.lenght = 0;
+    }
     $('#modalbody').append(
       $('<progress>').addClass('progress is-danger')
       .attr('value',0)
@@ -475,8 +478,8 @@ function launchPending(id = null, fromContext=false){
       $('#launching-prg').attr('value',i+1);
     }
     const options = {
-      title: 'Task complete',
-      subtitle: `${operations.length} operations have been added !`,
+      title: i18njs('Task complete'),
+      subtitle: i18njs(`%n operations have been added!`,operations.length),
       silent: true
     }
     ipc.send('notification',options);
@@ -489,7 +492,9 @@ function launchPending(id = null, fromContext=false){
   } catch (e) {
     console.error(e);
   }
-  showUnsavedTag();
+  if (operations.lenght !== 0) {
+    showUnsavedTag();
+  }
   tabToggle($('#third').get(0));
 }
 
@@ -535,9 +540,10 @@ function editRecurringOperation() {
 function deleteRec(fromContext = false) {
   const options = {
     type: 'warning',
-    title: 'Warning !',
-    message: `You are about to delete an operation.\n\nAre you sure?`,
-    buttons: ['Continue', 'Cancel']
+    title: i18njs('Warning !'),
+    message: i18njs(`You are about to delete an operation.\n\nAre you sure?`),
+    buttons: [i18njs('Continue'), i18njs('Cancel')],
+    cancelId: 1
   }
   let confirm = ipc.sendSync('warning',options);
   if (confirm === 0) {

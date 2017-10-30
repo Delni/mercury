@@ -37,29 +37,29 @@ const lang = jsonfile.readFileSync(__dirname+'/lang/'+globSettings.language+'.js
 i18njs.translator.add(lang);
 
 const template = [{
-  label: 'File',
+  label: i18njs('File'),
   submenu: [{
-      label: 'New file',
+      label: i18njs('New file'),
       accelerator: 'CmdOrCtrl+N',
       click() { newfile() }
     }, {
-      label: 'Open',
+      label: i18njs('Open'),
       accelerator: 'CmdOrCtrl+O',
       click() { openfile(() => {}) }
     }, {
-      label: 'Save',
+      label: i18njs('Save'),
       accelerator: "CmdOrCtrl+S",
       click() {
         simpleSave();
       }
     }, {
-      label: 'Save As',
+      label: i18njs('Save As'),
       accelerator: 'CmdOrCtrl+Shift+S',
       click() { saveAs()}
     }, {
       type: 'separator'
     }, {
-        label: 'Settings',
+        label: i18njs('Settings'),
         accelerator: 'CmdOrCtrl+,',
         click() {
           exports.openSettingWindow()
@@ -72,23 +72,23 @@ const template = [{
   },{
     role: 'editMenu'
   },{
-    label: 'Reports',
+    label: i18njs('Reports'),
     submenu:[{
-        label: 'Time Report',
+        label: i18njs('Time Report'),
         accelerator: 'Alt+T',
         icon: path.join(__dirname,'/assets/img/fa-area-chart_16.png'),
         click() {
           exports.openChronoWindow();
         }
       },{
-        label: 'Statistic Report',
+        label: i18njs('Statistic Report'),
         accelerator: 'Alt+S',
         icon: path.join(__dirname,'/assets/img/fa-pie-chart_16.png'),
         click() {
           exports.openStatisticWindow();
         }
       },{
-        label: 'Balance Report',
+        label: i18njs('Balance Report'),
         accelerator: 'Alt+B',
         icon: path.join(__dirname,'/assets/img/fa-line-chart_16.png'),
         click() {
@@ -97,7 +97,7 @@ const template = [{
       }
     ]
   },{
-    label: 'Windows',
+    label: i18njs('Windows'),
     role: 'window',
     submenu: [{
       role: 'reload'
@@ -119,9 +119,9 @@ const template = [{
 
 if (authorizeDev) {
   template.push({
-    label: 'About',
+    label: i18njs('About'),
     submenu: [{
-      label: 'Version ' + pjson.version,
+      label: i18njs('Version ') + pjson.version,
       type: 'checkbox',
       checked: true,
       enabled: false
@@ -145,7 +145,7 @@ if (process.platform === 'darwin') {
       {role: 'about'},
       {type: 'separator'},
       {
-          label: 'Settings',
+          label: i18njs('Settings'),
           accelerator: 'CmdOrCtrl+,',
           click() {
             exports.openSettingWindow()
@@ -367,7 +367,7 @@ exports.openStatisticWindow = function() {
     openTBPopover,
     new TouchBarSpacer({size:'large'}),
     new TouchBarSlider({
-      label: 'Category',
+      label: i18njs('Category',2),
       value: 6,
       minValue: 3,
       maxValue: 12,
@@ -375,17 +375,17 @@ exports.openStatisticWindow = function() {
     }),
     new TouchBarSpacer({size:'large'}),
     new TouchBarPopover({
-      label: 'Time span',
+      label: i18njs('Time span'),
       items: [
         new TouchBarSegmentedControl({
           segments: [
-            new TouchBarLabel({label: 'This month'}),
-            new TouchBarLabel({label: 'Last month'}),
-            new TouchBarLabel({label: 'This quarter'}),
-            new TouchBarLabel({label: 'Last quarter'}),
-            new TouchBarLabel({label: 'This year'}),
-            new TouchBarLabel({label: 'Last year'}),
-            new TouchBarLabel({label: 'All Dates'}),
+            new TouchBarLabel({label: i18njs('This Month')}),
+            new TouchBarLabel({label: i18njs('Last Month')}),
+            new TouchBarLabel({label: i18njs('This Quarter')}),
+            new TouchBarLabel({label: i18njs('Last Quarter')}),
+            new TouchBarLabel({label: i18njs('This Year')}),
+            new TouchBarLabel({label: i18njs('Last Year')}),
+            new TouchBarLabel({label: i18njs('All dates')}),
           ],
           change(selectedIndex){
             statisticWin.webContents.send('toggle-time-span',selectedIndex)
@@ -449,32 +449,8 @@ ipcMain.on('open-file', (event) => {
   });
 })
 
-ipcMain.on('delete-warning', (event,args) => {
-  const options = {
-    type: 'warning',
-    title: 'Warning !',
-    message: `You are about to delete the account "${args}" \n\nAre you sure?`,
-    buttons: ['Continue', 'Cancel']
-  }
-  dialog.showMessageBox(win, options, function (index) {
-    event.returnValue = index;
-  })
-})
-
 ipcMain.on('file-to-save', (event, args) => {
   filePath = args;
-})
-
-ipcMain.on('delete-op-warning',(event)=> {
-  const options = {
-    type: 'warning',
-    title: 'Warning !',
-    message: `You are about to delete an operation.\n\nAre you sure?`,
-    buttons: ['Continue', 'Cancel']
-  }
-  dialog.showMessageBox(win, options, function (index) {
-    event.returnValue = index;
-  })
 })
 
 ipcMain.on('action-trigger',(event,args) => {
@@ -537,10 +513,10 @@ ipcMain.on('open-report',(event,args) => {
     }
     const options = {
       type: 'info',
-      title: 'Before you continue ...',
-      message: `You should save before opening report`,
-      detail: `The info displayed are the most accurate only if all data are saved`,
-      checkboxLabel: 'Don\'t show this again'
+      title: i18njs('Before you continue ...'),
+      message: i18njs(`You should save before opening report`),
+      detail: i18njs(`The info displayed are the most accurate only if all data are saved`),
+      checkboxLabel: i18njs(`Don't show this again`)
     }
     dialog.showMessageBox(displayWindow, options, function (response,checkboxChecked) {
       if (checkboxChecked) {
@@ -570,7 +546,7 @@ function openfile(callback) {
   dialog.showOpenDialog(win, {
     filters: [{name : 'Mercury Files', extensions: ['mcy']}],
     properties: ['openFile'],
-    message : 'Choose your Mercury file'
+    message : i18njs('Choose your Mercury file')
   }, function(files) {
     if (files) {
       win.webContents.send('selected-file', files[0]);
@@ -591,7 +567,7 @@ function simpleSave(){
 
 function saveAs() {
   const options = {
-    title: 'Save your data',
+    title: i18njs('Save your data'),
     filters: [
       { name: 'Mercury Files', extensions: ['mcy'] }
     ]

@@ -16,23 +16,6 @@ function createNewAccount() {
   let amount = $('input[name="a-amount"]').val()
   amount = Number((amount === '') ? 0 : amount);
   currency = (currency === null) ? 'money' : currency;
-  const account = {
-    "name": name,
-    "currency": currency,
-    "amount": [{
-        "amount": amount,
-        "label": "Bank"
-      },
-      {
-        "amount": amount,
-        "label": "Today"
-      },
-      {
-        "amount": amount,
-        "label": "Future"
-      }
-    ]
-  }
   const bAccount = new BankAccount(name, currency, amount, amount, amount);
   global.__accounts.push(bAccount);
   global.db.addAccount(name, currency, amount);
@@ -55,7 +38,14 @@ function createNewAccount() {
 
 function deleteAccount(obj) {
   const name = $(obj).attr('data')
-  const ipcr = (ipc.sendSync('delete-warning', name));
+  const options = {
+    type: 'warning',
+    title: i18njs('Warning !'),
+    message: i18njs(`You are about to delete the account "%{name}" \n\nAre you sure?`,{name: name}),
+    buttons: [i18njs('Continue'), i18njs('Cancel')],
+    cancelId: 1
+  }
+  const ipcr = (ipc.sendSync('warning',options));
   if (ipcr === 0) {
     global.db.deleteAccount(name);
     removeDiv($(obj).parent());
@@ -74,7 +64,7 @@ function updateAccountsList(obj = null) {
   $('#account-list').empty()
   $('#op-account').empty()
   $('#filter-account').empty()
-  $('#op-account').append($('<option>').attr("disabled", "true").text("Select your account"))
+  $('#op-account').append($('<option>').attr("disabled", "true").text(i18njs("Select your account")))
   let accounts;
   global.__accounts = [];
   try {
@@ -119,19 +109,19 @@ function editOp(event) {
   const fields = ['#op-state','#op-date','#op-type','#op-benef','#op-cat','#op-label','#op-amount']
   $('#op-account').val($('#filter-account').val())
   $('tr').removeClass('is-selected')
-  $('#op-title').text('Edit operation')
-  $('#op-confirm').text('Edit operation')
+  $('#op-title').text(i18njs('Edit operation#'))
+  $('#op-confirm').text(i18njs('Edit operation##'))
   $('#op-add-btn').attr('onclick','confirmEdit(this)').attr('data-id',id)
   $('#op-delete').empty().append(
     $('<div>').addClass('level').append(
       $('<a>').addClass('level-left button is-danger is-small')
       .append($('<span>').addClass('icon is-small').append($('<i>').addClass('fa fa-trash')))
-      .append($('<span>').text('Delete'))
+      .append($('<span>').text(i18njs('Delete')))
       .attr('onclick',`deleteOp(${id})`)
     ).append(
       $('<a>').addClass('level-right button is-info is-small')
       .append($('<span>').addClass('icon is-small').append($('<i>').addClass('fa fa-link')))
-      .append($('<span>').text('Inherit'))
+      .append($('<span>').text(i18njs('Inherit')))
       .attr('onclick',`inheritOp()`)
     )
   )
@@ -193,10 +183,18 @@ function confirmEdit(event) {
 
 function deleteOp(id) {
   let confirm;
-  confirm = ipc.sendSync('delete-op-warning');
+  const options = {
+    type: 'warning',
+    title: i18njs('Warning !'),
+    message: i18njs(`You are about to delete an operation.\n\nAre you sure?`),
+    buttons: [i18njs('Continue'), i18njs('Cancel')],
+    cancelId: 1
+  }
+  confirm = ipc.sendSync('warning',options);
   if (confirm === 0) {
     global.db.deleteOperation(id);
     updateSQL('#account');
+    showUnsavedTag();
   }
   resetOp(globSettings);
   updateAccountsList();
@@ -205,7 +203,6 @@ function deleteOp(id) {
   } catch (e) {
     console.error(e);
   }
-  showUnsavedTag();
 }
 
 function updateSQL(sqlType) {

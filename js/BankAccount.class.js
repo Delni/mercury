@@ -86,10 +86,10 @@ class BankAccount {
           $('<div>').addClass("content is-paddingless is-marginless")
           .append(
             $('<small>').append(
-              $('<p>').text('Bank : ')
+              $('<p>').text(i18njs('Bank: '))
               .append(
                 $('<span>').addClass("amount"+(this.inBank <=0 ? ' has-text-danger':'')).attr('id','inBank')
-                .text(this.inBank.toFixed(2)+" ")
+                .text(this.inBank.toFixed(2))
                 .append(
                   $('<span>').addClass("icon is-small")
                   .append(
@@ -98,10 +98,10 @@ class BankAccount {
               )
             )
             .append(
-              $('<p>').text('Today : ')
+              $('<p>').text(i18njs('Today: '))
               .append(
                 $('<span>').addClass("amount"+(this.today <=0 ? ' has-text-danger':'')).attr('id','inToday')
-                .text(this.today.toFixed(2)+" ")
+                .text(this.today.toFixed(2))
                 .append(
                   $('<span>').addClass("icon is-small")
                   .append(
@@ -110,10 +110,10 @@ class BankAccount {
               )
             )
             .append(
-              $('<p>').text('Future : ')
+              $('<p>').text(i18njs('Future: '))
               .append(
                 $('<span>').addClass("amount"+(this.future <=0 ? ' has-text-danger':'')).attr('id','inFuture')
-                .text(this.future.toFixed(2)+" ")
+                .text(this.future.toFixed(2))
                 .append(
                   $('<span>').addClass("icon is-small")
                   .append(

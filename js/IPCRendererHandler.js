@@ -73,10 +73,10 @@ ipc.on('new-settings',(event,args) => {
       if (unsaved) {
         const options = {
           type: 'warning',
-          title: 'Warning !',
-          message: `You have unsaved modifications and Mercury is about to reload.`,
-          detail: `Any unsaved modification will be lost in the process`,
-          buttons: ['Save & Continue', 'Cancel reload'],
+          title: i18njs('Warning !'),
+          message: i18njs(`You have unsaved modifications and Mercury is about to reload.`),
+          detail: i18njs(`Any unsaved modification will be lost in the process`),
+          buttons: [i18njs('Save & Continue'), i18njs('Cancel reload')],
           cancelId: 1
         }
         let confirm = ipc.sendSync('warning',options);

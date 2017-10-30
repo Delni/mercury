@@ -32,6 +32,7 @@ const dbPath = path.join(global.__basedir, 'data/template.sqlite');
 
 let globSettings = jsonfile.readFileSync(__basedir + '/settings.json');
 let unsaved = false;
+moment.locale(globSettings.language)
 
 
 // ooooo              o8o      .

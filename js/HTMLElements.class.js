@@ -2,27 +2,27 @@ const HTMLElements  = {
 
    noData: function(){
     return $('<div>')
-    .append($('<p>').addClass("title").text('No data found !'))
+    .append($('<p>').addClass("title").text(i18njs('No data found')+' !'))
     .append(
-      $('<p>').addClass("subtitle").text('Add an ')
+      $('<p>').addClass("subtitle").text(i18njs('Add an '))
       .append(
         $('<span>')
           .addClass('has-text-primary link')
           .attr('data-toggle','#createAccount')
           .attr('onclick','showModal(this)')
-          .text('account')
-      ).append(' to start or ')
+          .text(i18jns('account'))
+      ).append(i18njs(' to start or '))
       .append(
         $('<span>').addClass('has-text-info link')
           .attr('onclick',"ipc.send('open-file')")
-          .text('open a file')
+          .text(i18njs('open a file'))
       ).append(' :)')
     )
   },
 
 
    unsavedTag: function(){
-    return $('<abbr>').attr('title','You have unsaved modification(s)')
+    return $('<abbr>').attr('title',i18njs('unsaves modif'))
       .append(
         $('<span>').addClass('tag is-warning is-small icon is-rounded').text('!')
       )
@@ -60,12 +60,12 @@ const HTMLElements  = {
     const options =
     {
       options : [
-        ['-30','30 last days'],
-        ['m','This month'],
-        ['-1m','Last month'],
-        ['-1q','This quarter'],
-        ['-1y','This year'],
-        ['*','All dates']
+        ['-30',i18njs('30 last days')],
+        ['m',i18njs('This Month')],
+        ['-1m',i18njs('Last Month')],
+        ['-1q',i18njs('This Quarter')],
+        ['-1y',i18njs('This Year')],
+        ['*',i18njs('All dates')]
       ]
     }
     return new CustomField('calendar-o','filter-date',options,null,'select').generate().attr('value','-30');
@@ -74,10 +74,10 @@ const HTMLElements  = {
    stateFilter: function(){
     const options = {
       options: [
-        ['*','All'],
-        ['fa fa-circle-o','Regist.'],
-        ['fa fa-circle','Checked'],
-        ['fa fa-check-circle','Verified']
+        ['*',i18njs('All')],
+        ['fa fa-circle-o',i18njs('Regist.')],
+        ['fa fa-circle',i18njs('Checked')],
+        ['fa fa-check-circle',i18njs('Verified')]
       ]
     }
     return new CustomField('adjust','filter-state',options,null,'select').generate()
@@ -86,9 +86,9 @@ const HTMLElements  = {
    amountFilter: function(){
     const options = {
       options: [
-        ['*','Any'],
-        ['plus','Income'],
-        ['minus','Debit']
+        ['*',i18njs('Any')],
+        ['plus',i18njs('Income')],
+        ['minus',i18njs('Debit')]
       ]
     }
     return new CustomField('balance-scale','filter-amount',options,null,'select').generate()
@@ -140,14 +140,14 @@ const HTMLElements  = {
     .append(
       $('<thead>').append(
         $('<tr>')
-          .append($('<th>').text('State').addClass('has-text-centered'))
-          .append($('<th>').text('Date').addClass('has-text-centered'))
-          .append($('<th>').text('Type').addClass('has-text-centered'))
-          .append($('<th>').text('Beneficiary'))
-          .append($('<th>').text('Category'))
-          .append($('<th>').text('Label'))
-          .append($('<th>').text('Debit').addClass('has-text-centered'))
-          .append($('<th>').text('Collection').addClass('has-text-centered'))
+          .append($('<th>').text(i18njs('State')).addClass('has-text-centered'))
+          .append($('<th>').text(i18njs('Date')).addClass('has-text-centered'))
+          .append($('<th>').text(i18njs('Type')).addClass('has-text-centered'))
+          .append($('<th>').text(i18njs('Beneficiary',1)))
+          .append($('<th>').text(i18njs('Category',1)))
+          .append($('<th>').text(i18njs('Label')))
+          .append($('<th>').text(i18njs('Debit')).addClass('has-text-centered'))
+          .append($('<th>').text(i18njs('Collection')).addClass('has-text-centered'))
       )
     )
     .append(
@@ -174,7 +174,7 @@ const HTMLElements  = {
         $('<div>').addClass('tile is-child is-vertical notification is-black')
         .append(
           $('<div>').addClass('level is-marginless')
-          .append($('<p>').addClass('level-left title is-marginless').text('Top outcome'))
+          .append($('<p>').addClass('level-left title is-marginless').text(i18njs('Top outcome')))
           .append(
             $('<p>').addClass('level-right subtitle is-6 is-marginless')
             .text(moment().subtract(1,'months').format('MMMM YYYY'))
@@ -194,28 +194,28 @@ const HTMLElements  = {
       .append(
         $('<div>').addClass('tile is-child is-vertical hero notification is-black')
         .append($('<div>').addClass('level is-marginless')
-          .append($('<p>').addClass('title level-item').text('Quick Access'))
+          .append($('<p>').addClass('title level-item').text(i18njs('Quick Access')))
         )
         .append(
           $('<div>').addClass('hero-body').attr('style','padding-right: 0;').append(
           $('<ul>')
-          .append(HTMLElements.addCustomAction('settings','info','sliders','open-swin'))
-          .append(HTMLElements.addCustomAction('chrono Chart','primary','area-chart','open-chronowin'))
-          .append(HTMLElements.addCustomAction('recurring operations','success','recycle','open-recurring'))
-          .append(HTMLElements.addCustomAction('statistic report','warning','pie-chart','open-piewin'))
-          .append(HTMLElements.addCustomAction('balance report','danger','line-chart','open-balancewin'))
-          .append(HTMLElements.addCustomAction('account detail','purple','th-list','open-detail'))
+          .append(HTMLElements.addCustomAction(2,'settings','info','sliders','open-swin'))
+          .append(HTMLElements.addCustomAction(1,'chrono Chart','primary','area-chart','open-chronowin'))
+          .append(HTMLElements.addCustomAction(2,'recurring operations','success','recycle','open-recurring'))
+          .append(HTMLElements.addCustomAction(1,'statistic report','warning','pie-chart','open-piewin'))
+          .append(HTMLElements.addCustomAction(1,'balance report','danger','line-chart','open-balancewin'))
+          .append(HTMLElements.addCustomAction(1,'account detail','purple','th-list','open-detail'))
         ))
       )
     )
   },
 
-  addCustomAction: function(text,color,icon,ipcmsg){
+  addCustomAction: function(i18n, text,color,icon,ipcmsg){
     return $('<li>').addClass('subtitle is-5')
-    .append($('<span>').text("• Open the "))
+    .append($('<span>').text("• "+i18njs("Open the",i18n)+" "))
     .append($('<span>').addClass('has-text-'+color+' link')
       .attr('onclick',"ipc.send('action-trigger','"+ipcmsg+"')")
-      .text(text+' ')
+      .text(i18njs(text)+' ')
     )
     .append($('<span>').addClass('icon has-text-'+color).append($('<i>').addClass('fa fa-'+icon)))
   },
@@ -238,7 +238,7 @@ const HTMLElements  = {
     }
     for (var i = 0; i < data_db.length; i++) {
       data.push(-data_db[i].s.toFixed(2));
-      labels.push(((data_db[i].category === "") ? "Other" : data_db[i].category)+` (${(-data_db[i].s.toFixed(2)/max*100).toFixed(2)}%)`)
+      labels.push(((data_db[i].category === "") ? i18njs("Other") : data_db[i].category)+` (${(-data_db[i].s.toFixed(2)/max*100).toFixed(2)}%)`)
     }
 
     var config = {
@@ -302,7 +302,7 @@ const HTMLElements  = {
         $('<span>').addClass('icon is-medium has-text-success')
         .append($('<i>').addClass('fa fa-recycle'))
       )
-      .append(' Recurring Operations')
+      .append(i18njs(' Recurring Operations'))
     )
     .append( HTMLElements.recBar())
     .append( HTMLElements.recTable())
@@ -311,17 +311,6 @@ const HTMLElements  = {
   recTable: function(){
     return $('<div>').addClass('notification is-black').attr('style','height: 42vh; max-height:42vh; overflow-y:scroll')
     .append($('<table>').addClass('table')
-      // .append(
-      //   $('<thead>').append(
-      //     $('<tr>')
-      //       .append($('<th>').text('Due Date').addClass('has-text-centered'))
-      //       .append($('<th>').text('Type').addClass('has-text-centered'))
-      //       .append($('<th>').text('Beneficiary').addClass('has-text-centered'))
-      //       .append($('<th>').text('Category').addClass('has-text-centered'))
-      //       .append($('<th>').text('Label').addClass('has-text-centered'))
-      //       .append($('<th>').text('Amount').addClass('has-text-centered'))
-      //   )
-      // )
       .append(
         $('<tbody>').attr('id','recTable')
       )
@@ -348,7 +337,7 @@ const HTMLElements  = {
         $('<span>').addClass('icon')
           .append($('<i>').addClass('fa fa-plus-circle'))
       )
-      .append($('<span>').text('Create'))
+      .append($('<span>').text(i18njs('Create')))
     )
   },
 
@@ -363,7 +352,7 @@ const HTMLElements  = {
         $('<span>').addClass('icon is-medium')
           .append($('<i>').addClass('fa fa-rocket'))
       )
-      .append($('<span>').text('Launch'))
+      .append($('<span>').text(i18njs('Launch')))
     )
   },
 
@@ -378,7 +367,7 @@ const HTMLElements  = {
         $('<span>').addClass('icon')
           .append($('<i>').addClass('fa fa-pencil'))
       )
-      .append($('<span>').text('Edit'))
+      .append($('<span>').text(i18njs('Edit')))
     )
   },
 
@@ -421,7 +410,7 @@ const HTMLElements  = {
     )
     $('#modalbody').empty();
     $('#modalbody').append(
-      $('<p>').addClass('title').text('Create new recurring operation')
+      $('<p>').addClass('title').text(i18njs('Create new recurring operation'))
     )
     .append(
       $('<div>').addClass('columns')
@@ -448,17 +437,17 @@ const HTMLElements  = {
       $('<div>').addClass('field')
       .append(
         $('<p>').addClass('control pull-left')
-        .append($('<a>').addClass('button is-info').attr('id','rec-create').attr('onclick','createNewRecurringOperation()').text('Create'))
+        .append($('<a>').addClass('button is-info').attr('id','rec-create').attr('onclick','createNewRecurringOperation()').text(i18njs('Create')))
       ).append(
         $('<p>').addClass('control pull-right')
-        .append($('<a>').addClass('button is-danger').attr('onclick','closeModal()').text('Cancel'))
+        .append($('<a>').addClass('button is-danger').attr('onclick','closeModal()').text(i18njs('Cancel')))
       )
     )
     $('#rec-date').val(moment().format(globSettings.dateFormat))
   },
 
   datePicker: function() {
-    return new CustomField('calendar','rec-date',{placeholder: 'Pick a date'},null,'text').generate();
+    return new CustomField('calendar','rec-date',{placeholder: i18njs('Pick a date')},null,'text').generate();
   },
 
   amountPicker: function() {
@@ -468,32 +457,32 @@ const HTMLElements  = {
   typePicker: function() {
     let options = {
         options: [
-          ['credit-card','Credit Card'],
-          ['pencil-square-o','Check'],
-          ['money','Cash'],
-          ['exchange','Transfer'],
-          ['refresh','Internal transfer'],
-          ['share','Permanent transfer'],
-          ['desktop','Electronic Paiement'],
+          ['credit-card',i18njs('Credit Card')],
+          ['pencil-square-o',i18njs('Check')],
+          ['money',i18njs('Cash')],
+          ['exchange',i18njs('Transfer')],
+          ['refresh',i18njs('Internal transfer')],
+          ['share',i18njs('Permanent transfer')],
+          ['desktop',i18njs('Electronic Paiement')],
           ['paypal','PayPal'],
-          ['inbox','Deposit'],
-          ['bank','Bank charge'],
-          ['stop-circle-o','Direct levy'],
+          ['inbox',i18njs('Deposit')],
+          ['bank',i18njs('Bank charge')],
+          ['stop-circle-o',i18njs('Direct levy')],
         ],
     };
     return new CustomField('credit-card','rec-type',options,null,'select').generate();
   },
 
   beneficiaryPicker: function(){
-    return new CustomField('building-o','rec-benef',{placeholder:'Beneficiary'},null,'text').generate();
+    return new CustomField('building-o','rec-benef',{placeholder:i18njs('Beneficiary',1)},null,'text').generate();
   },
 
   categoryPicker: function(){
-    return new CustomField('flag','rec-cat',{placeholder:'Category'},null,'text').generate();
+    return new CustomField('flag','rec-cat',{placeholder:i18njs('Category',1)},null,'text').generate();
   },
 
   labelPicker: function(){
-    return new CustomField('tag','rec-label',{placeholder:'Label'},null,'text').generate();
+    return new CustomField('tag','rec-label',{placeholder:i18njs('Label')},null,'text').generate();
   },
 
   timeSpanPicker: function(){
@@ -505,7 +494,6 @@ const HTMLElements  = {
         .append($('<i>').addClass('fa fa-retweet'))
       ))
     )
-    // .append($('<p>').addClass('help is-marginless').text('Repeat every'))
     .append(
       $('<div>').addClass('control').attr('style','width: 5vw')
       .append(
@@ -521,19 +509,19 @@ const HTMLElements  = {
       .append(
         $('<select>').attr('id','rec-time-span')
         .append(
-          $('<option>').attr('value','days').text('days')
+          $('<option>').attr('value','days').text(i18njs('days'))
         )
         .append(
-          $('<option>').attr('value','weeks').text('weeks')
+          $('<option>').attr('value','weeks').text(i18njs('weeks'))
         )
         .append(
-          $('<option>').attr('value','months').text('months')
+          $('<option>').attr('value','months').text(i18njs('months',2))
         )
         .append(
-          $('<option>').attr('value','quarters').text('quarters')
+          $('<option>').attr('value','quarters').text(i18njs('quarters',2))
         )
         .append(
-          $('<option>').attr('value','years').text('years')
+          $('<option>').attr('value','years').text(i18njs('years',2))
         )
       )
     )
@@ -549,7 +537,7 @@ const HTMLElements  = {
     )
     .append(
       $('<div>').addClass('control')
-      .append($('<a>').addClass('button is-tag is-black').text('Repeat').attr('style','padding-left: 0.5em'))
+      .append($('<a>').addClass('button is-tag is-black').text(i18njs('Repeat')).attr('style','padding-left: 0.5em'))
     )
     .append(
       $('<div>').addClass('control')
@@ -564,7 +552,7 @@ const HTMLElements  = {
     )
     .append(
       $('<div>').addClass('control')
-      .append('<a>').addClass('button is-tag is-black').text('times')
+      .append('<a>').addClass('button is-tag is-black').text(i18njs('times'))
     )
   },
 
@@ -575,13 +563,13 @@ const HTMLElements  = {
     $('#modalbody').empty();
     if ($('#recTable > .is-selected').get(0) === undefined) {
       $('#modalbody').append(
-        $('<p>').addClass('title').text('Edit operation')
+        $('<p>').addClass('title').text(i18njs('Edit operation'))
       ).append(
-        $('<p>').addClass('title is-4').text('No operation selected !')
+        $('<p>').addClass('title is-4').text(i18njs('No operation selected !'))
       )
     } else {
       $('#modalbody').append(
-        $('<p>').addClass('title').text('Edit operation')
+        $('<p>').addClass('title').text(i18njs('Edit operation'))
       ).append(
         $('<div>').addClass('columns')
         .append(
@@ -606,14 +594,14 @@ const HTMLElements  = {
         $('<div>').addClass('field')
         .append(
           $('<p>').addClass('control pull-left')
-          .append($('<a>').addClass('button is-success').attr('id','rec-create').attr('onclick','editRecurringOperation()').text('Edit'))
+          .append($('<a>').addClass('button is-success').attr('id','rec-create').attr('onclick','editRecurringOperation()').text(i18njs('Edit')))
         ).append(
           $('<p>').addClass('control pull-right')
-          .append($('<a>').addClass('button is-danger').attr('onclick','closeModal()').text('Cancel'))
+          .append($('<a>').addClass('button is-danger').attr('onclick','closeModal()').text(i18njs('Cancel')))
         )
         .append(
           $('<p>').addClass('level-item')
-          .append($('<a>').addClass('button is-warning').attr('onclick','deleteRec()').text('Delete'))
+          .append($('<a>').addClass('button is-warning').attr('onclick','deleteRec()').text(i18njs('Delete')))
         )
       )
       fillEditModal();
@@ -626,10 +614,10 @@ const HTMLElements  = {
     )
     $('#modalbody').empty();
     $('#modalbody').append(
-      $('<p>').addClass('title').text('Launch pending operations')
+      $('<p>').addClass('title').text(i18njs('Launch pending operations'))
     ).append(
       $('<form>').addClass('field has-addons').attr('style','padding-left:3em').append(
-        $('<a>').addClass('button is-warning is-tag control '+ (globSettings.theme === 'dark' ? 'is-outlined':'')).text('Launch pending operations for the next')
+        $('<a>').addClass('button is-warning is-tag control '+ (globSettings.theme === 'dark' ? 'is-outlined':'')).text(i18njs('Launch pending operations')+i18njs(' for the next'))
       ).append(
         $('<div>').addClass('control').append(
           $('<input>').addClass('input is-warning')
@@ -641,11 +629,11 @@ const HTMLElements  = {
       ).append(
         $('<div>').addClass('control select is-warning').append(
           $('<select>').attr('id','timespan').append(
-            $('<option>').attr('value','day').text('days')
+            $('<option>').attr('value','day').text(i18njs('days'))
           ).append(
-            $('<option>').attr('value','month').text('months')
+            $('<option>').attr('value','month').text(i18njs('months',2))
           ).append(
-            $('<option>').attr('value','quarter').text('quarter')
+            $('<option>').attr('value','quarter').text(i18njs('quarters',2))
           ).val(globSettings.defaultTimeSpan)
         )
       ).append(

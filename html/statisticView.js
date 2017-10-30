@@ -128,7 +128,7 @@ $(document).ready(() => {
         .attr('id','append-data')
         .attr('onclick','throwPrevious()')
       )
-      .append(i18njs(' Append <abbr title="TIP: In doughnut view, if some category can\'t be shown for both datasets, try hide it by clicking its label in the legend">previous</abbr> data'))
+      .append(i18njs('statHelp'))
     )
     .append($('<br>'))
   )
