@@ -11,8 +11,10 @@ The budget planner of the 21st century
 *Mercury* offer basic budget planner functionality, such as managing account, add / edit / delete operation... I always wanted a tool as MSMoney or [HomeBank](http://homebank.free.fr), but with improved and modern UI. HomeBank was the software I used to use, and many features come from there.  
 This application is built on top of [Electron](electron.atom.io)
 
-
 Developped with ♥ for you
+
+Supported languages : `English`,`Français`  
+*Send an e-mail if you want to help to translate in your language!*
 
 ---
 # Previews
