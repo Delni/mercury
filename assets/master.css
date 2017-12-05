@@ -79,7 +79,7 @@ abbr {
 #dash-body {
   max-width: 64vw;
   height: 95%;
-  max-height: 60vh;
+  max-height: 55vh;
   overflow-y: scroll;
   padding-right: 1em;
 }

@@ -184,8 +184,7 @@ const HTMLElements  = {
         .append(
           $('<canvas>')
             .attr('id','doughnut')
-            .attr('height','340%')
-            .attr('style','position:relative; top:-2em')
+            .attr('height','225%')
         )
       )
     )
@@ -211,7 +210,7 @@ const HTMLElements  = {
   },
 
   addCustomAction: function(i18n, text,color,icon,ipcmsg){
-    return $('<li>').addClass('subtitle is-5')
+    return $('<li>').addClass('subtitle is-5 is-marginless')
     .append($('<span>').text("• "+i18njs("Open the",i18n)+" "))
     .append($('<span>').addClass('has-text-'+color+' link')
       .attr('onclick',"ipc.send('action-trigger','"+ipcmsg+"')")
