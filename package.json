@@ -1,12 +1,13 @@
 {
   "name": "mercury",
   "productName": "Mercury",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Mercury allow you to control your budget and plan your finance",
   "main": "app.js",
   "scripts": {
     "start": "electron app.js",
     "test": "echo \"ERROR : no test plugin set\"",
+    "dist": "electron-builder",
     "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=\"icons/mac/app_r.icns\" --prune=true --out=../release-builds",
     "package-win": "electron-packager . --overwrite --asar=false --platform=win32 --arch=x64 --icon=\"./icons/win/app_r.ico\" --prune=true --out=../release-builds --version-string.CompanyName=MercuryCE --version-string.FileDescription=MercuryCE --version-string.ProductName=\"Mercury\"",
     "package-lin": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=\"icons/png/Round/512x512.png\" --prune=true --out=../release-builds"
@@ -16,9 +17,14 @@
     "chart"
   ],
   "build": {
-    "appID": "mercury",
+    "appId": "mercury",
     "productName": "Mercury",
-    "icon": "./icons/png/256x256.png"
+    "icon":"./icons/win/app_r.ico",
+    "nsis": {
+      "oneClick": false,
+       "allowToChangeInstallationDirectory": true,
+       "license":"./LICENSE"
+    }
   },
   "author": "Delni (nicolas.delauney@outlook.fr)",
   "license": "MIT",
