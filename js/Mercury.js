@@ -240,9 +240,11 @@ function updateSQL(sqlType) {
       case '-1y':
         date = moment().startOf('year');
         break;
+      case '*':
+        date = moment(0);
+        break;
       default:
         date = moment().subtract(30,'days');
-
     }
     date = date.format('YYYY-MM-DD');
     const state = $('#filter-state').val();

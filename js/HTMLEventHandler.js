@@ -455,13 +455,13 @@ function fillEditModal() {
 }
 
 function launchPending(id = null, fromContext=false){
+  let operations = [];
   if (id) {
     global.db.launchPending(id);
   } else {
     let offset=$('#offset').val();
     let timespan=$('#timespan').val();
     let upperBound = moment().add(offset,timespan).format('YYYY-MM-DD');
-    let operations = [];
     try {
       operations = global.db.exec(`SELECT id FROM Recurrings WHERE date <="${upperBound}"`)
     } catch (e) {
@@ -492,7 +492,7 @@ function launchPending(id = null, fromContext=false){
   } catch (e) {
     console.error(e);
   }
-  if (operations.lenght !== 0) {
+  if (operations.lenght !== 0 || fromContext) {
     showUnsavedTag();
   }
   tabToggle($('#third').get(0));
