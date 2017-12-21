@@ -4,17 +4,9 @@
   "language": "en",
   "defaultOffset": 15,
   "defaultTimeSpan": "day",
-  "displayHelpers": true,
-  "theme": "dark",
   "displayHelpers": false,
-  "beneficiaries": [
-    "Charlotte"
-  ],
-  "categories": [
-    "Cadeaux"
-  ],
-  "labels": [
-    "Cadeau Papa"
-  ],
-  "lastfile": "/Users/delni/Documents/withChart.mcy"
+  "theme": "light",
+  "beneficiaries": [],
+  "categories": [],
+  "labels": []
 }
