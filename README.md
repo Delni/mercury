@@ -1,7 +1,7 @@
 ![icon](/icons/png/Round/256x256.png)
 
 # Mercury
-`v1.0.1`  
+`v1.1.0`  
 The budget planner of the 21st century
 
 :construction: Please be aware that Mercury is in constant development, you may encounter unknown bug :construction:
@@ -33,9 +33,10 @@ Supported languages : `English`,`Français`
  * Manage beneficiaries and categories in the settings
  * `MacOS` TouchBar integration
  * Choose your (theme) side
+ * Translated in English & French
 
 
- *Next to come : advanced filters, TouchBar improvements, i18n...*
+ *Next to come : advanced filters, TouchBar improvements, ...*
 
 # How to use
 Clone the GitHub repository. You need [Node.js](https://nodesjs.org) and [npm](https://npmjs.com) installed your system. Go to terminal:
@@ -54,10 +55,11 @@ $ npm install
 $ npm start
 ```
 
-# Download
-Download for MacOS  
+# Downloads
+[Go to downloads page](https://github.com/Delni/mercury/releases)  
+Download for MacOS & Windows
 
-*Windows and Linux coming soon (as soon as they are tested)*  
+*Linux coming soon (as soon as tested)*  
 *Not available at the moment.*
 
 # Contribute
