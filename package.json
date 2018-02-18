@@ -19,7 +19,6 @@
   "build": {
     "appId": "mercury",
     "productName": "Mercury",
-    "icon": "./icons/png/256x256.png",
     "mac":{
       "category":"public.app-category.finance",
       "icon":"./icons/mac/app_r.icns",
@@ -27,6 +26,16 @@
     },
     "dmg" : {
       "icon": "./build/mountedimage2.icns"
+    },
+    "win":{
+      "icon":"./icons/win/app_r.ico",
+      "target":"nsis",
+      "asar": false
+    },
+    "nsis": {
+      "oneClick": false,
+       "allowToChangeInstallationDirectory": true,
+       "license":"./LICENSE"
     }
   },
   "author": "Delni (nicolas.delauney@outlook.fr)",
