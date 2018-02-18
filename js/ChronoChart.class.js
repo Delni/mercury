@@ -114,6 +114,18 @@ class ChronoChart {
       case 'gbp':
         return '£';
         break;
+      case 'inr':
+        return '₹';
+        break;
+      case 'try':
+        return '₺';
+        break;
+      case 'cny':
+        return '¥';
+        break;
+      case 'rub':
+        return '₽';
+        break;
       default:
         return cur;
     }
