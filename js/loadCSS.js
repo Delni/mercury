@@ -7,6 +7,12 @@ bulma.setAttribute("rel","stylesheet")
 bulma.setAttribute("href","../node_modules/bulma/css/bulma.css")
 document.head.appendChild(bulma)
 
+//bulmaExtensions
+const bulmaExt=document.createElement("link")
+bulmaExt.setAttribute("rel","stylesheet")
+bulmaExt.setAttribute("href","../node_modules/bulma-extensions/dist/bulma-extensions.min.css")
+document.head.appendChild(bulmaExt)
+
 //FontAwesome
 const fontawesome=document.createElement("link")
 fontawesome.setAttribute("rel","stylesheet")
