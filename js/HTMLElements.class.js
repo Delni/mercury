@@ -24,7 +24,7 @@ const HTMLElements  = {
    unsavedTag: function(){
     return $('<abbr>').attr('title',i18njs('unsaves modif'))
       .append(
-        $('<span>').addClass('tag is-warning is-small icon is-rounded').text('!')
+        $('<i>').addClass('fa fa-exclamation-circle has-text-warning')
       )
   },
 //       .o.                 oooooooooo.
