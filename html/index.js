@@ -65,6 +65,11 @@ $(function() {
   // i18n
   $('input[name="a-name"]').attr('placeholder',i18njs("Name the account"))
   $('#op-date').attr('placeholder',globSettings.dateFormat)
+  global.calendar = new bulmaCalendar(document.getElementById('op-date'), {
+    startDate: moment(), // Date selected by default
+    dateFormat: 'dd/mm/yyyy', // the date format `field` value
+    lang: globSettings.language,
+  });
   $('#op-benef').attr('placeholder', i18njs("Beneficiary",1))
   $('#op-cat').attr('placeholder', i18njs("Category",1))
   $('#op-label').attr('placeholder', i18njs("Label"))

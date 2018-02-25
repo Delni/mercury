@@ -43,6 +43,7 @@
   "repository": "https://github.com/Delni/mercury",
   "dependencies": {
     "bulma": "^0.4.3",
+    "bulma-extensions": "^1.0.3",
     "chart.js": "^2.6.0",
     "fontawesome": "^4.7.2",
     "jquery": "^3.2.1",

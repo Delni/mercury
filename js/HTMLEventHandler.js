@@ -254,6 +254,7 @@ function removeDiv(event) {
 
 function closeModal() {
   toggleClass($('.modal'), 'is-active')
+  global.calendarRec.hide();
 }
 
 function showModal(event) {
@@ -341,6 +342,12 @@ function inputDate(event) {
         .subtract(1, 'day'))
       .format(globSettings.dateFormat)
     )
+  }
+  global.calendar.options.startDate = moment($(event.target).val(), globSettings.dateFormat).toDate();
+  global.calendar._refreshCalendar();
+  if(global.calendarRec){
+    global.calendarRec.options.startDate = moment($(event.target).val(), globSettings.dateFormat).toDate();
+    global.calendarRec._refreshCalendar();
   }
 }
 
