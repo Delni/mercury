@@ -1,8 +1,9 @@
 ![icon](/icons/png/Round/256x256.png)
 
 # Mercury
-`v1.1.0`  
-The budget planner of the 21st century
+`v1.1.2`  
+The budget planner of the 21st century  
+[Official website](http://apps.delauney.me/Mercury/)
 
 :construction: Please be aware that Mercury is in constant development, you may encounter unknown bug :construction:
 
