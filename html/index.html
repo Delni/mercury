@@ -169,7 +169,7 @@
                       <span class="icon"><i class="fa fa-calendar"></i></span>
                     </a>
                 </div>
-                <div class="control" style="margin:0">
+                <div class="control" style="margin:0; flex:1;">
                   <input class="input" type="text" id="op-date" name="op-date">
                 </div>
               </div>
@@ -180,7 +180,7 @@
                       <span class="icon"><i class="fa"></i></span>
                     </a>
                 </div>
-                <div class="control" style="margin:0">
+                <div class="control" style="margin:0; flex:1;">
                   <input class="input" type="number" id="op-amount" name="op-amount" placeholder="0.00">
                 </div>
               </div>
@@ -192,7 +192,7 @@
                       </span>
                     </a>
                 </div>
-                <div class="control select" style="margin:0">
+                <div class="control select is-fullwidth" style="margin:0; flex:1;">
                   <select id="op-account" name="op-account">
                   </select>
                 </div>
@@ -204,7 +204,7 @@
                     <span class="icon"><i class="fa fa-credit-card"></i></span>
                   </a>
                 </div>
-                <div class="control select" style="margin:0">
+                <div class="control select is-fullwidth" style="margin:0; flex:1;">
                   <select name="op-type" id="op-type">
                       <option value="" disabled><script> document.write(i18njs("Operation type"))</script></option>
                       <option value="credit-card"><script> document.write(i18njs("Credit Card"))</script></option>
@@ -230,7 +230,7 @@
                       </span>
                     </a>
                 </div>
-                <div class="control">
+                <div class="control" style="flex: 1;">
                   <input class="input typeahead" id="op-benef" type="text" placeholder="Beneficiary" />
                 </div>
               </div>
@@ -243,7 +243,7 @@
                       </span>
                     </a>
                 </div>
-                <div class="control">
+                <div class="control" style="flex: 1;">
                   <input class="input typeahead" id="op-cat" type="text" placeholder="Category" />
                 </div>
               </div>
@@ -255,12 +255,12 @@
                       </span>
                     </a>
                 </div>
-                <div class="control">
+                <div class="control" style="flex: 1;">
                   <input class="input typeahead" id="op-label" type="text" placeholder="Label" />
                 </div>
               </div>
 
-              <div class="field is-grouped">
+              <div class="field is-grouped is-grouped-centered">
                 <p class="control"><script>document.write(i18njs("State"))</script> :</p>
                 <p class="control">
                   <a id="btn-state" class="button is-outlined is-primary is-small">
@@ -295,7 +295,7 @@
                 </div>
               </div>
 
-              <div class="field is-grouped">
+              <div class="field is-grouped is-grouped-centered">
                 <div class="control">
                   <a class="button is-small is-info is-outlined" id="op-add-btn" onclick="addOperation(this)">
                       <span id='op-confirm'><script> document.write(i18njs("Add operation"))</script></span>
