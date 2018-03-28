@@ -23,6 +23,8 @@ const jsonfile = require('jsonfile')
 const pjson = require('./package.json')
 const i18njs = require('./assets/i18n.min.js')
 
+
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 global.__basedir = __dirname;
@@ -223,62 +225,84 @@ const tabTBButton = new TouchBarSegmentedControl({
 })
 
 function createWindow() {
-  // Create the browser window.
-  win = new BrowserWindow({
-    width: 1600,
-    height: 1000,
-    minWidth: 1270,
-    icon: path.join(__dirname, '/icons/png/Round/64x64.png'),
-    backgroundColor: '#282c34',
-    titleBarStyle: 'hidden-inset',
-  })
+    // Create the browser window.
+    win = new BrowserWindow({
+        width: 1600,
+        height: 1000,
+        minWidth: 1270,
+        icon: path.join(__dirname, '/icons/png/Round/64x64.png'),
+        backgroundColor: '#282c34',
+        titleBarStyle: 'hidden',
+        show: false
+    });
+    // create a new `splash`-Window
+    splash = new BrowserWindow({
+        width: 350,
+        height: 400,
+        transparent: true,
+        backgroundColor: '#282c34',
+        frame: false,
+        alwaysOnTop: false
+    });
 
-  // and load the index.html of the app.
-  win.loadURL(url.format({
-    pathname: path.join(__dirname, 'html/index.html'),
-    protocol: 'file:',
-    title: 'Mercury',
-    slashes: true
-  }))
-  const mainTBar = new TouchBar([
-    openTBPopover,
-    new TouchBarSpacer({size: 'flexible'}),
-    tabTBButton,
-    new TouchBarSpacer({size: 'flexible'})
-  ]);
-  win.setTouchBar(mainTBar);
+    splash.loadURL(url.format({
+        pathname: path.join(__dirname, 'html/splash.html'),
+        protocol: 'file:',
+        title: 'Mercury',
+        slashes: true
+    }));
+    // and load the index.html of the app.
 
-  ipcMain.on('tab-update',(event,args) => {
-    mainTBar.items['9'].selectedIndex=args
-  })
+    
+    win.loadURL(url.format({
+        pathname: path.join(__dirname, 'html/index.html'),
+        protocol: 'file:',
+        title: 'Mercury',
+        slashes: true
+    }));
+    const mainTBar = new TouchBar([
+        openTBPopover,
+        new TouchBarSpacer({size: 'flexible'}),
+        tabTBButton,
+        new TouchBarSpacer({size: 'flexible'})
+    ]);
+    win.setTouchBar(mainTBar);
 
-  win.once('ready-to-show', () => {
-    win.show();
-  })
-  // Emitted when the window is closed.
-  win.on('closed', () => {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    win = null
-    if (typeof swin !== 'undefined' && swin !== null) {
-      swin.close()
-      swin = null
-    }
-    if (typeof chronoWin !== 'undefined' && chronoWin !== null) {
-      chronoWin.close()
-      chronoWin = null
-    }
-    if (typeof statisticWin !== 'undefined' && statisticWin !== null) {
-      statisticWin.close()
-      statisticWin = null
-    }
-    if (typeof balanceWin !== 'undefined' && balanceWin !== null) {
-      balanceWin.close()
-      balanceWin = null
-    }
-    menu = null
-  })
+    ipcMain.on('tab-update', (event, args) => {
+        mainTBar.items['9'].selectedIndex = args
+    });
+
+    win.once('ready-to-show', () => {
+        setTimeout(() => {
+            win.show();
+            splash.destroy();
+        },2500);
+    });
+
+    // Emitted when the window is closed.
+    win.on('closed', () => {
+        // Dereference the window object, usually you would store windows
+        // in an array if your app supports multi windows, this is the time
+        // when you should delete the corresponding element.
+        win = null;
+        if (typeof swin !== 'undefined' && swin !== null) {
+            swin.close();
+            swin = null
+        }
+        if (typeof chronoWin !== 'undefined' && chronoWin !== null) {
+            chronoWin.close();
+            chronoWin = null
+        }
+        if (typeof statisticWin !== 'undefined' && statisticWin !== null) {
+            statisticWin.close();
+            statisticWin = null
+        }
+        if (typeof balanceWin !== 'undefined' && balanceWin !== null) {
+            balanceWin.close();
+            balanceWin = null
+        }
+        menu = null;
+    })
 }
 
 // This method will be called when Electron has finished
