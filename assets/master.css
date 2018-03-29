@@ -152,3 +152,11 @@ th {
 strong, .card-header-title {
   color: inherit;
 }
+
+.flex-1 {
+  flex: 1;
+}
+
+.twitter-typeahead, .tt-hint, .tt-input, .tt-menu {
+  width: 100%;
+}
