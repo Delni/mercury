@@ -1,0 +1,49 @@
+{
+  "MAIN": {
+    "MENU": {
+      "FILE": {
+        "DEFAULT": "",
+        "NEW_FILE": "",
+        "OPEN": "",
+        "SAVE": "",
+        "SAVE_AS": "",
+        "SETTINGS": ""
+      },
+      "REPORTS":{
+        "DEFAULT": "",
+        "TIME": "",
+        "STATISTIC": "",
+        "BALANCE": ""
+      },
+      "WINDOWS": { "DEFAULT": "" },
+      "HELP": { "LEARN": "" },
+      "ABOUT": {
+        "DEFAULT": "",
+        "VERSION": ""
+      }
+    },
+    "TOUCHBAR": {
+      "TABS": {
+        "DASHBOARD": "",
+        "ACCOUNTS": "",
+        "RECURRINGS": ""
+      },
+      "STATS": {
+        "CATEGORIES": "",
+        "TIME_SPAN": ""
+      }
+    }
+  },
+  "RENDERER": {},
+  "COMMON": {
+    "TIME": {
+      "TM": "",
+      "LM": "",
+      "TQ": "",
+      "LQ": "",
+      "TY": "",
+      "LY": "",
+      "*": ""
+    }
+  }
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Splash screen</title>
+  <script type="text/javascript">
+    const bulma=document.createElement("link")
+    bulma.setAttribute("rel","stylesheet")
+    bulma.setAttribute("href","../../node_modules/bulma/css/bulma.css")
+    document.head.appendChild(bulma)
+  </script>
+  <style media="screen">
+    body, #window {
+      overflow-y: auto;
+    }
+
+    body::-webkit-scrollbar, *::-webkit-scrollbar {
+      display: none;
+    }
+
+    * {
+      overflow: hidden;
+    }
+    .container {
+      opacity: 0;
+      transition: opacity ease 1s;
+    }
+
+    .container {
+      opacity: 1;
+    }
+  </style>
+</head>
+  <body style="height:400px;width:350px">
+    <div class="container notification is-dark" style="height: 100%">
+      <div class="has-text-centered" style="margin-left:10px">
+        <img src="../img/splash_animated.svg" alt="" >
+        <img src="../img/mercury.png" alt="">
+      </div>
+    </div>
+  </body>
+</html>

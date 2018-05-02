@@ -1,0 +1,49 @@
+{
+  "MAIN": {
+    "MENU": {
+      "FILE": {
+        "DEFAULT": "File",
+        "NEW_FILE": "New File",
+        "OPEN": "Open",
+        "SAVE": "Save",
+        "SAVE_AS": "Save as",
+        "SETTINGS": "Settings"
+      },
+      "REPORTS":{
+        "DEFAULT": "Reports",
+        "TIME": "Time report",
+        "STATISTIC": "Statistic report",
+        "BALANCE": "Balance report"
+      },
+      "WINDOWS": { "DEFAULT": "Windows" },
+      "HELP": { "LEARN": "Learn more" },
+      "ABOUT": {
+        "DEFAULT": "About",
+        "VERSION": "Version \t"
+      }
+    },
+    "TOUCHBAR": {
+      "TABS": {
+        "DASHBOARD": "Dashboard",
+        "ACCOUNTS": "Accounts",
+        "RECURRINGS": "Recurrings operations"
+      },
+      "STATS": {
+        "CATEGORIES": "Categories",
+        "TIME_SPAN": "Time span: "
+      }
+    }
+  },
+  "RENDERER": {},
+  "COMMON": {
+    "TIME": {
+      "TM": "This month",
+      "LM": "Last month",
+      "TQ": "This quarter",
+      "LQ": "Last quarter",
+      "TY": "This year",
+      "LY": "Last year",
+      "*": "All dates"
+    }
+  }
+}

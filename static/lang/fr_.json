@@ -1,0 +1,192 @@
+{
+  "MAIN": {
+    "MENU": {
+      "FILE": {
+        "DEFAULT": "Fichier",
+        "NEW_FILE": "Nouveau fichier",
+        "OPEN": "Ouvrir",
+        "SAVE": "Enregistrer",
+        "SAVE_AS": "Enregistrer sous",
+        "SETTINGS": "Préférences"
+      },
+      "REPORTS":{
+        "DEFAULT": "Rapports",
+        "TIME": "Rapport temporel",
+        "STATISTIC": "Rapport statistique",
+        "BALANCE": "Rapport de solde"
+      },
+      "WINDOWS": { "DEFAULT": "Fenêtres" },
+      "HELP": { "LEARN": "En savoir plus" },
+      "ABOUT": {
+        "DEFAULT": "À propos",
+        "VERSION": "Version \t"
+      }
+    },
+    "TOUCHBAR": {
+      "TABS": {
+        "DASHBOARD": "Tableau de bord",
+        "ACCOUNTS": "Détail des comptes",
+        "RECURRINGS": "Opérations récurrentes"
+      },
+      "STATS": {
+        "CATEGORIES": "Catégories",
+        "TIME_SPAN": "Période : "
+      }
+    }
+  },
+
+  "RENDERER": {
+    "ACCOUNTS_PANE": {
+      "DEFAULT": "Comptes",
+      "ADD": "Ajouter un compte",
+
+      "MODAL": {
+        "TITLE": "Ajouter un nouveau compte ...",
+        "PLACEHOLDER": "Nom du compte",
+        "CURRENT_AMOUNT": "Solde actuel"
+      },
+
+      "CONFIRM": {
+        "DELETE_ACCOUNT": "Vous êtes sur le point de supprimer le compte \"{{=name}}\"\n\nÊtes-vous sûr(e) ?"
+      },
+
+      "CARDS": {
+        "BANK": "Banque : ",
+        "TODAY": "Présent : ",
+        "FUTURE": "Futur : "
+      }
+    },
+
+    "MAIN_PANE": {
+      "NO_DATA": {
+        "TITLE" : "Pas de données !",
+        "SUBTITLE": "<span>Créer un <span  class=\"has-text-primary link\" @click=\"showCreateModal\">compte</span> pour commencer ou <span class=\"has-text-info link\" @click=\"ipc.send('open-file')\">ouvrir un fichier</span></span>"
+      },
+
+      "TABS": {
+        "DASHBOARD": "Tableau de bord",
+        "ACCOUNTS": "Détail des comptes",
+        "RECURRINGS": "Opérations récurrentes"
+      },
+
+      "DASHBOARD": {
+        "TOP": "Top dépenses",
+        "QUICK_ACCESS": "Accès rapide",
+        "ACCESSES": {
+          "OPEN": "Ouvrir le",
+          "OPEN_PLURAL": "Ouvrir les",
+          "CHRONOCHART": "rapport temporel",
+          "RECURRING": "opérations récurrentes",
+          "STATISTIC": "rapport statistique",
+          "BALANCE": "rapport de solde",
+          "DETAIL": "détail des comptes",
+          "SETTINGS": "préférences"
+        }
+      },
+
+      "ACCOUNTS": {
+        "ALL": "Toutes",
+        "REGISTERED": "Enreg.",
+        "CHECKED": "Checkée",
+        "VERIFIED": "Vérifiée",
+        "ANY" : "Tout",
+        "INCOME" : "Recette",
+        "DEBIT": "Débit",
+        "FILTERS": {
+          "NOTIF": {
+            "TITLE": "🚧 Work in progress 🚧",
+            "BODY": "Merci d'attendre une prochaine mise à jour"
+          }
+        },
+        "TABLE": {
+          "HEAD": {
+            "STATE": "État",
+            "DATE": "Date",
+            "TYPE": "Type",
+            "BENEFICIARY": "Bénéficiaire",
+            "CATEGORY": "Catégorie",
+            "LABEL": "Note",
+            "DEBIT": "Débit",
+            "COLLECTION": "Recette"
+          }
+        }
+      },
+
+      "RECURRINGS": {
+        "TITLE": "Opérations récurrentes",
+        "BAR": {
+          "CREATE": "Créer",
+          "LAUNCH": "Lancer",
+          "EDIT": "Éditer"
+        },
+        "MODAL": {
+          "TITLE": {
+            "CREATE": "Créer une nouvelle opération récurrente",
+            "EDIT": "Éditer"
+          },
+          "CONFIRM_BUTTON": {
+            "CREATE": "Créer",
+            "EDIT": "Éditer"
+          }
+        }
+      },
+
+      "CHART": {
+        "DATE": "Date",
+        "VALUE": "Valeur"
+      }
+    },
+
+    "OPERATION_PANE": {
+      "DEFAULT": "Opération",
+      "EDITING": "Édition",
+      "EDIT": "Éditer",
+      "INHERIT": "Hériter",
+      "ADD": "Ajouter",
+      "CONFIRM": "Vous êtes sur le point de supprimer une opération.\n\nÊtes-vous sûr(e) ?",
+      "PLACEHOLDERS": {
+        "BENEFICIARY": "Bénéficiaire",
+        "CATEGORY": "Catégorie",
+        "LABEL": "Note"
+      }
+    }
+  },
+
+  "COMMON": {
+    "CREATE": "Créer",
+    "CONTINUE": "Continer",
+    "CANCEL": "Annuler",
+    "DELETE": "Supprimer",
+    "OTHER": "Autre",
+    "WARNING": "Attention !",
+    "NO_DATA": "Aucune donnée à afficher",
+    "TIME": {
+      "L30": "30 derniers jours",
+      "TM": "Ce mois",
+      "LM": "Le mois préc.",
+      "TQ": "Ce trimestre",
+      "LQ": "Le trimestre préc.",
+      "TY": "Cette année",
+      "LY": "L'année préc.",
+      "*": "Toutes les dates"
+    },
+    "OPERATION_TYPE": {
+      "DEFAULT": "Type d'opération",
+      "CREDIT_CARD": "Carte de crédit",
+      "CHECK": "Chèques",
+      "CASH": "Espèces",
+      "TRANSFER": "Virement",
+      "INTERNAL_TRANSFER": "Virement interne",
+      "PERMANENT_TRANSFER": "Virement permanent",
+      "ELECTRONIC": "Paiement électronique",
+      "DEPOSIT": "Dépôt",
+      "BANK_CHARGE": "Frais bancaires",
+      "DIRECT_LEVY": "Taxe"
+    },
+    "CURRENCIES": {
+      "DEFAULT": "devise",
+      "POUND": "Livres",
+      "OTHER": "Autre"
+    }
+  }
+}

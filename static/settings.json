@@ -1,0 +1,14 @@
+{
+  "dateFormat": "DD/MM/YYYY",
+  "defaultCurrency": "eur",
+  "language": "fr",
+  "defaultOffset": 15,
+  "defaultTimeSpan": "day",
+  "displayHelpers": false,
+  "theme": "dark",
+  "beneficiaries": [],
+  "categories": [],
+  "labels": [],
+  "lastfile": "/Users/delni/Documents/myaccount.test.mcy",
+  "useDatepicker": true
+}
