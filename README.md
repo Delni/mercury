@@ -1,7 +1,7 @@
 ![icon](/icons/png/Round/256x256.png)
 
 # Mercury
-`v1.1.2`  
+Current version packed : `v1.1.2`  
 The budget planner of the 21st century  
 
 :construction: Please be aware that Mercury is in constant development, you may encounter unknown bug :construction:
@@ -41,7 +41,7 @@ Supported languages : `English`,`Français`
  *Next to come : advanced filters, TouchBar improvements, ...*
 
 # How to use
-Clone the GitHub repository. You need [Node.js](https://nodesjs.org) and [npm](https://npmjs.com) installed your system. Go to terminal:
+Clone the GitHub repository. You need [Node.js](https://nodesjs.org) and [npm](https://npmjs.com) installed on your system. Go to terminal:
 
 ```
 # Clone the repository
@@ -51,10 +51,10 @@ $ git clone https://github.com/Delni/mercury.git
 $ cd mercury
 
 # Install dependencies
-$ npm install
+$ yarn
 
 # Start the app
-$ npm start
+$ yarn run dev
 ```
 
 # Downloads
@@ -68,6 +68,9 @@ Download for MacOS & Windows
 If the application has any kind of bugs, feel free to open an issue. We will look into it & come up with a solution. Create a new pull request if you have fixed any kind of bugs.
 
 The request would be merged if it fixes the bug & does not disturb the whole application in any way.
+
+## :warning: Huge change ahead
+The current work is to migrate Mercury from a JQuery-based interface to Vue.js for better scalability, maintainability, testing, etc. If you have already worked or forked this repo, find v1 under the branch `legacy/v1`
 
 # Third-party
 
@@ -86,7 +89,7 @@ The request would be merged if it fixes the bug & does not disturb the whole app
 ```
 MIT License
 
-Copyright (c) 2017 Nicolas Delauney
+Copyright (c) 2018 Nicolas Delauney
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
