@@ -40,26 +40,23 @@
               <div class="tile is-parent is-vertical">
                 <article class="tile is-child notification is-dark">
                   <p class="title is-marginless"><script>document.write(i18njs("General"))</script></p>
-                  <div class="level is-marginless">
-                    <p class="subtitle level-left"><script>document.write(i18njs("Dark theme"))</script></p>
-                    <div class="level-right">
-                      <div class="control field has-addons" id="menu-btn">
-                        <p class="control">
-                          <a id="dark" class="button is-small is-outlined is-primary btn-theme" data="enable" onclick='toggleTheme(this)'>
-                            <span><script>document.write(i18njs("Enable"))</script></span>
-                          </a>
-                        </p>
-                        <p class="control">
-                          <a id="light" class="button is-small is-outlined is-primary btn-theme" data="disable" onclick='toggleTheme(this)'>
-                            <span><script>document.write(i18njs("Disable"))</script></span>
-                          </a>
-                        </p>
-                      </div>
+                  <div class="columns" style="margin-bottom:0%">
+                    <p class="subtitle column is-9" style="margin-bottom:0%"><script>document.write(i18njs("Dark theme"))</script></p>
+                    <div class="column is-3" style="margin-bottom:0%">
+                        <input id="switchTheme" type="checkbox" name="switchTheme" class="switch is-rounded" checked>
+                        <label for="switchTheme"></label>
                     </div>
                   </div>
-                  <div class="level is-marginless">
-                    <p class="subtitle level-left"><script>document.write(i18njs('Language'))</script></p>
-                    <div class="level-right field has-addons is-marginless">
+                  <div class="columns">
+                    <p class="subtitle column is-9"><script>document.write(i18njs("Show datepicker"))</script></p>
+                    <div class="column is-3">
+                        <input id="showDatepicker" type="checkbox" name="showDatepicker" class="switch is-rounded" checked>
+                        <label for="showDatepicker"></label>
+                    </div>
+                  </div>
+                  <div class="columns">
+                    <span class="column is-5"><p class="subtitle"><script>document.write(i18njs('Language'))</script></p></span>
+                    <div class="column field has-addons is-marginless">
                       <div class="control">
                         <a class="button is-tag is-primary" id="op-lang-btn">
                             <span class="icon"><i class="fa fa-language"></i></span>
@@ -73,9 +70,9 @@
                       </div>
                     </div>
                   </div>
-                  <div class="level is-marginless">
-                    <p class="subtitle level-left"><script>document.write(i18njs("Default <br>Currency"))</script></p>
-                    <div class="level-right field has-addons is-marginless">
+                  <div class="columns">
+                    <p class="subtitle column is-5" style="margin-bottom:0%"><script>document.write(i18njs("Default <br>Currency"))</script></p>
+                    <div class="column field has-addons is-marginless">
                       <div class="control">
                         <a class="button is-tag is-primary">
                             <span class="icon">
@@ -97,6 +94,11 @@
                         </select>
                       </div>
                     </div>
+                  </div>
+                  <div class="columns">
+                    <p class="subtitle column"><script>document.write(i18njs("Check for updates"))</script></p>
+                    <a id="checkUpdates" class="button is-primary is-outlined"><span class="icon"><i class="fa fa-refresh"></i>
+                    </span></a>
                   </div>
                 </article>
               </div>

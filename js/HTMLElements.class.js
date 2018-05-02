@@ -393,20 +393,24 @@ const HTMLElements  = {
       case 'create':
         HTMLElements.createModal(accountList);
         if(global.calendarRec) global.calendarRec.hide();
-        global.calendarRec = new bulmaCalendar(document.getElementById('rec-date'), {
-          startDate: moment(), // Date selected by default
-          dateFormat: 'dd/mm/yyyy', // the date format `field` value
-          lang: globSettings.language,
-        });
+        if(globSettings.useDatepicker){
+          global.calendarRec = new bulmaCalendar(document.getElementById('rec-date'), {
+            startDate: moment(), // Date selected by default
+            dateFormat: 'dd/mm/yyyy', // the date format `field` value
+            lang: globSettings.language,
+          });
+        }
         break;
       case 'edit':
         HTMLElements.editModal(accountList);
         if(global.calendarRec) global.calendarRec.hide();
-        global.calendarRec = new bulmaCalendar(document.getElementById('rec-date'), {
-          startDate: moment(), // Date selected by default
-          dateFormat: 'dd/mm/yyyy', // the date format `field` value
-          lang: globSettings.language,
-        });
+        if(globSettings.useDatepicker){
+          global.calendarRec = new bulmaCalendar(document.getElementById('rec-date'), {
+            startDate: moment(), // Date selected by default
+            dateFormat: 'dd/mm/yyyy', // the date format `field` value
+            lang: globSettings.language,
+          });
+        }
         break;
       case 'launch':
         HTMLElements.launchModal();

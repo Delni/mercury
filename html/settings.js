@@ -6,6 +6,8 @@ const jsonfile = require('jsonfile')
 const fs = require('fs')
 const ipc = require('electron').ipcRenderer
 const moment = require('moment')
+const https = require('https')
+const pjson = require('../package.json')
 window.$ = $;
 global.__basedir = __dirname + "/..";
 
@@ -21,6 +23,8 @@ $(() => {
   $('#table-container').css('height', 0.30 * window.innerHeight)
   $('#select-cur').val(globSettings.defaultCurrency).change();
   $('#select-lang').val(globSettings.language).change();
+  $('#switchTheme').get(0).checked = (globSettings.theme === 'dark');
+  $('#showDatepicker').get(0).checked = globSettings.useDatepicker;
   toggleTheme($(`#${globSettings.theme}`).get(0))
   updatePresetsTable(globSettings.beneficiaries)
 })
@@ -38,10 +42,12 @@ $('#save-btn').on("click", () => {
   const prevlanguage = globSettings.language;
   const language = $('#select-lang').val();
   const prevTheme = globSettings.theme;
-  const theme = ($('.btn-theme.is-outlined').attr('data') === 'enable') ? "light":"dark";
+  const theme = ($('#switchTheme').get(0).checked) ? "dark":"light";
+  const useDatepicker = $('#showDatepicker').get(0).checked;
   globSettings.defaultCurrency = defaultCurrency;
   globSettings.language = language;
   globSettings.theme = theme;
+  globSettings.useDatepicker = useDatepicker;
   globSettings.beneficiaries.sort(function(a, b) {
     return a.toLowerCase().localeCompare(b.toLowerCase())
   })
@@ -69,6 +75,28 @@ $('#save-btn').on("click", () => {
     ipc.send('new-settings',globSettings)
   }
 });
+
+$('#checkUpdates').on('click', () => {
+  $('.fa-refresh').addClass('fa-spin');
+  let options = {
+    hostname: 'api.github.com',
+    path: '/repos/delni/mercury/releases',
+    methode: 'GET'
+  }
+  options.agent = new https.Agent(options);
+  https.request(options,(response) => {
+    console.log('statusCode:', response.statusCode);
+    let data = '';
+    response.on('data', (chunk) => {
+      data += chunk;
+      console.log(data);
+    });
+    response.on('end', () => {
+      console.log(data)
+      $('.fa-refresh').removeClass('fa-spin');
+    });
+  })
+})
 
 function togglePresets(obj) {
   $('.btn-state').addClass('is-outlined');

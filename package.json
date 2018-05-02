@@ -3,6 +3,12 @@
   "productName": "Mercury",
   "version": "1.1.2",
   "description": "Mercury allow you to control your budget and plan your finance",
+  "author": {
+    "name": "Delni",
+    "email": "nicolas.delauney@outlook.fr"
+  },
+  "repository": "https://github.com/Delni/mercury",
+  "license": "MIT",
   "main": "app.js",
   "scripts": {
     "start": "electron app.js",
@@ -19,32 +25,30 @@
   "build": {
     "appId": "mercury",
     "productName": "Mercury",
-    "mac":{
-      "category":"public.app-category.finance",
-      "icon":"./icons/mac/app_r.icns",
-      "asar":false
+    "mac": {
+      "category": "public.app-category.finance",
+      "icon": "./icons/mac/app_r.icns",
+      "asar": false
     },
-    "dmg" : {
+    "dmg": {
       "icon": "./build/mountedimage2.icns"
     },
-    "win":{
-      "icon":"./icons/win/app_r.ico",
-      "target":"nsis",
+    "win": {
+      "icon": "./icons/win/app_r.ico",
+      "target": "nsis",
       "asar": false
     },
     "nsis": {
       "oneClick": false,
-       "allowToChangeInstallationDirectory": true,
-       "license":"./LICENSE"
+      "allowToChangeInstallationDirectory": true,
+      "license": "./LICENSE"
     }
   },
-  "author": "Delni (nicolas.delauney@outlook.fr)",
-  "license": "MIT",
-  "repository": "https://github.com/Delni/mercury",
   "dependencies": {
     "bulma": "^0.4.3",
     "bulma-extensions": "^1.0.3",
     "chart.js": "^2.6.0",
+    "chartjs-plugin-datalabels": "^0.3.0",
     "fontawesome": "^4.7.2",
     "jquery": "^3.2.1",
     "jsonfile": "^3.0.1",

@@ -1,7 +1,7 @@
 {
   "values": {
-    "About": "A propos",
     "30 last days":"30 derniers jours",
+    "About": "A propos",
     "Account": "Détail des comptes",
     "Accounts" : "Comptes",
     "account": "compte",
@@ -117,6 +117,7 @@
     "Select your account" : "Compte :",
     "Settings" : "Préférences",
     "settings" : "préférences",
+    "Show datepicker": "Utiliser le calendrier",
     "State" : "État",
     "Statistic Report" : "Rapport statistique",
     "statistic report" : "rapport statistique",

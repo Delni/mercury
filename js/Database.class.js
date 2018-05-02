@@ -1,8 +1,8 @@
 class Database {
   constructor(file = null) {
     if (file != null) {
-      const filebuffer = fs.readFileSync(file);
-      this.sql = new SQL.Database(filebuffer);
+      const filebuffer = fs.readFileSync(file)
+      this.sql = new SQL.Database(filebuffer)
     } else {
       throw new Error('No file provided', 'Database.class.js',7)
     }
@@ -11,11 +11,11 @@ class Database {
   exec(sqlstr) {
     const aux = this.sql.exec(sqlstr)[0];
     if(aux === undefined) throw new Error("Empty response",'Database.class.js',15)
-    const res = [];
+    const res = []
     for (var i = 0; i < aux.values.length; i++) {
       res[i] = {}
       for (var j = 0; j < aux.columns.length; j++) {
-        res[i][aux.columns[j]] = aux.values[i][j];
+        res[i][aux.columns[j]] = aux.values[i][j]
       }
     }
     return res;
@@ -25,19 +25,19 @@ class Database {
     const binArray = this.sql.export()
     fs.writeFile(filepath, binArray, (err) => {
       if (err) {
-        throw err;
+        throw err
       }
     });
   }
 
   print(res) {
     let str = "|\t"
-    for (var i = 0; i < res[0].columns.length; i++) {
+    for (let i = 0; i < res[0].columns.length; i++) {
       str += res[0].columns[i].toUpperCase() + "\t|\t"
     }
-    for (var i = 0; i < res[0].values.length; i++) {
+    for (let i = 0; i < res[0].values.length; i++) {
       str = "|\t";
-      for (var j = 0; j < res[0].columns.length; j++) {
+      for (let j = 0; j < res[0].columns.length; j++) {
         str += res[0].values[i][j]
         str += "\t|\t"
       }
@@ -46,13 +46,13 @@ class Database {
 
   // @Change
   lookup(date, account, amount, state) {
-    const lastlookup = this.exec('SELECT lastlookup FROM Accounts WHERE name="'+account+'"')[0].lastlookup;
+    const lastlookup = this.exec('SELECT lastlookup FROM Accounts WHERE name="' + account + '"')[0].lastlookup
     if(moment(date, "YYYY-MM-DD").isBefore(moment(lastlookup,"YYYY-MM-DD"))){
       this.fullLookup(account);
     } else if (moment(date, "YYYY-MM-DD").isBefore(moment().format("YYYY-MM-DD"))){
-      this.newlookup(lastlookup,account);
+      this.newlookup(lastlookup,account)
     } else {
-      this.locallookup(account, amount, date, state);
+      this.locallookup(account, amount, date, state)
     }
   }
 
@@ -88,7 +88,7 @@ class Database {
     })
     sqlstmt.free(); sqlstmt = null;
     try{
-      this.exec('UPDATE Accounts SET lastlookup='+moment().format('YYYY-MM-DD')+' WHERE name="'+account+'"');
+      this.exec('UPDATE Accounts SET lastlookup='+moment().format('YYYY-MM-DD')+' WHERE name="' + account + '"');
     } catch (e) {}
     this.buildChartData(account);
   }
@@ -125,17 +125,17 @@ class Database {
     })
     sqlstmt.free(); sqlstmt = null;
     try {
-      this.exec('UPDATE Accounts SET lastlookup='+moment().format('YYYY-MM-DD')+' WHERE name="'+account+'"');
+      this.exec('UPDATE Accounts SET lastlookup='+moment().format('YYYY-MM-DD')+' WHERE name="' + account + '"');
     } catch(e){}
   }
 
   locallookup(account, operation, dateBTF, stateBTF){
       if (stateBTF === "fa fa-check-circle" && !moment(dateBTF,'YYYY-MM-DD').isAfter(moment())) {
-        this.sql.run("UPDATE Accounts SET future = (Accounts.future+"+operation+"), inBank = (Accounts.inBank+"+operation+"), today = (Accounts.today+"+operation+"), future = (Accounts.future+"+operation+") WHERE name ='"+account+"'");
+        this.sql.run("UPDATE Accounts SET future = (Accounts.future+" + operation + "), inBank = (Accounts.inBank+" + operation + "), today = (Accounts.today+" + operation + "), future = (Accounts.future+" + operation + ") WHERE name ='" + account + "'")
       } else if(moment(dateBTF,'YYYY-MM-DD').isAfter(moment())) {
-        this.sql.run("UPDATE Accounts SET future = (Accounts.future+"+operation+") WHERE name ='"+account+"'");
+        this.sql.run("UPDATE Accounts SET future = (Accounts.future+" + operation + ") WHERE name ='" + account + "'");
       } else {
-        this.sql.run("UPDATE Accounts SET today = (Accounts.today+"+operation+"), future = (Accounts.future+"+operation+") WHERE name ='"+account+"'");
+        this.sql.run("UPDATE Accounts SET today = (Accounts.today+" + operation + "), future = (Accounts.future+" + operation + ") WHERE name ='" + account + "'")
       }
   }
 
@@ -143,14 +143,14 @@ class Database {
     if(account === null || account === undefined) throw new Error('No account provided','Database.class.js',52)
     const sqlstmt = this.sql.prepare("INSERT INTO OPERATION(date,state,beneficiary,category,label,amount,type,account_name) VALUES(:date,:state,:beneficiary,:category,:label,:amount,:type,:account_name)")
     sqlstmt.getAsObject({
-      ':date' : moment(data[0],df).format('YYYY-MM-DD'),
-      ':state' : data[1],
-      ':beneficiary' : data[2],
-      ':category' : data[3],
-      ':label' : data[4],
-      ':amount' : data[5],
-      ':type' : data[6],
-      ':account_name' : account
+      ':date': moment(data[0],df).format('YYYY-MM-DD'),
+      ':state': data[1],
+      ':beneficiary': data[2],
+      ':category': data[3],
+      ':label': data[4],
+      ':amount': data[5],
+      ':type': data[6],
+      ':account_name': account
     });
     sqlstmt.free();
     this.locallookup(account,data[5], moment(data[0],df).format('YYYY-MM-DD'),data[1]);
@@ -162,16 +162,16 @@ class Database {
     if(account === null || account === undefined) throw new Error('No account provided','Database.class.js',52)
     const sqlstmt = this.sql.prepare("INSERT INTO Recurrings(amount,type,beneficiary,category,label,date,offset,timespan,times,account_name) VALUES(:amount,:type,:benef,:cat,:label,:date,:offset,:timespan,:time,:account_name)")
     sqlstmt.getAsObject({
-      ':amount' : data[0],
-      ':type' : data[1],
-      ':benef' : data[2],
-      ':cat' : data[3],
-      ':label' : data[4],
-      ':date' : moment(data[5],df).format('YYYY-MM-DD'),
-      ':offset' : data[6],
-      ':timespan' : data[7],
-      ':time' : data[8],
-      ':account_name' : account
+      ':amount': data[0],
+      ':type': data[1],
+      ':benef': data[2],
+      ':cat': data[3],
+      ':label': data[4],
+      ':date': moment(data[5],df).format('YYYY-MM-DD'),
+      ':offset': data[6],
+      ':timespan': data[7],
+      ':time': data[8],
+      ':account_name': account
     });
     sqlstmt.free();
   }
@@ -182,16 +182,16 @@ class Database {
     if(id === null || id === undefined) throw new Error('No id provided','Database.class.js',52)
     const sqlstmt = this.sql.prepare("UPDATE Recurrings SET amount=:amount,type=:type,beneficiary=:benef,category=:cat,label=:label,date=:date,offset=:offset,timespan=:timespan,times=:time,account_name=:account_name WHERE id="+id)
     sqlstmt.getAsObject({
-      ':amount' : data[0],
-      ':type' : data[1],
-      ':benef' : data[2],
-      ':cat' : data[3],
-      ':label' : data[4],
-      ':date' : moment(data[5],df).format('YYYY-MM-DD'),
-      ':offset' : data[6],
-      ':timespan' : data[7],
-      ':time' : data[8],
-      ':account_name' : account
+      ':amount': data[0],
+      ':type': data[1],
+      ':benef': data[2],
+      ':cat': data[3],
+      ':label': data[4],
+      ':date': moment(data[5],df).format('YYYY-MM-DD'),
+      ':offset': data[6],
+      ':timespan': data[7],
+      ':time': data[8],
+      ':account_name': account
     });
     sqlstmt.free();
   }
@@ -200,14 +200,14 @@ class Database {
     if(data[0] === null || data[0] === undefined) throw new Error('No account provided','Database.class.js',52)
     const sqlstmt = this.sql.prepare("UPDATE OPERATION SET date=:date,state=:state,beneficiary=:beneficiary,category=:category,label=:label,amount=:amount,type=:type,account_name=:account_name WHERE id="+id)
     sqlstmt.getAsObject({
-      ':date' : moment(data[1],df).format('YYYY-MM-DD'),
-      ':state' : data[2],
-      ':beneficiary' : data[3],
-      ':category' : data[4],
-      ':label' : data[5],
-      ':amount' : data[6],
-      ':type' : data[7],
-      ':account_name' : data[0]
+      ':date': moment(data[1],df).format('YYYY-MM-DD'),
+      ':state': data[2],
+      ':beneficiary': data[3],
+      ':category': data[4],
+      ':label': data[5],
+      ':amount': data[6],
+      ':type': data[7],
+      ':account_name': data[0]
     });
     sqlstmt.free();
     this.fullLookup(data[0]);
@@ -263,54 +263,54 @@ class Database {
     sqlstr += " AND `date`>=:date ORDER BY `date` DESC"
     const sqlstmt = this.sql.prepare(sqlstr);
     sqlstmt.bind({
-      ':account' : account,
-      ':date' : date,
-      ':state' : state,
-      ':amount' : amount
+      ':account': account,
+      ':date': date,
+      ':state': state,
+      ':amount': amount
     })
     while(sqlstmt.step()){
       res.push(sqlstmt.get())
     }
-    sqlstmt.free();
+    sqlstmt.free()
     return res;
   }
 
   addAccount(name, currency, baseAmount){
-    const sqlstmt = this.sql.prepare("INSERT INTO Accounts VALUES (:name, :currency, :inBank, :today, :future,:amount,:date)");
+    const sqlstmt = this.sql.prepare("INSERT INTO Accounts VALUES (:name, :currency, :inBank, :today, :future,:amount,:date)")
     sqlstmt.getAsObject({
-      ':name' :name,
-      ':currency' : currency,
-      ':inBank' : baseAmount,
-      ':today' : baseAmount,
-      ':future' : baseAmount,
-      ':amount' : baseAmount,
-      ':date' : moment().format('YYYY-MM-DD')
+      ':name': name,
+      ':currency': currency,
+      ':inBank': baseAmount,
+      ':today': baseAmount,
+      ':future': baseAmount,
+      ':amount': baseAmount,
+      ':date': moment().format('YYYY-MM-DD')
     });
     sqlstmt.free();
   }
 
   deleteAccount(name) {
-    this.sql.run('DELETE FROM `Accounts` WHERE name="'+name+'"')
-    this.sql.run('DELETE FROM `OPERATION` WHERE account_name="'+name+'"')
-    this.sql.run('DELETE FROM `Recurrings` WHERE account_name="'+name+'"')
-    this.sql.run('DELETE FROM `Chronobase` WHERE account="'+name+'"')
+    this.sql.run('DELETE FROM `Accounts` WHERE name="' + name + '"')
+    this.sql.run('DELETE FROM `OPERATION` WHERE account_name="' + name + '"')
+    this.sql.run('DELETE FROM `Recurrings` WHERE account_name="' + name + '"')
+    this.sql.run('DELETE FROM `Chronobase` WHERE account="' + name + '"')
   }
 
 
   buildChartData(account){
-    this.sql.run('DELETE FROM `ChronoBase` WHERE account="'+account+'"');
-    const operations = this.exec('SELECT date, amount FROM OPERATION WHERE account_name="'+account+'" ORDER BY date');
-    const baseAmount = this.exec('SELECT baseAmount FROM Accounts WHERE name="'+account+'"')[0].baseAmount;
+    this.sql.run('DELETE FROM `ChronoBase` WHERE account="' + account + '"');
+    const operations = this.exec('SELECT date, amount FROM OPERATION WHERE account_name="' + account + '" ORDER BY date');
+    const baseAmount = this.exec('SELECT baseAmount FROM Accounts WHERE name="' + account + '"')[0].baseAmount;
     let currentAmount = baseAmount;
     let sqlstmt = this.sql.prepare("INSERT INTO ChronoBase(date,amount,account) VALUES (:date,:amount,:account)")
     for (var i = 0; i < operations.length; i++) {
-      currentAmount += operations[i].amount;
+      currentAmount += operations[i].amount
       sqlstmt.run({
-        ':date' : operations[i].date,
-        ':amount' : currentAmount,
+        ':date': operations[i].date,
+        ':amount': currentAmount,
         ':account': account
-      });
+      })
     }
-    sqlstmt.free(); sqlstmt=null;
+    sqlstmt.free(); sqlstmt = null
   }
 }
