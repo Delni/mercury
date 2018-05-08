@@ -117,7 +117,8 @@
         "BAR": {
           "CREATE": "Créer",
           "LAUNCH": "Lancer",
-          "EDIT": "Éditer"
+          "EDIT": "Éditer",
+          "DELETE": "Supprimer"
         },
         "MODAL": {
           "TITLE": {
@@ -128,12 +129,15 @@
             "CREATE": "Créer",
             "EDIT": "Éditer"
           }
+        },
+        "CONTEXTUAL": {
+          "ACCOUNT": "Compte",
+          "NEXT": "Prochaine occurence",
+          "RECURRENCE": "Récurrence : chaque ",
+          "RECURRENCES": "Récurrence : tous les ",
+          "LEFT": "Encore {{=left}} occurence",
+          "LEFT_PLURAL": "Encore {{=left}} occurences"
         }
-      },
-
-      "CHART": {
-        "DATE": "Date",
-        "VALUE": "Valeur"
       }
     },
 
@@ -149,6 +153,19 @@
         "CATEGORY": "Catégorie",
         "LABEL": "Note"
       }
+    },
+
+    "REPORTS": {
+      "COMMON": {
+        "TIME_SPAN": "Période ",
+        "CUSTOM_TIME_SPAN": "Période personnalisée ",
+        "PLACEHOLDERS": {
+          "PICK_DATE": "Choisir une date"
+        }
+      },
+      "BALANCE": {
+        "TITLE": "Rapport de solde"
+      }
     }
   },
 
@@ -157,9 +174,14 @@
     "CONTINUE": "Continer",
     "CANCEL": "Annuler",
     "DELETE": "Supprimer",
+    "OPTIONS": "Options",
     "OTHER": "Autre",
     "WARNING": "Attention !",
     "NO_DATA": "Aucune donnée à afficher",
+    "CHART": {
+      "DATE": "Date",
+      "VALUE": "Valeur"
+    },
     "TIME": {
       "L30": "30 derniers jours",
       "TM": "Ce mois",
@@ -169,6 +191,22 @@
       "TY": "Cette année",
       "LY": "L'année préc.",
       "*": "Toutes les dates"
+    },
+    "TIME_SPAN": {
+      "PLURAL": {
+        "days" : "jours",
+        "weeks" : "semaines",
+        "months" : "mois",
+        "quarters" : "trimestres",
+        "years" : "ans"
+      },
+      "SINGULAR": {
+        "days" : "jours",
+        "weeks" : "semaine",
+        "months" : "mois",
+        "quarters" : "trimestre",
+        "years" : "an"
+      }
     },
     "OPERATION_TYPE": {
       "DEFAULT": "Type d'opération",

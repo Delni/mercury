@@ -23,7 +23,10 @@ let whiteListedModules = ['vue']
 let rendererConfig = {
   devtool: '#cheap-module-eval-source-map',
   entry: {
-    renderer: path.join(__dirname, '../src/renderer/main.js')
+    renderer: path.join(__dirname, '../src/renderer/main.js'),
+    settings: path.join(__dirname, '../src/renderer/settings/main.js'),
+    balance: path.join(__dirname, '../src/renderer/reports/balanceView.js'),
+    statistic: path.join(__dirname, '../src/renderer/reports/statisticView.js')
   },
   externals: [
     ...Object.keys(dependencies || {}).filter(d => !whiteListedModules.includes(d))
@@ -113,6 +116,50 @@ let rendererConfig = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.resolve(__dirname, '../src/index.ejs'),
+      chunks: ['renderer'],
+      title: 'Mercury',
+      minify: {
+        collapseWhitespace: true,
+        removeAttributeQuotes: true,
+        removeComments: true
+      },
+      nodeModules: process.env.NODE_ENV !== 'production'
+        ? path.resolve(__dirname, '../node_modules')
+        : false
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'settings.html',
+      template: path.resolve(__dirname, '../src/index.ejs'),
+      chunks: ['settings'],
+      title: 'Mercury - settings',
+      minify: {
+        collapseWhitespace: true,
+        removeAttributeQuotes: true,
+        removeComments: true
+      },
+      nodeModules: process.env.NODE_ENV !== 'production'
+        ? path.resolve(__dirname, '../node_modules')
+        : false
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'balance-view.html',
+      template: path.resolve(__dirname, '../src/index.ejs'),
+      chunks: ['balance'],
+      title: 'Mercury - balance view',
+      minify: {
+        collapseWhitespace: true,
+        removeAttributeQuotes: true,
+        removeComments: true
+      },
+      nodeModules: process.env.NODE_ENV !== 'production'
+        ? path.resolve(__dirname, '../node_modules')
+        : false
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'statistic-view.html',
+      template: path.resolve(__dirname, '../src/index.ejs'),
+      chunks: ['statistic'],
+      title: 'Mercury - Statistic view',
       minify: {
         collapseWhitespace: true,
         removeAttributeQuotes: true,

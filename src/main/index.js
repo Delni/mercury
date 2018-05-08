@@ -432,6 +432,9 @@ exports.openStatisticWindow = function () {
 }
 
 exports.openBalanceWindow = function () {
+  const balanceWinURL = process.env.NODE_ENV === 'development'
+    ? `http://localhost:9080/balance-view.html`
+    : `file://${__static}/balance-view.html`
   if (balanceWin === null) {
     balanceWin = new BrowserWindow({
       background: true,
@@ -441,7 +444,7 @@ exports.openBalanceWindow = function () {
       backgroundColor: '#282c34',
       icon: path.join(__static, '/icons/png/Round/64x64.png')
     })
-    balanceWin.loadURL(`file://${__static}/html/balanceView.html`)
+    balanceWin.loadURL(balanceWinURL)
     balanceWin.setTouchBar(new TouchBar([
       openTBPopover
     ]))
