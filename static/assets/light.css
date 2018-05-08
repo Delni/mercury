@@ -62,6 +62,11 @@
   color: #282c34  !important;
 }
 
+.light>* input[disabled],.light>* .select select[disabled] {
+  background-color: lightgrey !important;
+    color: whitesmoke !important;
+}
+
 .light>* .footer.is-black, .notification.is-black {
   background-color: #d8d9da  !important;
 }

@@ -37,13 +37,13 @@ export default class ChronoChart {
             },
             scaleLabel: {
               display: true,
-              labelString: i18njs.get('.RENDERER.MAIN_PANE.CHART.DATE')
+              labelString: i18njs.get('.COMMON.CHART.DATE')
             }
           }],
           yAxes: [{
             scaleLabel: {
               display: true,
-              labelString: i18njs.get('.RENDERER.MAIN_PANE.CHART.VALUE')
+              labelString: i18njs.get('.COMMON.CHART.VALUE')
             }
           }]
         }

@@ -15,7 +15,12 @@
             </a>
           </div>
           <div class="control" >
-            <input class="input " type="text" :placeholder="settings.dateFormat" v-model="newOperation.date">
+            <input class="input " type="text"
+              :placeholder="settings.dateFormat"
+              v-model="newOperation.date"
+              @keydown.up="addOneDay"
+              @keydown.down="subtractOneDay"
+              @keyup.enter="isEditing? confirmEdition():addOperation()">
           </div>
         </div>
         <div class="field has-addons flex" data='op-add-btn'>
@@ -25,7 +30,7 @@
             </a>
           </div>
           <div class="control" >
-            <input class="input " type="number" placeholder="0.00" v-model="newOperation.amount">
+            <input class="input " type="number" placeholder="0.00" v-model="newOperation.amount" @keyup.enter="isEditing? confirmEdition():addOperation()">
           </div>
         </div>
         <div class="field has-addons flex" data='op-add-btn'>
@@ -72,7 +77,7 @@
             </a>
           </div>
           <div class="control">
-            <input class="input typeahead " id="op-benef" type="text" :placeholder="'OPERATION_PANE.PLACEHOLDERS.BENEFICIARY' | translate" v-model="newOperation.beneficiary"/>
+            <input class="input typeahead " id="op-benef" type="text" :placeholder="'OPERATION_PANE.PLACEHOLDERS.BENEFICIARY' | translate" v-model="newOperation.beneficiary" @keyup.enter="isEditing? confirmEdition():addOperation()"/>
           </div>
         </div>
 
@@ -83,7 +88,7 @@
             </a>
           </div>
           <div class="control">
-            <input class="input typeahead " id="op-cat" type="text" :placeholder="'OPERATION_PANE.PLACEHOLDERS.CATEGORY' | translate" v-model="newOperation.category"/>
+            <input class="input typeahead " id="op-cat" type="text" :placeholder="'OPERATION_PANE.PLACEHOLDERS.CATEGORY' | translate" v-model="newOperation.category" @keyup.enter="isEditing? confirmEdition():addOperation()"/>
           </div>
         </div>
         <div class="field has-addons flex" data='op-add-btn'>
@@ -93,14 +98,14 @@
             </a>
           </div>
           <div class="control">
-            <input class="input typeahead " id="op-label" type="text" :placeholder="'OPERATION_PANE.PLACEHOLDERS.LABEL' | translate" v-model="newOperation.label"/>
+            <input class="input typeahead " id="op-label" type="text" :placeholder="'OPERATION_PANE.PLACEHOLDERS.LABEL' | translate" v-model="newOperation.label" @keyup.enter="isEditing? confirmEdition():addOperation()"/>
           </div>
         </div>
 
         <div class="field is-grouped">
           <p class="control">{{"State" | translate }} :</p>
           <p class="control">
-            <a class="button is-outlined is-primary is-small" @click="toggleState(newOperation.state)" v-model="newOperation.state">
+            <a class="button is-outlined is-primary is-small" @click="toggleState(newOperation.state)" v-model="newOperation.state" @keyup.enter="isEditing? confirmEdition():addOperation()">
               <icon size="is-small" :fa="newOperation.state"/>
             </a>
           </p>
@@ -171,6 +176,14 @@ export default {
       this.newOperation.state = this.states[(this.states.indexOf(state) === 2) ? 0 : this.states.indexOf(state) + 1]
     },
 
+    addOneDay: function () {
+      this.newOperation.date = moment(this.newOperation.date, this.$root.settings.dateFormat).add(1, 'days').format(this.$root.settings.dateFormat)
+    },
+
+    subtractOneDay: function () {
+      this.newOperation.date = moment(this.newOperation.date, this.$root.settings.dateFormat).subtract(1, 'days').format(this.$root.settings.dateFormat)
+    },
+
     addOperation: function () {
       // Go to right tab
       this.$root.$emit('toggle-tab', 1)
@@ -185,6 +198,7 @@ export default {
         this.newOperation.type
       ]
       this.$root.db.insertOperation(this.newOperation.selectedAccount.name, data, this.$root.settings.dateFormat)
+      this.cleanOperation()
       this.$root.$emit('add-operation')
       this.$root.$emit('show-unsaved-tag')
     },
@@ -243,6 +257,7 @@ export default {
 
     editOperation: function (op) {
       this.newOperation = op
+      this.newOperation.selectedAccount = this.accounts.find(a => a.name === op.selectedAccount.name)
       this.isEditing = true
     },
     confirmEdition: function () {

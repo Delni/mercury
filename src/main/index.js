@@ -336,7 +336,10 @@ exports.openSettingWindow = function () {
       backgroundColor: '#282c34',
       icon: path.join(__static, '/icons/png/Round/64x64.png')
     })
-    swin.loadURL(`file://${__static}/html/settings.html`)
+    // const winURL = process.env.NODE_ENV === 'development'
+    //   ? `http://localhost:9080`
+    //   : `file://${__static}/index.html`
+    swin.loadURL(`http://localhost:9080/settings.html`)
     swin.setTouchBar(new TouchBar([
       openTBPopover
     ]))

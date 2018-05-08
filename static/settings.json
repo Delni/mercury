@@ -4,7 +4,7 @@
   "language": "fr",
   "defaultOffset": 15,
   "defaultTimeSpan": "day",
-  "displayHelpers": false,
+  "displayHelpers": true,
   "theme": "dark",
   "beneficiaries": [],
   "categories": [],

@@ -3,9 +3,11 @@ import axios from 'axios'
 
 // CSS
 import 'bulma/css/bulma.css'
+import 'bulma-extensions/dist/bulma-extensions.min.css'
 import 'font-awesome/css/font-awesome.css'
-
+// Components
 import App from './App'
+// nodeModules
 import jsonfile from 'jsonfile'
 import path from 'path'
 import i18njs from 'i18njs'
@@ -17,7 +19,7 @@ require(__static + '/assets/light.css')
 require(__static + '/assets/dark.css')
 
 let globSettings = jsonfile.readFileSync(path.join(__static, 'settings.json'))
-console.clear()
+// console.clear()
 
 const lang = jsonfile.readFileSync(`${__static}/lang/${globSettings.language}_.json`)
 i18njs.add(globSettings.language, '', lang)

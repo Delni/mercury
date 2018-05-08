@@ -58,9 +58,14 @@
 }
 
 .dark>* .input,.dark>* .select select {
-  background-color: black!important;
+  background-color: black !important;
   border-color: gray;
-  color: white!important;
+  color: white !important;
+}
+
+.dark>* input[disabled],.dark>* .select select[disabled] {
+  background-color: whitesmoke !important;
+    color: #7a7a7a !important;
 }
 
 .dark>* .footer.is-black,.dark>*  .notification.is-black {

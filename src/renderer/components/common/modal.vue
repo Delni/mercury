@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="modal" :class="{'is-active' : active}">
     <div class="modal-background"></div>
-    <div class="modal-content">
+    <div class="modal-content" :style="'width:' + width">
       <div class="notification is-dark ">
         <div class="media">
           <div class="media-left">
@@ -24,7 +24,7 @@ import icon from './icon.vue'
 
 export default {
   components: {icon},
-  props: ['icon', 'active', 'close']
+  props: ['icon', 'active', 'close', 'width']
 }
 </script>
 
