@@ -117,7 +117,7 @@ let rendererConfig = {
       filename: 'index.html',
       template: path.resolve(__dirname, '../src/index.ejs'),
       chunks: ['renderer'],
-      title: 'Mercury',
+      title: 'Mercury - main',
       minify: {
         collapseWhitespace: true,
         removeAttributeQuotes: true,
