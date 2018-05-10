@@ -1,81 +1,55 @@
 <template lang="html">
-  <div :class="$root.settings.theme" id="app">
-    <section id="window" class="hero is-fullheight is-dark">
-        <div class="hero-head">
-          <p class="title">
-            <span style="margin-left:2%-webkit-app-region: drag">
-              <icon size="is-large has-text-warning" fa="fa-pie-chart" />
-              <span>{{'REPORTS.STATISTIC.TITLE' | translate}}</span>
-            </span>
-            <a onclick="window.close()" class="button is-outlined is-danger pull-right">
-              <icon fa="fa-times"/>
-            </a>
-          </p>
+  <report title="REPORTS.STATISTIC.TITLE" color="warning" icon="fa-pie-chart">
+      <div class="columns">
+        <span class="column">
+          {{ 'REPORTS.STATISTIC.DISPLAY' | translate}}
+          <toggle-button
+              :test="options.type === 'doughnut'"
+              :callback="toggleType"
+              icon-left="pie-chart"
+              icon-right="bar-chart"/>
+        </span>
+        <span class="column">
+          {{ 'REPORTS.STATISTIC.ORDER' | translate}}
+          <toggle-button
+              :test="options.order === 's'"
+              :callback="toggleOrder"
+              icon-left="sort-numeric-asc"
+              icon-right="sort-alpha-asc"/>
+        </span>
+        <span class="column">
+          {{ 'REPORTS.STATISTIC.LEGEND' | translate}}
+          <toggle-button
+              :test="options.percent"
+              :callback="toggleLegend"
+              icon-left="percent"
+              icon-right="hashtag"/>
+        </span>
+      </div>
+      <label for="nb-cat">{{ 'REPORTS.STATISTIC.CATEGORIES' | translate}} ({{options.nbCat}}) :</label>
+      <input class="progress" type="range" name="nb-cat" v-model="options.nbCat" min="3" max="12" @change="throwCategories()">
+      <span>{{'REPORTS.COMMON.TIME_SPAN' | translate}}:</span>
+      <div class="field has-addons">
+        <div class="control">
+          <a class="button is-primary is-tag"><icon fa="fa-calendar"/></a>
         </div>
-        <div class="hero-body is-paddingless">
-          <article class="is-main-pane">
-            <div class="columns">
-              <div class="column is-two-thirds">
-                <canvas id="myChart"height="225%"></canvas>
-              </div>
-              <div class="column" style="border-left: 1px grey solid">
-                <p class="title is-marginless">{{'OPTIONS' | translate}}</p>
-                <div>
-                  <div class="columns">
-                    <span class="column">
-                      {{ 'REPORTS.STATISTIC.DISPLAY' | translate}}
-                      <toggle-button
-                          :test="options.type === 'doughnut'"
-                          :callback="toggleType"
-                          icon-left="pie-chart"
-                          icon-right="bar-chart"/>
-                    </span>
-                    <span class="column">
-                      {{ 'REPORTS.STATISTIC.ORDER' | translate}}
-                      <toggle-button
-                          :test="options.order === 's'"
-                          :callback="toggleOrder"
-                          icon-left="sort-numeric-asc"
-                          icon-right="sort-alpha-asc"/>
-                    </span>
-                    <span class="column">
-                      {{ 'REPORTS.STATISTIC.LEGEND' | translate}}
-                      <toggle-button
-                          :test="options.percent"
-                          :callback="toggleLegend"
-                          icon-left="percent"
-                          icon-right="hashtag"/>
-                    </span>
-                  </div>
-                  <label for="nb-cat">{{ 'REPORTS.STATISTIC.CATEGORIES' | translate}} ({{options.nbCat}}) :</label>
-                  <input class="progress" type="range" name="nb-cat" v-model="options.nbCat" min="3" max="12" @change="throwCategories()">
-                  <span>{{'REPORTS.COMMON.TIME_SPAN' | translate}}:</span>
-                  <div class="field has-addons">
-                    <div class="control">
-                      <a class="button is-primary is-tag"><icon fa="fa-calendar"/></a>
-                    </div>
-                    <div class="control select is-primary">
-                      <select v-model="period" @change="throwPeriod()">
-                        <option v-for="time in timesSpan" :value="time.value">{{time.label | translate}}</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <input id="appendPrevious" type="checkbox" name="appendPrevious" class="switch is-rounded" v-model="options.previous" @change="throwPrevious()">
-                    <label for="appendPrevious">{{ 'REPORTS.STATISTIC.PREVIOUS' | translate}}</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </article>
+        <div class="control select is-primary">
+          <select v-model="period" @change="throwPeriod()">
+            <option v-for="time in timesSpan" :value="time.value">{{time.label | translate}}</option>
+          </select>
         </div>
-    </section>
-  </div>
+      </div>
+      <div class="field">
+        <input id="appendPrevious" type="checkbox" name="appendPrevious" class="switch is-rounded" v-model="options.previous" @change="throwPrevious()">
+        <label for="appendPrevious">{{ 'REPORTS.STATISTIC.PREVIOUS' | translate}}</label>
+      </div>
+  </report>
 </template>
 
 <script>
 import icon from '../components/common/icon.vue'
 import toggleButton from './components/toggleButton.vue'
+import report from './components/report.vue'
 
 import { ipcRenderer } from 'electron'
 import Database from '../assets/Database.class'
@@ -85,7 +59,7 @@ import path from 'path'
 import Vue from 'vue'
 
 export default {
-  components: { icon, toggleButton },
+  components: { icon, toggleButton, report },
   data: function () {
     return {
       db: null,

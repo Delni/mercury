@@ -1,82 +1,56 @@
 <template lang="html">
-  <div :class="$root.settings.theme" id="app">
-    <section id="window" class="hero is-fullheight is-dark">
-        <div class="hero-head">
-          <p class="title">
-            <span style="margin-left:2%-webkit-app-region: drag">
-              <icon size="is-large has-text-danger" fa="fa-line-chart" />
-              <span>{{'REPORTS.BALANCE.TITLE' | translate}}</span>
-            </span>
-            <a onclick="window.close()" class="button is-outlined is-danger pull-right">
-              <icon fa="fa-times"/>
-            </a>
-          </p>
-        </div>
-        <div class="hero-body is-paddingless">
-          <article class="is-main-pane">
-            <div class="columns">
-              <div class="column is-two-thirds">
-                <canvas id="myChart"height="225%"></canvas>
-              </div>
-              <div class="column" style="border-left: 1px grey solid">
-                <p class="title is-marginless">{{'OPTIONS' | translate}}</p>
-                <div>
-                  <p class="subtitle is-5">{{ 'REPORTS.COMMON.TIME_SPAN' | translate}}</p>
-                  <div class="field has-addons">
-                    <div class="control">
-                      <a class="button is-primary is-tag"><icon fa="fa-calendar"/></a>
-                    </div>
-                    <div class="control select is-primary">
-                      <select v-model="options.period" @change="throwPeriod()">
-                        <option v-for="time in timesSpan" :value="time.value">{{time.label | translate}}</option>
-                      </select>
-                    </div>
-                  </div>
-                  <hr>
-                  <p class="subtitle is-5">{{ 'REPORTS.COMMON.CUSTOM_TIME_SPAN' | translate}}</p>
-                  <div class="field columns">
+  <report title="REPORTS.BALANCE.TITLE" color="danger" icon="fa-line-chart">
+    <p class="subtitle is-5">{{ 'REPORTS.COMMON.TIME_SPAN' | translate}}</p>
+    <div class="field has-addons">
+      <div class="control">
+        <a class="button is-primary is-tag"><icon fa="fa-calendar"/></a>
+      </div>
+      <div class="control select is-primary">
+        <select v-model="options.period" @change="throwPeriod()">
+          <option v-for="time in timesSpan" :value="time.value">{{time.label | translate}}</option>
+        </select>
+      </div>
+    </div>
+    <hr>
+    <p class="subtitle is-5">{{ 'REPORTS.COMMON.CUSTOM_TIME_SPAN' | translate}}</p>
+    <div class="field columns">
 
-                    <div class="control field has-addons column">
-                      <div class="control">
-                        <a class="button is-primary is-tag"><icon fa="fa-calendar-minus-o"/></a>
-                      </div>
-                      <div class="control" style="width: 10vw">
-                        <input class="input"
-                               type="text"
-                               v-model="firstCustomDate"
-                               @change="throwCustom()"
-                               @keydown.up="addOneDay('firstCustomDate')"
-                               @keydown.down="subtractOneDay('firstCustomDate')"
-                               :placeholder="'REPORTS.COMMON.PLACEHOLDERS.PICK_DATE' | translate">
-                      </div>
-                    </div>
-                    <div class="control field has-addons column">
-                      <div class="control">
-                        <a class="button is-primary is-tag"><icon fa="fa-calendar-plus-o"/></a>
-                      </div>
-                      <div class="control" style="width: 10vw">
-                        <input class="input"
-                               type="text"
-                               v-model="lastCustomDate"
-                               @change="throwCustom()"
-                               @keydown.up="addOneDay('lastCustomDate')"
-                               @keydown.down="subtractOneDay('lastCustomDate')"
-                               :placeholder="'REPORTS.COMMON.PLACEHOLDERS.PICK_DATE' | translate">
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </article>
+      <div class="control field has-addons column">
+        <div class="control">
+          <a class="button is-primary is-tag"><icon fa="fa-calendar-minus-o"/></a>
         </div>
-    </section>
-  </div>
+        <div class="control" style="width: 10vw">
+          <input class="input"
+                 type="text"
+                 v-model="firstCustomDate"
+                 @change="throwCustom()"
+                 @keydown.up="addOneDay('firstCustomDate')"
+                 @keydown.down="subtractOneDay('firstCustomDate')"
+                 :placeholder="'REPORTS.COMMON.PLACEHOLDERS.PICK_DATE' | translate">
+        </div>
+      </div>
+      <div class="control field has-addons column">
+        <div class="control">
+          <a class="button is-primary is-tag"><icon fa="fa-calendar-plus-o"/></a>
+        </div>
+        <div class="control" style="width: 10vw">
+          <input class="input"
+                 type="text"
+                 v-model="lastCustomDate"
+                 @change="throwCustom()"
+                 @keydown.up="addOneDay('lastCustomDate')"
+                 @keydown.down="subtractOneDay('lastCustomDate')"
+                 :placeholder="'REPORTS.COMMON.PLACEHOLDERS.PICK_DATE' | translate">
+        </div>
+      </div>
+
+    </div>
+  </report>
 </template>
 
 <script>
 import icon from '../components/common/icon.vue'
+import report from './components/report.vue'
 
 import { ipcRenderer } from 'electron'
 import Database from '../assets/Database.class'
@@ -97,7 +71,7 @@ const colors = [ // eslint-disable-line
 ]
 
 export default {
-  components: { icon },
+  components: { icon, report },
   data: function () {
     return {
       db: null,
