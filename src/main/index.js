@@ -411,15 +411,18 @@ exports.openStatisticWindow = function () {
   ])
 
   if (statisticWin === null) {
+    const statisticWinURL = process.env.NODE_ENV === 'development'
+      ? `http://localhost:9080/statistic-view.html`
+      : `file://${__static}/statistic-view.html`
     statisticWin = new BrowserWindow({
       background: true,
       frame: false,
-      width: 1000,
+      width: 1015,
       height: 600,
       backgroundColor: '#282c34',
       icon: path.join(__static, '/icons/png/Round/64x64.png')
     })
-    statisticWin.loadURL(`file://${__static}/html/statisticView.html`)
+    statisticWin.loadURL(statisticWinURL)
     statisticWin.setTouchBar(statisticTBar)
     statisticWin.on('closed', () => {
       statisticWin = null
@@ -429,9 +432,9 @@ exports.openStatisticWindow = function () {
   } else {
     statisticWin.focus()
   }
-  // ipcMain.on('slider-display',(event, args) => {
-  //   //statisticTBar.items['13'].value = args
-  // })
+  ipcMain.on('slider-display', (event, args) => {
+    statisticTBar.items['13'].value = Number(args)
+  })
 }
 
 exports.openBalanceWindow = function () {
@@ -514,7 +517,7 @@ ipcMain.on('warning', (event, args) => {
 })
 
 ipcMain.on('open-report', (event, args) => {
-  if (globSettings.displayHelpers === false || globSettings.displayHelpers === 'undefined') {
+  if (globSettings.displayHelpers || globSettings.displayHelpers === 'undefined') {
     let displayWindow = null
     switch (args) {
       case 'balanceWin':
@@ -538,7 +541,7 @@ ipcMain.on('open-report', (event, args) => {
     }
     dialog.showMessageBox(displayWindow, options, function (response, checkboxChecked) {
       if (checkboxChecked) {
-        globSettings.displayHelpers = true
+        globSettings.displayHelpers = false
         jsonfile.writeFile(`${__static}/settings.json`, globSettings, {
           spaces: 2
         }, function (err) {

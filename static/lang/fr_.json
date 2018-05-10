@@ -163,6 +163,14 @@
           "PICK_DATE": "Choisir une date"
         }
       },
+      "STATISTIC": {
+        "TITLE": "Rapport statistique",
+        "DISPLAY": "Graphique",
+        "ORDER": "Trier par",
+        "LEGEND": "Légende",
+        "CATEGORIES": "Catégories",
+        "PREVIOUS": " Ajouter les données précédentes"
+      },
       "BALANCE": {
         "TITLE": "Rapport de solde"
       }

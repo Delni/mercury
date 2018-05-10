@@ -24,7 +24,7 @@
                   <p class="subtitle is-5">{{ 'REPORTS.COMMON.TIME_SPAN' | translate}}</p>
                   <div class="field has-addons">
                     <div class="control">
-                      <a class="button is-primary is-tag"><icon fa="fa-calendar-minus-o"/></a>
+                      <a class="button is-primary is-tag"><icon fa="fa-calendar"/></a>
                     </div>
                     <div class="control select is-primary">
                       <select v-model="options.period" @change="throwPeriod()">

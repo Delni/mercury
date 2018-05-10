@@ -1,12 +1,14 @@
 <template lang="html">
   <div class="tile ancestor notification is-dark is-paddingless">
     <div class="tile is-parent is-vertical" style="padding-bottom: 0">
-      <div class="tile is-child is-vertical notification is-black">
-        <div class="level is-marginless">
+      <div class="tile is-child is-vertical notification hero is-black">
+        <div class="level is-marginless hero-head">
           <p class="level-left title is-marginless">{{'MAIN_PANE.DASHBOARD.TOP' | translate}}</p>
           <p class="level-right subtitle is-6 is-marginless">{{ lastMonth }}</p>
         </div>
-        <canvas id="doughnut" height="340%"></canvas>
+        <div class="hero-body">
+          <canvas id="doughnut" height="250%" style="margin-top: 2.5vh"></canvas>
+        </div>
       </div>
     </div>
     <div class="tile is-parent is-vertical" style="padding-bottom: 0">
