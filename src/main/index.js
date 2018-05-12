@@ -354,16 +354,19 @@ exports.openSettingWindow = function () {
 }
 
 exports.openChronoWindow = function () {
+  const chronoWinURL = process.env.NODE_ENV === 'development'
+    ? `http://localhost:9080/chrono-view.html`
+    : `file://${__static}/chrono-view.html`
   if (chronoWin === null) {
     chronoWin = new BrowserWindow({
       background: true,
       frame: false,
-      width: 1000,
-      height: 600,
+      width: 1100,
+      height: 650,
       backgroundColor: '#282c34',
       icon: path.join(__static, '/icons/png/Round/64x64.png')
     })
-    chronoWin.loadURL(`file://${__static}/html/chronoView.html`)
+    chronoWin.loadURL(chronoWinURL)
     chronoWin.setTouchBar(new TouchBar([
       openTBPopover
     ]))

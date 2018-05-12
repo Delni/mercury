@@ -26,7 +26,8 @@ let rendererConfig = {
     renderer: path.join(__dirname, '../src/renderer/main.js'),
     settings: path.join(__dirname, '../src/renderer/settings/main.js'),
     balance: path.join(__dirname, '../src/renderer/reports/balanceView.js'),
-    statistic: path.join(__dirname, '../src/renderer/reports/statisticView.js')
+    statistic: path.join(__dirname, '../src/renderer/reports/statisticView.js'),
+    chrono: path.join(__dirname, '../src/renderer/reports/chronoView.js')
   },
   externals: [
     ...Object.keys(dependencies || {}).filter(d => !whiteListedModules.includes(d))
@@ -160,6 +161,20 @@ let rendererConfig = {
       template: path.resolve(__dirname, '../src/index.ejs'),
       chunks: ['statistic'],
       title: 'Mercury - Statistic view',
+      minify: {
+        collapseWhitespace: true,
+        removeAttributeQuotes: true,
+        removeComments: true
+      },
+      nodeModules: process.env.NODE_ENV !== 'production'
+        ? path.resolve(__dirname, '../node_modules')
+        : false
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'chrono-view.html',
+      template: path.resolve(__dirname, '../src/index.ejs'),
+      chunks: ['chrono'],
+      title: 'Mercury - Chrono view',
       minify: {
         collapseWhitespace: true,
         removeAttributeQuotes: true,

@@ -30,7 +30,7 @@
       },
       "STATS": {
         "CATEGORIES": "Catégories",
-        "TIME_SPAN": "Période : "
+        "TIME_SPAN": "Période"
       }
     }
   },
@@ -173,6 +173,13 @@
       },
       "BALANCE": {
         "TITLE": "Rapport de solde"
+      },
+      "CHRONO": {
+        "TITLE": "Rapport temporel",
+        "FLOOR_DATA": "Afficher les données par rapport à 0",
+        "CUSTOM_TIME_SPAN": "Période personnalisée ",
+        "TIME_SPAN": "Période ",
+        "WARNING_ZONE": "Zone rouge"
       }
     }
   },
