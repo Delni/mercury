@@ -1,35 +1,40 @@
 <template lang="html">
   <div>
-    <p class="title is-marginless"><icon size="is-medium" class="has-text-success" fa="fa-recycle"/> {{'MAIN_PANE.RECURRINGS.TITLE' | translate}}</p>
+    <p class="title is-marginless">
+      <icon size="is-medium" class="has-text-success" fa="fa-recycle"/>
+      {{'MAIN_PANE.RECURRINGS.TITLE' | translate}}
+    </p>
     <!-- <recurring-bar /> -->
     <nav class="level">
       <div class="level-item">
-        <a class="button is-info" @click="showRecModal('create')"><icon fa="fa-plus-circle" /> <span>{{ "MAIN_PANE.RECURRINGS.BAR.CREATE" | translate}}</span></a>
+        <a class="button is-info" @click="showRecModal('create')">
+          <icon fa="fa-plus-circle" /> <span>{{ "MAIN_PANE.RECURRINGS.BAR.CREATE" | translate}}</span>
+        </a>
       </div>
       <div class="level-item">
-        <a class="button is-large is-danger" @click="showRecModal('launch')"><icon size="is-medium" fa="fa-rocket" /> <span>{{ "MAIN_PANE.RECURRINGS.BAR.LAUNCH" | translate}}</span></a>
+        <a class="button is-large is-danger" @click="showRecModal('launch')">
+          <icon size="is-medium" fa="fa-rocket" /> <span>{{ "MAIN_PANE.RECURRINGS.BAR.LAUNCH" | translate}}</span>
+        </a>
       </div>
       <div class="level-item">
-        <a class="button is-success" @click="showRecModal('edit')"><icon fa="fa-pencil" /> <span>{{ "MAIN_PANE.RECURRINGS.BAR.EDIT" | translate}}</span></a>
+        <a class="button is-success" @click="showRecModal('edit')">
+          <icon fa="fa-pencil" /> <span>{{ "MAIN_PANE.RECURRINGS.BAR.EDIT" | translate}}</span>
+        </a>
       </div>
     </nav>
     <!-- <recurring-modal /> -->
-    <modal :active="recModalActive" :icon="modalConfig.icon + ' has-text-'+ modalConfig.color" :close="closeRecModal" width="60vw">
+    <modal :active="recModalActive"
+           :icon="modalConfig.icon + ' has-text-'+ modalConfig.color"
+           :close="closeRecModal" width="60vw">
       <div v-if="modalConfig.translate !== 'LAUNCH'">
         <p class="title">{{'MAIN_PANE.RECURRINGS.MODAL.TITLE.'+modalConfig.translate| translate}}</p>
         <div class="columns">
           <div class="content column">
 
-            <div class="field has-addons flex">
-              <div class="control">
-                <a class="button is-primary is-tag">
-                  <icon fa="fa-calendar"/>
-                </a>
-              </div>
-              <div class="control" >
-                <input class="input " type="text" :placeholder="settings.dateFormat" v-model="newRecurringOperation.date">
-              </div>
-            </div>
+            <custom-field class="flex" fa="calendar">
+              <input class="input" type="text" :placeholder="settings.dateFormat" v-model="newRecurringOperation.date">
+            </custom-field>
+
             <div class="field has-addons flex">
               <div class="control">
                 <a class="button is-tag is-primary"><icon fa="retweet"/></a>
@@ -47,10 +52,13 @@
                 </select>
               </div>
             </div>
+
             <div class="field has-addons flex">
               <div class="control">
-                <a class="button is-primary" @click="newRecurringOperation.hasRepeat = false" v-if="newRecurringOperation.hasRepeat"><icon fa="check" /></a>
-                <a class="button is-primary" @click="newRecurringOperation.hasRepeat = true" v-if="!newRecurringOperation.hasRepeat"><icon fa="times" /></a>
+                <a class="button is-primary" @click="newRecurringOperation.hasRepeat = !newRecurringOperation.hasRepeat">
+                  <icon fa="check" v-if="newRecurringOperation.hasRepeat"/>
+                  <icon fa="times" v-else/>
+                </a>
               </div>
               <div class="control flex">
                 <input class="input is-paddingless" type="text" name="" value="Répéter" readonly :disabled="newRecurringOperation.hasRepeat ? '': 'disabled'">
@@ -63,22 +71,15 @@
               </div>
             </div>
 
-
           </div>
           <div class="content column">
 
-            <div class="field has-addons flex" data='op-add-btn'>
-              <div class="control">
-                <a class="button is-primary is-tag" id="op-account-btn">
-                  <icon fa="fa-bank"/>
-                </a>
-              </div>
-              <div class="control select is-primary">
-                <select id="op-account" name="op-account" v-model="newRecurringOperation.selectedAccount">
-                  <option v-for="account in accounts" :value="account">{{account.name}}</option>
-                </select>
-              </div>
-            </div>
+            <custom-field class="flex" fa="bank" type="select is-primary">
+              <select id="op-account" name="op-account" v-model="newRecurringOperation.selectedAccount">
+                <option v-for="account in accounts" :value="account">{{account.name}}</option>
+              </select>
+            </custom-field>
+
             <div class="field has-addons flex" data='op-add-btn'>
               <div class="control">
                 <a class="button is-primary is-tag" id="op-type-btn">
@@ -102,51 +103,25 @@
                   </select>
               </div>
             </div>
-            <div class="field has-addons flex" data='op-add-btn'>
-              <div class="control">
-                <a class="button is-primary is-tag">
-                  <icon :fa="'fa-' + newRecurringOperation.selectedAccount.currency"/>
-                </a>
-              </div>
-              <div class="control" >
-                <input class="input " type="number" placeholder="0.00" v-model="newRecurringOperation.amount">
-              </div>
-            </div>
+
+            <custom-field class="flex" :fa="newRecurringOperation.selectedAccount.currency">
+              <input class="input " type="number" placeholder="0.00" v-model="newRecurringOperation.amount">
+            </custom-field>
 
           </div>
           <div class="content column">
 
-            <div class="field has-addons flex" data='op-add-btn'>
-              <div class="control">
-                <a class="button is-primary is-tag" id="op-benef-btn">
-                  <icon fa="fa-building-o"/>
-                </a>
-              </div>
-              <div class="control">
-                <input class="input typeahead " id="op-benef" type="text" :placeholder="'OPERATION_PANE.PLACEHOLDERS.BENEFICIARY' | translate" v-model="newRecurringOperation.beneficiary"/>
-              </div>
-            </div>
+            <custom-field class="flex" fa="building-o">
+              <input class="input typeahead " id="op-benef" type="text" :placeholder="'OPERATION_PANE.PLACEHOLDERS.BENEFICIARY' | translate" v-model="newRecurringOperation.beneficiary"/>
+            </custom-field>
 
-            <div class="field has-addons flex" data='op-add-btn'>
-              <div class="control">
-                <a class="button is-primary is-tag" id="op-cat-btn">
-                  <icon fa="fa-flag"/>
-                </a>
-              </div>
-              <div class="control">
-                <input class="input typeahead " id="op-cat" type="text" :placeholder="'OPERATION_PANE.PLACEHOLDERS.CATEGORY' | translate" v-model="newRecurringOperation.category"/>
-              </div>
-            </div>
-            <div class="field has-addons flex" data='op-add-btn'>
-              <div class="control">
-                <a class="button is-primary is-tag" id="op-label-btn">
-                  <icon fa="fa-tag"/>
-                </a>
-              </div>
-              <div class="control">
-                <input class="input typeahead " id="op-label" type="text" :placeholder="'OPERATION_PANE.PLACEHOLDERS.LABEL' | translate" v-model="newRecurringOperation.label"/>
-              </div>
-            </div>
+            <custom-field class="flex" fa="flag">
+              <input class="input typeahead " id="op-cat" type="text" :placeholder="'OPERATION_PANE.PLACEHOLDERS.CATEGORY' | translate" v-model="newRecurringOperation.category"/>
+            </custom-field>
+
+            <custom-field class="flex" fa="tag">
+              <input class="input typeahead " id="op-label" type="text" :placeholder="'OPERATION_PANE.PLACEHOLDERS.LABEL' | translate" v-model="newRecurringOperation.label"/>
+            </custom-field>
 
           </div>
         </div>
@@ -311,9 +286,7 @@ export default {
           break
         default:
           this.modalConfig = {
-            callback: () => {
-
-            }
+            callback: () => {}
           }
       }
       this.recModalActive = true

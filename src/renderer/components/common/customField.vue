@@ -1,12 +1,10 @@
 <template lang="html">
-  <div class="control field has-addons">
+  <div class="field has-addons" :class="{'control': isControl}">
     <div class="control">
       <a class="button is-primary is-tag"><icon :fa="fa" /></a>
     </div>
-    <div class="control select">
-      <select v-model="vModel">
-        <option v-for="item in data" :value="item.value">{{item.label}}</option>
-      </select>
+    <div class="control" :class="type">
+      <slot></slot>
     </div>
   </div>
 </template>
@@ -17,7 +15,7 @@ export default {
   components: {
     icon
   },
-  props: ['vModel', 'fa', 'data']
+  props: ['fa', 'type', 'isControl']
 }
 </script>
 

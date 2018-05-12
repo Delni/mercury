@@ -7,44 +7,24 @@
         <a class="level-right button is-link is-small" @click="inheritOperation()"><icon fa="link" /> <span>{{"OPERATION_PANE.INHERIT" | translate}}</span></a>
       </p>
       <div class="content" id="op-content">
+        <custom-field class="flex" fa="calendar">
+          <input class="input " type="text"
+            :placeholder="settings.dateFormat"
+            v-model="newOperation.date"
+            @keydown.up="addOneDay"
+            @keydown.down="subtractOneDay"
+            @keyup.enter="isEditing? confirmEdition():addOperation()">
+        </custom-field>
 
-        <div class="field has-addons flex" data='op-add-btn'>
-          <div class="control">
-            <a class="button is-primary is-tag">
-              <icon fa="fa-calendar"/>
-            </a>
-          </div>
-          <div class="control" >
-            <input class="input " type="text"
-              :placeholder="settings.dateFormat"
-              v-model="newOperation.date"
-              @keydown.up="addOneDay"
-              @keydown.down="subtractOneDay"
-              @keyup.enter="isEditing? confirmEdition():addOperation()">
-          </div>
-        </div>
-        <div class="field has-addons flex" data='op-add-btn'>
-          <div class="control">
-            <a class="button is-primary is-tag">
-              <icon :fa="'fa-' + newOperation.selectedAccount.currency"/>
-            </a>
-          </div>
-          <div class="control" >
-            <input class="input " type="number" placeholder="0.00" v-model="newOperation.amount" @keyup.enter="isEditing? confirmEdition():addOperation()">
-          </div>
-        </div>
-        <div class="field has-addons flex" data='op-add-btn'>
-          <div class="control">
-            <a class="button is-primary is-tag" id="op-account-btn">
-              <icon fa="fa-bank"/>
-            </a>
-          </div>
-          <div class="control select is-primary">
-            <select id="op-account" name="op-account" v-model="newOperation.selectedAccount">
-              <option v-for="account in accounts" :value="account">{{account.name}}</option>
-            </select>
-          </div>
-        </div>
+        <custom-field class="flex" :fa="newOperation.selectedAccount.currency">
+          <input class="input " type="number" placeholder="0.00" v-model="newOperation.amount" @keyup.enter="isEditing? confirmEdition():addOperation()">
+        </custom-field>
+
+        <custom-field class="flex" fa="bank" type="select is-primary">
+          <select id="op-account" name="op-account" v-model="newOperation.selectedAccount">
+            <option v-for="account in accounts" :value="account">{{account.name}}</option>
+          </select>
+        </custom-field>
 
         <div class="field has-addons flex" data='op-add-btn'>
           <div class="control">
@@ -70,37 +50,17 @@
           </div>
         </div>
 
-        <div class="field has-addons flex" data='op-add-btn'>
-          <div class="control">
-            <a class="button is-primary is-tag" id="op-benef-btn">
-              <icon fa="fa-building-o"/>
-            </a>
-          </div>
-          <div class="control">
-            <input class="input typeahead " id="op-benef" type="text" :placeholder="'OPERATION_PANE.PLACEHOLDERS.BENEFICIARY' | translate" v-model="newOperation.beneficiary" @keyup.enter="isEditing? confirmEdition():addOperation()"/>
-          </div>
-        </div>
+        <custom-field class="flex" fa="building-o">
+          <input class="input typeahead " id="op-benef" type="text" :placeholder="'OPERATION_PANE.PLACEHOLDERS.BENEFICIARY' | translate" v-model="newOperation.beneficiary" @keyup.enter="isEditing? confirmEdition():addOperation()"/>
+        </custom-field>
 
-        <div class="field has-addons flex" data='op-add-btn'>
-          <div class="control">
-            <a class="button is-primary is-tag" id="op-cat-btn">
-              <icon fa="fa-flag"/>
-            </a>
-          </div>
-          <div class="control">
-            <input class="input typeahead " id="op-cat" type="text" :placeholder="'OPERATION_PANE.PLACEHOLDERS.CATEGORY' | translate" v-model="newOperation.category" @keyup.enter="isEditing? confirmEdition():addOperation()"/>
-          </div>
-        </div>
-        <div class="field has-addons flex" data='op-add-btn'>
-          <div class="control">
-            <a class="button is-primary is-tag" id="op-label-btn">
-              <icon fa="fa-tag"/>
-            </a>
-          </div>
-          <div class="control">
-            <input class="input typeahead " id="op-label" type="text" :placeholder="'OPERATION_PANE.PLACEHOLDERS.LABEL' | translate" v-model="newOperation.label" @keyup.enter="isEditing? confirmEdition():addOperation()"/>
-          </div>
-        </div>
+        <custom-field class="flex" fa="flag">
+          <input class="input typeahead " id="op-cat" type="text" :placeholder="'OPERATION_PANE.PLACEHOLDERS.CATEGORY' | translate" v-model="newOperation.category" @keyup.enter="isEditing? confirmEdition():addOperation()"/>
+        </custom-field>
+        
+        <custom-field class="flex" fa="tag">
+          <input class="input typeahead " id="op-label" type="text" :placeholder="'OPERATION_PANE.PLACEHOLDERS.LABEL' | translate" v-model="newOperation.label" @keyup.enter="isEditing? confirmEdition():addOperation()"/>
+        </custom-field>
 
         <div class="field is-grouped">
           <p class="control">{{"State" | translate }} :</p>
@@ -146,6 +106,7 @@
 
 <script>
 import icon from './common/icon.vue'
+import customField from './common/customField.vue'
 
 import {ipcRenderer} from 'electron'
 import moment from 'moment'
@@ -154,7 +115,8 @@ import Vue from 'vue'
 export default {
   name: 'operation-pane',
   components: {
-    icon
+    icon,
+    customField
   },
   data: function () {
     return {

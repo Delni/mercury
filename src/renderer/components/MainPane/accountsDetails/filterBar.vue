@@ -1,45 +1,28 @@
 <template lang="html">
   <nav class="field is-grouped">
-    <div class="control field has-addons">
-      <div class="control">
-        <a class="button is-primary is-tag"><icon fa="university" /></a>
-      </div>
-      <div class="control select is-primary">
-        <select v-model="filters.account" @change="$root.$emit('update-filters')">
-          <option v-for="account in accounts" :value="account">{{account.name}}</option>
-        </select>
-      </div>
-    </div>
-    <div class="control field has-addons">
-      <div class="control">
-        <a class="button is-primary is-tag"><icon fa="calendar-o" /></a>
-      </div>
-      <div class="control select is-primary">
-        <select v-model="filters.date" @change="$root.$emit('update-filters')">
-          <option v-for="time in timesSpan" :value="time.value">{{time.label | translate}}</option>
-        </select>
-      </div>
-    </div>
-    <div class="control field has-addons">
-      <div class="control">
-        <a class="button is-primary is-tag"><icon fa="adjust" /></a>
-      </div>
-      <div class="control select is-primary">
-        <select v-model="filters.state" @change="$root.$emit('update-filters')">
-          <option v-for="state in states" :value="state.value">{{state.label | translate}}</option>
-        </select>
-      </div>
-    </div>
-    <div class="control field has-addons">
-      <div class="control">
-        <a class="button is-primary is-tag"><icon fa="balance-scale" /></a>
-      </div>
-      <div class="control select is-primary">
-        <select v-model="filters.amount" @change="$root.$emit('update-filters')">
-          <option v-for="amount in amounts" :value="amount.value">{{amount.label | translate}}</option>
-        </select>
-      </div>
-    </div>
+    <custom-field is-control="true" fa="university" type="select is-primary">
+      <select v-model="filters.account" @change="$root.$emit('update-filters')">
+        <option v-for="account in accounts" :value="account">{{account.name}}</option>
+      </select>
+    </custom-field>
+
+    <custom-field is-control="true" fa="calendar-o" type="select is-primary">
+      <select v-model="filters.date" @change="$root.$emit('update-filters')">
+        <option v-for="time in timesSpan" :value="time.value">{{time.label | translate}}</option>
+      </select>
+    </custom-field>
+
+    <custom-field is-control="true" fa="adjust" type="select is-primary">
+      <select v-model="filters.state" @change="$root.$emit('update-filters')">
+        <option v-for="state in states" :value="state.value">{{state.label | translate}}</option>
+      </select>
+    </custom-field>
+    <custom-field is-control="true" fa="balance-scale" type="select is-primary">
+      <select v-model="filters.amount" @change="$root.$emit('update-filters')">
+        <option v-for="amount in amounts" :value="amount.value">{{amount.label | translate}}</option>
+      </select>
+    </custom-field>
+
     <p class="control">
       <a class="button is-primary" @click="showAdvancedFilters()"><icon fa="filter" /></a>
     </p>
