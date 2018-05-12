@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <div style="max-height: 60vh">
     <filter-bar />
     <br>
 
@@ -13,38 +13,64 @@
       </div>
     </div>
 
-    <table class="table is-fullwidth">
-      <thead>
-        <tr class="has-text-centered">
-          <th>{{'MAIN_PANE.ACCOUNTS.TABLE.HEAD.STATE' | translate}}</th>
-          <th>{{'MAIN_PANE.ACCOUNTS.TABLE.HEAD.DATE' | translate}}</th>
-          <th>{{'MAIN_PANE.ACCOUNTS.TABLE.HEAD.TYPE' | translate}}</th>
-          <th>{{'MAIN_PANE.ACCOUNTS.TABLE.HEAD.BENEFICIARY' | translate}}</th>
-          <th>{{'MAIN_PANE.ACCOUNTS.TABLE.HEAD.CATEGORY' | translate}}</th>
-          <th>{{'MAIN_PANE.ACCOUNTS.TABLE.HEAD.LABEL' | translate}}</th>
-          <th>{{'MAIN_PANE.ACCOUNTS.TABLE.HEAD.DEBIT' | translate}}</th>
-          <th>{{'MAIN_PANE.ACCOUNTS.TABLE.HEAD.COLLECTION' | translate}}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-if="!data.length && !loading">
-          <td colspan="8" class="has-text-grey has-text-centered">{{"NO_DATA" | translate}}</td>
-        </tr>
-        <tr v-if="loading">
-          <td colspan="8" class="has-text-grey has-text-centered"><a class="button is-loading has-background-black" style="border: none"></a></td>
-        </tr>
-        <tr v-if="data.length && !loading" v-for="row in data" :class="{'is-selected': row.isClicked, 'is-future': isFuture(row)}" @click="editRow(row)">
-          <td class="has-text-centered"><icon :fa="row.state"/></td>
-          <td>{{row.date}}</td>
-          <td class="has-text-centered"><icon :fa="row.type" /></td>
-          <td>{{row.beneficiary}}</td>
-          <td>{{row.category}}</td>
-          <td>{{row.label}}</td>
-          <td class="has-text-centered" :class="{'has-text-danger': !isFuture(row)}">{{row.amount < 0 ? row.amount: ''}}</td>
-          <td class="has-text-centered" :class="{'has-text-success': !row.isClicked && !isFuture(row)}">{{row.amount >= 0 ? row.amount: ''}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="is-table-overflown">
+      <table class="table is-fullwidth">
+        <thead>
+          <tr class="has-text-centered">
+            <th><a class="link" @click="changeOrder('state')">
+              {{'MAIN_PANE.ACCOUNTS.TABLE.HEAD.STATE' | translate}}
+              <span v-if="orderBy === 'state'"><icon v-if="order === 'asc'" fa="chevron-up" /><icon v-else fa="chevron-down" /></span>
+            </a></th>
+            <th><a class="link" @click="changeOrder('date')">
+              {{'MAIN_PANE.ACCOUNTS.TABLE.HEAD.DATE' | translate}}
+              <span v-if="orderBy === 'date'"><icon v-if="order === 'asc'" fa="chevron-up" /><icon v-else fa="chevron-down" /></span>
+            </a></th>
+            <th><a class="link" @click="changeOrder('type')">
+              {{'MAIN_PANE.ACCOUNTS.TABLE.HEAD.TYPE' | translate}}
+              <span v-if="orderBy === 'type'"><icon v-if="order === 'asc'" fa="chevron-up" /><icon v-else fa="chevron-down" /></span>
+            </a></th>
+            <th><a class="link" @click="changeOrder('beneficiary')">
+              {{'MAIN_PANE.ACCOUNTS.TABLE.HEAD.BENEFICIARY' | translate}}
+              <span v-if="orderBy === 'beneficiary'"><icon v-if="order === 'asc'" fa="chevron-up" /><icon v-else fa="chevron-down" /></span>
+            </a></th>
+            <th><a class="link" @click="changeOrder('category')">
+              {{'MAIN_PANE.ACCOUNTS.TABLE.HEAD.CATEGORY' | translate}}
+              <span v-if="orderBy === 'category'"><icon v-if="order === 'asc'" fa="chevron-up" /><icon v-else fa="chevron-down" /></span>
+            </a></th>
+            <th><a class="link" @click="changeOrder('label')">
+              {{'MAIN_PANE.ACCOUNTS.TABLE.HEAD.LABEL' | translate}}
+              <span v-if="orderBy === 'label'"><icon v-if="order === 'asc'" fa="chevron-up" /><icon v-else fa="chevron-down" /></span>
+            </a></th>
+            <th><a class="link" @click="changeOrder('debit')">
+              {{'MAIN_PANE.ACCOUNTS.TABLE.HEAD.DEBIT' | translate}}
+              <span v-if="orderBy === 'debit'"><icon v-if="order === 'asc'" fa="chevron-up" /><icon v-else fa="chevron-down" /></span>
+            </a></th>
+            <th><a class="link" @click="changeOrder('collection')">
+              {{'MAIN_PANE.ACCOUNTS.TABLE.HEAD.COLLECTION' | translate}}
+              <span v-if="orderBy === 'collection'"><icon v-if="order === 'asc'" fa="chevron-up" /><icon v-else fa="chevron-down" /></span>
+            </a></th>
+          </tr>
+        </thead>
+          <tbody>
+              <tr v-if="!data.length && !loading">
+                <td colspan="8" class="has-text-grey has-text-centered">{{"NO_DATA" | translate}}</td>
+              </tr>
+              <tr v-if="loading">
+                <td colspan="8" class="has-text-grey has-text-centered"><a class="button is-loading has-background-black" style="border: none"></a></td>
+              </tr>
+              <tr v-if="data.length && !loading" v-for="row in orderedData" :class="{'is-selected': row.isClicked, 'is-future': isFuture(row)}" @click="editRow(row)">
+                <td class="has-text-centered"><icon :fa="row.state"/></td>
+                <td>{{row.date}}</td>
+                <td class="has-text-centered"><icon :fa="row.type" /></td>
+                <td><div class="is-not-too-large">{{row.beneficiary}}</div></td>
+                <td>{{row.category}}</td>
+                <td><div class="is-not-too-large">{{row.label}}</div></td>
+                <td class="has-text-centered" :class="{'has-text-danger': !isFuture(row)}">{{row.amount < 0 ? row.amount: ''}}</td>
+                <td class="has-text-centered" :class="{'has-text-success': !row.isClicked && !isFuture(row)}">{{row.amount >= 0 ? row.amount: ''}}</td>
+              </tr>
+          </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -52,6 +78,7 @@
 import filterBar from './accountsDetails/filterBar.vue'
 import icon from '../common/icon.vue'
 
+import _ from 'lodash'
 import moment from 'moment'
 import Vue from 'vue'
 
@@ -65,12 +92,52 @@ export default {
       data: [],
       loading: true,
       balanceDown: 0,
-      balanceUp: 0
+      balanceUp: 0,
+      orderBy: 'date',
+      order: 'desc'
+    }
+  },
+  computed: {
+    orderedData: function () {
+      let vm = this
+      switch (this.orderBy) {
+        case 'debit':
+          return _.orderBy(this.data, 'amount')
+        case 'collection':
+          return _.orderBy(this.data, 'amount', ['desc'])
+        case 'date':
+          return _.orderBy(this.data, function (o) { return moment(o.date, vm.$root.settings.dateFormat).format('YYYYMMDD') }, [this.order])
+        default:
+          return _.orderBy(this.data, this.orderBy, [this.order])
+      }
     }
   },
   methods: {
     isFuture: function (row) {
       return moment(row.date, this.$root.settings.dateFormat).isAfter(moment())
+    },
+
+    changeOrder: function (filter) {
+      if (filter === 'debit' || filter === 'collection') {
+        if (filter === 'debit') {
+          this.order = 'desc'
+          this.orderBy = 'debit'
+        } else {
+          this.order = 'asc'
+          this.orderBy = 'collection'
+        }
+      } else {
+        if (this.orderBy === filter) {
+          if (this.order === 'desc') {
+            this.order = 'asc'
+          } else {
+            this.order = 'desc'
+          }
+        } else {
+          this.orderBy = filter
+          this.order = 'asc'
+        }
+      }
     },
 
     updateTable: function () {
@@ -135,4 +202,20 @@ export default {
 </script>
 
 <style lang="css">
+.is-table-overflown {
+  max-height: 50vh;
+  overflow:scroll;
+}
+
+.is-table-overflown > table {
+  margin-bottom: 10vh
+}
+
+.is-table-overflown::-webkit-scrollbar {
+  display: auto;
+}
+
+.is-not-too-large {
+  max-width: 8vw
+}
 </style>

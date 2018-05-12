@@ -18,6 +18,10 @@
   color: inherit !important;
 }
 
+.dark>* .table thead th {
+  color: whitesmoke !important;
+}
+
 .dark>* .is-future *{
   color: hsl(0, 0%, 48%);
 }
