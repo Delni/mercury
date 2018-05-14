@@ -51,24 +51,28 @@
             </a></th>
           </tr>
         </thead>
-          <tbody>
-              <tr v-if="!data.length && !loading">
-                <td colspan="8" class="has-text-grey has-text-centered">{{"NO_DATA" | translate}}</td>
-              </tr>
-              <tr v-if="loading">
-                <td colspan="8" class="has-text-grey has-text-centered"><a class="button is-loading has-background-black" style="border: none"></a></td>
-              </tr>
-              <tr v-if="data.length && !loading" v-for="row in orderedData" :class="{'is-selected': row.isClicked, 'is-future': isFuture(row)}" @click="editRow(row)">
-                <td class="has-text-centered"><icon :fa="row.state"/></td>
-                <td>{{row.date}}</td>
-                <td class="has-text-centered"><icon :fa="row.type" /></td>
-                <td><div class="is-not-too-large">{{row.beneficiary}}</div></td>
-                <td>{{row.category}}</td>
-                <td><div class="is-not-too-large">{{row.label}}</div></td>
-                <td class="has-text-centered" :class="{'has-text-danger': !isFuture(row)}">{{row.amount < 0 ? row.amount: ''}}</td>
-                <td class="has-text-centered" :class="{'has-text-success': !row.isClicked && !isFuture(row)}">{{row.amount >= 0 ? row.amount: ''}}</td>
-              </tr>
-          </tbody>
+          <transition-group name="details" tag="tbody">
+            <tr v-if="!data.length && !loading" :key="-1">
+              <td colspan="8" class="has-text-grey has-text-centered">{{"NO_DATA" | translate}}</td>
+            </tr>
+            <tr v-if="loading" :key="-2">
+              <td colspan="8" class="has-text-grey has-text-centered"><a class="button is-loading has-background-black" style="border: none"></a></td>
+            </tr>
+            <tr v-if="data.length && !loading"
+                v-for="row in orderedData"
+                :key="row.id"
+                :class="{'is-selected': row.isClicked, 'is-future': isFuture(row)}"
+                @click="editRow(row)">
+              <td class="has-text-centered"><icon :fa="row.state"/></td>
+              <td>{{row.date}}</td>
+              <td class="has-text-centered"><icon :fa="row.type" /></td>
+              <td><div class="is-not-too-large">{{row.beneficiary}}</div></td>
+              <td>{{row.category}}</td>
+              <td><div class="is-not-too-large">{{row.label}}</div></td>
+              <td class="has-text-centered" :class="{'has-text-danger': !isFuture(row)}">{{row.amount < 0 ? row.amount: ''}}</td>
+              <td class="has-text-centered" :class="{'has-text-success': !row.isClicked && !isFuture(row)}">{{row.amount >= 0 ? row.amount: ''}}</td>
+            </tr>
+          </transition-group>
       </table>
     </div>
   </div>
@@ -217,5 +221,19 @@ export default {
 
 .is-not-too-large {
   max-width: 8vw
+}
+
+/* Animation */
+.details-enter-active, .details-leave-active {
+  transition: all 1s;
+}
+
+.details-move {
+  transition: all 750ms;
+}
+
+.details-enter, .details-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>

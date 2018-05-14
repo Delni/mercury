@@ -4,7 +4,9 @@
       <div class="content">
         <p class="title">
           {{'ACCOUNTS_PANE.DEFAULT'| translate}}
-          <icon fa="exclamation-circle" class="is-size-4 has-text-warning" v-if="unsaved"/>
+          <transition name="slide-fade">
+            <icon fa="exclamation-circle" class="is-size-4 has-text-warning" v-if="unsaved"/>
+          </transition>
         </p>
         <p class="control">
           <a class="button is-primary is-small is-outlined" @click="showCreateModal()">
@@ -254,4 +256,15 @@ export default {
 </script>
 
 <style lang="css">
+  .slide-fade-enter-active {
+    transition: all 1s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all 500ms cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+  /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
 </style>
