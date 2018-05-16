@@ -120,11 +120,23 @@
           "EDIT": "Éditer",
           "DELETE": "Supprimer"
         },
+        "POPUP": {
+          "TITLE": "Mission accomplie !",
+          "BODY": "{{=length}} opération ajoutée !",
+          "BODY_PLURAL": "{{=length}} opérations ont été ajoutées !",
+          "CONFIRM_DELETE": "Vous êtes sur le point de supprimer une opération.\n\nÊtes-vous sûr(e) ?"
+        },
+        "NO_DATA": {
+          "TITLE": "Aucune opération sélectionnée !",
+          "BODY": "Cliquez sur une ligne avant de l'éditer"
+        },
         "MODAL": {
           "TITLE": {
             "CREATE": "Créer une nouvelle opération récurrente",
-            "EDIT": "Éditer"
+            "EDIT": "Éditer",
+            "LAUNCH": "Lancer des opérations"
           },
+          "LAUNCH_FOR": "Lancer les opérations en attente pour dans",
           "CONFIRM_BUTTON": {
             "CREATE": "Créer",
             "EDIT": "Éditer"

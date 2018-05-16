@@ -144,6 +144,7 @@ export default {
 
     // This refers to root !!!!
     this.$root.$on('update-accounts', this.reloadChronochart)
+    this.$root.$on('launch-recurrings:success', this.refreshChronochart)
   },
   mounted: function () {
     this.chronoChart = new ChronoChart(document.getElementById('chronoChart'), this.$root.accounts, this.$root.db)

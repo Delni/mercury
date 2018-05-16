@@ -250,6 +250,8 @@ export default {
     })
 
     this.$root.$on('update-accounts-list:success', this.softUpdate) // TODO better reload !
+    this.$root.$on('launch-recurrings:success', this.showUnsavedTag)
+    this.$root.$on('recurrings:delete:success', this.showUnsavedTag)
     this.$root.$on('show-unsaved-tag', this.showUnsavedTag)
   }
 }

@@ -55,19 +55,19 @@
 
             <div class="field has-addons flex">
               <div class="control">
-                <a class="button is-primary" @click="newRecurringOperation.hasRepeat = !newRecurringOperation.hasRepeat">
+                <a class="button is-primary" @click="newRecurringOperation.hasRepeat = !newRecurringOperation.hasRepeat; $forceUpdate()">
                   <icon fa="check" v-if="newRecurringOperation.hasRepeat"/>
                   <icon fa="times" v-else/>
                 </a>
               </div>
               <div class="control flex">
-                <input class="input is-paddingless" type="text" name="" value="Répéter" readonly :disabled="newRecurringOperation.hasRepeat ? '': 'disabled'">
+                <input class="input is-paddingless" type="text" name="" value="Répéter" readonly :disabled="!newRecurringOperation.hasRepeat">
               </div>
               <div class="control" style="width: 3vw">
-                <input class="input" type="number" min="1" value="2" :disabled="newRecurringOperation.hasRepeat ? '': 'disabled'">
+                <input class="input" type="number" min="1" value="2" :disabled="!newRecurringOperation.hasRepeat">
               </div>
               <div class="control flex">
-                <input class="input" type="text" value="time" style="padding-right: 0" readonly :disabled="newRecurringOperation.hasRepeat ? '': 'disabled'">
+                <input class="input" type="text" value="time" style="padding-right: 0" readonly :disabled="!newRecurringOperation.hasRepeat">
               </div>
             </div>
 
@@ -105,7 +105,7 @@
             </div>
 
             <custom-field class="flex" :fa="newRecurringOperation.selectedAccount.currency">
-              <input class="input " type="number" placeholder="0.00" v-model="newRecurringOperation.amount">
+              <input class="input" type="number" placeholder="0.00" v-model="newRecurringOperation.amount">
             </custom-field>
 
           </div>
@@ -133,25 +133,45 @@
             <a class="button is-danger" @click="closeRecModal()">{{'CANCEL'| translate}}</a>
           </p>
           <p v-if="modalConfig.translate === 'EDIT'" class="level-item">
-            <a class="button is-warning" @click="deleteRec()">{{'DELETE' | translate}}</a>
+            <a class="button is-warning" @click="deleteRecuring(newRecurringOperation.id)">{{'DELETE' | translate}}</a>
           </p>
         </div>
       </div>
       <div v-else>
-
+        <p class="title">{{'MAIN_PANE.RECURRINGS.MODAL.TITLE.'+modalConfig.translate| translate}}</p>
+        <form class="field has-addons">
+          <div class="control flex">
+            <input class="input is-warning has-text-warning" type="text" :value="'MAIN_PANE.RECURRINGS.MODAL.LAUNCH_FOR' | translate" readonly>
+          </div>
+          <div class="control">
+            <input class="input is-warning" type="number" v-model="launch.offset" style="width: 5em"/>
+          </div>
+          <div class="control select is-warning">
+            <select v-model="launch.timeSpan">
+              <option value="day">{{ 'TIME_SPAN.PLURAL.days' | translate }}</option>
+              <option value="month">{{ 'TIME_SPAN.PLURAL.months' | translate }}</option>
+              <option value="quarter">{{ 'TIME_SPAN.PLURAL.quarters' | translate }}</option>
+            </select>
+          </div>
+          <div class="control">
+            <a class="button is-warning" :class="{'is-outlined': this.$root.settings.theme === 'dark'}" @click="launchPending()"><icon fa="rocket" /></a>
+          </div>
+        </form>
+        <hr>
       </div>
     </modal>
     <!-- <recurring-table /> -->
     <div class="notification is-black">
       <table class="table is-fullwidth">
-        <tbody>
-          <tr v-if="!recurrings.length">
+        <transition-group name="details" tag="tbody">
+          <tr v-if="!recurrings.length" :key="-1">
             <td colspan="6" class="has-text-centered">{{'NO_DATA' | translate}}</td>
           </tr>
           <tr v-else
               v-for="recurring in recurrings"
               @click="toggleSelect(recurring)"
               @contextmenu="contextMenu(recurring)"
+              :key="recurring.id"
               :class="{'is-selected': recurring.isSelected}">
             <td class="has-text-centered">{{recurring.date | date}}</td>
             <td class="has-text-centered"><icon :fa="recurring.type" /></td>
@@ -160,7 +180,7 @@
             <td class="has-text-centered">{{recurring.label}}</td>
             <td class="has-text-centered" :class="{'has-text-danger': recurring.amount < 0, 'has-text-success': recurring.amount >= 0}">{{recurring.amount}}</td>
           </tr>
-        </tbody>
+        </transition-group>
       </table>
     </div>
   </div>
@@ -171,7 +191,7 @@ import icon from '../common/icon.vue'
 import modal from '../common/modal.vue'
 import customField from '../common/customField.vue'
 
-import { remote } from 'electron'
+import { ipcRenderer, remote } from 'electron'
 import moment from 'moment'
 import Vue from 'vue'
 
@@ -188,6 +208,10 @@ export default {
       accounts: this.$root.accounts,
       modalConfig: {callback: () => {}},
       settings: this.$root.settings,
+      launch: {
+        offset: this.$root.settings.defaultOffset,
+        timeSpan: this.$root.settings.defaultTimeSpan
+      },
       newRecurringOperation: {
         date: moment().format(this.$root.settings.dateFormat),
         selectedAccount: this.$root.accounts[0],
@@ -197,10 +221,11 @@ export default {
       }
     }
   },
+
   methods: {
     getData: function () {
-      this.recurrings = this.$root.db.exec('SELECT id,date,type,beneficiary,category,label,amount FROM Recurrings ORDER BY date ASC')
-      this.recurrings.map(r => { r.isSelected = false })
+      this.recurrings = this.$root.db.exec('SELECT id,date,type,beneficiary,category,label,amount, account_name FROM Recurrings ORDER BY date ASC')
+      this.recurrings.map(r => { r.isSelected = false; r.selectedAccount = this.$root.accounts.find(a => a.name === r.account_name) })
     },
 
     contextMenu: function (recurring) {
@@ -241,7 +266,7 @@ export default {
       }))
       contextualMenu.append(new remote.MenuItem({
         label: Vue.filter('translate')('MAIN_PANE.RECURRINGS.BAR.EDIT'),
-        click () { vm.showRecModal('edit') }
+        click () { vm.toggleSelect(recurring); vm.showRecModal('edit') }
       }))
       contextualMenu.append(new remote.MenuItem({
         label: Vue.filter('translate')('MAIN_PANE.RECURRINGS.BAR.DELETE'),
@@ -250,30 +275,144 @@ export default {
       contextualMenu.popup(remote.getCurrentWindow())
     },
 
-    launchPending: function () {
-
+    launchPending: function (id = null, fromContext = false) {
+      let operations = []
+      if (id) {
+        this.$root.db.launchPending(id)
+      } else {
+        let upperBound = moment().add(this.launch.offset, this.launch.timeSpan).format('YYYY-MM-DD')
+        try {
+          operations = this.$root.db.exec(`SELECT id FROM Recurrings WHERE date <="${upperBound}"`)
+        } catch (e) {
+          console.warn(e)
+          operations.length = 0
+        } finally {
+          // IDEA: Progress bar of how many operations are running
+          for (var i = 0; i < operations.length; i++) {
+            this.$root.db.launchPending(operations[i].id)
+          }
+          const options = {
+            title: Vue.filter('translate')('MAIN_PANE.RECURRINGS.POPUP.TITLE'),
+            subtitle: Vue.filter('translate')(operations.length > 1 ? 'MAIN_PANE.RECURRINGS.POPUP.BODY_PLURAL' : 'MAIN_PANE.RECURRINGS.POPUP.BODY', {length: operations.length}),
+            silent: true
+          }
+          ipcRenderer.send('notification', options)
+        }
+      }
+      if (!fromContext) {
+        this.closeRecModal()
+      }
+      this.getData()
+      this.$root.$emit('launch-recurrings:success')
     },
 
-    deleteRecuring: function () {
-
+    deleteRecuring: function (id = null, fromContext = false) {
+      const options = {
+        type: 'warning',
+        title: Vue.filter('translate')('WARNING'),
+        message: Vue.filter('translate')('MAIN_PANE.RECURRINGS.POPUP.CONFIRM_DELETE'),
+        buttons: [Vue.filter('translate')('CONTINUE'), Vue.filter('translate')('CANCEL')],
+        cancelId: 1
+      }
+      let confirm = ipcRenderer.sendSync('warning', options)
+      if (confirm === 0) {
+        id = Number(id)
+        this.$root.db.deleteRec(id)
+        if (!fromContext) {
+          this.closeRecModal()
+        }
+        this.getData()
+        this.$root.$emit('recurrings:delete:success')
+      }
     },
 
     showRecModal: function (type) {
+      let vm = this
       switch (type) {
         case 'create':
           this.modalConfig = {
             color: 'info',
             icon: 'plus-circle',
             translate: 'CREATE',
-            callback: () => {}
+            callback: function () {
+              console.log(vm.newRecurringOperation)
+              vm.$root.db.insertRecurringOperation(
+                vm.newRecurringOperation.selectedAccount.name,
+                [
+                  vm.newRecurringOperation.amount,
+                  vm.newRecurringOperation.type,
+                  vm.newRecurringOperation.beneficiary,
+                  vm.newRecurringOperation.category,
+                  vm.newRecurringOperation.label,
+                  moment(vm.newRecurringOperation.date, vm.$root.settings.dateFormat).format('YYYY-MM-DD'),
+                  vm.newRecurringOperation.offset,
+                  vm.newRecurringOperation.timespan,
+                  vm.newRecurringOperation.times
+                ],
+                vm.$root.settings.dateFormat
+              )
+              vm.$root.$emit('show-unsaved-tag')
+              vm.closeRecModal()
+              vm.getData()
+              vm.newRecurringOperation = {
+                date: moment().format(this.$root.settings.dateFormat),
+                selectedAccount: this.$root.accounts[0],
+                type: 'credit-card',
+                offset: 1,
+                timespan: 'days'
+              }
+            }
           }
           break
         case 'edit':
+          if (!this.newRecurringOperation.id) {
+            const options = {
+              title: Vue.filter('translate')('MAIN_PANE.RECURRINGS.NO_DATA.TITLE'),
+              subtitle: Vue.filter('translate')('MAIN_PANE.RECURRINGS.NO_DATA.BODY'),
+              silent: false
+            }
+            ipcRenderer.send('notification', options)
+          }
+          let resSQL = this.$root.db.exec(`SELECT offset, timespan, times FROM Recurrings WHERE id=${this.newRecurringOperation.id}`)[0]
+          if (resSQL.times !== null && resSQL.times > 0) {
+            this.newRecurringOperation.hasRepeat = true
+            this.newRecurringOperation.times = resSQL.times
+          }
+          this.newRecurringOperation.date = moment(this.newRecurringOperation.date).format(this.$root.settings.dateFormat)
+          this.newRecurringOperation.offset = resSQL.offset
+          this.newRecurringOperation.timespan = resSQL.timespan
           this.modalConfig = {
             color: 'success',
             icon: 'pencil',
             translate: 'EDIT',
-            callback: () => {}
+            callback: function () {
+              vm.$root.db.editRecurringOperation(
+                vm.newRecurringOperation.id,
+                vm.newRecurringOperation.selectedAccount.name,
+                [
+                  vm.newRecurringOperation.amount,
+                  vm.newRecurringOperation.type,
+                  vm.newRecurringOperation.beneficiary,
+                  vm.newRecurringOperation.category,
+                  vm.newRecurringOperation.label,
+                  moment(vm.newRecurringOperation.date, vm.$root.settings.dateFormat).format('YYYY-MM-DD'),
+                  vm.newRecurringOperation.offset,
+                  vm.newRecurringOperation.timespan,
+                  vm.newRecurringOperation.times
+                ],
+                vm.$root.settings.dateFormat
+              )
+              vm.$root.$emit('show-unsaved-tag')
+              vm.closeRecModal()
+              vm.getData()
+              vm.newRecurringOperation = {
+                date: moment().format(this.$root.settings.dateFormat),
+                selectedAccount: this.$root.accounts[0],
+                type: 'credit-card',
+                offset: 1,
+                timespan: 'days'
+              }
+            }
           }
           break
         case 'launch':
@@ -281,12 +420,12 @@ export default {
             color: 'warning',
             icon: 'rocket',
             translate: 'LAUNCH',
-            callback: () => {}
+            callback: function () {}
           }
           break
         default:
           this.modalConfig = {
-            callback: () => {}
+            callback: function () {}
           }
       }
       this.recModalActive = true
@@ -297,16 +436,22 @@ export default {
     },
 
     toggleSelect: function (recurring) {
-      console.log('From :', recurring.isSelected)
       if (recurring.isSelected) {
         recurring.isSelected = false
-        this.$root.$emit('edit-operation:clean')
+        this.newRecurringOperation = {
+          date: moment().format(this.$root.settings.dateFormat),
+          selectedAccount: this.$root.accounts[0],
+          type: 'credit-card',
+          offset: 1,
+          timespan: 'days'
+        }
       } else {
         this.recurrings.map(recurring => { recurring.isSelected = false })
         recurring.isSelected = true
-        this.$root.$emit('edit-operation:clean')
+        this.newRecurringOperation = recurring
       }
-      console.log('To :', recurring.isSelected)
+      this.$root.$emit('edit-operation:clean')
+      this.$forceUpdate()
     }
   },
   created: function () {

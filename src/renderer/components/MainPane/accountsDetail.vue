@@ -196,6 +196,7 @@ export default {
     this.loading = false
     this.$root.$on('add-operation', this.updateTable)
     this.$root.$on('update-filters', this.updateTable)
+    this.$root.$on('launch-recurrings:success', this.updateTable)
     this.$root.$on('edit-operation:cancel', this.cancelEdit)
     this.$root.$on('edit-operation:confirm', this.confirmEdit)
   },

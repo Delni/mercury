@@ -153,6 +153,10 @@ strong, .card-header-title {
   width: 100%;
 }
 
-.tt-hint:focus, .input:focus, .select select:focus  {
+.tt-hint:focus, .input:focus, .select select:focus.is-primary  {
   border-color: hsl(171, 100%, 41%) !important;
+}
+
+.input:focus.is-warning, .select select:focus.is-warning  {
+  border-color: #ffdd57 !important;
 }
