@@ -92,7 +92,6 @@ export default {
         amount: '*'
       }
       this.$root.$emit('update-filters')
-      console.log(this.filters)
     }
   },
   created: function () {

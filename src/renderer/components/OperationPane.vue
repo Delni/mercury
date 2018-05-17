@@ -57,7 +57,7 @@
         <custom-field class="flex" fa="flag">
           <input class="input typeahead " id="op-cat" type="text" :placeholder="'OPERATION_PANE.PLACEHOLDERS.CATEGORY' | translate" v-model="newOperation.category" @keyup.enter="isEditing? confirmEdition():addOperation()"/>
         </custom-field>
-        
+
         <custom-field class="flex" fa="tag">
           <input class="input typeahead " id="op-label" type="text" :placeholder="'OPERATION_PANE.PLACEHOLDERS.LABEL' | translate" v-model="newOperation.label" @keyup.enter="isEditing? confirmEdition():addOperation()"/>
         </custom-field>
@@ -256,9 +256,5 @@ export default {
   }
   .field.has-addons .control{
     margin-right: 0;
-  }
-
-  ::-webkit-input-placeholder{
-    color: grey !important
   }
 </style>

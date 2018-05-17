@@ -14,6 +14,10 @@ abbr {
   cursor: help;
 }
 
+::-webkit-input-placeholder{
+  color: grey !important
+}
+
 .is-36h{
   height: 36px;
 }

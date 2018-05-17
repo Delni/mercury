@@ -47,7 +47,7 @@
   color: #d4b642 !important
 }
 /*COLORS */
-.light>* .hero.is-black, .hero.is-black .title,.light>* .hero.is-black .subtitle,.light>* .hero.is-dark,.light>* .hero.is-dark .tabs.is-boxed a,.light>* .hero.is-dark .title,.light>* .hero.is-dark .subtitle,.light>* .notification .title,.light>* .notification .subtitle,.light>* .notification .content{
+.light>* .hero.is-black, .hero.is-black .title,.light>* .hero.is-black .subtitle,.light>* .hero.is-dark,.light>* .hero.is-dark .tabs.is-boxed a,.light> *.hero.is-dark .title,.light>* .hero.is-dark .subtitle,.light>* .notification .title,.light>* .notification .subtitle,.light>* .notification .content{
   color: #282c34  !important;
 }
 

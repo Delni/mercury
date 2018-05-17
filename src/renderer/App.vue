@@ -58,6 +58,11 @@
 
       this.$root.$on('add-operation', this.updateAccountsList)
       this.$root.$on('edit-operation:confirm', this.updateAccountsList)
+
+      let vm = this
+      ipcRenderer.on('new-settings', (event, arg) => {
+        vm.$root.settings = arg
+      })
     }
   }
 </script>

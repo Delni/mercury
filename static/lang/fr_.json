@@ -9,14 +9,18 @@
         "SAVE_AS": "Enregistrer sous",
         "SETTINGS": "Préférences"
       },
-      "REPORTS":{
+      "REPORTS": {
         "DEFAULT": "Rapports",
         "TIME": "Rapport temporel",
         "STATISTIC": "Rapport statistique",
         "BALANCE": "Rapport de solde"
       },
-      "WINDOWS": { "DEFAULT": "Fenêtres" },
-      "HELP": { "LEARN": "En savoir plus" },
+      "WINDOWS": {
+        "DEFAULT": "Fenêtres"
+      },
+      "HELP": {
+        "LEARN": "En savoir plus"
+      },
       "ABOUT": {
         "DEFAULT": "À propos",
         "VERSION": "Version \t"
@@ -59,7 +63,7 @@
 
     "MAIN_PANE": {
       "NO_DATA": {
-        "TITLE" : "Pas de données !",
+        "TITLE": "Pas de données !",
         "SUBTITLE": "<span>Créer un <span  class=\"has-text-primary link\" @click=\"showCreateModal\">compte</span> pour commencer ou <span class=\"has-text-info link\" @click=\"ipc.send('open-file')\">ouvrir un fichier</span></span>"
       },
 
@@ -89,8 +93,8 @@
         "REGISTERED": "Enreg.",
         "CHECKED": "Checkée",
         "VERIFIED": "Vérifiée",
-        "ANY" : "Tout",
-        "INCOME" : "Recette",
+        "ANY": "Tout",
+        "INCOME": "Recette",
         "DEBIT": "Débit",
         "FILTERS": {
           "NOTIF": {
@@ -193,6 +197,30 @@
         "TIME_SPAN": "Période ",
         "WARNING_ZONE": "Zone rouge"
       }
+    },
+
+    "SETTINGS": {
+      "TITLE": "Préférences",
+      "SAVE": "Enregistrer",
+      "TABS": {
+        "TITLES": {
+          "GENERAL": "Général",
+          "SAVED_VALUES": "Valeurs sauvegardées",
+          "CURRENCIES": "Taux de change",
+          "ABOUT": "À propos"
+        },
+        "GENERAL": {
+          "THEME": "Thèmes",
+          "DARK_THEME": "Thème sombre",
+          "LIGHT_THEME": "Thème clair",
+          "LANGUAGE": "Langage par défaut",
+          "DEFAULT_CURRENCY": "Devise par défaut",
+          "CALENDAR_HELPER": "Calendrier",
+          "USE_CALENDAR": "Utiliser le calendrier",
+          "SAMPLE_CALENDAR": "Cliquez pour tester",
+          "LANGUAGE_UPDATE": "La langue sera mise à jour au redémarrage"
+        }
+      }
     }
   },
 
@@ -221,18 +249,18 @@
     },
     "TIME_SPAN": {
       "PLURAL": {
-        "days" : "jours",
-        "weeks" : "semaines",
-        "months" : "mois",
-        "quarters" : "trimestres",
-        "years" : "ans"
+        "days": "jours",
+        "weeks": "semaines",
+        "months": "mois",
+        "quarters": "trimestres",
+        "years": "ans"
       },
       "SINGULAR": {
-        "days" : "jours",
-        "weeks" : "semaine",
-        "months" : "mois",
-        "quarters" : "trimestre",
-        "years" : "an"
+        "days": "jours",
+        "weeks": "semaine",
+        "months": "mois",
+        "quarters": "trimestre",
+        "years": "an"
       }
     },
     "OPERATION_TYPE": {

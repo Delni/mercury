@@ -5,7 +5,7 @@
         <div class="tabs is-boxed is-small is-fullwidth is-bottomless">
           <ul>
             <li class="tab" :class="{'is-active': activeTab === 'dashboard'}"><a @click="tabToggle('dashboard')"><icon size="is-small" fa="dashboard" /> {{'MAIN_PANE.TABS.DASHBOARD' | translate }}</a></li>
-            <li class="tab" :class="{'is-active': activeTab === 'accounts'}"><a @click="tabToggle('accounts')"><icon size="is-small" fa="th-list" /> {{'MAIN_PANE.TABS.ACCOUNTS' | translate }}</a></li>
+            <li class="tab" :class="{'is-active': activeTab === 'accounts'}"><a @click="tabToggle('accounts-detail')"><icon size="is-small" fa="th-list" /> {{'MAIN_PANE.TABS.ACCOUNTS' | translate }}</a></li>
             <li class="tab" :class="{'is-active': activeTab === 'recurrings'}"><a @click="tabToggle('recurrings')"><icon size="is-small" fa="recycle" /> {{'MAIN_PANE.TABS.RECURRINGS' | translate }}</a></li>
           </ul>
         </div>
@@ -20,9 +20,10 @@
 
               <div class="container" id="mainScreen" v-show="$root.accounts.length">
                 <!-- TABS -->
-                <dashboard v-show="activeTab === 'dashboard'"/>
+                <component :is="activeTab"></component>
+                <!-- <dashboard v-show="activeTab === 'dashboard'" key="{ `${reload}` }"/>
                 <accounts-detail v-show="activeTab === 'accounts'"/>
-                <recurrings v-show="activeTab === 'recurrings'"/>
+                <recurrings v-show="activeTab === 'recurrings'"/> -->
               </div>
             </div>
           </div>
@@ -62,6 +63,7 @@ export default {
   data: function () {
     return {
       activeTab: 'dashboard',
+      reload: 1,
       chronoChart: null
     }
   },
@@ -86,7 +88,7 @@ export default {
           this.tabToggle('dashboard')
           break
         case 1:
-          this.tabToggle('accounts')
+          this.tabToggle('accounts-detail')
           break
         case 2:
           this.tabToggle('recurrings')
@@ -124,7 +126,7 @@ export default {
           tabToggle('dashboard')
           break
         case 1:
-          tabToggle('accounts')
+          tabToggle('accounts-detail')
           break
         case 2:
           tabToggle('recurrings')
@@ -139,7 +141,11 @@ export default {
     })
 
     ipcRenderer.on('open-detail', function () {
-      tabToggle('accounts')
+      tabToggle('accounts-detail')
+    })
+
+    ipcRenderer.on('new-settings', function () {
+      tabToggle('dashboard')
     })
 
     // This refers to root !!!!

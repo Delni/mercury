@@ -326,6 +326,9 @@ let statisticWin = null
 let balanceWin = null
 
 exports.openSettingWindow = function () {
+  const settingsWinURL = process.env.NODE_ENV === 'development'
+    ? `http://localhost:9080/settings.html`
+    : `file://${__static}/settings.html`
   if (swin === null) {
     swin = new BrowserWindow({
       background: true,
@@ -336,10 +339,7 @@ exports.openSettingWindow = function () {
       backgroundColor: '#282c34',
       icon: path.join(__static, '/icons/png/Round/64x64.png')
     })
-    // const winURL = process.env.NODE_ENV === 'development'
-    //   ? `http://localhost:9080`
-    //   : `file://${__static}/index.html`
-    swin.loadURL(`http://localhost:9080/settings.html`)
+    swin.loadURL(settingsWinURL)
     swin.setTouchBar(new TouchBar([
       openTBPopover
     ]))
