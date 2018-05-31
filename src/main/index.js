@@ -321,6 +321,12 @@ app.on('activate', () => {
   }
 })
 
+app.on('before-quit', (event) => {
+  if (global.preventClose) {
+    event.preventDefault()
+  }
+})
+
 let swin = null
 let chronoWin = null
 let statisticWin = null
@@ -505,7 +511,7 @@ ipcMain.on('new-settings', (event, args) => {
 ipcMain.on('save', (event, arg) => {
   simpleSave()
   if (arg) {
-    app.quit()
+    setTimeout(app.quit, 100)
   }
   event.returnValue = true
 })
@@ -560,6 +566,10 @@ ipcMain.on('open-report', (event, args) => {
 
 ipcMain.on('notification', (event, args) => {
   new Notification(args).show()
+})
+
+ipcMain.on('set-prevent-close', (event, args) => {
+  global.preventClose = args
 })
 
 function newfile () {

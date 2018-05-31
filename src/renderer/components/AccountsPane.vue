@@ -120,7 +120,7 @@ import icon from './common/icon.vue'
 import modal from './common/modal.vue'
 
 import Database from '../assets/Database.class'
-import {ipcRenderer} from 'electron'
+import {ipcRenderer, remote} from 'electron'
 import jsonfile from 'jsonfile'
 import path from 'path'
 import Vue from 'vue'
@@ -194,10 +194,12 @@ export default {
 
     showUnsavedTag: function () {
       this.unsaved = true
+      ipcRenderer.send('set-prevent-close', true)
     },
 
     hideUnsavedTag: function () {
       this.unsaved = false
+      ipcRenderer.send('set-prevent-close', false)
     },
 
     showCreateModal: function () {
@@ -247,6 +249,32 @@ export default {
       vm.$root.$emit('toggle-tab', 0)
       vm.showUnsavedTag()
       delete vm.$root.settings.lastfile
+    })
+
+    let force = false
+    remote.app.on('before-quit', function (evt) {
+      console.log('before')
+      if (vm.unsaved && !force) {
+        setTimeout(() => {
+          const options = {
+            type: 'warning',
+            title: Vue.filter('translate')('Warning !'),
+            message: Vue.filter('translate')(`Are you sure to quit?`),
+            detail: Vue.filter('translate')(`There are some unsaved modifications`),
+            buttons: [Vue.filter('translate')('Save & Quit'), Vue.filter('translate')('Quit'), Vue.filter('translate')('Cancel')],
+            cancelId: 2
+          }
+          let saving = ipcRenderer.sendSync('warning', options)
+          if (saving === 0) {
+            ipcRenderer.sendSync('save', true)
+          } else if (saving === 1) {
+            force = true
+            ipcRenderer.send('set-prevent-close', false)
+            ipcRenderer.send('quit')
+          }
+        }, 1)
+        return false
+      }
     })
 
     this.$root.$on('update-accounts-list:success', this.softUpdate) // TODO better reload !
