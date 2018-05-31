@@ -109,7 +109,9 @@ import icon from './common/icon.vue'
 import customField from './common/customField.vue'
 
 import {ipcRenderer} from 'electron'
+import jsonfile from 'jsonfile'
 import moment from 'moment'
+import path from 'path'
 import Vue from 'vue'
 
 export default {
@@ -159,6 +161,23 @@ export default {
         this.newOperation.amount,
         this.newOperation.type
       ]
+
+      if (!this.settings.beneficiaries.find(b => b === this.newOperation.beneficiary) && this.newOperation.beneficiary !== '') {
+        this.settings.beneficiaries.push(this.newOperation.beneficiary)
+      }
+      if (!this.settings.labels.find(b => b === this.newOperation.label) && this.newOperation.label !== '') {
+        this.settings.labels.push(this.newOperation.label)
+      }
+      if (!this.settings.categories.find(b => b === this.newOperation.category) && this.newOperation.category !== '') {
+        this.settings.categories.push(this.newOperation.category)
+      }
+      jsonfile.writeFile(path.join(__static, 'settings.json'), this.settings, {
+        spaces: 2
+      }, function (err) {
+        if (err != null) {
+          console.error(err)
+        }
+      })
       this.$root.db.insertOperation(this.newOperation.selectedAccount.name, data, this.$root.settings.dateFormat)
       this.cleanOperation()
       this.$root.$emit('add-operation')
@@ -234,6 +253,22 @@ export default {
           this.newOperation.amount,
           this.newOperation.type
         ]
+        if (!this.settings.beneficiaries.find(b => b === this.newOperation.beneficiary) && this.newOperation.beneficiary !== '') {
+          this.settings.beneficiaries.push(this.newOperation.beneficiary)
+        }
+        if (!this.settings.labels.find(b => b === this.newOperation.label) && this.newOperation.label !== '') {
+          this.settings.labels.push(this.newOperation.label)
+        }
+        if (!this.settings.categories.find(b => b === this.newOperation.category) && this.newOperation.category !== '') {
+          this.settings.categories.push(this.newOperation.category)
+        }
+        jsonfile.writeFile(path.join(__static, 'settings.json'), this.settings, {
+          spaces: 2
+        }, function (err) {
+          if (err != null) {
+            console.error(err)
+          }
+        })
         this.$root.db.editOperation(this.newOperation.id, data, this.$root.settings.dateFormat)
         this.endOperation('confirm')
       } else {
@@ -246,6 +281,18 @@ export default {
     this.$root.$on('update-accounts', function () { this.newOperation.selectedAccount = this.$root.accounts[0] })
     this.$root.$on('edit-operation', this.editOperation)
     this.$root.$on('edit-operation:clean', this.cleanOperation)
+
+    // Typeahead
+    // const typeahead = require('typeahead') // eslint-disable-line
+    // const beneficiaryInput = document.getElementById('op-benef')
+    // beneficiaryInput.typeahead({
+    //   hint: true,
+    //   highlight: true,
+    //   minLenght: 1
+    // }, {
+    //   name: 'beneficiaries',
+    //   source: substringMatcher(this.settings.beneficiaries)
+    // })
   }
 }
 </script>
