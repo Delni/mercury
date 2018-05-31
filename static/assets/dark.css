@@ -90,3 +90,8 @@
   border-color: gray;
   color: gray  !important;
 }
+
+.dark>* code {
+  background: #282c34;
+  color: whitesmoke
+}

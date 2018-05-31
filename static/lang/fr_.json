@@ -209,16 +209,33 @@
           "CURRENCIES": "Taux de change",
           "ABOUT": "À propos"
         },
+        "ABOUT": {
+          "DOWNLOAD": "Télécharger la dernière version !",
+          "THANKS": "Merci d'avoir télécharger Mercury.",
+          "VERSION": "Version du logiciel :",
+          "UP_TO_DATE": "Votre logiciel est à jour",
+          "UPDATE_AVAILABLE": "La nouvelle version {{=version}} est disponible !",
+          "ME": "Ce logiciel est développé sur mon temps libre, et j'espère que le produit vous conviendra !",
+          "CONTACT": "N'hésitez pas à me faire un retour en cas de problème (<a class=\"link has-text-info\" href=\"mailto:nicolas.delauney@outlook.fr\">nicolas.delauney@outlook.fr</a>)",
+          "TECHNO": "Mercury fonctionne grâce à <span class=\"has-text-info\">Electron</span> et <span class=\"has-text-success\">VueJS</span> empaquetés par electron-vue."
+        },
         "GENERAL": {
           "THEME": "Thèmes",
           "DARK_THEME": "Thème sombre",
           "LIGHT_THEME": "Thème clair",
-          "LANGUAGE": "Langage par défaut",
-          "DEFAULT_CURRENCY": "Devise par défaut",
-          "CALENDAR_HELPER": "Calendrier",
+          "LANGUAGE": "Langage",
+          "RECURRING": "Lancement",
+          "DEFAULT_CURRENCY": "Devise",
+          "DATEFORMAT": "Format de date",
+          "TEST": "Exemple ",
           "USE_CALENDAR": "Utiliser le calendrier",
           "SAMPLE_CALENDAR": "Cliquez pour tester",
-          "LANGUAGE_UPDATE": "La langue sera mise à jour au redémarrage"
+          "LANGUAGE_UPDATE": "La langue sera mise à jour au redémarrage de l'application",
+          "DATE_UPDATE": "Le format de la date sera mis à jour au redémarrage de l'application"
+        },
+        "SAVED_VALUES": {
+          "BENEFICIARIES": "Bénéficiaires",
+          "CATEGORIES": "Catégories"
         }
       }
     }
@@ -256,7 +273,7 @@
         "years": "ans"
       },
       "SINGULAR": {
-        "days": "jours",
+        "days": "jour",
         "weeks": "semaine",
         "months": "mois",
         "quarters": "trimestre",

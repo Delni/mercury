@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="">
-    exchange
+    <p class="title">🚧 Work in Progress🚧</p>
   </div>
 </template>
 

@@ -93,10 +93,16 @@ export default {
       setTimeout(() => {
         window.close()
       }, 1000)
-      if (previousSettings.defaultCurrency !== this.settings.defaultCurrency || previousSettings.language !== this.settings.language || previousSettings.theme !== this.settings.theme) {
+      if (previousSettings.defaultCurrency !== this.settings.defaultCurrency || previousSettings.language !== this.settings.language || previousSettings.theme !== this.settings.theme || previousSettings.dateFormat !== this.settings.dateFormat) {
         if (previousSettings.language !== this.settings.language) {
           const options = {
-            title: Vue.filter('translate')('SETTINGS.TABS.GENERAL.LANGUAGE_UPDATE')
+            body: Vue.filter('translate')('SETTINGS.TABS.GENERAL.LANGUAGE_UPDATE')
+          }
+          ipcRenderer.send('notification', options)
+        }
+        if (previousSettings.dateFormat !== this.settings.dateFormat) {
+          const options = {
+            body: Vue.filter('translate')('SETTINGS.TABS.GENERAL.DATE_UPDATE')
           }
           ipcRenderer.send('notification', options)
         }
