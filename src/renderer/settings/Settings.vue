@@ -62,7 +62,7 @@ export default {
       tabs: [
         {key: 'general', icon: 'cogs', translate: 'GENERAL'},
         {key: 'savedValues', icon: 'bookmark-o', translate: 'SAVED_VALUES'},
-        {key: 'exchange', icon: 'globe', translate: 'CURRENCIES'},
+        // {key: 'exchange', icon: 'globe', translate: 'CURRENCIES'},
         {key: 'about', icon: 'heart', translate: 'ABOUT'}
       ]
     }

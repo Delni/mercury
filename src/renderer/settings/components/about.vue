@@ -6,7 +6,7 @@
       <img :src="iconUrl">
       <p class="subtitle is-marginless" >{{'SETTINGS.TABS.ABOUT.VERSION' | translate}}
         <code>{{appVersion}}</code>
-        <a @click="checkForUpdates()" class="button is-small is-primary is-outlined"><icon v-if="!loading" fa="refresh" /><icon v-else fa="fa-refresh fa-spin" /></a>
+        <a @click="checkForUpdates()" class="button is-small is-primary is-outlined"><icon v-if="!loading" :fa="upToDate" /><icon v-else fa="fa-refresh fa-spin" /></a>
       </p>
       <p v-if="update"><a class="link has-text-warning" target="_blank" @click="openExternal(update)">{{'SETTINGS.TABS.ABOUT.DOWNLOAD' | translate}}</a></p>
     </div>
@@ -31,6 +31,7 @@ export default {
     return {
       loading: false,
       update: null,
+      upToDate: 'refresh',
       iconUrl: 'static/assets/256x256.png',
       electronVueUrl: 'static/assets/evue.png',
       appVersion: require('electron').remote.app.getVersion()
@@ -54,12 +55,13 @@ export default {
             silent: false
           }
           ipcRenderer.send('notification', options)
+          vm.upToDate = 'exclamation-triangle'
           vm.update = result.data[0].html_url
         } else {
           const options = {
-            body: Vue.filter('translate')('SETTINGS.TABS.ABOUT.UP_TO_DATE'),
-            silent: true
+            body: Vue.filter('translate')('SETTINGS.TABS.ABOUT.UP_TO_DATE')
           }
+          vm.upToDate = 'check'
           ipcRenderer.send('notification', options)
         }
         vm.loading = false
