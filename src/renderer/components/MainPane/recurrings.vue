@@ -148,13 +148,13 @@
           </div>
           <div class="control select is-warning">
             <select v-model="launch.timeSpan">
-              <option value="day">{{ 'TIME_SPAN.PLURAL.days' | translate }}</option>
-              <option value="month">{{ 'TIME_SPAN.PLURAL.months' | translate }}</option>
-              <option value="quarter">{{ 'TIME_SPAN.PLURAL.quarters' | translate }}</option>
+              <option value="days">{{ 'TIME_SPAN.PLURAL.days' | translate }}</option>
+              <option value="months">{{ 'TIME_SPAN.PLURAL.months' | translate }}</option>
+              <option value="quarters">{{ 'TIME_SPAN.PLURAL.quarters' | translate }}</option>
             </select>
           </div>
           <div class="control">
-            <a class="button is-warning" :class="{'is-outlined': this.$root.settings.theme === 'dark'}" @click="launchPending()"><icon fa="rocket" /></a>
+            <a class="button is-warning" :class="{'is-outlined': this.$root.settings.theme === 'dark', 'is-loading': launching}" @click="launchPending()"><icon fa="rocket" /></a>
           </div>
         </form>
         <hr>
@@ -208,6 +208,7 @@ export default {
       accounts: this.$root.accounts,
       modalConfig: {callback: () => {}},
       settings: this.$root.settings,
+      launching: false,
       launch: {
         offset: this.$root.settings.defaultOffset,
         timeSpan: this.$root.settings.defaultTimeSpan
@@ -280,6 +281,7 @@ export default {
       if (id) {
         this.$root.db.launchPending(id)
       } else {
+        this.launching = true
         let upperBound = moment().add(this.launch.offset, this.launch.timeSpan).format('YYYY-MM-DD')
         try {
           operations = this.$root.db.exec(`SELECT id FROM Recurrings WHERE date <="${upperBound}"`)
@@ -297,6 +299,7 @@ export default {
             silent: true
           }
           ipcRenderer.send('notification', options)
+          this.launching = false
         }
       }
       if (!fromContext) {

@@ -7,7 +7,7 @@
           <p class="level-right subtitle is-6 is-marginless">{{ lastMonth }}</p>
         </div>
         <div class="hero-body">
-          <canvas id="doughnut" height="250%" style="margin-top: 2.5vh"></canvas>
+          <canvas id="doughnut" height="250%" style="margin-top: 3vh; margin-bottom: -5vh"></canvas>
         </div>
       </div>
     </div>

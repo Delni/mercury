@@ -5,7 +5,7 @@
         <div class="tabs is-boxed is-small is-fullwidth is-bottomless">
           <ul>
             <li class="tab" :class="{'is-active': activeTab === 'dashboard'}"><a @click="tabToggle('dashboard')"><icon size="is-small" fa="dashboard" /> {{'MAIN_PANE.TABS.DASHBOARD' | translate }}</a></li>
-            <li class="tab" :class="{'is-active': activeTab === 'accounts'}"><a @click="tabToggle('accounts-detail')"><icon size="is-small" fa="th-list" /> {{'MAIN_PANE.TABS.ACCOUNTS' | translate }}</a></li>
+            <li class="tab" :class="{'is-active': activeTab === 'accounts-detail'}"><a @click="tabToggle('accounts-detail')"><icon size="is-small" fa="th-list" /> {{'MAIN_PANE.TABS.ACCOUNTS' | translate }}</a></li>
             <li class="tab" :class="{'is-active': activeTab === 'recurrings'}"><a @click="tabToggle('recurrings')"><icon size="is-small" fa="recycle" /> {{'MAIN_PANE.TABS.RECURRINGS' | translate }}</a></li>
           </ul>
         </div>
