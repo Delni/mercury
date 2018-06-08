@@ -1,4 +1,4 @@
-![icon](/icons/png/Round/256x256.png)
+![icon](/img/256x256.png)
 
 # Mercury
 Current version packed : `v1.1.2`  
