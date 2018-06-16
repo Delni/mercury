@@ -60,7 +60,7 @@ let app = new Vue({
         case 'dashboard':
           ipcRenderer.send('tab-update', 0)
           break
-        case 'accounts':
+        case 'accounts-detail':
           ipcRenderer.send('tab-update', 1)
           break
         case 'recurrings':

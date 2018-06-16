@@ -108,6 +108,7 @@ export default {
 
     reloadChronochart: function () {
       this.chronoChart = new ChronoChart(document.getElementById('chronoChart'), this.$root.accounts, this.$root.db)
+      this.switchTab(1)
     }
   },
   created: function () {
@@ -150,6 +151,7 @@ export default {
 
     // This refers to root !!!!
     this.$root.$on('update-accounts', this.reloadChronochart)
+    this.$root.$on('update-accounts-list:success', this.reloadChronochart)
     this.$root.$on('launch-recurrings:success', this.refreshChronochart)
   },
   mounted: function () {

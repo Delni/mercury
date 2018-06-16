@@ -20,6 +20,7 @@
 
   import Database from './assets/Database.class'
   import {ipcRenderer} from 'electron'
+  import jsonfile from 'jsonfile'
 
   export default {
     name: 'mercury',
@@ -62,6 +63,17 @@
       let vm = this
       ipcRenderer.on('new-settings', (event, arg) => {
         vm.$root.settings = arg
+      })
+
+      ipcRenderer.on('selected-file', (event, arg) => {
+        vm.$root.db = new Database(arg)
+        vm.$root.settings.lastfile = arg
+        jsonfile.writeFile(path.join(__static, 'settings.json'), vm.$root.settings, {
+          spaces: 2
+        }, (err) => {
+          console.log(err)
+        })
+        vm.updateAccountsList()
       })
     }
   }
