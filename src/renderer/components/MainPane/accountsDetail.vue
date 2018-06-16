@@ -230,7 +230,7 @@ export default {
 }
 
 .details-move {
-  transition: all 1ms;
+  transition: all 500ms;
 }
 
 .details-enter, .details-leave-to /* .list-leave-active below version 2.1.8 */ {
