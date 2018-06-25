@@ -39,6 +39,12 @@ Supported languages : `English`,`Français`
 
 
  *Next to come : advanced filters, TouchBar improvements, ...*
+## Roadmap : 
+ * [ ] Add "*latest*" checker
+ * [ ] Add transaction binding from other currency ([issue#3](https://github.com/Delni/mercury/issues/3))
+ * [ ] Add data encryption ([issue#8](https://github.com/Delni/mercury/issues/8))
+ * [ ] Add webDav / cloud sync ([issue#8](https://github.com/Delni/mercury/issues/8))
+ * [ ] More translations !
 
 # How to use
 Clone the GitHub repository. You need [Node.js](https://nodesjs.org) and [npm](https://npmjs.com) installed on your system. Go to terminal:
