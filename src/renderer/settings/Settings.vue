@@ -41,11 +41,11 @@
 </template>
 
 <script>
-import icon from '../components/common/icon.vue'
-import general from './components/general.vue'
-import savedValues from './components/savedValues.vue'
-import exchange from './components/exchange.vue'
-import about from './components/about.vue'
+import icon from '@/components/common/icon'
+import general from '@/settings/components/general'
+import savedValues from '@/settings/components/savedValues'
+import exchange from '@/settings/components/exchange'
+import about from '@/settings/components/about'
 
 import {ipcRenderer} from 'electron'
 import jsonfile from 'jsonfile'
@@ -114,31 +114,9 @@ export default {
 </script>
 
 <style lang="css">
-.is-setting-pane {
-  height: 80vh;
-  width: 100%;
-  margin-left: 2vw;
-  margin-right: 2vw;
-}
-
-.tabs *.is-active {
-  border: none;
-  border-bottom: 2.5px solid !important;
-  border-bottom-color: #209cee !important;
-  transition: all 2s;
-}
-.tabs li:not(.is-active) {
-  border: none;
-  border-bottom: 1px solid whitesmoke;
-  transition: all 2s;
-}
-
-.fadeUp-enter-active, .fadeUp-leave-active {
-  transition: all 1s;
-}
-
-.fadeUp-enter, .fadeUp-leave-to /* .list-leave-active below version 2.1.8 */ {
-  opacity: 0;
-  transform: translateY(30px);
-}
+/* CSS */
+/* Work only in dev. */
+@import url('~@/assets/css/settings.css');
+@import url('~@/assets/css/light.css');
+@import url('~@/assets/css/dark.css');
 </style>

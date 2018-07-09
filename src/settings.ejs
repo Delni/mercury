@@ -18,7 +18,7 @@
       if (process.env.NODE_ENV !== 'development') window.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
       const myCSS = document.createElement("link")
       myCSS.setAttribute("rel","stylesheet")
-      myCSS.setAttribute("href",window.__static + "/assets/css/master.css");
+      myCSS.setAttribute("href",window.__static + "/assets/css/settings.css");
       document.head.appendChild(myCSS)
 
       const darkTheme = document.createElement("link")

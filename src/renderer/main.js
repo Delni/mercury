@@ -6,7 +6,7 @@ import 'bulma/css/bulma.css'
 import 'bulma-extensions/dist/bulma-extensions.min.css'
 import 'font-awesome/css/font-awesome.css'
 // Components
-import App from './App'
+import App from '@/App'
 // nodeModules
 import jsonfile from 'jsonfile'
 import path from 'path'
@@ -14,12 +14,11 @@ import i18njs from 'i18njs'
 import moment from 'moment'
 import {ipcRenderer} from 'electron'
 
-require(__static + '/assets/master.css')
-require(__static + '/assets/light.css')
-require(__static + '/assets/dark.css')
+if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
+Vue.http = Vue.prototype.$http = axios
+Vue.config.productionTip = false
 
 let globSettings = jsonfile.readFileSync(path.join(__static, 'settings.json'))
-// console.clear()
 
 const lang = jsonfile.readFileSync(`${__static}/lang/${globSettings.language}_.json`)
 i18njs.add(globSettings.language, '', lang)
@@ -37,12 +36,8 @@ Vue.filter('date', (value) => {
   return formattedMoment
 })
 
-if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
-Vue.http = Vue.prototype.$http = axios
-Vue.config.productionTip = false
-
 /* eslint-disable no-new */
-let app = new Vue({
+new Vue({
   components: { App },
   template: '<App/>',
   data: function () {
@@ -74,13 +69,5 @@ let app = new Vue({
   mounted: function () {
     // Sets locale
     moment.locale(globSettings.language)
-    // const themeCSS = document.createElement('style')
-    // // TODO fix css
-    // themeCSS.type = 'text/css'
-    // console.log('CSS ---', `${__static}/assets/${this.settings.theme}.css`)
-    // console.log(themeCSS.innerHTML = require(`${__static}/assets/${this.settings.theme}.css`))
-    // document.head.appendChild(themeCSS)
   }
 }).$mount('#app')
-
-console.debug(app)

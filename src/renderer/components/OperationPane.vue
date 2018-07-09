@@ -105,8 +105,8 @@
 </template>
 
 <script>
-import icon from './common/icon.vue'
-import customField from './common/customField.vue'
+import icon from '@/components/common/icon'
+import customField from '@/components/common/customField'
 
 import {ipcRenderer} from 'electron'
 import jsonfile from 'jsonfile'
@@ -296,12 +296,3 @@ export default {
   }
 }
 </script>
-
-<style lang="css">
-  .flex{
-    flex: 1;
-  }
-  .field.has-addons .control{
-    margin-right: 0;
-  }
-</style>

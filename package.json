@@ -5,7 +5,8 @@
   "description": "The budget planner of the 21st century",
   "keywords": [
     "budget",
-    "chart"
+    "chart",
+    "electron"
   ],
   "author": {
     "name": "Delni",

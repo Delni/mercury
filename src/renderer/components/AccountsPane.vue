@@ -116,10 +116,10 @@
 </template>
 
 <script>
-import icon from './common/icon.vue'
-import modal from './common/modal.vue'
+import icon from '@/components/common/icon'
+import modal from '@/components/common/modal'
 
-import Database from '../assets/Database.class'
+import Database from '@/assets/Database.class'
 import {ipcRenderer, remote} from 'electron'
 import jsonfile from 'jsonfile'
 import path from 'path'
@@ -284,17 +284,3 @@ export default {
   }
 }
 </script>
-
-<style lang="css">
-  .slide-fade-enter-active {
-    transition: all 1s ease;
-  }
-  .slide-fade-leave-active {
-    transition: all 500ms cubic-bezier(1.0, 0.5, 0.8, 1.0);
-  }
-  .slide-fade-enter, .slide-fade-leave-to
-  /* .slide-fade-leave-active below version 2.1.8 */ {
-    transform: translateX(10px);
-    opacity: 0;
-  }
-</style>

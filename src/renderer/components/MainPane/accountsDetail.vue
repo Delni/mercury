@@ -79,8 +79,8 @@
 </template>
 
 <script>
-import filterBar from './accountsDetails/filterBar.vue'
-import icon from '../common/icon.vue'
+import filterBar from '@/components/MainPane/accountsDetails/filterBar'
+import icon from '@/components/common/icon'
 
 import _ from 'lodash'
 import moment from 'moment'
@@ -205,36 +205,3 @@ export default {
   }
 }
 </script>
-
-<style lang="css">
-.is-table-overflown {
-  max-height: 50vh;
-  overflow:scroll;
-}
-
-.is-table-overflown > table {
-  margin-bottom: 10vh
-}
-
-.is-table-overflown::-webkit-scrollbar {
-  display: auto;
-}
-
-.is-not-too-large {
-  max-width: 8vw
-}
-
-/* Animation */
-.details-enter-active, .details-leave-active {
-  transition: all 1s;
-}
-
-.details-move {
-  transition: all 500ms;
-}
-
-.details-enter, .details-leave-to /* .list-leave-active below version 2.1.8 */ {
-  opacity: 0;
-  transform: translateX(30px);
-}
-</style>

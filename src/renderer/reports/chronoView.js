@@ -6,15 +6,11 @@ import 'bulma/css/bulma.css'
 import 'bulma-extensions/dist/bulma-extensions.min.css'
 import 'font-awesome/css/font-awesome.css'
 // Components
-import ChronoView from './chronoView.vue'
+import ChronoView from '@/reports/chronoView.vue'
 // nodeModules
 import path from 'path'
 import i18njs from 'i18njs'
 import jsonfile from 'jsonfile'
-
-require(__static + '/assets/master.css')
-require(__static + '/assets/light.css')
-require(__static + '/assets/dark.css')
 
 let globSettings = jsonfile.readFileSync(path.join(__static, 'settings.json'))
 

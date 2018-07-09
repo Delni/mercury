@@ -14,12 +14,9 @@
 </template>
 
 <script>
-import icon from '../../components/common/icon.vue'
+import icon from '@/components/common/icon.vue'
 export default {
   components: { icon },
   props: ['test', 'callback', 'iconLeft', 'iconRight']
 }
 </script>
-
-<style lang="css">
-</style>

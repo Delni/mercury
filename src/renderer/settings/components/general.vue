@@ -98,7 +98,7 @@
 </template>
 
 <script>
-import icon from '../../components/common/icon.vue'
+import icon from '@/components/common/icon.vue'
 
 import moment from 'moment'
 
@@ -119,12 +119,3 @@ export default {
   }
 }
 </script>
-
-<style lang="css">
-.is-30h {
-  height: 30vh
-}
-.field {
-  padding-top: 1px;
-}
-</style>

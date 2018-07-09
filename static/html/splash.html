@@ -6,7 +6,11 @@
   <script type="text/javascript">
     const bulma=document.createElement("link")
     bulma.setAttribute("rel","stylesheet")
-    bulma.setAttribute("href","../../node_modules/bulma/css/bulma.css")
+    if(process.env.NODE_ENV === 'development') {
+      bulma.setAttribute("href","../../node_modules/bulma/css/bulma.css")
+    } else {
+      bulma.setAttribute("href","../../../../node_modules/bulma/css/bulma.css")
+    }
     document.head.appendChild(bulma)
   </script>
   <style media="screen">

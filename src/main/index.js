@@ -2,7 +2,6 @@
 
 import { app, BrowserWindow, Notification, Menu, dialog, TouchBar, ipcMain } from 'electron'
 import * as path from 'path'
-import * as url from 'url'
 import * as i18njs from 'i18njs'
 
 const {
@@ -24,7 +23,7 @@ let isDev = true
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
  */
 if (process.env.NODE_ENV !== 'development') {
-  global.__static = require('path').join(__static, '/static').replace(/\\/g, '\\\\')
+  global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
 }
 
 const globSettings = jsonfile.readFileSync(`${__static}/settings.json`)
@@ -37,7 +36,7 @@ i18njs.setLang(globSettings.language)
 let mainWindow, splash
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
-  : `file://${__static}/index.html`
+  : `file://${__dirname}/index.html`
 
 const template = [{
   label: i18njs.get('.MAIN.MENU.FILE.DEFAULT'),
@@ -246,12 +245,10 @@ function createWindow () {
     alwaysOnTop: false
   })
 
-  splash.loadURL(url.format({
-    pathname: path.join(__static, 'html/splash.html'),
-    protocol: 'file:',
-    title: 'Mercury',
-    slashes: true
-  }))
+  const splashURL = process.env.NODE_ENV === 'development'
+    ? `file://${__static}/html/splash.html`
+    : `file://${__static}/html/splash.html`
+  splash.loadURL(splashURL)
 
   mainWindow.loadURL(winURL)
 
@@ -335,7 +332,7 @@ let balanceWin = null
 exports.openSettingWindow = function () {
   const settingsWinURL = process.env.NODE_ENV === 'development'
     ? `http://localhost:9080/settings.html`
-    : `file://${__static}/settings.html`
+    : `file://${__dirname}/settings.html`
   if (swin === null) {
     swin = new BrowserWindow({
       background: true,
@@ -363,7 +360,7 @@ exports.openSettingWindow = function () {
 exports.openChronoWindow = function () {
   const chronoWinURL = process.env.NODE_ENV === 'development'
     ? `http://localhost:9080/chrono-view.html`
-    : `file://${__static}/chrono-view.html`
+    : `file://${__dirname}/chrono-view.html`
   if (chronoWin === null) {
     chronoWin = new BrowserWindow({
       background: true,
@@ -423,7 +420,7 @@ exports.openStatisticWindow = function () {
   if (statisticWin === null) {
     const statisticWinURL = process.env.NODE_ENV === 'development'
       ? `http://localhost:9080/statistic-view.html`
-      : `file://${__static}/statistic-view.html`
+      : `file://${__dirname}/statistic-view.html`
     statisticWin = new BrowserWindow({
       background: true,
       frame: false,
@@ -450,7 +447,7 @@ exports.openStatisticWindow = function () {
 exports.openBalanceWindow = function () {
   const balanceWinURL = process.env.NODE_ENV === 'development'
     ? `http://localhost:9080/balance-view.html`
-    : `file://${__static}/balance-view.html`
+    : `file://${__dirname}/balance-view.html`
   if (balanceWin === null) {
     balanceWin = new BrowserWindow({
       background: true,

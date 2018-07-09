@@ -41,15 +41,15 @@
 
 <script>
 // Components
-import icon from './common/icon.vue'
-import dashboard from './MainPane/dashboard.vue'
-import accountsDetail from './MainPane/accountsDetail.vue'
-import recurrings from './MainPane/recurrings.vue'
+import icon from '@/components/common/icon'
+import dashboard from '@/components/MainPane/dashboard'
+import accountsDetail from '@/components/MainPane/accountsDetail'
+import recurrings from '@/components/MainPane/recurrings'
 
 // Third party
 import moment from 'moment'
 import {ipcRenderer} from 'electron'
-import ChronoChart from '../assets/ChronoChart.class'
+import ChronoChart from '@/assets/ChronoChart.class'
 import chartJS from 'chart.js' // eslint-disable-line
 
 export default {
@@ -159,32 +159,3 @@ export default {
   }
 }
 </script>
-
-<style lang="css">
-  #main-pane {
-    width: 64vw;
-  }
-
-  .container {
-    width: 100%
-  }
-
-  .level-right.subtitle.is-6.is-marginless {
-    position: relative;
-    top: 0.35em
-  }
-
-  .hero-body {
-    padding-right: 0;
-  }
-
-  #doughnut {
-    position: relative;
-    top: -2em
-  }
-
-  #mainScreen {
-    max-height: 60vh;
-    overflow: scroll;
-  }
-</style>

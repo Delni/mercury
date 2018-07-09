@@ -2,6 +2,10 @@ body, #window {
   overflow-y: auto;
 }
 
+html {
+  background-color: #282c34 !important;
+}
+
 body::-webkit-scrollbar, *::-webkit-scrollbar {
   display: none;
 }
@@ -163,4 +167,107 @@ strong, .card-header-title {
 
 .input:focus.is-warning, .select select:focus.is-warning  {
   border-color: #ffdd57 !important;
+}
+
+/* Vue specific css */
+
+/* filterBar.vue */
+.control select {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: none;
+}
+
+/* accountsDetails.vue */
+.is-table-overflown {
+  height: 50vh;
+  overflow:scroll;
+}
+
+.is-table-overflown > table {
+  margin-bottom: 10vh
+}
+
+.is-table-overflown::-webkit-scrollbar {
+  display: auto;
+}
+
+.is-not-too-large {
+  max-width: 8vw
+}
+
+/* Animation */
+.details-enter-active, .details-leave-active {
+  transition: all 1s;
+}
+
+.details-move {
+  transition: all 500ms;
+}
+
+.details-enter, .details-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+/* recurrings.vue */
+.is-table-overflown-2 {
+  height: 40vh;
+  overflow:scroll;
+}
+
+.is-table-overflown-2 > table {
+  margin-bottom: 10vh
+}
+
+.is-table-overflown-2::-webkit-scrollbar {
+  display: auto;
+}
+
+/* accountsPane.vue */
+.slide-fade-enter-active {
+  transition: all 1s ease;
+}
+.slide-fade-leave-active {
+  transition: all 500ms cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+/* mainPane.vue */
+#main-pane {
+  width: 64vw;
+}
+
+.container {
+  width: 100%
+}
+
+.level-right.subtitle.is-6.is-marginless {
+  position: relative;
+  top: 0.35em
+}
+
+.hero-body {
+  padding-right: 0;
+}
+
+#doughnut {
+  position: relative;
+  top: -2em
+}
+
+#mainScreen {
+  max-height: 60vh;
+  overflow: scroll;
+}
+
+/* operationPane.vue */
+.flex{
+  flex: 1;
+}
+.field.has-addons .control{
+  margin-right: 0;
 }

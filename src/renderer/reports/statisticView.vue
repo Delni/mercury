@@ -47,12 +47,12 @@
 </template>
 
 <script>
-import icon from '../components/common/icon.vue'
-import toggleButton from './components/toggleButton.vue'
-import report from './components/report.vue'
+import icon from '@/components/common/icon'
+import toggleButton from '@/reports/components/toggleButton'
+import report from '@/reports/components/report'
 
 import { ipcRenderer } from 'electron'
-import Database from '../assets/Database.class'
+import Database from '@/assets/Database.class'
 import chartJS from 'chart.js' // eslint-disable-line
 import moment from 'moment'
 import path from 'path'
@@ -337,4 +337,9 @@ export default {
 </script>
 
 <style lang="css">
+/* CSS */
+/* Work only in dev. */
+@import url('~@/assets/css/master.css');
+@import url('~@/assets/css/light.css');
+@import url('~@/assets/css/dark.css');
 </style>

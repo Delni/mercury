@@ -49,11 +49,11 @@
 </template>
 
 <script>
-import icon from '../components/common/icon.vue'
-import report from './components/report.vue'
+import icon from '@/components/common/icon'
+import report from '@/reports/components/report'
 
 import { ipcRenderer } from 'electron'
-import Database from '../assets/Database.class'
+import Database from '@/assets/Database.class'
 import chartJS from 'chart.js' // eslint-disable-line
 import moment from 'moment'
 import path from 'path'
@@ -218,7 +218,6 @@ export default {
     },
 
     throwCustom: function () {
-      console.log('trhowing custom')
       this.options.firstDate = moment(this.firstCustomDate, this.$root.settings.dateFormat).format('YYYY-MM-DD')
       this.options.lastDate = moment(this.lastCustomDate, this.$root.settings.dateFormat).format('YYYY-MM-DD')
       this.updateConfig()
@@ -256,7 +255,6 @@ export default {
       }
     }
     this.getAccounts(this).then(function (vm) {
-      console.log(vm)
     })
     this.updateConfig()
     if (this.$root.settings.theme === 'dark') {
@@ -269,4 +267,9 @@ export default {
 </script>
 
 <style lang="css">
+/* CSS */
+/* Work only in dev. */
+@import url('~@/assets/css/master.css');
+@import url('~@/assets/css/light.css');
+@import url('~@/assets/css/dark.css');
 </style>

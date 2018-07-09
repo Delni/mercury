@@ -20,13 +20,10 @@
 </template>
 
 <script>
-import icon from './icon.vue'
+import icon from '@/components/common/icon'
 
 export default {
   components: {icon},
   props: ['icon', 'active', 'close', 'width']
 }
 </script>
-
-<style lang="css">
-</style>

@@ -162,34 +162,36 @@
     </modal>
     <!-- <recurring-table /> -->
     <div class="notification is-black">
-      <table class="table is-fullwidth">
-        <transition-group name="details" tag="tbody">
-          <tr v-if="!recurrings.length" :key="-1">
-            <td colspan="6" class="has-text-centered">{{'NO_DATA' | translate}}</td>
-          </tr>
-          <tr v-else
-              v-for="recurring in recurrings"
-              @click="toggleSelect(recurring)"
-              @contextmenu="contextMenu(recurring)"
-              :key="recurring.id"
-              :class="{'is-selected': recurring.isSelected}">
-            <td class="has-text-centered">{{recurring.date | date}}</td>
-            <td class="has-text-centered"><icon :fa="recurring.type" /></td>
-            <td class="has-text-centered">{{recurring.beneficiary}}</td>
-            <td class="has-text-centered">{{recurring.category}}</td>
-            <td class="has-text-centered">{{recurring.label}}</td>
-            <td class="has-text-centered" :class="{'has-text-danger': recurring.amount < 0, 'has-text-success': recurring.amount >= 0}">{{recurring.amount}}</td>
-          </tr>
-        </transition-group>
-      </table>
+      <div class="is-table-overflown-2">
+        <table class="table is-fullwidth">
+          <transition-group name="details" tag="tbody">
+            <tr v-if="!recurrings.length" :key="-1">
+              <td colspan="6" class="has-text-centered">{{'NO_DATA' | translate}}</td>
+            </tr>
+            <tr v-else
+                v-for="recurring in recurrings"
+                @click="toggleSelect(recurring)"
+                @contextmenu="contextMenu(recurring)"
+                :key="recurring.id"
+                :class="{'is-selected': recurring.isSelected}">
+              <td class="has-text-centered">{{recurring.date | date}}</td>
+              <td class="has-text-centered"><icon :fa="recurring.type" /></td>
+              <td class="has-text-centered">{{recurring.beneficiary}}</td>
+              <td class="has-text-centered">{{recurring.category}}</td>
+              <td class="has-text-centered">{{recurring.label}}</td>
+              <td class="has-text-centered" :class="{'has-text-danger': recurring.amount < 0, 'has-text-success': recurring.amount >= 0}">{{recurring.amount}}</td>
+            </tr>
+          </transition-group>
+        </table>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import icon from '../common/icon.vue'
-import modal from '../common/modal.vue'
-import customField from '../common/customField.vue'
+import icon from '@/components/common/icon'
+import modal from '@/components/common/modal'
+import customField from '@/components/common/customField'
 
 import { ipcRenderer, remote } from 'electron'
 import moment from 'moment'
@@ -462,6 +464,3 @@ export default {
   }
 }
 </script>
-
-<style lang="css">
-</style>

@@ -33,8 +33,8 @@
 </template>
 
 <script>
-import icon from '../../common/icon.vue'
-import customField from '../../common/customField.vue'
+import icon from '@/components/common/icon.vue'
+import customField from '@/components/common/customField.vue'
 
 import {ipcRenderer} from 'electron'
 import moment from 'moment'
@@ -99,14 +99,3 @@ export default {
   }
 }
 </script>
-
-<style lang="css">
-  nav > * .select {
-    /* max-width: 10vw; */
-  }
-  .control select {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-left: none;
-  }
-</style>

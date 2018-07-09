@@ -30,12 +30,9 @@
 </template>
 
 <script>
-import icon from '../../components/common/icon.vue'
+import icon from '@/components/common/icon.vue'
 export default {
   components: { icon },
   props: ['title', 'color', 'icon']
 }
 </script>
-
-<style lang="css">
-</style>

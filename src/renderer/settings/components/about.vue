@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import icon from '../../components/common/icon.vue'
+import icon from '@/components/common/icon'
 import Vue from 'vue'
 import {shell, ipcRenderer} from 'electron'
 
@@ -72,6 +72,3 @@ export default {
   }
 }
 </script>
-
-<style lang="css">
-</style>

@@ -1,0 +1,97 @@
+.dark #window {
+  background-color: #282c34 !important;
+  color: white !important;
+}
+
+.dark>* .notification.is-black .title{
+  color: white !important;
+}
+
+
+.dark>* .tabs>* {
+  background-color: #21252b;
+  border-bottom: 1px solid gray;
+}
+
+.dark>* .table {
+  background: black;
+  color: inherit !important;
+}
+
+.dark>* .table thead th {
+  color: whitesmoke !important;
+}
+
+.dark>* .is-future *{
+  color: hsl(0, 0%, 48%);
+}
+
+.dark>* .table tr:hover td {
+  background: #21252b !important;
+}
+
+.dark>* .tab.is-active:hover {
+  background-color: #21252b;
+}
+
+.dark>* input[type='range'] {
+    background:grey !important;
+}
+
+.dark>* .calendar{
+  background-color: #282c34 !important;
+}
+
+.dark>* .datepicker .calendar .calendar-body .date-item{
+  color: whitesmoke !important;
+}
+
+.dark>* .checkbox:hover{
+  color: whitesmoke !important;
+}
+
+.dark>* .hero.is-dark .tabs.is-boxed li.is-active a,.dark>* .hero.is-dark .tabs.is-boxed li.is-active a:hover {
+  background-color: #282c34 !important;
+  color: white !important;
+}
+
+/*COLORS */
+
+.dark>* .notification.is-dark {
+  background-color: #282c34 !important;
+}
+
+.dark>* .input,.dark>* .select select {
+  background-color: black !important;
+  border-color: gray;
+  color: white !important;
+}
+
+.dark>* input[disabled],.dark>* .select select[disabled] {
+  background-color: whitesmoke !important;
+    color: #7a7a7a !important;
+}
+
+.dark>* .footer.is-black,.dark>*  .notification.is-black {
+  background-color: #21252b !important;
+}
+
+.dark>* .footer {
+  color: gray;
+  border-top: 1px solid #101010;
+}
+
+/* TYPEHEAD */
+/*.tt-input, .tt-hint, .tt-menu, .tt-dataset, .tt-suggestion, .tt-emty, .tt-cursor, .tt-highlight {
+  background: inherit !important;
+}*/
+.dark>* .tt-hint {
+  background-color: black  !important;
+  border-color: gray;
+  color: gray  !important;
+}
+
+.dark>* code {
+  background: #282c34;
+  color: whitesmoke
+}

@@ -31,7 +31,8 @@
 </template>
 
 <script>
-import icon from '../common/icon.vue'
+import icon from '@/components/common/icon'
+
 import moment from 'moment'
 import {ipcRenderer} from 'electron'
 import Vue from 'vue'
@@ -164,6 +165,3 @@ export default {
   }
 }
 </script>
-
-<style lang="css">
-</style>

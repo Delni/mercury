@@ -130,7 +130,7 @@ let rendererConfig = {
     }),
     new HtmlWebpackPlugin({
       filename: 'settings.html',
-      template: path.resolve(__dirname, '../src/index.ejs'),
+      template: path.resolve(__dirname, '../src/settings.ejs'),
       chunks: ['settings'],
       title: 'Mercury - settings',
       minify: {
@@ -140,7 +140,7 @@ let rendererConfig = {
       },
       nodeModules: process.env.NODE_ENV !== 'production'
         ? path.resolve(__dirname, '../node_modules')
-        : false
+        : path.resolve(__dirname, '../../node_modules')
     }),
     new HtmlWebpackPlugin({
       filename: 'balance-view.html',

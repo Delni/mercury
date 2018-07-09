@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import icon from '../../components/common/icon.vue'
+import icon from '@/components/common/icon.vue'
 export default {
   components: {icon},
   data: function () {
@@ -55,20 +55,3 @@ export default {
   }
 }
 </script>
-
-<style lang="css">
-.savedvalues {
-  height: 50vh;
-  overflow: scroll
-}
-
-/* Animation */
-.details-enter-active, .details-leave-active {
-  transition: all 1s;
-}
-
-.details-enter, .details-leave-to /* .list-leave-active below version 2.1.8 */ {
-  opacity: 0;
-  transform: translateX(30px);
-}
-</style>

@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import icon from './icon.vue'
+import icon from '@/components/common/icon'
 export default {
   components: {
     icon
@@ -18,6 +18,3 @@ export default {
   props: ['fa', 'type', 'isControl']
 }
 </script>
-
-<style lang="css">
-</style>
