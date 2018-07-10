@@ -126,10 +126,10 @@ export default {
       states: ['fa-circle-o', 'fa-circle', 'fa-check-circle'],
       helper: '-',
       settings: this.$root.settings,
-      accounts: this.$root.accounts,
+      accounts: this.$root.accounts || null,
       newOperation: {
         date: moment().format(this.$root.settings.dateFormat),
-        selectedAccount: this.$root.accounts[0],
+        selectedAccount: this.$root.accounts[0] || {currency: this.$root.settings.defaultCurrency},
         type: 'credit-card',
         state: 'fa-circle-o'
       }
@@ -162,13 +162,13 @@ export default {
         this.newOperation.type
       ]
 
-      if (!this.settings.beneficiaries.find(b => b === this.newOperation.beneficiary) && this.newOperation.beneficiary !== '') {
+      if (!this.settings.beneficiaries.find(b => b === this.newOperation.beneficiary) && this.newOperation.beneficiary !== '' && this.newOperation.beneficiary !== null) {
         this.settings.beneficiaries.push(this.newOperation.beneficiary)
       }
-      if (!this.settings.labels.find(b => b === this.newOperation.label) && this.newOperation.label !== '') {
+      if (!this.settings.labels.find(b => b === this.newOperation.label) && this.newOperation.label !== '' && this.newOperation.label !== null) {
         this.settings.labels.push(this.newOperation.label)
       }
-      if (!this.settings.categories.find(b => b === this.newOperation.category) && this.newOperation.category !== '') {
+      if (!this.settings.categories.find(b => b === this.newOperation.category) && this.newOperation.category !== '' && this.newOperation.category !== null) {
         this.settings.categories.push(this.newOperation.category)
       }
       jsonfile.writeFile(path.join(__static, 'settings.json'), this.settings, {
@@ -282,6 +282,7 @@ export default {
     this.$root.$on('edit-operation', this.editOperation)
     this.$root.$on('edit-operation:clean', this.cleanOperation)
 
+    this.$root.$on('update-accounts-list:success', this.$forceUpdate)
     // Typeahead
     // const typeahead = require('typeahead') // eslint-disable-line
     // const beneficiaryInput = document.getElementById('op-benef')

@@ -21,9 +21,6 @@
               <div class="container" id="mainScreen" v-show="$root.accounts.length">
                 <!-- TABS -->
                 <component :is="activeTab"></component>
-                <!-- <dashboard v-show="activeTab === 'dashboard'" key="{ `${reload}` }"/>
-                <accounts-detail v-show="activeTab === 'accounts'"/>
-                <recurrings v-show="activeTab === 'recurrings'"/> -->
               </div>
             </div>
           </div>
@@ -108,7 +105,6 @@ export default {
 
     reloadChronochart: function () {
       this.chronoChart = new ChronoChart(document.getElementById('chronoChart'), this.$root.accounts, this.$root.db)
-      this.switchTab(1)
     }
   },
   created: function () {

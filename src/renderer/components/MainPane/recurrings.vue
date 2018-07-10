@@ -349,7 +349,7 @@ export default {
                   vm.newRecurringOperation.beneficiary,
                   vm.newRecurringOperation.category,
                   vm.newRecurringOperation.label,
-                  moment(vm.newRecurringOperation.date, vm.$root.settings.dateFormat).format('YYYY-MM-DD'),
+                  vm.newRecurringOperation.date,
                   vm.newRecurringOperation.offset,
                   vm.newRecurringOperation.timespan,
                   vm.newRecurringOperation.times
@@ -400,7 +400,7 @@ export default {
                   vm.newRecurringOperation.beneficiary,
                   vm.newRecurringOperation.category,
                   vm.newRecurringOperation.label,
-                  moment(vm.newRecurringOperation.date, vm.$root.settings.dateFormat).format('YYYY-MM-DD'),
+                  vm.newRecurringOperation.date,
                   vm.newRecurringOperation.offset,
                   vm.newRecurringOperation.timespan,
                   vm.newRecurringOperation.times
