@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="columns" style="width:100%">
     <div class="column has-text-centered">
-      <p class="title is-marginless">Mercury</p>
+      <p class="title">Mercury</p>
       <p class="subtitle" >{{'SETTINGS.TABS.ABOUT.THANKS' | translate}}</p>
       <img :src="iconUrl">
       <p class="subtitle is-marginless" >{{'SETTINGS.TABS.ABOUT.VERSION' | translate}}
