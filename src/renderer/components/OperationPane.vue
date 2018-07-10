@@ -16,7 +16,7 @@
             @keyup.enter="isEditing? confirmEdition():addOperation()">
         </custom-field>
 
-        <custom-field class="flex" :fa="newOperation.selectedAccount.currency">
+        <custom-field class="flex" :fa="operationCurrency">
           <input class="input " type="number" placeholder="0.00" v-model="newOperation.amount" @keyup.enter="isEditing? confirmEdition():addOperation()">
         </custom-field>
 
@@ -126,13 +126,20 @@ export default {
       states: ['fa-circle-o', 'fa-circle', 'fa-check-circle'],
       helper: '-',
       settings: this.$root.settings,
-      accounts: this.$root.accounts || null,
       newOperation: {
         date: moment().format(this.$root.settings.dateFormat),
         selectedAccount: this.$root.accounts[0] || {currency: this.$root.settings.defaultCurrency},
         type: 'credit-card',
         state: 'fa-circle-o'
       }
+    }
+  },
+  computed: {
+    operationCurrency: function () {
+      return this.newOperation.selectedAccount.currency
+    },
+    accounts: function () {
+      return this.$root.accounts || null
     }
   },
   methods: {
