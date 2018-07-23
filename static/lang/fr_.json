@@ -215,7 +215,7 @@
           "VERSION": "Version du logiciel :",
           "UP_TO_DATE": "Votre logiciel est à jour",
           "UPDATE_AVAILABLE": "La nouvelle version {{=version}} est disponible !",
-          "ME": "Ce logiciel est développé sur mon temps libre, et j'espère que le produit vous conviendra !",
+          "ME": "Ce logiciel est développé sur mon temps libre, et j'espère qu'il vous conviendra !",
           "CONTACT": "N'hésitez pas à me faire un retour en cas de problème (<a class=\"link has-text-info\" href=\"mailto:nicolas.delauney@outlook.fr\">nicolas.delauney@outlook.fr</a>)",
           "TECHNO": "Mercury fonctionne grâce à <span class=\"has-text-info\">Electron</span> et <span class=\"has-text-success\">VueJS</span> empaquetés par electron-vue."
         },
