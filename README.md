@@ -1,6 +1,9 @@
 ![icon](/img/256x256.png)
 
 # Mercury
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/761fdc1dac484273b25eb5d1d8f9e6d2)](https://app.codacy.com/app/Delni/mercury?utm_source=github.com&utm_medium=referral&utm_content=Delni/mercury&utm_campaign=badger)
+
 Current version packed : `v1.1.2`  
 The budget planner of the 21st century  
 
