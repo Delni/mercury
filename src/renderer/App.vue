@@ -71,7 +71,7 @@
         jsonfile.writeFile(path.join(__static, 'settings.json'), vm.$root.settings, {
           spaces: 2
         }, (err) => {
-          console.log(err)
+          if (err) console.warn(err)
         })
         vm.updateAccountsList()
       })
