@@ -273,6 +273,11 @@ export default {
       this.myChart.update()
     },
 
+    throwFloor: function () {
+      this.updateConfig()
+      this.myChart.update()
+    },
+
     addOneDay: function (date) {
       this[date] = moment(this[date], this.$root.settings.dateFormat).add(1, 'days').format(this.$root.settings.dateFormat)
       this.throwCustom()
