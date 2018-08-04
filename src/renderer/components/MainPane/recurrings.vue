@@ -148,9 +148,11 @@
           </div>
           <div class="control select is-warning">
             <select v-model="launch.timeSpan">
-              <option value="days">{{ 'TIME_SPAN.PLURAL.days' | translate }}</option>
-              <option value="months">{{ 'TIME_SPAN.PLURAL.months' | translate }}</option>
-              <option value="quarters">{{ 'TIME_SPAN.PLURAL.quarters' | translate }}</option>
+              <option value="days">{{ (launch.offset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"days"| translate}}</option>
+              <option value="weeks">{{ (launch.offset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"weeks"| translate}}</option>
+              <option value="months">{{ (launch.offset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"months"| translate}}</option>
+              <option value="quarters">{{ (launch.offset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"quarters"| translate}}</option>
+              <option value="years">{{ (launch.offset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"years"| translate}}</option>
             </select>
           </div>
           <div class="control">

@@ -75,10 +75,10 @@ export default {
     save: function () {
       let previousSettings = jsonfile.readFileSync(path.join(__static, 'settings.json'))
       this.loading = true
-      this.settings.beneficiaries.sort(function (a, b) {
+      this.settings.beneficiaries.filter(b => b !== null).sort(function (a, b) {
         return a.toLowerCase().localeCompare(b.toLowerCase())
       })
-      this.settings.categories.sort(function (a, b) {
+      this.settings.categories.filter(c => c !== null).sort(function (a, b) {
         return a.toLowerCase().localeCompare(b.toLowerCase())
       })
       delete this.settings['theme === \'dark\'']

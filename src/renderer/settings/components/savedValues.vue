@@ -7,7 +7,7 @@
         <div class="savedvalues">
           <table class="table is-fullwidth">
             <transition-group name="details" tag="tbody">
-              <tr v-for="(beneficiary, $index) in settings.beneficiaries" :key="$index">
+              <tr v-for="(beneficiary, $index) in settings.beneficiaries.filter(b => b !== null)" :key="$index">
                 <td>{{beneficiary}}</td>
                 <td><a class="pull-right button is-danger is-outlined" @click="deleteEntry($index, 'beneficiaries')"><icon fa="trash"/></a></td>
               </tr>
@@ -24,7 +24,7 @@
         <div class="savedvalues">
           <table class="table is-fullwidth">
             <transition-group name="details" tag="tbody">
-              <tr v-for="(category, $index) in settings.categories" :key="$index">
+              <tr v-for="(category, $index) in settings.categories.filter(c => c !== null)" :key="$index">
                 <td>{{category}}</td>
                 <td><a class="pull-right button is-danger is-outlined" @click="deleteEntry($index, 'categories')"><icon fa="trash"/></a></td>
               </tr>
