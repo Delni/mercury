@@ -13,7 +13,7 @@
         "DEFAULT": "Raporty",
         "TIME": "Raport czasowy",
         "STATISTIC": "Raport statystyczny",
-        "BALANCE": "Balance report"
+        "BALANCE": "Raport salda"
       },
       "WINDOWS": {
         "DEFAULT": "Okna"
@@ -28,7 +28,7 @@
     },
     "TOUCHBAR": {
       "TABS": {
-        "DASHBOARD": "Dashboard",
+        "DASHBOARD": "Ekran główny",
         "ACCOUNTS": "Konta",
         "RECURRINGS": "Operacje cykliczne"
       },
@@ -64,17 +64,17 @@
     "MAIN_PANE": {
       "NO_DATA": {
         "TITLE": "Brak danych !",
-        "SUBTITLE": "<span>Stwórz <span  class=\"has-text-primary link\" @click=\"showCreateModal\">konto</span> aby rozpocząć, albo <span class=\"has-text-info link\" @click=\"ipc.send('open-file')\">otwórz plik</span></span>"
+        "SUBTITLE": "<span>Utwórz <span  class=\"has-text-primary link\" @click=\"showCreateModal\">konto</span> aby rozpocząć, albo <span class=\"has-text-info link\" @click=\"ipc.send('open-file')\">otwórz plik</span></span>"
       },
 
       "TABS": {
-        "DASHBOARD": "Dashboard",
+        "DASHBOARD": "Ekran główny",
         "ACCOUNTS": "Szczegóły konta",
         "RECURRINGS": "Operacje cykliczne"
       },
 
       "DASHBOARD": {
-        "TOP": "Najwyższe wydatki",
+        "TOP": "Wydatki",
         "QUICK_ACCESS": "Szybki dostęp",
         "ACCESSES": {
           "OPEN": "Otwórz",
@@ -82,7 +82,7 @@
           "CHRONOCHART": "wykres",
           "RECURRING": "operacje cykilczne",
           "STATISTIC": "raport statystyczny",
-          "BALANCE": "balance report",
+          "BALANCE": "Raport salda",
           "DETAIL": "szczegóły konta",
           "SETTINGS": "ustawienia"
         }
@@ -119,7 +119,7 @@
       "RECURRINGS": {
         "TITLE": "Operacje cykliczne",
         "BAR": {
-          "CREATE": "Stwórz",
+          "CREATE": "Utwórz",
           "LAUNCH": "Uruchom",
           "EDIT": "Edytuj",
           "DELETE": "Usuń"
@@ -136,13 +136,13 @@
         },
         "MODAL": {
           "TITLE": {
-            "CREATE": "Stwórz nową operację cykliczną",
+            "CREATE": "Utwórz nową operację cykliczną",
             "EDIT": "Edytuj",
             "LAUNCH": "Uruchom operacje"
           },
-          "LAUNCH_FOR": "Launch pending operations for the next",
+          "LAUNCH_FOR": "Uruchom oczekujące operacje na następny miesiąc",
           "CONFIRM_BUTTON": {
-            "CREATE": "Stwórz",
+            "CREATE": "Utwórz",
             "EDIT": "Edytuj"
           }
         },
@@ -151,8 +151,8 @@
           "NEXT": "Następne wykonanie",
           "RECURRENCE": "Powtarzanie : co ",
           "RECURRENCES": "Powtarzanie : co ",
-          "LEFT": "{{=left}} time left",
-          "LEFT_PLURAL": "{{=left}} times left"
+          "LEFT": "{{=left}} czas upłynął",
+          "LEFT_PLURAL": "{{=left}} czasu upłynęło"
         }
       }
     },
@@ -188,7 +188,7 @@
         "PREVIOUS": " Dodaj poprzednie dane"
       },
       "BALANCE": {
-        "TITLE": "Balance report"
+        "TITLE": "Raport salda"
       },
       "CHRONO": {
         "TITLE": "Raport czasowy",
@@ -204,9 +204,9 @@
       "SAVE": "Zapisz",
       "TABS": {
         "TITLES": {
-          "GENERAL": "General",
+          "GENERAL": "Ogólne",
           "SAVED_VALUES": "Zapisane wartości",
-          "CURRENCIES": "Exchange rates",
+          "CURRENCIES": "Kurs waluty",
           "ABOUT": "About"
         },
         "ABOUT": {
@@ -221,10 +221,10 @@
         },
         "GENERAL": {
           "THEME": "Motyw",
-          "DARK_THEME": "Dark theme",
-          "LIGHT_THEME": "Light theme",
+          "DARK_THEME": "Ciemny motyw",
+          "LIGHT_THEME": "Jasny motyw",
           "LANGUAGE": "Język",
-          "RECURRING": "Reccuring",
+          "RECURRING": "Powtarzanie",
           "DEFAULT_CURRENCY": "Waluta",
           "DATEFORMAT": "Format daty",
           "TEST": "Przykład ",
@@ -242,7 +242,7 @@
   },
 
   "COMMON": {
-    "CREATE": "Stwórz",
+    "CREATE": "Utwórz",
     "CONTINUE": "Dalej",
     "CANCEL": "Anuluj",
     "DELETE": "Usuń",
@@ -291,7 +291,7 @@
       "ELECTRONIC": "Płatność elektroniczna",
       "DEPOSIT": "Wpłata",
       "BANK_CHARGE": "Opłata bankowa",
-      "DIRECT_LEVY": "Direct levy"
+      "DIRECT_LEVY": "Podatek"
     },
     "CURRENCIES": {
       "DEFAULT": "waluta",
