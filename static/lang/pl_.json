@@ -16,7 +16,7 @@
         "BALANCE": "Raport salda"
       },
       "WINDOWS": {
-        "DEFAULT": "Okna"
+        "DEFAULT": "Widok"
       },
       "HELP": {
         "LEARN": "Czytaj więcej"
@@ -57,7 +57,7 @@
       "CARDS": {
         "BANK": "Bank: ",
         "TODAY": "Dzisiaj: ",
-        "FUTURE": "Future: "
+        "FUTURE": "Przyszłe: "
       }
     },
 
@@ -90,7 +90,7 @@
 
       "ACCOUNTS": {
         "ALL": "Wszystko",
-        "REGISTERED": "Regist.",
+        "REGISTERED": "Zarej.",
         "CHECKED": "Sprawdzone",
         "VERIFIED": "Zweryfikowane",
         "ANY": "Brak",
@@ -98,7 +98,7 @@
         "DEBIT": "Wydatki",
         "FILTERS": {
           "NOTIF": {
-            "TITLE": "🚧 Work in progress 🚧",
+            "TITLE": "🚧 W przygotowaniu 🚧",
             "BODY": "Proszę czekać na przyszłą aktualizację"
           }
         },
@@ -161,7 +161,7 @@
       "DEFAULT": "Operacje",
       "EDITING": "Edycje",
       "EDIT": "Edytuj",
-      "INHERIT": "Inherit",
+      "INHERIT": "Kopiuj",
       "ADD": "Dodaj",
       "CONFIRM": "Zamierzasz usunąć operację \n\nJesteś pewien?",
       "PLACEHOLDERS": {
@@ -181,9 +181,9 @@
       },
       "STATISTIC": {
         "TITLE": "Raport statystyczny",
-        "DISPLAY": "Wyświetl",
+        "DISPLAY": "Wykres",
         "ORDER": "Sortuj",
-        "LEGEND": "Legend",
+        "LEGEND": "% / zł",
         "CATEGORIES": "Kategorie",
         "PREVIOUS": " Dodaj poprzednie dane"
       },
@@ -192,10 +192,10 @@
       },
       "CHRONO": {
         "TITLE": "Raport czasowy",
-        "FLOOR_DATA": "Display data floored to 0",
+        "FLOOR_DATA": "Wyświetl dane do poziomu 0",
         "CUSTOM_TIME_SPAN": "Wybrany okres czasu ",
         "TIME_SPAN": "Okres czasu",
-        "WARNING_ZONE": "Warning zone"
+        "WARNING_ZONE": "Finanse na minusie"
       }
     },
 
@@ -224,7 +224,7 @@
           "DARK_THEME": "Ciemny motyw",
           "LIGHT_THEME": "Jasny motyw",
           "LANGUAGE": "Język",
-          "RECURRING": "Powtarzanie",
+          "RECURRING": "Przesunięcie",
           "DEFAULT_CURRENCY": "Waluta",
           "DATEFORMAT": "Format daty",
           "TEST": "Przykład ",
@@ -283,7 +283,7 @@
     "OPERATION_TYPE": {
       "DEFAULT": "typ operacji",
       "CREDIT_CARD": "Karta kredytowa",
-      "CHECK": "Check",
+      "CHECK": "Czek",
       "CASH": "Gotówka",
       "TRANSFER": "Przelew",
       "INTERNAL_TRANSFER": "Przelew wewnętrzny",
