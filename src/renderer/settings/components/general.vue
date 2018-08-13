@@ -41,6 +41,7 @@
               <select v-model="settings.language">
                 <option value="en">English</option>
                 <option value="fr">Français</option>
+                <option value="pl">Polish</option>
               </select>
             </div>
           </div>
