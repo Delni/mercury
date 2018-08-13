@@ -38,15 +38,19 @@ Supported languages : `English`,`Français`
  * Manage beneficiaries and categories in the settings
  * `MacOS` TouchBar integration
  * Choose your (theme) side
- * Translated in English & French
+ 
+ 
+# Available languages
+ * English
+ * French
+ * Polish (thanks to [@objectprogr](https://github.com/objectprogr))
 
-
- *Next to come : advanced filters, TouchBar improvements, ...*
 ## Roadmap : 
- * [ ] Add "*latest*" checker
+ * [ ] Add version update checker
  * [ ] Add transaction binding from other currency ([issue#3](https://github.com/Delni/mercury/issues/3))
  * [ ] Add data encryption ([issue#8](https://github.com/Delni/mercury/issues/8))
  * [ ] Add webDav / cloud sync ([issue#8](https://github.com/Delni/mercury/issues/8))
+ * [ ] Add advanced filters
  * [ ] More translations !
 
 # How to use
