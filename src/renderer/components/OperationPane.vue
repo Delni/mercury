@@ -17,7 +17,7 @@
         </custom-field>
 
         <custom-field class="flex" :fa="operationCurrency">
-          <input class="input " type="number" placeholder="0.00" v-model="newOperation.amount" @keyup.enter="isEditing? confirmEdition():addOperation()">
+          <input class="input" :class="{'is-danger': this.errors[1]}" type="number" placeholder="0.00" v-model="newOperation.amount" @keyup.enter="isEditing? confirmEdition():addOperation()">
         </custom-field>
 
         <custom-field class="flex" fa="bank" type="select is-primary">
@@ -51,15 +51,54 @@
         </div>
 
         <custom-field class="flex" fa="building-o">
-          <input class="input typeahead " id="op-benef" type="text" :placeholder="'OPERATION_PANE.PLACEHOLDERS.BENEFICIARY' | translate" v-model="newOperation.beneficiary" @keyup.enter="isEditing? confirmEdition():addOperation()"/>
-        </custom-field>
+          <input
+            v-model="newOperation.beneficiary"
+            type="text"
+            class="input"
+            :placeholder="'OPERATION_PANE.PLACEHOLDERS.BENEFICIARY' | translate"
+            @keyup.enter="isEditing? confirmEdition():addOperation()"
+            @focus="beneficiaryInput = true"
+            @blur="beneficiaryInput = false"
+            @keyup.down="newOperation.beneficiary = bfiltered[0]" />
+          <transition-group name="collapse" tag="ul" class="Results" v-if="bfiltered">
+            <li v-for="item, key in bfiltered" :key="key">
+                <small>{{ item }}</small>
+            </li>
+          </transition-group>
+         </custom-field>
 
         <custom-field class="flex" fa="flag">
-          <input class="input typeahead " id="op-cat" type="text" :placeholder="'OPERATION_PANE.PLACEHOLDERS.CATEGORY' | translate" v-model="newOperation.category" @keyup.enter="isEditing? confirmEdition():addOperation()"/>
+          <input
+            v-model="newOperation.category"
+            type="text"
+            class="input"
+            :placeholder="'OPERATION_PANE.PLACEHOLDERS.CATEGORY' | translate"
+            @keyup.enter="isEditing? confirmEdition():addOperation()"
+            @focus="categoryInput = true"
+            @blur="categoryInput = false"
+            @keyup.down="newOperation.category = cfiltered[0]" />
+          <transition-group name="collapse" tag="ul" class="Results" v-if="cfiltered">
+            <li v-for="item, key in cfiltered" :key="key">
+                <small>{{ item }}</small>
+            </li>
+          </transition-group>
         </custom-field>
 
         <custom-field class="flex" fa="tag">
-          <input class="input typeahead " id="op-label" type="text" :placeholder="'OPERATION_PANE.PLACEHOLDERS.LABEL' | translate" v-model="newOperation.label" @keyup.enter="isEditing? confirmEdition():addOperation()"/>
+          <input
+            v-model="newOperation.label"
+            type="text"
+            class="input"
+            :placeholder="'OPERATION_PANE.PLACEHOLDERS.LABEL' | translate"
+            @keyup.enter="isEditing? confirmEdition():addOperation()"
+            @focus="labelInput = true"
+            @blur="labelInput = false"
+            @keyup.down="newOperation.label = lfiltered[0]" />
+          <transition-group name="collapse" tag="ul" class="Results" v-if="lfiltered">
+            <li v-for="item, key in lfiltered" :key="key">
+                <small>{{ item }}</small>
+            </li>
+          </transition-group>
         </custom-field>
 
         <div class="field is-grouped">
@@ -122,6 +161,9 @@ export default {
   },
   data: function () {
     return {
+      beneficiaryInput: false,
+      categoryInput: false,
+      labelInput: false,
       isEditing: false,
       states: ['fa-circle-o', 'fa-circle', 'fa-check-circle'],
       helper: '-',
@@ -131,15 +173,47 @@ export default {
         selectedAccount: this.$root.accounts[0] || {currency: this.$root.settings.defaultCurrency},
         type: 'credit-card',
         state: 'fa-circle-o'
-      }
+      },
+      errors: [false, false, false]
     }
   },
   computed: {
     operationCurrency: function () {
-      return this.newOperation.selectedAccount.currency
+      if (this.newOperation.selectedAccount) {
+        return this.newOperation.selectedAccount.currency
+      }
     },
     accounts: function () {
       return this.$root.accounts || null
+    },
+
+    bfiltered: function () {
+      if (this.beneficiaryInput && this.newOperation.beneficiary && this.newOperation.beneficiary.length >= 1) {
+        return this.$root.settings.beneficiaries.filter(item => {
+          if (item !== null && item !== undefined && item.toString().indexOf(this.newOperation.beneficiary) !== -1) {
+            return item.toLowerCase()
+          }
+        }).slice(0, 5)
+      }
+    },
+    cfiltered: function () {
+      if (this.categoryInput && this.newOperation.category && this.newOperation.category.length >= 1) {
+        return this.$root.settings.categories.filter(item => {
+          if (item !== null && item !== undefined && item.toString().indexOf(this.newOperation.category) !== -1) {
+            return item.toLowerCase()
+          }
+        }).slice(0, 5)
+      }
+    },
+
+    lfiltered: function () {
+      if (this.labelInput && this.newOperation.label && this.newOperation.label.length >= 1) {
+        return this.$root.settings.labels.filter(item => {
+          if (item !== null && item !== undefined && item.toString().indexOf(this.newOperation.label) !== -1) {
+            return item.toLowerCase()
+          }
+        }).slice(0, 5)
+      }
     }
   },
   methods: {
@@ -155,40 +229,59 @@ export default {
       this.newOperation.date = moment(this.newOperation.date, this.$root.settings.dateFormat).subtract(1, 'days').format(this.$root.settings.dateFormat)
     },
 
-    addOperation: function () {
-      // Go to right tab
-      this.$root.$emit('toggle-tab', 1)
-      // Format data
-      let data = [
-        this.newOperation.date,
-        this.newOperation.state,
-        this.newOperation.beneficiary,
-        this.newOperation.category,
-        this.newOperation.label,
-        this.newOperation.amount,
-        this.newOperation.type
-      ]
+    isValid: function () {
+      this.errors = [false, false, false]
 
-      if (!this.settings.beneficiaries.find(b => b === this.newOperation.beneficiary) && this.newOperation.beneficiary !== '' && this.newOperation.beneficiary !== null) {
-        this.settings.beneficiaries.push(this.newOperation.beneficiary)
+      // if (!moment(this.newOperation.date).isValid()) {
+      //   console.log(moment(this.newOperation.date).invalidAt())
+      //   this.errors[0] = true
+      // }
+      if (!this.newOperation.amount) {
+        this.errors[1] = true
       }
-      if (!this.settings.labels.find(b => b === this.newOperation.label) && this.newOperation.label !== '' && this.newOperation.label !== null) {
-        this.settings.labels.push(this.newOperation.label)
+      if (!this.newOperation.selectedAccount.name) {
+        this.errors[2] = true
       }
-      if (!this.settings.categories.find(b => b === this.newOperation.category) && this.newOperation.category !== '' && this.newOperation.category !== null) {
-        this.settings.categories.push(this.newOperation.category)
-      }
-      jsonfile.writeFile(path.join(__static, 'settings.json'), this.settings, {
-        spaces: 2
-      }, function (err) {
-        if (err != null) {
-          console.error(err)
+
+      return (!this.errors[0] && !this.errors[1] && !this.errors[2])
+    },
+
+    addOperation: function () {
+      if (this.isValid()) {
+        // Go to right tab
+        this.$root.$emit('toggle-tab', 1)
+        // Format data
+        let data = [
+          this.newOperation.date,
+          this.newOperation.state,
+          this.newOperation.beneficiary,
+          this.newOperation.category,
+          this.newOperation.label,
+          this.newOperation.amount,
+          this.newOperation.type
+        ]
+
+        if (!this.settings.beneficiaries.find(b => b === this.newOperation.beneficiary) && this.newOperation.beneficiary !== '' && this.newOperation.beneficiary !== null && this.newOperation.beneficiary !== undefined) {
+          this.settings.beneficiaries.push(this.newOperation.beneficiary)
         }
-      })
-      this.$root.db.insertOperation(this.newOperation.selectedAccount.name, data, this.$root.settings.dateFormat)
-      this.cleanOperation()
-      this.$root.$emit('add-operation')
-      this.$root.$emit('show-unsaved-tag')
+        if (!this.settings.labels.find(b => b === this.newOperation.label) && this.newOperation.label !== '' && this.newOperation.label !== null && this.newOperation.label !== undefined) {
+          this.settings.labels.push(this.newOperation.label)
+        }
+        if (!this.settings.categories.find(b => b === this.newOperation.category) && this.newOperation.category !== '' && this.newOperation.category !== null && this.newOperation.category !== undefined) {
+          this.settings.categories.push(this.newOperation.category)
+        }
+        jsonfile.writeFile(path.join(__static, 'settings.json'), this.settings, {
+          spaces: 2
+        }, function (err) {
+          if (err != null) {
+            console.error(err)
+          }
+        })
+        this.$root.db.insertOperation(this.newOperation.selectedAccount.name, data, this.$root.settings.dateFormat)
+        this.cleanOperation()
+        this.$root.$emit('add-operation')
+        this.$root.$emit('show-unsaved-tag')
+      }
     },
 
     inheritOperation: function () {
@@ -231,9 +324,10 @@ export default {
 
     cleanOperation: function () {
       this.isEditing = false
+      let previousAccount = this.newOperation.selectedAccount
       this.newOperation = {
         date: moment().format(this.$root.settings.dateFormat),
-        selectedAccount: this.accounts[0],
+        selectedAccount: previousAccount,
         type: 'credit-card',
         state: 'fa-circle-o'
       }
@@ -248,40 +342,43 @@ export default {
       this.newOperation.selectedAccount = this.accounts.find(a => a.name === op.selectedAccount.name)
       this.isEditing = true
     },
+
     confirmEdition: function () {
-      if (this.newOperation.id) {
-        let data = [
-          this.newOperation.selectedAccount.name,
-          this.newOperation.date,
-          this.newOperation.state,
-          this.newOperation.beneficiary,
-          this.newOperation.category,
-          this.newOperation.label,
-          this.newOperation.amount,
-          this.newOperation.type
-        ]
-        if (!this.settings.beneficiaries.find(b => b === this.newOperation.beneficiary) && this.newOperation.beneficiary !== '') {
-          this.settings.beneficiaries.push(this.newOperation.beneficiary)
-        }
-        if (!this.settings.labels.find(b => b === this.newOperation.label) && this.newOperation.label !== '') {
-          this.settings.labels.push(this.newOperation.label)
-        }
-        if (!this.settings.categories.find(b => b === this.newOperation.category) && this.newOperation.category !== '') {
-          this.settings.categories.push(this.newOperation.category)
-        }
-        jsonfile.writeFile(path.join(__static, 'settings.json'), this.settings, {
-          spaces: 2
-        }, function (err) {
-          if (err != null) {
-            console.error(err)
+      if (this.isValid()) {
+        if (this.newOperation.id) {
+          let data = [
+            this.newOperation.selectedAccount.name,
+            this.newOperation.date,
+            this.newOperation.state,
+            this.newOperation.beneficiary,
+            this.newOperation.category,
+            this.newOperation.label,
+            this.newOperation.amount,
+            this.newOperation.type
+          ]
+          if (!this.settings.beneficiaries.find(b => b === this.newOperation.beneficiary) && this.newOperation.beneficiary !== '') {
+            this.settings.beneficiaries.push(this.newOperation.beneficiary)
           }
-        })
-        this.$root.db.editOperation(this.newOperation.id, data, this.$root.settings.dateFormat)
-        this.endOperation('confirm')
-      } else {
-        console.warn('NO ID ON EDITION !')
+          if (!this.settings.labels.find(b => b === this.newOperation.label) && this.newOperation.label !== '') {
+            this.settings.labels.push(this.newOperation.label)
+          }
+          if (!this.settings.categories.find(b => b === this.newOperation.category) && this.newOperation.category !== '') {
+            this.settings.categories.push(this.newOperation.category)
+          }
+          jsonfile.writeFile(path.join(__static, 'settings.json'), this.settings, {
+            spaces: 2
+          }, function (err) {
+            if (err != null) {
+              console.error(err)
+            }
+          })
+          this.$root.db.editOperation(this.newOperation.id, data, this.$root.settings.dateFormat)
+          this.endOperation('confirm')
+        } else {
+          console.warn('NO ID ON EDITION !')
+        }
+        // TODO : add typeahead categories (HTMLEventHandler.js:100)
       }
-      // TODO : add typeahead categories (HTMLEventHandler.js:100)
     }
   },
   created: function () {
@@ -304,3 +401,18 @@ export default {
   }
 }
 </script>
+
+<style>
+  .Results {
+    margin-top: 0.25rem !important;
+    margin-left: .6rem !important;
+  }
+  .collapse-enter-active, .collapse-leave-active {
+    transition: all 500ms;
+    height: 1em;
+  }
+
+  .collapse-enter, .collapse-leave-to /* .list-leave-active below version 2.1.8 */ {
+    height: 0;
+  }
+</style>

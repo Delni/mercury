@@ -58,8 +58,11 @@
 
 .light>* .input, .select select {
   background-color: whitesmoke  !important;
-  border-color: gray;
   color: #282c34  !important;
+}
+
+.light>* .input:not(.is-danger), .select select {
+  border-color: gray;
 }
 
 .light>* input[disabled],.light>* .select select[disabled] {

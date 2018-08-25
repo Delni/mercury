@@ -203,10 +203,12 @@ strong, .card-header-title {
 
 .details-move {
   transition: all 500ms;
+  height: auto;
 }
 
 .details-enter, .details-leave-to /* .list-leave-active below version 2.1.8 */ {
   opacity: 0;
+  height: 0;
   transform: translateX(30px);
 }
 

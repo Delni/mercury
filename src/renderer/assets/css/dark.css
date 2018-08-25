@@ -63,8 +63,10 @@
 
 .dark>* .input,.dark>* .select select {
   background-color: black !important;
-  border-color: gray;
   color: white !important;
+}
+.dark>* .input:not(.is-danger),.dark>* .select select {
+  border-color: gray;
 }
 
 .dark>* input[disabled],.dark>* .select select[disabled] {
