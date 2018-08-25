@@ -24,7 +24,7 @@
                 </li>
               </ul>
             </div>
-            <div class="hero-body" style="padding-top: 0">
+            <div class="hero-body" style="padding-top: 0; padding-right: auto">
               <transition name="fadeUp" mode="out-in">
                 <component v-bind:is="activeTab"></component>
               </transition>

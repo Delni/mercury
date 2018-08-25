@@ -6,7 +6,7 @@
       </select>
     </custom-field>
 
-    <custom-field is-control="true" fa="calendar-o" type="select is-primary">
+    <custom-field is-control="true" fa="calendar-o" type="select is-primary" style="width: 15vw">
       <select v-model="filters.date" @change="$root.$emit('update-filters')">
         <option v-for="time in timesSpan" :value="time.value">{{time.label | translate}}</option>
       </select>
