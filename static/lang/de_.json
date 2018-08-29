@@ -1,0 +1,302 @@
+{
+  "MAIN": {
+    "MENU": {
+      "FILE": {
+        "DEFAULT": "Datei",
+        "NEW_FILE": "Neue Datei",
+        "OPEN": "Öffnen",
+        "SAVE": "Speichern",
+        "SAVE_AS": "Speichern als",
+        "SETTINGS": "Einstellungen"
+      },
+      "REPORTS":{
+        "DEFAULT": "Berichte",
+        "TIME": "Zeitbericht",
+        "STATISTIC": "Statistikbericht",
+        "BALANCE": "Guthabenbericht"
+      },
+      "WINDOWS": {
+        "DEFAULT": "Fenster"
+      },
+      "HELP": {
+        "LEARN": "Mehr erfahren"
+      },
+      "ABOUT": {
+        "DEFAULT": "Über",
+        "VERSION": "Version \t"
+      }
+    },
+    "TOUCHBAR": {
+      "TABS": {
+        "DASHBOARD": "Dashboard",
+        "ACCOUNTS": "Accounts",
+        "RECURRINGS": "Wiederkehrende Aktionen"
+      },
+      "STATS": {
+        "CATEGORIES": "Kategorien",
+        "TIME_SPAN": "Zeitspanne"
+      }
+    }
+  },
+
+  "RENDERER": {
+    "ACCOUNTS_PANE": {
+      "DEFAULT": "Accounts",
+      "ADD": "Account hinzufügen",
+
+      "MODAL": {
+        "TITLE": "Neuen Account hinzufügen ...",
+        "PLACEHOLDER": "Accountname",
+        "CURRENT_AMOUNT": "Aktuelles Guthaben"
+      },
+
+      "CONFIRM": {
+        "DELETE_ACCOUNT": "Sie sind dabei den Account \"{{=name}}\" zu löschen.\n\nSind sie sicher?"
+      },
+
+      "CARDS": {
+        "BANK": "Bank: ",
+        "TODAY": "Heute: ",
+        "FUTURE": "Zukünftig: "
+      }
+    },
+
+    "MAIN_PANE": {
+      "NO_DATA": {
+        "TITLE": "Keine Daten !",
+        "SUBTITLE": "<span>Erstellen sie einen <span  class=\"has-text-primary link\" @click=\"showCreateModal\">Account</span> um zu starten oder<span class=\"has-text-info link\" @click=\"ipc.send('open-file')\">öffnen sie eine Datei</span></span>"
+      },
+
+      "TABS": {
+        "DASHBOARD": "Dashboard",
+        "ACCOUNTS": "Accountdetails",
+        "RECURRINGS": "Wiederkehrende Aktionen"
+      },
+
+      "DASHBOARD": {
+        "TOP": "Höchste Ausgabe",
+        "QUICK_ACCESS": "Schnellansicht",
+        "ACCESSES": {
+          "OPEN": "Öffnen des",
+          "OPEN_PLURAL": "Offnen der",
+          "CHRONOCHART": "Chrono-Diagram",
+          "RECURRING": "wiederkehrende Aktionen",
+          "STATISTIC": "Statistikbericht",
+          "BALANCE": "Guthabenbericht",
+          "DETAIL": "Accountdetails",
+          "SETTINGS": "Einstellungen"
+        }
+      },
+
+      "ACCOUNTS": {
+        "ALL": "Alle",
+        "REGISTERED": "Regist.",
+        "CHECKED": "Geprüft",
+        "VERIFIED": "Bestätigt",
+        "ANY": "Irgend",
+        "INCOME": "Einkommen",
+        "DEBIT": "Lastschrift",
+        "FILTERS": {
+          "NOTIF": {
+            "TITLE": "🚧 Work in progress 🚧",
+            "BODY": "Bitte warten Sie auf zukünftige Updates"
+          }
+        },
+        "TABLE": {
+          "HEAD": {
+            "STATE": "Status",
+            "DATE": "Datum",
+            "TYPE": "Typ",
+            "BENEFICIARY": "Empfänger",
+            "CATEGORY": "Kategorie",
+            "LABEL": "Bezeichnung",
+            "DEBIT": "Ausgabe",
+            "COLLECTION": "Einname"
+          }
+        }
+      },
+
+      "RECURRINGS": {
+        "TITLE": "Wiederkehrende Aktionen",
+        "BAR": {
+          "CREATE": "Erstellen",
+          "LAUNCH": "Starten",
+          "EDIT": "Bearbeiten",
+          "DELETE": "Löschen"
+        },
+        "POPUP": {
+          "TITLE": "Aufgabe abgeschlossen !",
+          "BODY": "{{=length}} Aktion hinzugefügt !",
+          "BODY_PLURAL": "{{=length}} Aktionen hinzugeüfgt !",
+          "CONFIRM_DELETE": "Sie sind dabei eine Aktion zu löschen.\n\nWollen Sie dennoch fortfahren?"
+        },
+        "NO_DATA": {
+          "TITLE": "Keine Aktion ausgewählt !",
+          "BODY": "Bitte wählen Sie eine Zeile aus bevor Sie fortfahren."
+        },
+        "MODAL": {
+          "TITLE": {
+            "CREATE": "Eine neue wiederkehrende Aktion erstellen",
+            "EDIT": "Bearbeiten",
+            "LAUNCH": "Aktionen starten"
+          },
+          "LAUNCH_FOR": "Starten der wiederkehrenden Aktionen für die nächsten",
+          "CONFIRM_BUTTON": {
+            "CREATE": "Erstellen",
+            "EDIT": "Bearbeiten"
+          }
+        },
+        "CONTEXTUAL": {
+          "ACCOUNT": "Account",
+          "NEXT": "Nächstes mal",
+          "RECURRENCE": "Wiederkehrend alle ",
+          "RECURRENCES": "Wiederkehrend alle ",
+          "LEFT": "{{=left}} Mal übrig",
+          "LEFT_PLURAL": "{{=left}} Male übrig"
+        }
+      }
+    },
+
+    "OPERATION_PANE": {
+      "DEFAULT": "Aktion",
+      "EDITING": "Bearbeitung",
+      "EDIT": "Bearbeiten",
+      "INHERIT": "Erbend",
+      "ADD": "Hinzufügen",
+      "CONFIRM": "Sie sind dabei eine Aktion zu löschen.\n\nWollen Sie dennoch fortfahren?",
+      "PLACEHOLDERS": {
+        "BENEFICIARY": "Empfänger",
+        "CATEGORY": "Kategorie",
+        "LABEL": "Bezeichnung"
+      }
+    },
+
+    "REPORTS": {
+      "COMMON": {
+        "TIME_SPAN": "Zeitspanne",
+        "CUSTOM_TIME_SPAN": "Eigene Zeitspanne ",
+        "PLACEHOLDERS": {
+          "PICK_DATE": "Datum auswählen"
+        }
+      },
+      "STATISTIC": {
+        "TITLE": "Statistikbericht",
+        "DISPLAY": "Anzeige",
+        "ORDER": "Sortieren nach",
+        "LEGEND": "Legende",
+        "CATEGORIES": "Kategorien",
+        "PREVIOUS": " Vorherige Daten hinzufügen"
+      },
+      "BALANCE": {
+        "TITLE": "Guthabenbericht"
+      },
+      "CHRONO": {
+        "TITLE": "Zeitlicher Bericht",
+        "FLOOR_DATA": "Angezeigte Daten sind abgerundet",
+        "CUSTOM_TIME_SPAN": "Eigene Zeitspanne ",
+        "TIME_SPAN": "Zeitspanne ",
+        "WARNING_ZONE": "Warnungsbereich"
+      }
+    },
+
+    "SETTINGS": {
+      "TITLE": "Einstellungen",
+      "SAVE": "Speichern",
+      "TABS": {
+        "TITLES": {
+          "GENERAL": "Allgemein",
+          "SAVED_VALUES": "Gespeicherte Werte",
+          "CURRENCIES": "Wechselkurse",
+          "ABOUT": "Über"
+        },
+        "ABOUT": {
+          "DOWNLOAD": "Neuste Version downloaden !",
+          "THANKS": "Danke für das Downladen von Mercury.",
+          "VERSION": "Softwareversion :",
+          "UP_TO_DATE": "Mercury ist up-to-date.",
+          "UPDATE_AVAILABLE": "Die neuste Version {{=version}} ist verfügbar !",
+          "ME": "Diese Software wurde in privater Freitzeit entwickelt. Ich hoffe es gefällt Ihnen!",
+          "CONTACT": "Zögern Sie nicht Feedback zu geben wenn es zu Problemen kommt (<a class=\"link has-text-info\" href=\"mailto:nicolas.delauney@outlook.fr\">nicolas.delauney@outlook.fr</a>)",
+          "TECHNO": "Mercury is powered by <span class=\"has-text-info\">Electron</span> and <span class=\"has-text-success\">VueJS</span>, bundle by electron-vue."
+        },
+        "GENERAL": {
+          "THEME": "Farbschemen",
+          "DARK_THEME": "Dunkles Farbschema",
+          "LIGHT_THEME": "Helles Farbschema",
+          "LANGUAGE": "Sprache",
+          "RECURRING": "Wiederkehrend",
+          "DEFAULT_CURRENCY": "Währung",
+          "DATEFORMAT": "Datumsformat",
+          "TEST": "Beispiel ",
+          "USE_CALENDAR": "Benutzen Sie den Kalender",
+          "SAMPLE_CALENDAR": "Test",
+          "LANGUAGE_UPDATE": "Die Sprach-Änderungen werden erst nach einem Neustart aktiv.",
+          "DATE_UPDATE": "Das Datumsforamt-Änderungen werden erst nach einem Neustart aktiv."
+        },
+        "SAVED_VALUES": {
+          "BENEFICIARIES": "Empfänger",
+          "CATEGORIES": "Kategorien"
+        }
+      }
+    }
+  },
+
+  "COMMON": {
+    "CREATE": "Erstellen",
+    "CONTINUE": "Fortfahren",
+    "CANCEL": "Abbrechen",
+    "DELETE": "Löschen",
+    "OPTIONS": "Einstellungen",
+    "OTHER": "Andere",
+    "WARNING": "Warnung !",
+    "NO_DATA": "Keine Daten zum Anzeigen",
+    "CHART": {
+      "DATE": "Datum",
+      "VALUE": "Wert"
+    },
+    "TIME": {
+      "L30": "Letzten 30 Tage",
+      "TM": "Diesen Monat",
+      "LM": "Letzten Monat",
+      "TQ": "Dieses Quartal",
+      "LQ": "Letztes Quartal",
+      "TY": "Dieses Jahr",
+      "LY": "Letztes Jahr",
+      "*": "Alle Daten"
+    },
+    "TIME_SPAN": {
+      "PLURAL": {
+        "days": "Tage",
+        "weeks": "Wochen",
+        "months": "Monate",
+        "quarters": "Quartale",
+        "years": "Jahre"
+      },
+      "SINGULAR": {
+        "days": "Tag",
+        "weeks": "Woche",
+        "months": "Monat",
+        "quarters": "Quartal",
+        "years": "Jahr"
+      }
+    },
+    "OPERATION_TYPE": {
+      "DEFAULT": "Aktionstyp",
+      "CREDIT_CARD": "Kreditkarte",
+      "CHECK": "Geprüft",
+      "CASH": "Bargeld",
+      "TRANSFER": "Transfer",
+      "INTERNAL_TRANSFER": "Interner Transfer",
+      "PERMANENT_TRANSFER": "Permanenter Transfer",
+      "ELECTRONIC": "Elektonische Zahlung",
+      "DEPOSIT": "Einzahlung",
+      "BANK_CHARGE": "Auszahlung",
+      "DIRECT_LEVY": "Direkte Ausgabe"
+    },
+    "CURRENCIES": {
+      "DEFAULT": "Währung",
+      "POUND": "Pfund",
+      "OTHER": "Andere"
+    }
+  }
+}

@@ -39,6 +39,7 @@
             </div>
             <div class="control select is-primary">
               <select v-model="settings.language">
+                <option value="de">Deutsch</option>
                 <option value="en">English</option>
                 <option value="fr">Français</option>
                 <option value="pl">Polish</option>
