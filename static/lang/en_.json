@@ -167,7 +167,8 @@
       "PLACEHOLDERS": {
         "BENEFICIARY": "Beneficiary",
         "CATEGORY": "Category",
-        "LABEL": "Label"
+        "LABEL": "Label",
+        "RECURRING": "Recurring"
       }
     },
 
@@ -262,7 +263,8 @@
       "LQ": "Last quarter",
       "TY": "This year",
       "LY": "Last year",
-      "*": "All dates"
+      "*": "All dates",
+      "TIME": "Time"
     },
     "TIME_SPAN": {
       "PLURAL": {

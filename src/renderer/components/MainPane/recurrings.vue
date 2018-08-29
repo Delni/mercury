@@ -61,13 +61,13 @@
                 </a>
               </div>
               <div class="control flex">
-                <input class="input is-paddingless" type="text" name="" value="Répéter" readonly :disabled="!newRecurringOperation.hasRepeat">
+                <input class="input is-paddingless" type="text" name="" :value="'OPERATION_PANE.PLACEHOLDERS.RECURRING' | translate" readonly :disabled="!newRecurringOperation.hasRepeat">
               </div>
               <div class="control" style="width: 3vw">
                 <input class="input" type="number" min="1" value="2" :disabled="!newRecurringOperation.hasRepeat">
               </div>
               <div class="control flex">
-                <input class="input" type="text" value="time" style="padding-right: 0" readonly :disabled="!newRecurringOperation.hasRepeat">
+                <input class="input" type="text" :value="'TIME.TIME' | translate" style="padding-right: 0" readonly :disabled="!newRecurringOperation.hasRepeat">
               </div>
             </div>
 
@@ -105,7 +105,7 @@
             </div>
 
             <custom-field class="flex" :fa="newRecurringOperation.selectedAccount.currency">
-              <input class="input" type="number" placeholder="0.00" v-model="newRecurringOperation.amount">
+              <input class="input" type="number" :placeholder="0.00.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})" v-model="newRecurringOperation.amount">
             </custom-field>
 
           </div>

@@ -89,19 +89,19 @@
                   <p>
                     {{ 'ACCOUNTS_PANE.CARDS.BANK'   | translate }}
                     <span class="amount" :class="{ 'has-text-danger': account.inBank <= 0 }">
-                      {{account.inBank.toFixed(2)}} <icon size="is-small" :fa="account.currency"/>
+                      {{account.inBank.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}} <icon size="is-small" :fa="account.currency"/>
                     </span>
                   </p>
                   <p>
                     {{ 'ACCOUNTS_PANE.CARDS.TODAY'  | translate }}
                     <span class="amount" :class="{ 'has-text-danger': account.today <= 0 }">
-                      {{account.today.toFixed(2)}} <icon size="is-small" :fa="account.currency"/>
+                      {{account.today.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}} <icon size="is-small" :fa="account.currency"/>
                     </span>
                   </p>
                   <p>
                     {{ 'ACCOUNTS_PANE.CARDS.FUTURE' | translate }}
                     <span class="amount" :class="{ 'has-text-danger': account.future <= 0 }">
-                      {{account.future.toFixed(2)}} <icon size="is-small" :fa="account.currency"/>
+                      {{account.future.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}} <icon size="is-small" :fa="account.currency"/>
                     </span>
                   </p>
                 </small>

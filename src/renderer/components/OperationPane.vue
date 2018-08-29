@@ -17,7 +17,7 @@
         </custom-field>
 
         <custom-field class="flex" :fa="operationCurrency">
-          <input class="input" :class="{'is-danger': this.errors[1]}" type="number" placeholder="0.00" v-model="newOperation.amount" @keyup.enter="isEditing? confirmEdition():addOperation()">
+          <input class="input" :class="{'is-danger': this.errors[1]}" type="text" :placeholder="0.00.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})" pattern="-?[\d,.]*" v-model="newOperation.amount" @keyup.enter="isEditing? confirmEdition():addOperation()">
         </custom-field>
 
         <custom-field class="flex" fa="bank" type="select is-primary">
@@ -153,6 +153,8 @@ import moment from 'moment'
 import path from 'path'
 import Vue from 'vue'
 
+const decimalSeperator = 1.1.toLocaleString().substring(1, 2)
+
 export default {
   name: 'operation-pane',
   components: {
@@ -236,7 +238,7 @@ export default {
       //   console.log(moment(this.newOperation.date).invalidAt())
       //   this.errors[0] = true
       // }
-      if (!this.newOperation.amount) {
+      if (!this.newOperation.amount || !parseFloat(this.newOperation.amount)) {
         this.errors[1] = true
       }
       if (!this.newOperation.selectedAccount.name) {
@@ -251,13 +253,17 @@ export default {
         // Go to right tab
         this.$root.$emit('toggle-tab', 1)
         // Format data
+        const amount = decimalSeperator === ','
+          ? this.newOperation.amount.replace(',', '.')
+          : this.newOperation.amount
+
         let data = [
           this.newOperation.date,
           this.newOperation.state,
           this.newOperation.beneficiary,
           this.newOperation.category,
           this.newOperation.label,
-          this.newOperation.amount,
+          parseFloat(amount),
           this.newOperation.type
         ]
 

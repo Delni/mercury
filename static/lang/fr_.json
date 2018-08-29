@@ -167,7 +167,8 @@
       "PLACEHOLDERS": {
         "BENEFICIARY": "Bénéficiaire",
         "CATEGORY": "Catégorie",
-        "LABEL": "Note"
+        "LABEL": "Note",
+        "RECURRING": "Récurrentes"
       }
     },
 
@@ -262,7 +263,8 @@
       "LQ": "Le trimestre préc.",
       "TY": "Cette année",
       "LY": "L'année préc.",
-      "*": "Toutes les dates"
+      "*": "Toutes les dates",
+      "TIME": "Temps"
     },
     "TIME_SPAN": {
       "PLURAL": {
