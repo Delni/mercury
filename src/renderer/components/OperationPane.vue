@@ -3,8 +3,18 @@
     <article class="tile is-child notification is-black">
       <p class="title" id="op-title">{{isEditing ? "OPERATION_PANE.EDITING":"OPERATION_PANE.DEFAULT" | translate }}</p>
       <p class="subtitle level" v-if="isEditing">
-        <a class="level-left button is-danger is-small" @click="deleteOperation()"><icon fa="trash" /> <span>{{"DELETE" | translate}}</span></a>
-        <a class="level-right button is-link is-small" @click="inheritOperation()"><icon fa="link" /> <span>{{"OPERATION_PANE.INHERIT" | translate}}</span></a>
+        <a class="level-left button is-danger is-small" @click="deleteOperation()">
+          <span class="icon">
+            <font-awesome-icon icon="trash" />
+          </span>
+          <span>{{"DELETE" | translate}}</span>
+        </a>
+        <a class="level-right button is-link is-small" @click="inheritOperation()">
+          <span class="icon">
+            <font-awesome-icon icon="link" />
+          </span>
+          <span>{{"OPERATION_PANE.INHERIT" | translate}}</span>
+        </a>
       </p>
       <div class="content" id="op-content">
         <custom-field class="flex" fa="calendar">
@@ -20,7 +30,7 @@
           <input class="input" :class="{'is-danger': this.errors[1]}" type="number" placeholder="0.00" v-model="newOperation.amount" @keyup.enter="isEditing? confirmEdition():addOperation()">
         </custom-field>
 
-        <custom-field class="flex" fa="bank" type="select is-primary">
+        <custom-field class="flex" fa="university" type="select is-primary">
           <select id="op-account" name="op-account" v-model="newOperation.selectedAccount">
             <option v-for="account in accounts" :value="account">{{account.name}}</option>
           </select>
@@ -29,7 +39,7 @@
         <div class="field has-addons flex" data='op-add-btn'>
           <div class="control">
             <a class="button is-primary is-tag" id="op-type-btn">
-              <icon :fa="'fa-' + newOperation.type"/>
+              <font-awesome-icon :icon="newOperation.type"/>
             </a>
           </div>
           <div class="control select is-primary" style="margin:0; flex:1">
@@ -50,7 +60,7 @@
           </div>
         </div>
 
-        <custom-field class="flex" fa="building-o">
+        <custom-field class="flex" fa="building">
           <input
             v-model="newOperation.beneficiary"
             type="text"
@@ -78,7 +88,7 @@
             @blur="categoryInput = false"
             @keyup.down="newOperation.category = cfiltered[0]" />
           <transition-group name="collapse" tag="ul" class="Results" v-if="cfiltered">
-            <li v-for="item, key in cfiltered" :key="key">
+            <li v-for="(item, key) in cfiltered" :key="key">
                 <small>{{ item }}</small>
             </li>
           </transition-group>
@@ -95,7 +105,7 @@
             @blur="labelInput = false"
             @keyup.down="newOperation.label = lfiltered[0]" />
           <transition-group name="collapse" tag="ul" class="Results" v-if="lfiltered">
-            <li v-for="item, key in lfiltered" :key="key">
+            <li v-for="(item, key) in lfiltered" :key="key">
                 <small>{{ item }}</small>
             </li>
           </transition-group>
@@ -105,23 +115,23 @@
           <p class="control">{{"State" | translate }} :</p>
           <p class="control">
             <a class="button is-outlined is-primary is-small" @click="toggleState(newOperation.state)" v-model="newOperation.state" @keyup.enter="isEditing? confirmEdition():addOperation()">
-              <icon size="is-small" :fa="newOperation.state"/>
+              <font-awesome-icon size="sm" :icon="stateIcon"/>
             </a>
           </p>
           <div class="control field has-addons flex">
             <p class="control">
               <a  class="button is-outlined is-dark is-small" >
-                <icon size="is-small" fa="fa-circle-o"/>
+                <font-awesome-icon size="sm" :icon="['far', 'circle']"/>
               </a>
             </p>
             <p class="control">
               <a  class="button is-outlined is-dark is-small" >
-                <icon size="is-small" fa="fa-circle"/>
+                <font-awesome-icon size="sm" icon="circle"/>
               </a>
             </p>
             <p class="control">
               <a  class="button is-outlined is-dark is-small" >
-                <icon size="is-small" fa="fa-check-circle"/>
+                <font-awesome-icon size="sm" icon="check-circle"/>
               </a>
             </p>
             <small v-model="helper"></small>
@@ -130,12 +140,16 @@
 
         <div class="level">
             <a class="level-left button is-small is-info is-outlined" id="op-add-btn" @click="isEditing? confirmEdition():addOperation()">
-              <span id='op-confirm'>{{isEditing ? "OPERATION_PANE.EDIT":"OPERATION_PANE.ADD" | translate }}</span>
-              <icon size="is-small" fa="fa-check-square-o"/>
+              <span id='op-confirm'>{{isEditing ? "OPERATION_PANE.EDIT":"OPERATION_PANE.ADD" | translate }} </span>
+              <span class="icon">
+                <font-awesome-icon icon="check"/>
+              </span>
             </a>
             <a class="level-right button is-small is-danger is-outlined" @click="cancelOperation()">
-              <span>{{"CANCEL" | translate }}</span>
-              <icon size="is-small" fa="fa-times"/>
+              <span>{{"CANCEL" | translate }} </span>
+              <span class="icon">
+                <font-awesome-icon icon="times"/>
+              </span>
             </a>
         </div>
       </div>
@@ -144,7 +158,6 @@
 </template>
 
 <script>
-import icon from '@/components/common/icon'
 import customField from '@/components/common/customField'
 
 import {ipcRenderer} from 'electron'
@@ -152,11 +165,11 @@ import jsonfile from 'jsonfile'
 import moment from 'moment'
 import path from 'path'
 import Vue from 'vue'
+import { stateIcon, currencyIcon } from '../util/icons'
 
 export default {
   name: 'operation-pane',
   components: {
-    icon,
     customField
   },
   data: function () {
@@ -180,13 +193,15 @@ export default {
   computed: {
     operationCurrency: function () {
       if (this.newOperation.selectedAccount) {
-        return this.newOperation.selectedAccount.currency
+        return currencyIcon(this.newOperation.selectedAccount.currency)
       }
     },
     accounts: function () {
       return this.$root.accounts || null
     },
-
+    stateIcon () {
+      return stateIcon(this.newOperation.state)
+    },
     bfiltered: function () {
       if (this.beneficiaryInput && this.newOperation.beneficiary && this.newOperation.beneficiary.length >= 1) {
         return this.$root.settings.beneficiaries.filter(item => {

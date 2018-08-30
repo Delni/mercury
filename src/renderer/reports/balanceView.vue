@@ -1,9 +1,9 @@
 <template lang="html">
-  <report title="REPORTS.BALANCE.TITLE" color="danger" icon="fa-line-chart">
+  <report title="REPORTS.BALANCE.TITLE" color="danger" icon="line-chart">
     <p class="subtitle is-5">{{ 'REPORTS.COMMON.TIME_SPAN' | translate}}</p>
     <div class="field has-addons">
       <div class="control">
-        <a class="button is-primary is-tag"><icon fa="fa-calendar"/></a>
+        <a class="button is-primary is-tag"><font-awesome-icon icon="calendar"/></a>
       </div>
       <div class="control select is-primary">
         <select v-model="options.period" @change="throwPeriod()">
@@ -17,7 +17,7 @@
 
       <div class="control field has-addons column">
         <div class="control">
-          <a class="button is-primary is-tag"><icon fa="fa-calendar-minus-o"/></a>
+          <a class="button is-primary is-tag"><font-awesome-icon icon="calendar-minus"/></a>
         </div>
         <div class="control" style="width: 10vw">
           <input class="input"
@@ -31,7 +31,7 @@
       </div>
       <div class="control field has-addons column">
         <div class="control">
-          <a class="button is-primary is-tag"><icon fa="fa-calendar-plus-o"/></a>
+          <a class="button is-primary is-tag"><font-awesome-icon icon="calendar-plus"/></a>
         </div>
         <div class="control" style="width: 10vw">
           <input class="input"
@@ -49,7 +49,6 @@
 </template>
 
 <script>
-import icon from '@/components/common/icon'
 import report from '@/reports/components/report'
 
 import { ipcRenderer } from 'electron'
@@ -71,7 +70,7 @@ const colors = [ // eslint-disable-line
 ]
 
 export default {
-  components: { icon, report },
+  components: { report },
   data: function () {
     return {
       db: null,

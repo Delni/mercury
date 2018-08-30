@@ -1,21 +1,21 @@
 <template lang="html">
-  <report title="REPORTS.STATISTIC.TITLE" color="warning" icon="fa-pie-chart">
+  <report title="REPORTS.STATISTIC.TITLE" color="warning" icon="pie-chart">
       <div class="columns">
         <span class="column">
           {{ 'REPORTS.STATISTIC.DISPLAY' | translate}}
           <toggle-button
               :test="options.type === 'doughnut'"
               :callback="toggleType"
-              icon-left="pie-chart"
-              icon-right="bar-chart"/>
+              icon-left="chart-pie"
+              icon-right="chart-bar"/>
         </span>
         <span class="column">
           {{ 'REPORTS.STATISTIC.ORDER' | translate}}
           <toggle-button
               :test="options.order === 's'"
               :callback="toggleOrder"
-              icon-left="sort-numeric-asc"
-              icon-right="sort-alpha-asc"/>
+              icon-left="sort-numeric-up"
+              icon-right="sort-alpha-up"/>
         </span>
         <span class="column">
           {{ 'REPORTS.STATISTIC.LEGEND' | translate}}
@@ -31,7 +31,7 @@
       <span>{{'REPORTS.COMMON.TIME_SPAN' | translate}}:</span>
       <div class="field has-addons">
         <div class="control">
-          <a class="button is-primary is-tag"><icon fa="fa-calendar"/></a>
+          <a class="button is-primary is-tag"><font-awesome-icon icon="calendar"/></a>
         </div>
         <div class="control select is-primary">
           <select v-model="period" @change="throwPeriod()">
@@ -47,7 +47,6 @@
 </template>
 
 <script>
-import icon from '@/components/common/icon'
 import toggleButton from '@/reports/components/toggleButton'
 import report from '@/reports/components/report'
 
@@ -59,7 +58,7 @@ import path from 'path'
 import Vue from 'vue'
 
 export default {
-  components: { icon, toggleButton, report },
+  components: { toggleButton, report },
   data: function () {
     return {
       db: null,

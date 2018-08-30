@@ -4,13 +4,16 @@ import axios from 'axios'
 // CSS
 import 'bulma/css/bulma.css'
 import 'bulma-extensions/dist/bulma-extensions.min.css'
-import 'font-awesome/css/font-awesome.css'
+import '@fortawesome/fontawesome-free/css/solid.css'
+import '@fortawesome/fontawesome-free/css/regular.css'
+import '@fortawesome/fontawesome-free/css/fontawesome.css'
 // Components
 import StatisticView from '@/reports/statisticView.vue'
 // nodeModules
 import path from 'path'
 import i18njs from 'i18njs'
 import jsonfile from 'jsonfile'
+import './../icons'
 
 let globSettings = jsonfile.readFileSync(path.join(__static, 'settings.json'))
 
