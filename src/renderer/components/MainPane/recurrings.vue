@@ -105,7 +105,7 @@
             </div>
 
             <custom-field class="flex" :fa="newRecurringOperation.selectedAccount.currency">
-              <input class="input" type="number" :placeholder="0.00.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})" v-model="newRecurringOperation.amount">
+              <input class="input" type="number" :placeholder="'0.00' | format" v-model="newRecurringOperation.amount">
             </custom-field>
 
           </div>

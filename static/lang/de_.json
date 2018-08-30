@@ -64,7 +64,7 @@
     "MAIN_PANE": {
       "NO_DATA": {
         "TITLE": "Keine Daten !",
-        "SUBTITLE": "<span>Erstellen sie einen <span  class=\"has-text-primary link\" @click=\"showCreateModal\">Account</span> um zu starten oder<span class=\"has-text-info link\" @click=\"ipc.send('open-file')\">öffnen sie eine Datei</span></span>"
+        "SUBTITLE": "<span>Erstellen sie einen <span  class=\"has-text-primary link\" @click=\"showCreateModal\">Account</span> um zu starten oder <span class=\"has-text-info link\" @click=\"ipc.send('open-file')\">öffnen sie eine Datei</span></span>"
       },
 
       "TABS": {

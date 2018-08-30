@@ -153,7 +153,8 @@ export default {
         animation: {
           animateScale: true,
           animateRotate: true
-        }
+        },
+        tooltipTemplate: '<%if (label){%><%=label%>: <%}%>$<%= value %>'
       }
     }
 
