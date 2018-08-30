@@ -90,6 +90,8 @@
     "i18njs": "^2.1.7",
     "jsonfile": "^4.0.0",
     "moment": "^2.22.1",
+    "node-sass": "^4.9.3",
+    "sass-loader": "^7.1.0",
     "sql.js": "^0.4.0",
     "vue": "^2.3.3",
     "vue-chartjs": "^3.3.1",

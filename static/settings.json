@@ -1,14 +1,28 @@
 {
   "dateFormat": "DD/MM/YYYY",
   "defaultCurrency": "eur",
-  "language": "fr",
+  "language": "de",
   "defaultOffset": 15,
   "defaultTimeSpan": "day",
   "displayHelpers": false,
-  "theme": "light",
-  "beneficiaries": [],
-  "categories": [],
-  "labels": [],
-  "lastfile": "/Users/delni/Documents/myaccount.test.mcy",
+  "theme": "dark",
+  "beneficiaries": [
+    null,
+    null,
+    null,
+    null
+  ],
+  "categories": [
+    null,
+    null,
+    "Testing"
+  ],
+  "labels": [
+    null,
+    "Test",
+    null,
+    "Test 1"
+  ],
+  "lastfile": "G:\\Clouds\\Nextcloud (at) meikellp.de\\Privat\\finance.mcy",
   "useDatepicker": true
 }

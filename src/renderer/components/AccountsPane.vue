@@ -111,7 +111,7 @@
                   <p>
                     {{ 'ACCOUNTS_PANE.CARDS.FUTURE' | translate }}
                     <span class="amount" :class="{ 'has-text-danger': account.future <= 0 }">
-                      {{account.future.toFixed(2)}} <icon size="is-small" :fa="account.currency"/>
+                      {{account.future.toFixed(2)}}
                       <span class="icon">
                         <font-awesome-icon size="sm" :icon="currencyIcon(account.currency)"/>
                       </span>
