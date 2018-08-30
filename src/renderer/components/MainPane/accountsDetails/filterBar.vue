@@ -6,7 +6,7 @@
       </select>
     </custom-field>
 
-    <custom-field is-control="true" fa="calendar-o" type="select is-primary" style="width: 15vw">
+    <custom-field is-control="true" fa="calendar" type="select is-primary" style="width: 15vw">
       <select v-model="filters.date" @change="$root.$emit('update-filters')">
         <option v-for="time in timesSpan" :value="time.value">{{time.label | translate}}</option>
       </select>
@@ -24,16 +24,15 @@
     </custom-field>
 
     <p class="control">
-      <a class="button is-primary" @click="showAdvancedFilters()"><icon fa="filter" /></a>
+      <a class="button is-primary" @click="showAdvancedFilters()"><font-awesome-icon icon="filter" /></a>
     </p>
     <p class="control">
-      <a class="button is-primary" @click="resetFilters()"><icon fa="refresh" /></a>
+      <a class="button is-primary" @click="resetFilters()"><font-awesome-icon icon="sync" /></a>
     </p>
   </nav>
 </template>
 
 <script>
-import icon from '@/components/common/icon.vue'
 import customField from '@/components/common/customField.vue'
 
 import {ipcRenderer} from 'electron'
@@ -42,7 +41,6 @@ import Vue from 'vue'
 
 export default {
   components: {
-    icon,
     customField
   },
   data: function () {
@@ -58,9 +56,9 @@ export default {
       ],
       states: [
         {value: '*', label: 'MAIN_PANE.ACCOUNTS.ALL'},
-        {value: 'fa fa-circle-o', label: 'MAIN_PANE.ACCOUNTS.REGISTERED'},
-        {value: 'fa fa-circle', label: 'MAIN_PANE.ACCOUNTS.CHECKED'},
-        {value: 'fa fa-check-circle', label: 'MAIN_PANE.ACCOUNTS.VERIFIED'}
+        {value: 'far fa-circle', label: 'MAIN_PANE.ACCOUNTS.REGISTERED'},
+        {value: 'fas fa-circle', label: 'MAIN_PANE.ACCOUNTS.CHECKED'},
+        {value: 'fas fa-check-circle', label: 'MAIN_PANE.ACCOUNTS.VERIFIED'}
       ],
       amounts: [
         {value: '*', label: 'MAIN_PANE.ACCOUNTS.ANY'},

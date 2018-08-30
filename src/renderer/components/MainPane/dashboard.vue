@@ -21,7 +21,7 @@
             <li class="subtitle is-5" v-for="access in quickAccesses">
               <span>• {{'MAIN_PANE.DASHBOARD.ACCESSES.OPEN' + (access.plural ? '_PLURAL' : '') | translate}} </span>
               <span class="link ":class="'has-text-' + access.color" @click="send(access.ipcmsg)">{{ 'MAIN_PANE.DASHBOARD.ACCESSES.' + access.text | translate}} </span>
-              <icon :size="'has-text-' + access.color" :fa="access.icon"/>
+              <font-awesome-icon :class="'has-text-' + access.color" :icon="access.icon"/>
             </li>
           </ul>
         </div>
@@ -31,17 +31,12 @@
 </template>
 
 <script>
-import icon from '@/components/common/icon'
-
 import moment from 'moment'
 import {ipcRenderer} from 'electron'
 import Vue from 'vue'
 import chartJS from 'chart.js' // eslint-disable-line
 
 export default {
-  components: {
-    icon
-  },
   data: function () {
     return {
       quickAccesses: [
@@ -50,14 +45,14 @@ export default {
           color: 'info',
           ipcmsg: 'open-swin',
           text: 'SETTINGS',
-          icon: 'sliders'
+          icon: 'sliders-h'
         },
         {
           plural: false,
           color: 'primary',
           ipcmsg: 'open-chronowin',
           text: 'CHRONOCHART',
-          icon: 'area-chart'
+          icon: 'chart-area'
         },
         {
           plural: true,
@@ -71,14 +66,14 @@ export default {
           color: 'warning',
           ipcmsg: 'open-piewin',
           text: 'STATISTIC',
-          icon: 'pie-chart'
+          icon: 'chart-pie'
         },
         {
           plural: false,
           color: 'danger',
           ipcmsg: 'open-balancewin',
           text: 'BALANCE',
-          icon: 'line-chart'
+          icon: 'chart-line'
         },
         {
           plural: false,

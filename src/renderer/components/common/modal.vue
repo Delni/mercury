@@ -5,7 +5,7 @@
       <div class="notification is-dark ">
         <div class="media">
           <div class="media-left">
-            <icon size="is-large" :fa="'fa-' + icon + ' fa-2x'"/>
+            <font-awesome-icon size="lg" :icon="icon"/>
           </div>
           <div class="media-content">
             <slot></slot>
@@ -20,10 +20,7 @@
 </template>
 
 <script>
-import icon from '@/components/common/icon'
-
 export default {
-  components: {icon},
   props: ['icon', 'active', 'close', 'width']
 }
 </script>

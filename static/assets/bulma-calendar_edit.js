@@ -188,11 +188,11 @@ class datePicker {
           <div class="calendar-nav">
             <div class="calendar-nav-month">
               <button class="is-primary calendar-nav-previous-month button is-small is-text">
-                <i class="fa fa-chevron-left"></i>
+                <i class="fas fa-chevron-left"></i>
               </button>
               <div class="calendar-month">${datepicker_langs[this.options.lang].months[this.month]}</div>
               <button class="is-primary calendar-nav-next-month button is-small is-text">
-                <i class="fa fa-chevron-right"></i>
+                <i class="fas fa-chevron-right"></i>
               </button>
             </div>
             <div class="calendar-nav-day">
@@ -200,11 +200,11 @@ class datePicker {
             </div>
             <div class="calendar-nav-year">
               <button class="is-primary calendar-nav-previous-year button is-small is-text">
-                <i class="fa fa-chevron-left"></i>
+                <i class="fas fa-chevron-left"></i>
               </button>
               <div class="calendar-year">${this.year}</div>
               <button class="is-primary calendar-nav-next-year button is-small is-text">
-                <i class="fa fa-chevron-right"></i>
+                <i class="fas fa-chevron-right"></i>
               </button>
             </div>
           </div>

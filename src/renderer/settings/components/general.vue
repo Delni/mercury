@@ -34,7 +34,7 @@
           <div class="field has-addons is-marginless">
             <div class="control">
               <a class="button is-tag is-primary">
-                  <icon fa="language" />
+                  <font-awesome-icon icon="language" />
                 </a>
             </div>
             <div class="control select is-primary">
@@ -55,7 +55,7 @@
           <div class="field has-addons is-marginless">
             <div class="control">
               <a class="button is-tag is-primary">
-                  <icon :fa="settings.defaultCurrency" />
+                  <font-awesome-icon :icon="currencyIcon(settings.defaultCurrency)" />
                 </a>
             </div>
             <div class="control select is-primary">
@@ -100,12 +100,10 @@
 </template>
 
 <script>
-import icon from '@/components/common/icon.vue'
-
 import moment from 'moment'
+import { currencyIcon } from '../../util/icons'
 
 export default {
-  components: { icon },
   data: function () {
     return {
       settings: this.$root.settings
@@ -118,6 +116,11 @@ export default {
   },
   created: function () {
     moment.locale(this.settings.language)
+  },
+  methods: {
+    currencyIcon (currency) {
+      return currencyIcon(currency)
+    }
   }
 }
 </script>

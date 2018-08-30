@@ -5,35 +5,39 @@
         <p class="title">
           {{'ACCOUNTS_PANE.DEFAULT'| translate}}
           <transition name="slide-fade">
-            <icon fa="exclamation-circle" class="is-size-4 has-text-warning" v-if="unsaved"/>
+            <font-awesome-icon icon="exclamation-circle" size="lg" class="has-text-warning" v-if="unsaved"/>
           </transition>
         </p>
         <p class="control">
           <a class="button is-primary is-small is-outlined" @click="showCreateModal()">
             <span class="icon is-small">
-              <i class="fa fa-plus-square"></i>
+              <i class="fas fa-plus-square"></i>
             </span>
             <span>{{'ACCOUNTS_PANE.ADD' | translate }}</span>
           </a>
         </p>
         <!-- createAccount modal -->
-        <modal :active="createModalShown" icon="bank" :close="closeModal">
+        <modal :active="createModalShown" icon="university" :close="closeModal">
           <p class="title">{{'ACCOUNTS_PANE.MODAL.TITLE' | translate }}</p>
           <form>
-            <div class="field">
-              <p class="control has-icons-left">
+            <div class="field has-addons">
+              <p class="control">
+                <a class="button is-tag is-primary">
+                  <font-awesome-icon size="sm" icon="tag"/>
+                </a>
+              </p>
+              <p class="control is-expanded">
                 <input class="input" type="text" :class="{'is-danger': errorName}"
-                  :placeholder="'ACCOUNTS_PANE.MODAL.PLACEHOLDER' | translate"
-                  v-model="newAccount.name"
-                  autofocus>
-                <icon size="is-small is-left" fa="tag"/>
+                       :placeholder="'ACCOUNTS_PANE.MODAL.PLACEHOLDER' | translate"
+                       v-model="newAccount.name"
+                       autofocus>
               </p>
             </div>
             <div class="columns">
               <div class="column is-4 field has-addons">
                 <div class="control">
                   <a class="button is-tag is-primary">
-                    <icon :fa="newCurSymbol"/>
+                    <font-awesome-icon :icon="currencyIcon(this.newAccount.currency)"/>
                   </a>
                 </div>
                 <div class="control select">
@@ -61,10 +65,10 @@
               </div>
             </div>
             <div class="field">
-              <p class="control pull-left">
+              <p class="control is-pulled-left">
                 <a class="button is-info is-outlined" :class="{'loading': loading}" @click="createNewAccount()">{{'CREATE' | translate }}</a>
               </p>
-              <p class="control pull-right">
+              <p class="control is-pulled-right">
                 <a class="button is-danger is-outlined" :class="{'loading': loading}" @click="closeModal()">{{"CANCEL" | translate }}</a>
               </p>
             </div>
@@ -76,7 +80,7 @@
                    v-model="accounts" v-for="account in accounts" :key="account.name">
             <div class="card-header">
               <div class="card-header-icon">
-                <icon fa="bank"/>
+                <font-awesome-icon icon="university"/>
               </div>
               <div class="card-header-title" style="flex: 1">
                 {{account.name}}
@@ -89,19 +93,28 @@
                   <p>
                     {{ 'ACCOUNTS_PANE.CARDS.BANK'   | translate }}
                     <span class="amount" :class="{ 'has-text-danger': account.inBank <= 0 }">
-                      {{account.inBank.toFixed(2)}} <icon size="is-small" :fa="account.currency"/>
+                      {{account.inBank.toFixed(2)}}
+                      <span class="icon">
+                        <font-awesome-icon size="sm" :icon="currencyIcon(account.currency)"/>
+                      </span>
                     </span>
                   </p>
                   <p>
                     {{ 'ACCOUNTS_PANE.CARDS.TODAY'  | translate }}
                     <span class="amount" :class="{ 'has-text-danger': account.today <= 0 }">
-                      {{account.today.toFixed(2)}} <icon size="is-small" :fa="account.currency"/>
+                      {{account.today.toFixed(2)}}
+                      <span class="icon">
+                        <font-awesome-icon size="sm" :icon="currencyIcon(account.currency)"/>
+                      </span>
                     </span>
                   </p>
                   <p>
                     {{ 'ACCOUNTS_PANE.CARDS.FUTURE' | translate }}
                     <span class="amount" :class="{ 'has-text-danger': account.future <= 0 }">
                       {{account.future.toFixed(2)}} <icon size="is-small" :fa="account.currency"/>
+                      <span class="icon">
+                        <font-awesome-icon size="sm" :icon="currencyIcon(account.currency)"/>
+                      </span>
                     </span>
                   </p>
                 </small>
@@ -116,7 +129,6 @@
 </template>
 
 <script>
-import icon from '@/components/common/icon'
 import modal from '@/components/common/modal'
 
 import Database from '@/assets/Database.class'
@@ -124,11 +136,11 @@ import {ipcRenderer, remote} from 'electron'
 import jsonfile from 'jsonfile'
 import path from 'path'
 import Vue from 'vue'
+import { currencyIcon } from '../util/icons'
 
 export default {
   name: 'accounts-pane',
   components: {
-    icon,
     modal
   },
   data: function () {
@@ -142,11 +154,6 @@ export default {
       newAccount: {
         currency: this.$root.settings.defaultCurrency
       }
-    }
-  },
-  computed: {
-    newCurSymbol: function () {
-      return this.newAccount.currency ? this.newAccount.currency : 'money'
     }
   },
   methods: {
@@ -172,7 +179,9 @@ export default {
         this.errorName = (e.toString().indexOf('Accounts.name') !== -1)
       }
     },
-
+    currencyIcon (currency) {
+      return currencyIcon(currency)
+    },
     deleteAccount: function (account) {
       const options = {
         type: 'warning',

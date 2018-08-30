@@ -4,11 +4,13 @@
         <div class="hero-head">
           <p class="title">
             <span style="margin-left:2%; -webkit-app-region: drag">
-              <icon :size="'is-large has-text-' + color" :fa="icon" />
+              <span class="icon">
+                <font-awesome-icon :class="'has-text-' + color" size="lg" :icon="icon" />
+              </span>
               <span>{{title | translate}}</span>
             </span>
-            <a onclick="window.close()" class="button is-outlined is-danger pull-right">
-              <icon fa="fa-times"/>
+            <a onclick="window.close()" class="button is-outlined is-danger is-pulled-right">
+              <font-awesome-icon icon="times"/>
             </a>
           </p>
         </div>
@@ -30,9 +32,7 @@
 </template>
 
 <script>
-import icon from '@/components/common/icon.vue'
 export default {
-  components: { icon },
   props: ['title', 'color', 'icon']
 }
 </script>

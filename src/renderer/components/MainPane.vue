@@ -4,9 +4,30 @@
       <section class="tile is-child hero notification is-paddingless is-dark is-bottomless">
         <div class="tabs is-boxed is-small is-fullwidth is-bottomless">
           <ul>
-            <li class="tab" :class="{'is-active': activeTab === 'dashboard'}"><a @click="tabToggle('dashboard')"><icon size="is-small" fa="dashboard" /> {{'MAIN_PANE.TABS.DASHBOARD' | translate }}</a></li>
-            <li class="tab" :class="{'is-active': activeTab === 'accounts-detail'}"><a @click="tabToggle('accounts-detail')"><icon size="is-small" fa="th-list" /> {{'MAIN_PANE.TABS.ACCOUNTS' | translate }}</a></li>
-            <li class="tab" :class="{'is-active': activeTab === 'recurrings'}"><a @click="tabToggle('recurrings')"><icon size="is-small" fa="recycle" /> {{'MAIN_PANE.TABS.RECURRINGS' | translate }}</a></li>
+            <li class="tab" :class="{'is-active': activeTab === 'dashboard'}">
+              <a @click="tabToggle('dashboard')">
+                <span class="icon">
+                  <font-awesome-icon size="sm" icon="tachometer-alt" />
+                </span>
+                {{'MAIN_PANE.TABS.DASHBOARD' | translate }}
+              </a>
+            </li>
+            <li class="tab" :class="{'is-active': activeTab === 'accounts-detail'}">
+              <a @click="tabToggle('accounts-detail')">
+                <span class="icon">
+                  <font-awesome-icon size="sm" icon="th-list" />
+                </span>
+                {{'MAIN_PANE.TABS.ACCOUNTS' | translate }}
+              </a>
+            </li>
+            <li class="tab" :class="{'is-active': activeTab === 'recurrings'}">
+              <a @click="tabToggle('recurrings')">
+                <span class="icon">
+                  <font-awesome-icon size="sm" icon="recycle" />
+                </span>
+                {{'MAIN_PANE.TABS.RECURRINGS' | translate }}
+              </a>
+            </li>
           </ul>
         </div>
         <div class="tile data" id="dashboard">
@@ -38,7 +59,6 @@
 
 <script>
 // Components
-import icon from '@/components/common/icon'
 import dashboard from '@/components/MainPane/dashboard'
 import accountsDetail from '@/components/MainPane/accountsDetail'
 import recurrings from '@/components/MainPane/recurrings'
@@ -52,7 +72,6 @@ import chartJS from 'chart.js' // eslint-disable-line
 export default {
   name: 'main-pane',
   components: {
-    icon,
     dashboard,
     accountsDetail,
     recurrings

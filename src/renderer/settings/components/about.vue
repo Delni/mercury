@@ -6,7 +6,10 @@
       <img :src="iconUrl">
       <p class="subtitle is-marginless" >{{'SETTINGS.TABS.ABOUT.VERSION' | translate}}
         <code>{{appVersion}}</code>
-        <a @click="checkForUpdates()" class="button is-small is-primary is-outlined"><icon v-if="!loading" :fa="upToDate" /><icon v-else fa="fa-refresh fa-spin" /></a>
+        <a @click="checkForUpdates()" class="button is-small is-primary is-outlined">
+          <font-awesome-icon :icon="upToDate" v-if="!loading" />
+          <font-awesome-icon icon="sync" spin v-else />
+        </a>
       </p>
       <p v-if="update"><a class="link has-text-warning" target="_blank" @click="openExternal(update)">{{'SETTINGS.TABS.ABOUT.DOWNLOAD' | translate}}</a></p>
     </div>
@@ -21,17 +24,15 @@
 </template>
 
 <script>
-import icon from '@/components/common/icon'
 import Vue from 'vue'
 import {shell, ipcRenderer} from 'electron'
 
 export default {
-  components: {icon},
   data: function () {
     return {
       loading: false,
       update: null,
-      upToDate: 'refresh',
+      upToDate: 'sync',
       iconUrl: 'static/assets/256x256.png',
       electronVueUrl: 'static/assets/evue.png',
       appVersion: require('electron').remote.app.getVersion()
