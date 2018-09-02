@@ -17,7 +17,7 @@
         </custom-field>
 
         <custom-field class="flex" :fa="operationCurrency">
-          <input class="input" :class="{'is-danger': this.errors[1]}" type="number" placeholder="0.00" v-model="newOperation.amount" @keyup.enter="isEditing? confirmEdition():addOperation()">
+          <input class="input" :class="{'is-danger': this.errors[1]}" type="text" :placeholder="'0.00' | format" pattern="-?[\d,.]*" v-model="newOperation.amount" @keyup.enter="isEditing? confirmEdition():addOperation()">
         </custom-field>
 
         <custom-field class="flex" fa="bank" type="select is-primary">
@@ -152,6 +152,7 @@ import jsonfile from 'jsonfile'
 import moment from 'moment'
 import path from 'path'
 import Vue from 'vue'
+import { parseLocalizedString } from '../filters'
 
 export default {
   name: 'operation-pane',
@@ -234,7 +235,7 @@ export default {
       //   console.log(moment(this.newOperation.date).invalidAt())
       //   this.errors[0] = true
       // }
-      if (!this.newOperation.amount) {
+      if (!this.newOperation.amount || !parseFloat(this.newOperation.amount)) {
         this.errors[1] = true
       }
       if (!this.newOperation.selectedAccount.name) {
@@ -248,14 +249,14 @@ export default {
       if (this.isValid()) {
         // Go to right tab
         this.$root.$emit('toggle-tab', 1)
-        // Format data
+
         let data = [
           this.newOperation.date,
           this.newOperation.state,
           this.newOperation.beneficiary,
           this.newOperation.category,
           this.newOperation.label,
-          this.newOperation.amount,
+          parseLocalizedString(this.newOperation.amount),
           this.newOperation.type
         ]
 

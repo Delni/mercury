@@ -14,3 +14,4 @@ thumbs.db
 package-lock\.json
 *.log
 yarn\.lock
+.idea/

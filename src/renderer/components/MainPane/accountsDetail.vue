@@ -6,9 +6,9 @@
     <div class="columns is-centered">
       <div class="notification is-black column is-4">
         <div class="columns is-centered">
-          <span class="column is-5 is-size-5 has-text-centered has-text-danger">{{balanceDown.toFixed(2)}}</span>
+          <span class="column is-5 is-size-5 has-text-centered has-text-danger">{{balanceDown | format}}</span>
           <span class="column is-2 is-size-5 has-text-centered"><icon fa="balance-scale"/></span>
-          <span class="column is-5 is-size-5 has-text-centered has-text-success">{{balanceUp.toFixed(2)}}</span>
+          <span class="column is-5 is-size-5 has-text-centered has-text-success">{{balanceUp | format}}</span>
         </div>
       </div>
     </div>
@@ -70,7 +70,7 @@
               <td>{{row.category}}</td>
               <td><div class="is-not-too-large">{{row.label}}</div></td>
               <td class="has-text-centered" :class="{'has-text-danger': !isFuture(row)}">{{row.amount < 0 ? row.amount: ''}}</td>
-              <td class="has-text-centered" :class="{'has-text-success': !row.isClicked && !isFuture(row)}">{{row.amount >= 0 ? row.amount: ''}}</td>
+              <td class="has-text-centered" :class="{'has-text-success': !row.isClicked && !isFuture(row)}">{{row.amount >= 0 ? row.amount.toLocaleString(): ''}}</td>
             </tr>
           </transition-group>
       </table>

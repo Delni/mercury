@@ -64,7 +64,7 @@
     "MAIN_PANE": {
       "NO_DATA": {
         "TITLE": "Keine Daten !",
-        "SUBTITLE": "<span>Erstellen sie einen <span  class=\"has-text-primary link\" @click=\"showCreateModal\">Account</span> um zu starten oder<span class=\"has-text-info link\" @click=\"ipc.send('open-file')\">öffnen sie eine Datei</span></span>"
+        "SUBTITLE": "<span>Erstellen sie einen <span  class=\"has-text-primary link\" @click=\"showCreateModal\">Account</span> um zu starten oder <span class=\"has-text-info link\" @click=\"ipc.send('open-file')\">öffnen sie eine Datei</span></span>"
       },
 
       "TABS": {
@@ -93,7 +93,7 @@
         "REGISTERED": "Regist.",
         "CHECKED": "Geprüft",
         "VERIFIED": "Bestätigt",
-        "ANY": "Irgend",
+        "ANY": "Alle",
         "INCOME": "Einkommen",
         "DEBIT": "Lastschrift",
         "FILTERS": {
@@ -111,7 +111,7 @@
             "CATEGORY": "Kategorie",
             "LABEL": "Bezeichnung",
             "DEBIT": "Ausgabe",
-            "COLLECTION": "Einname"
+            "COLLECTION": "Einnahme"
           }
         }
       },
@@ -167,7 +167,8 @@
       "PLACEHOLDERS": {
         "BENEFICIARY": "Empfänger",
         "CATEGORY": "Kategorie",
-        "LABEL": "Bezeichnung"
+        "LABEL": "Bezeichnung",
+        "RECURRING": "Wiederkehrende"
       }
     },
 
@@ -262,7 +263,8 @@
       "LQ": "Letztes Quartal",
       "TY": "Dieses Jahr",
       "LY": "Letztes Jahr",
-      "*": "Alle Daten"
+      "*": "Alle Daten",
+      "TIME": "Zeit"
     },
     "TIME_SPAN": {
       "PLURAL": {

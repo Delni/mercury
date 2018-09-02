@@ -56,7 +56,7 @@
                   <p class="button is-tag is-primary">{{'ACCOUNTS_PANE.MODAL.CURRENT_AMOUNT' | translate }}</p>
                 </div>
                 <p class="control">
-                  <input class="input" type="number" placeholder="0.00" v-model="newAccount.amount">
+                  <input class="input" type="number" :placeholder="'0.00' | format" v-model="newAccount.amount">
                 </p>
               </div>
             </div>
@@ -89,19 +89,19 @@
                   <p>
                     {{ 'ACCOUNTS_PANE.CARDS.BANK'   | translate }}
                     <span class="amount" :class="{ 'has-text-danger': account.inBank <= 0 }">
-                      {{account.inBank.toFixed(2)}} <icon size="is-small" :fa="account.currency"/>
+                      {{account.inBank | format}} <icon size="is-small" :fa="account.currency"/>
                     </span>
                   </p>
                   <p>
                     {{ 'ACCOUNTS_PANE.CARDS.TODAY'  | translate }}
                     <span class="amount" :class="{ 'has-text-danger': account.today <= 0 }">
-                      {{account.today.toFixed(2)}} <icon size="is-small" :fa="account.currency"/>
+                      {{account.today | format}} <icon size="is-small" :fa="account.currency"/>
                     </span>
                   </p>
                   <p>
                     {{ 'ACCOUNTS_PANE.CARDS.FUTURE' | translate }}
                     <span class="amount" :class="{ 'has-text-danger': account.future <= 0 }">
-                      {{account.future.toFixed(2)}} <icon size="is-small" :fa="account.currency"/>
+                      {{account.future | format}} <icon size="is-small" :fa="account.currency"/>
                     </span>
                   </p>
                 </small>

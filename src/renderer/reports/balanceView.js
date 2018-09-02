@@ -9,23 +9,10 @@ import 'font-awesome/css/font-awesome.css'
 import BalanceView from '@/reports/balanceView.vue'
 // nodeModules
 import path from 'path'
-import i18njs from 'i18njs'
 import jsonfile from 'jsonfile'
+import './../filters'
 
 let globSettings = jsonfile.readFileSync(path.join(__static, 'settings.json'))
-
-const lang = jsonfile.readFileSync(`${__static}/lang/${globSettings.language}_.json`)
-i18njs.add(globSettings.language, '', lang)
-i18njs.setLang(globSettings.language)
-
-Vue.filter('translate', (value, option) => {
-  if (!value) return ''
-  value = value.toString()
-  if (i18njs.has('.RENDERER.' + value)) return i18njs.get('.RENDERER.' + value, option)
-  if (i18njs.has('.COMMON.' + value)) return i18njs.get('.COMMON.' + value, option)
-  return i18njs.get(value, option)
-})
-
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = axios
 
