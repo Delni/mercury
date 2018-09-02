@@ -198,16 +198,12 @@ export default {
         return currencyIcon(this.newOperation.selectedAccount.currency)
       }
     },
-<<<<<<< HEAD
     accounts: function () {
       return this.$root.accounts || null
     },
     stateIcon () {
       return stateIcon(this.newOperation.state)
     },
-=======
-
->>>>>>> origin/develop
     bfiltered: function () {
       if (this.beneficiaryInput && this.newOperation.beneficiary && this.newOperation.beneficiary.length >= 1) {
         return this.$root.settings.beneficiaries.filter(item => {
