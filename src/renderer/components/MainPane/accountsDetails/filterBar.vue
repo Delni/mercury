@@ -1,24 +1,24 @@
 <template lang="html">
   <nav class="field is-grouped">
-    <custom-field is-control="true" fa="university" type="select is-primary">
-      <select v-model="filters.account" @change="$root.$emit('update-filters')">
+    <custom-field is-control="true" fa="university" type="select is-primary" >
+      <select v-model="filters.account" @change="$root.$emit('update-filters')" style="width: 12vw">
         <option v-for="account in accounts" :value="account">{{account.name}}</option>
       </select>
     </custom-field>
 
-    <custom-field is-control="true" fa="calendar-o" type="select is-primary" style="width: 15vw">
-      <select v-model="filters.date" @change="$root.$emit('update-filters')">
+    <custom-field is-control="true" fa="calendar-o" type="select is-primary" >
+      <select v-model="filters.date" @change="$root.$emit('update-filters')" style="width: 12vw">
         <option v-for="time in timesSpan" :value="time.value">{{time.label | translate}}</option>
       </select>
     </custom-field>
 
-    <custom-field is-control="true" fa="adjust" type="select is-primary">
-      <select v-model="filters.state" @change="$root.$emit('update-filters')">
+    <custom-field is-control="true" fa="adjust" type="select is-primary" >
+      <select v-model="filters.state" @change="$root.$emit('update-filters')" style="width: 8vw">
         <option v-for="state in states" :value="state.value">{{state.label | translate}}</option>
       </select>
     </custom-field>
-    <custom-field is-control="true" fa="balance-scale" type="select is-primary">
-      <select v-model="filters.amount" @change="$root.$emit('update-filters')">
+    <custom-field is-control="true" fa="balance-scale" type="select is-primary" >
+      <select v-model="filters.amount" @change="$root.$emit('update-filters')" style="width: 8vw">
         <option v-for="amount in amounts" :value="amount.value">{{amount.label | translate}}</option>
       </select>
     </custom-field>
@@ -86,7 +86,7 @@ export default {
     },
     resetFilters: function () {
       this.filters = {
-        account: this.$root.accounts[0],
+        account: this.accounts[0],
         date: moment().subtract(30, 'days').format('YYYY-MM-DD'),
         state: '*',
         amount: '*'
