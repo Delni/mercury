@@ -36,7 +36,7 @@
               <!-- NO DATA -->
               <div class="container has-text-centered" v-show="!$root.accounts.length" style="width: 64vw; padding-top:25%">
                 <p class="title">{{ 'MAIN_PANE.NO_DATA.TITLE' | translate}}</p>
-                <p class="subtitle">Create an <span  class="has-text-primary link" @click="showCreateModal()">account</span> to start or <span class="has-text-info link" @click="openfile()">open a file</span> 🙂</p>
+                <p class="subtitle" v-html="doTranslate('MAIN_PANE.NO_DATA.SUBTITLE')"></p>
               </div>
 
               <div class="container" id="mainScreen" v-show="$root.accounts.length">
@@ -68,6 +68,7 @@ import moment from 'moment'
 import {ipcRenderer} from 'electron'
 import ChronoChart from '@/assets/ChronoChart.class'
 import chartJS from 'chart.js' // eslint-disable-line
+import { translate } from '../filters'
 
 export default {
   name: 'main-pane',
@@ -88,7 +89,9 @@ export default {
       this.$root.updateSQL(tab)
       this.activeTab = tab
     },
-
+    doTranslate (value, option) {
+      return translate(value, option)
+    },
     openfile: function () {
       ipcRenderer.send('open-file')
     },

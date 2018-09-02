@@ -27,7 +27,7 @@
         </custom-field>
 
         <custom-field class="flex" :fa="operationCurrency">
-          <input class="input" :class="{'is-danger': this.errors[1]}" type="number" placeholder="0.00" v-model="newOperation.amount" @keyup.enter="isEditing? confirmEdition():addOperation()">
+          <input class="input" :class="{'is-danger': this.errors[1]}" type="text" :placeholder="'0.00' | format" pattern="-?[\d,.]*" v-model="newOperation.amount" @keyup.enter="isEditing? confirmEdition():addOperation()">
         </custom-field>
 
         <custom-field class="flex" fa="university" type="select is-primary">
@@ -166,6 +166,7 @@ import moment from 'moment'
 import path from 'path'
 import Vue from 'vue'
 import { stateIcon, currencyIcon } from '../util/icons'
+import { parseLocalizedString } from '../filters'
 
 export default {
   name: 'operation-pane',
@@ -178,14 +179,15 @@ export default {
       categoryInput: false,
       labelInput: false,
       isEditing: false,
-      states: ['fa-circle-o', 'fa-circle', 'fa-check-circle'],
+      states: ['fa fa-circle-o', 'fa fa-circle', 'fa fa-check-circle'],
       helper: '-',
       settings: this.$root.settings,
+      accounts: this.$root.accounts,
       newOperation: {
         date: moment().format(this.$root.settings.dateFormat),
         selectedAccount: this.$root.accounts[0] || {currency: this.$root.settings.defaultCurrency},
         type: 'credit-card',
-        state: 'fa-circle-o'
+        state: 'fa fa-circle-o'
       },
       errors: [false, false, false]
     }
@@ -196,12 +198,16 @@ export default {
         return currencyIcon(this.newOperation.selectedAccount.currency)
       }
     },
+<<<<<<< HEAD
     accounts: function () {
       return this.$root.accounts || null
     },
     stateIcon () {
       return stateIcon(this.newOperation.state)
     },
+=======
+
+>>>>>>> origin/develop
     bfiltered: function () {
       if (this.beneficiaryInput && this.newOperation.beneficiary && this.newOperation.beneficiary.length >= 1) {
         return this.$root.settings.beneficiaries.filter(item => {
@@ -251,7 +257,7 @@ export default {
       //   console.log(moment(this.newOperation.date).invalidAt())
       //   this.errors[0] = true
       // }
-      if (!this.newOperation.amount) {
+      if (!this.newOperation.amount || !parseFloat(this.newOperation.amount)) {
         this.errors[1] = true
       }
       if (!this.newOperation.selectedAccount.name) {
@@ -265,14 +271,14 @@ export default {
       if (this.isValid()) {
         // Go to right tab
         this.$root.$emit('toggle-tab', 1)
-        // Format data
+
         let data = [
           this.newOperation.date,
           this.newOperation.state,
           this.newOperation.beneficiary,
           this.newOperation.category,
           this.newOperation.label,
-          this.newOperation.amount,
+          parseLocalizedString(this.newOperation.amount),
           this.newOperation.type
         ]
 
@@ -339,12 +345,11 @@ export default {
 
     cleanOperation: function () {
       this.isEditing = false
-      let previousAccount = this.newOperation.selectedAccount
       this.newOperation = {
         date: moment().format(this.$root.settings.dateFormat),
-        selectedAccount: previousAccount,
+        selectedAccount: this.accounts[0],
         type: 'credit-card',
-        state: 'fa-circle-o'
+        state: 'fa fa-circle-o'
       }
     },
 
