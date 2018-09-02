@@ -69,8 +69,8 @@
               <td><div class="is-not-too-large">{{row.beneficiary}}</div></td>
               <td>{{row.category}}</td>
               <td><div class="is-not-too-large">{{row.label}}</div></td>
-              <td class="has-text-centered" :class="{'has-text-danger': !isFuture(row)}">{{row.amount < 0 ? row.amount: ''}}</td>
-              <td class="has-text-centered" :class="{'has-text-success': !row.isClicked && !isFuture(row)}">{{row.amount >= 0 ? row.amount.toLocaleString(): ''}}</td>
+              <td class="has-text-centered" :class="{'has-text-danger': !isFuture(row)}">{{row.amount < 0 ? row.amount.toLocaleString($root.settings.language): ''}}</td>
+              <td class="has-text-centered" :class="{'has-text-success': !row.isClicked && !isFuture(row)}">{{row.amount >= 0 ? row.amount.toLocaleString($root.settings.language): ''}}</td>
             </tr>
           </transition-group>
       </table>
