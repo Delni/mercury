@@ -166,14 +166,15 @@ export default {
       categoryInput: false,
       labelInput: false,
       isEditing: false,
-      states: ['fa-circle-o', 'fa-circle', 'fa-check-circle'],
+      states: ['fa fa-circle-o', 'fa fa-circle', 'fa fa-check-circle'],
       helper: '-',
       settings: this.$root.settings,
+      accounts: this.$root.accounts,
       newOperation: {
         date: moment().format(this.$root.settings.dateFormat),
         selectedAccount: this.$root.accounts[0] || {currency: this.$root.settings.defaultCurrency},
         type: 'credit-card',
-        state: 'fa-circle-o'
+        state: 'fa fa-circle-o'
       },
       errors: [false, false, false]
     }
@@ -183,9 +184,6 @@ export default {
       if (this.newOperation.selectedAccount) {
         return this.newOperation.selectedAccount.currency
       }
-    },
-    accounts: function () {
-      return this.$root.accounts || null
     },
 
     bfiltered: function () {
@@ -325,12 +323,11 @@ export default {
 
     cleanOperation: function () {
       this.isEditing = false
-      let previousAccount = this.newOperation.selectedAccount
       this.newOperation = {
         date: moment().format(this.$root.settings.dateFormat),
-        selectedAccount: previousAccount,
+        selectedAccount: this.accounts[0],
         type: 'credit-card',
-        state: 'fa-circle-o'
+        state: 'fa fa-circle-o'
       }
     },
 

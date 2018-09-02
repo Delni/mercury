@@ -4,8 +4,8 @@ import Vue from 'vue'
 import moment from 'moment'
 import path from 'path'
 
-const decimalSeperator = 1.1.toLocaleString().substring(1, 2)
 let globSettings = jsonfile.readFileSync(path.join(__static, 'settings.json'))
+const decimalSeperator = 1.1.toLocaleString(globSettings.language).substring(1, 2)
 const lang = jsonfile.readFileSync(`${__static}/lang/${globSettings.language}_.json`)
 i18njs.add(globSettings.language, '', lang)
 i18njs.setLang(globSettings.language)
