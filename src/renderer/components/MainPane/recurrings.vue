@@ -33,7 +33,7 @@
     </nav>
     <!-- <recurring-modal /> -->
     <modal :active="recModalActive"
-           :icon="modalConfig.icon + ' has-text-'+ modalConfig.color"
+           :icon="modalConfig.icon"
            :close="closeRecModal" width="60vw">
       <div v-if="modalConfig.translate !== 'LAUNCH'">
         <p class="title">{{'MAIN_PANE.RECURRINGS.MODAL.TITLE.'+modalConfig.translate| translate}}</p>

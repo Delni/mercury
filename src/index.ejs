@@ -16,20 +16,6 @@
     <!-- Set `__static` path to static files in production -->
     <script>
       if (process.env.NODE_ENV !== 'development') window.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
-      const myCSS = document.createElement("link")
-      myCSS.setAttribute("rel","stylesheet")
-      myCSS.setAttribute("href",window.__static + "/assets/css/master.css");
-      document.head.appendChild(myCSS)
-
-      const darkTheme = document.createElement("link")
-      darkTheme.setAttribute("rel","stylesheet")
-      darkTheme.setAttribute("href",window.__static + "/assets/css/dark.css");
-      document.head.appendChild(darkTheme)
-
-      const lightTheme = document.createElement("link")
-      lightTheme.setAttribute("rel","stylesheet")
-      lightTheme.setAttribute("href",window.__static + "/assets/css/light.css");
-      document.head.appendChild(lightTheme)
     </script>
 
     <!-- webpack builds are automatically injected -->

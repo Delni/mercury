@@ -7,6 +7,7 @@ import 'bulma-extensions/dist/bulma-extensions.min.css'
 import '@fortawesome/fontawesome-free/css/solid.css'
 import '@fortawesome/fontawesome-free/css/regular.css'
 import '@fortawesome/fontawesome-free/css/fontawesome.css'
+import './assets/sass/master.sass'
 // Components
 import App from '@/App'
 // nodeModules

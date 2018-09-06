@@ -264,11 +264,3 @@ export default {
   }
 }
 </script>
-
-<style lang="css">
-/* CSS */
-/* Work only in dev. */
-@import url('~@/assets/css/master.css');
-@import url('~@/assets/css/light.css');
-@import url('~@/assets/css/dark.css');
-</style>
