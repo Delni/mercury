@@ -37,21 +37,15 @@
               <div class="column is-4 field has-addons">
                 <div class="control">
                   <a class="button is-tag is-primary">
-                    <font-awesome-icon :icon="currencyIcon(this.newAccount.currency)"/>
+                    <font-awesome-icon :icon="currencyIcon(this.newAccount.currency)" fixed-width />
                   </a>
                 </div>
                 <div class="control select">
                   <select id="select-cur" name="a-cur" v-model="newAccount.currency">
                     <option value="" disabled selected>{{'CURRENCIES.DEFAULT' | translate}}</option>
-                    <option value="btc">Bitcoin</option>
-                    <option value="usd">Dollar</option>
-                    <option value="eur">Euro</option>
-                    <option value="try">Lira</option>
-                    <option value="gbp">{{'CURRENCIES.POUND' | translate }}</option>
-                    <option value="inr">Rupee</option>
-                    <option value="rub">Rouble</option>
-                    <option value="cny">Yen</option>
-                    <option value="money">{{'CURRENCIES.OTHER' | translate }}</option>
+                    <option :value="currency.key" v-for="currency in currencies">{{currencyTranslation(currency.name)}}
+                    </option>
+                    <option value="money">{{ 'CURRENCIES.OTHER' | translate }}</option>
                   </select>
                 </div>
               </div>
@@ -137,6 +131,8 @@ import jsonfile from 'jsonfile'
 import path from 'path'
 import Vue from 'vue'
 import { currencyIcon } from '../util/icons'
+import CURRENCIES from '../../config/currencies.json'
+import { currencyTranslation } from '../util/translation'
 
 export default {
   name: 'accounts-pane',
@@ -153,7 +149,8 @@ export default {
       createModalShown: false,
       newAccount: {
         currency: this.$root.settings.defaultCurrency
-      }
+      },
+      currencies: CURRENCIES
     }
   },
   methods: {
@@ -234,6 +231,9 @@ export default {
 
     softUpdate: function () {
       this.accounts = this.$root.accounts
+    },
+    currencyTranslation (currency) {
+      return currencyTranslation(currency)
     }
   },
   created: function () {

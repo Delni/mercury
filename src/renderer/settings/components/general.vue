@@ -65,7 +65,7 @@
               <select v-model="settings.defaultCurrency">
                 <option :value="currency.key" v-for="currency in currencies">{{currencyTranslation(currency.name)}}
                 </option>
-                <option value="money" disabled>{{ 'CURRENCIES.OTHER' | translate }}</option>
+                <option value="money">{{ 'CURRENCIES.OTHER' | translate }}</option>
               </select>
             </div>
           </div>
