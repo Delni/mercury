@@ -34,7 +34,8 @@
     <!-- <recurring-modal /> -->
     <modal :active="recModalActive"
            :icon="modalConfig.icon"
-           :close="closeRecModal" width="60vw">
+           :close="closeRecModal" width="60vw"
+          v-if="modalConfig.icon">
       <div v-if="modalConfig.translate !== 'LAUNCH'">
         <p class="title">{{'MAIN_PANE.RECURRINGS.MODAL.TITLE.'+modalConfig.translate| translate}}</p>
         <div class="columns">
@@ -92,24 +93,16 @@
             <div class="field has-addons flex" data='op-add-btn'>
               <div class="control">
                 <a class="button is-primary is-tag" id="op-type-btn">
-                  <font-awesome-icon :icon="newRecurringOperation.type"/>
+                  <font-awesome-icon :icon="newRecurringOperation.type.icon"/>
                 </a>
               </div>
               <div class="control select is-primary" style="margin:0; flex:1">
                 <select name="op-type" id="op-type" v-model="newRecurringOperation.type">
-                    <option value="" disabled>{{"OPERATION_TYPE.DEFAULT" | translate }}</option>
-                    <option value="credit-card">{{"OPERATION_TYPE.CREDIT_CARD" | translate }}</option>
-                    <option value="pencil-square-o">{{"OPERATION_TYPE.CHECK" | translate }}</option>
-                    <option value="money">{{"OPERATION_TYPE.CASH" | translate }}</option>
-                    <option value="exchange">{{"OPERATION_TYPE.TRANSFER" | translate }}</option>
-                    <option value="refresh">{{"OPERATION_TYPE.INTERNAL_TRANSFER" | translate }}</option>
-                    <option value="share">{{"OPERATION_TYPE.PERMANENT_TRANSFER" | translate }}</option>
-                    <option value="desktop">{{"OPERATION_TYPE.ELECTRONIC" | translate }}</option>
-                    <option value="paypal">PayPal</option>
-                    <option value="inbox">{{"OPERATION_TYPE.DEPOSIT" | translate }}</option>
-                    <option value="bank">{{"OPERATION_TYPE.BANK_CHARGE" | translate }}</option>
-                    <option value="stop-circle-o">{{"OPERATION_TYPE.DIRECT_LEVY" | translate }}</option>
-                  </select>
+                  <option value="" disabled>{{"OPERATION_TYPE.DEFAULT" | translate }}</option>
+                  <option :value="operationType" v-for="operationType in operationTypes">
+                    {{configTranslation(operationType.name)}}
+                  </option>
+                </select>
               </div>
             </div>
 
@@ -184,7 +177,7 @@
                 :key="recurring.id"
                 :class="{'is-selected': recurring.isSelected}">
               <td class="has-text-centered">{{recurring.date | date}}</td>
-              <td class="has-text-centered"><font-awesome-icon :icon="stateIcon(recurring.type)" /></td>
+              <td class="has-text-centered"><font-awesome-icon :icon="stateIcon(recurring.type.icon)" /></td>
               <td class="has-text-centered">{{recurring.beneficiary}}</td>
               <td class="has-text-centered">{{recurring.category}}</td>
               <td class="has-text-centered">{{recurring.label}}</td>
@@ -205,6 +198,8 @@ import { ipcRenderer, remote } from 'electron'
 import moment from 'moment'
 import Vue from 'vue'
 import { currencyIcon, stateIcon } from '../../util/icons'
+import { configTranslation } from '../../util/translation'
+import OPERATION_TYPES from '../../../config/operation-types'
 
 export default {
   components: {
@@ -226,10 +221,11 @@ export default {
       newRecurringOperation: {
         date: moment().format(this.$root.settings.dateFormat),
         selectedAccount: this.$root.accounts[0],
-        type: 'credit-card',
+        type: OPERATION_TYPES.filter(x => x.key === 'credit-card')[0],
         offset: 1,
         timespan: 'days'
-      }
+      },
+      operationTypes: OPERATION_TYPES
     }
   },
 
@@ -358,7 +354,7 @@ export default {
                 vm.newRecurringOperation.selectedAccount.name,
                 [
                   vm.newRecurringOperation.amount,
-                  vm.newRecurringOperation.type,
+                  vm.newRecurringOperation.type.key,
                   vm.newRecurringOperation.beneficiary,
                   vm.newRecurringOperation.category,
                   vm.newRecurringOperation.label,
@@ -409,7 +405,7 @@ export default {
                 vm.newRecurringOperation.selectedAccount.name,
                 [
                   vm.newRecurringOperation.amount,
-                  vm.newRecurringOperation.type,
+                  vm.newRecurringOperation.type.key,
                   vm.newRecurringOperation.beneficiary,
                   vm.newRecurringOperation.category,
                   vm.newRecurringOperation.label,
@@ -470,6 +466,9 @@ export default {
       }
       this.$root.$emit('edit-operation:clean')
       this.$forceUpdate()
+    },
+    configTranslation (name) {
+      return configTranslation(name)
     }
   },
   created: function () {
