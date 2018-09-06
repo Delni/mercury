@@ -177,7 +177,7 @@
                 :key="recurring.id"
                 :class="{'is-selected': recurring.isSelected}">
               <td class="has-text-centered">{{recurring.date | date}}</td>
-              <td class="has-text-centered"><font-awesome-icon :icon="stateIcon(recurring.type.icon)" /></td>
+              <td class="has-text-centered"><font-awesome-icon :icon="recurring.type" /></td>
               <td class="has-text-centered">{{recurring.beneficiary}}</td>
               <td class="has-text-centered">{{recurring.category}}</td>
               <td class="has-text-centered">{{recurring.label}}</td>
