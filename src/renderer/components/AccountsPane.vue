@@ -5,7 +5,7 @@
         <p class="title">
           {{'ACCOUNTS_PANE.DEFAULT'| translate}}
           <transition name="slide-fade">
-            <font-awesome-icon icon="exclamation-circle" size="lg" class="has-text-warning" v-if="unsaved"/>
+            <font-awesome-icon icon="exclamation-circle" size="xs" class="has-text-warning" v-if="unsaved"/>
           </transition>
         </p>
         <p class="control">
