@@ -132,7 +132,7 @@ import path from 'path'
 import Vue from 'vue'
 import { currencyIcon } from '../util/icons'
 import CURRENCIES from '../../config/currencies.json'
-import { currencyTranslation } from '../util/translation'
+import { configTranslation } from '../util/translation'
 
 export default {
   name: 'accounts-pane',
@@ -233,7 +233,7 @@ export default {
       this.accounts = this.$root.accounts
     },
     currencyTranslation (currency) {
-      return currencyTranslation(currency)
+      return configTranslation(currency)
     }
   },
   created: function () {

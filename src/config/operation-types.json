@@ -1,0 +1,57 @@
+[
+  {
+    "key": "credit-card",
+    "name": "$OPERATION_TYPE.CREDIT_CARD",
+    "icon": "credit-card"
+  },
+  {
+    "key": "pencil-square-o",
+    "name": "$OPERATION_TYPE.CHECK",
+    "icon": "pen-square"
+  },
+  {
+    "key": "money",
+    "name": "$OPERATION_TYPE.CASH",
+    "icon": "money-bill"
+  },
+  {
+    "key": "exchange",
+    "name": "$OPERATION_TYPE.TRANSFER",
+    "icon": "exchange-alt"
+  },
+  {
+    "key": "refresh",
+    "name": "$OPERATION_TYPE.INTERNAL_TRANSFER",
+    "icon": "sync"
+  },
+  {
+    "key": "share",
+    "name": "$OPERATION_TYPE.PERMANENT_TRANSFER",
+    "icon": "share"
+  },
+  {
+    "key": "desktop",
+    "name": "$OPERATION_TYPE.ELECTRONIC",
+    "icon": "desktop"
+  },
+  {
+    "key": "paypal",
+    "name": "PayPal",
+    "icon": ["fab", "paypal"]
+  },
+  {
+    "key": "inbox",
+    "name": "$OPERATION_TYPE.DEPOSIT",
+    "icon": "inbox"
+  },
+  {
+    "key": "bank",
+    "name": "$OPERATION_TYPE.BANK_CHARGE",
+    "icon": "university"
+  },
+  {
+    "key": "stop-circle-o",
+    "name": "$OPERATION_TYPE.DIRECT_LEVY",
+    "icon": ["far", "stop-circle"]
+  }
+]

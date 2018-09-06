@@ -1,11 +1,16 @@
 import { translate } from '../filters'
 
-export function currencyTranslation (currencyObj) {
+/**
+ * Translates a configuration name to its equivalent.
+ * @param obj {string|*} Object (with 'name' as property) or String.
+ * @returns {string} The translated string
+ */
+export function configTranslation (obj) {
   let name
-  if (currencyObj instanceof Object) {
-    name = currencyObj.name
+  if (obj instanceof Object) {
+    name = obj.name
   } else {
-    name = currencyObj.toString()
+    name = obj.toString()
   }
 
   return name.startsWith('$')

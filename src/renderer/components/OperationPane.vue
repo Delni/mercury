@@ -39,23 +39,16 @@
         <div class="field has-addons flex" data='op-add-btn'>
           <div class="control">
             <a class="button is-primary is-tag" id="op-type-btn">
-              <font-awesome-icon :icon="newOperation.type"/>
+              <font-awesome-icon :icon="newOperation.type.icon" fixed-width />
             </a>
           </div>
           <div class="control select is-primary" style="margin:0; flex:1">
             <select name="op-type" id="op-type" v-model="newOperation.type">
                 <option value="" disabled>{{"OPERATION_TYPE.DEFAULT" | translate }}</option>
-                <option value="credit-card">{{"OPERATION_TYPE.CREDIT_CARD" | translate }}</option>
-                <option value="pencil-square-o">{{"OPERATION_TYPE.CHECK" | translate }}</option>
-                <option value="money">{{"OPERATION_TYPE.CASH" | translate }}</option>
-                <option value="exchange">{{"OPERATION_TYPE.TRANSFER" | translate }}</option>
-                <option value="refresh">{{"OPERATION_TYPE.INTERNAL_TRANSFER" | translate }}</option>
-                <option value="share">{{"OPERATION_TYPE.PERMANENT_TRANSFER" | translate }}</option>
-                <option value="desktop">{{"OPERATION_TYPE.ELECTRONIC" | translate }}</option>
-                <option value="paypal">PayPal</option>
-                <option value="inbox">{{"OPERATION_TYPE.DEPOSIT" | translate }}</option>
-                <option value="bank">{{"OPERATION_TYPE.BANK_CHARGE" | translate }}</option>
-                <option value="stop-circle-o">{{"OPERATION_TYPE.DIRECT_LEVY" | translate }}</option>
+
+                <option :value="operationType" v-for="operationType in operationTypes">
+                  {{configTranslation(operationType.name)}}
+                </option>
               </select>
           </div>
         </div>
@@ -156,7 +149,6 @@
     </article>
   </div>
 </template>
-
 <script>
 import customField from '@/components/common/customField'
 
@@ -166,7 +158,9 @@ import moment from 'moment'
 import path from 'path'
 import Vue from 'vue'
 import { stateIcon, currencyIcon } from '../util/icons'
+import { configTranslation } from '../util/translation'
 import { parseLocalizedString } from '../filters'
+import OPERATION_TYPES from '../../config/operation-types'
 
 export default {
   name: 'operation-pane',
@@ -186,10 +180,11 @@ export default {
       newOperation: {
         date: moment().format(this.$root.settings.dateFormat),
         selectedAccount: this.$root.accounts[0] || {currency: this.$root.settings.defaultCurrency},
-        type: 'credit-card',
+        type: OPERATION_TYPES.filter(x => x.key === 'credit-card')[0],
         state: ['far', 'circle']
       },
-      errors: [false, false, false]
+      errors: [false, false, false],
+      operationTypes: OPERATION_TYPES
     }
   },
   computed: {
@@ -273,7 +268,7 @@ export default {
           this.newOperation.category,
           this.newOperation.label,
           parseLocalizedString(this.newOperation.amount),
-          this.newOperation.type
+          this.newOperation.type.key
         ]
 
         if (!this.settings.beneficiaries.find(b => b === this.newOperation.beneficiary) && this.newOperation.beneficiary !== '' && this.newOperation.beneficiary !== null && this.newOperation.beneficiary !== undefined) {
@@ -368,7 +363,7 @@ export default {
             this.newOperation.category,
             this.newOperation.label,
             this.newOperation.amount,
-            this.newOperation.type
+            this.newOperation.type.key
           ]
           if (!this.settings.beneficiaries.find(b => b === this.newOperation.beneficiary) && this.newOperation.beneficiary !== '') {
             this.settings.beneficiaries.push(this.newOperation.beneficiary)
@@ -393,6 +388,9 @@ export default {
         }
         // TODO : add typeahead categories (HTMLEventHandler.js:100)
       }
+    },
+    configTranslation (name) {
+      return configTranslation(name)
     }
   },
   created: function () {
@@ -415,6 +413,7 @@ export default {
   }
 }
 </script>
+
 
 <style>
   .Results {

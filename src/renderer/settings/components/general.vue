@@ -110,7 +110,7 @@
 import moment from 'moment'
 import { currencyIcon } from '../../util/icons'
 import CURRENCIES from '../../../config/currencies.json'
-import { currencyTranslation } from '../../util/translation'
+import { configTranslation } from '../../util/translation'
 
 export default {
   data: function () {
@@ -132,7 +132,7 @@ export default {
       return currencyIcon(currency)
     },
     currencyTranslation (currency) {
-      return currencyTranslation(currency)
+      return configTranslation(currency)
     }
   }
 }
