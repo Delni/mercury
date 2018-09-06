@@ -1,5 +1,5 @@
 <template lang="html">
-  <report title="REPORTS.STATISTIC.TITLE" color="warning" icon="pie-chart">
+  <report title="REPORTS.STATISTIC.TITLE" color="warning" icon="chart-pie">
       <div class="columns">
         <span class="column">
           {{ 'REPORTS.STATISTIC.DISPLAY' | translate}}

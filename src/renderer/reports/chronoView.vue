@@ -1,5 +1,5 @@
 <template lang="html">
-  <report title="REPORTS.CHRONO.TITLE" color="primary" icon="area-chart">
+  <report title="REPORTS.CHRONO.TITLE" color="primary" icon="chart-area">
     <span>{{ 'REPORTS.COMMON.TIME_SPAN' | translate }}:</span>
     <div class="field has-addons">
       <div class="control">

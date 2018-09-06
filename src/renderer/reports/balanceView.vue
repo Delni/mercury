@@ -1,5 +1,5 @@
 <template lang="html">
-  <report title="REPORTS.BALANCE.TITLE" color="danger" icon="line-chart">
+  <report title="REPORTS.BALANCE.TITLE" color="danger" icon="chart-line">
     <p class="subtitle is-5">{{ 'REPORTS.COMMON.TIME_SPAN' | translate}}</p>
     <div class="field has-addons">
       <div class="control">

@@ -5,9 +5,9 @@
           <p class="title">
             <span style="margin-left:2%; -webkit-app-region: drag">
               <span class="icon">
-                <font-awesome-icon :class="'has-text-' + color" size="lg" :icon="icon" />
+                <font-awesome-icon :class="'has-text-' + color" :icon="icon" />
               </span>
-              <span>{{title | translate}}</span>
+              {{title | translate}}
             </span>
             <a onclick="window.close()" class="button is-outlined is-danger is-pulled-right">
               <font-awesome-icon icon="times"/>
