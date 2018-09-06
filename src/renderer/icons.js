@@ -49,9 +49,16 @@ import {
   faTrash,
   faLink,
   faPercent,
-  faHashtag
+  faHashtag,
+  faMoneyBill,
+  faLiraSign,
+  faPoundSign,
+  faRubleSign,
+  faRupeeSign,
+  faYenSign
 } from '@fortawesome/free-solid-svg-icons'
 import { faCircle as faCircleO } from '@fortawesome/free-regular-svg-icons'
+import { faBitcoin } from '@fortawesome/free-brands-svg-icons'
 
 library.add(
   faCrown, faSlidersH, faCalendar, faEuroSign, faDollarSign, faUniversity, faCreditCard, faBuilding, faFlag, faTag,
@@ -59,7 +66,7 @@ library.add(
   faChevronDown, faChartArea, faChartLine, faChartPie, faChartBar, faRecycle, faThList, faTachometerAlt, faRetweet,
   faRocket, faPencilAlt, faPlusCircle, faExclamationCircle, faCogs, faBookmark, faHeart, faSave, faLanguage,
   faCalendarMinus, faCalendarPlus, faSortNumericUp, faSortNumericDown, faSortAlphaDown, faSortAlphaUp, faTrash, faLink,
-  faPercent, faHashtag
+  faPercent, faHashtag, faMoneyBill, faBitcoin, faLiraSign, faPoundSign, faRubleSign, faRupeeSign, faYenSign
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

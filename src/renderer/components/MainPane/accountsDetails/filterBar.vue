@@ -56,9 +56,9 @@ export default {
       ],
       states: [
         {value: '*', label: 'MAIN_PANE.ACCOUNTS.ALL'},
-        {value: 'far fa-circle', label: 'MAIN_PANE.ACCOUNTS.REGISTERED'},
-        {value: 'fas fa-circle', label: 'MAIN_PANE.ACCOUNTS.CHECKED'},
-        {value: 'fas fa-check-circle', label: 'MAIN_PANE.ACCOUNTS.VERIFIED'}
+        {value: 'far circle', label: 'MAIN_PANE.ACCOUNTS.REGISTERED'},
+        {value: 'fas circle', label: 'MAIN_PANE.ACCOUNTS.CHECKED'},
+        {value: 'fas check-circle', label: 'MAIN_PANE.ACCOUNTS.VERIFIED'}
       ],
       amounts: [
         {value: '*', label: 'MAIN_PANE.ACCOUNTS.ANY'},

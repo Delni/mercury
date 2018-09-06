@@ -1,10 +1,12 @@
+import CURRENCIES from '../../config/currencies.json'
+
 export function currencyIcon (currency) {
-  switch (currency) {
-    case 'eur':
-      return 'euro-sign'
-    default:
-      return 'dollar-sign'
-  }
+  const currencyObj = CURRENCIES.filter(x => x.key === currency)
+
+  // fallback
+  if (!currencyObj.length || !currencyObj[0].icon) return 'money-bill'
+
+  return currencyObj[0].icon
 }
 
 export function stateIcon (state) {

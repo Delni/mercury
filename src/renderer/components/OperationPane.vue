@@ -115,7 +115,7 @@
           <p class="control">{{"State" | translate }} :</p>
           <p class="control">
             <a class="button is-outlined is-primary is-small" @click="toggleState(newOperation.state)" v-model="newOperation.state" @keyup.enter="isEditing? confirmEdition():addOperation()">
-              <font-awesome-icon size="sm" :icon="stateIcon"/>
+              <font-awesome-icon size="sm" :icon="newOperation.state"/>
             </a>
           </p>
           <div class="control field has-addons flex">
@@ -179,7 +179,7 @@ export default {
       categoryInput: false,
       labelInput: false,
       isEditing: false,
-      states: ['fa fa-circle-o', 'fa fa-circle', 'fa fa-check-circle'],
+      states: [['far', 'circle'], 'circle', 'check-circle'],
       helper: '-',
       settings: this.$root.settings,
       accounts: this.$root.accounts,
@@ -187,7 +187,7 @@ export default {
         date: moment().format(this.$root.settings.dateFormat),
         selectedAccount: this.$root.accounts[0] || {currency: this.$root.settings.defaultCurrency},
         type: 'credit-card',
-        state: 'fa fa-circle-o'
+        state: ['far', 'circle']
       },
       errors: [false, false, false]
     }
@@ -197,9 +197,7 @@ export default {
       if (this.newOperation.selectedAccount) {
         return currencyIcon(this.newOperation.selectedAccount.currency)
       }
-    },
-    accounts: function () {
-      return this.$root.accounts || null
+      return this.$root.settings.defaultCurrency
     },
     stateIcon () {
       return stateIcon(this.newOperation.state)
@@ -305,7 +303,7 @@ export default {
       let oldOperation = Vue.util.extend({}, this.newOperation)
       this.newOperation = {
         date: moment().format(this.$root.settings.dateFormat),
-        state: 'fa-circle-o',
+        state: ['far', 'circle'],
         beneficiary: oldOperation.beneficiary,
         category: oldOperation.category,
         label: oldOperation.label,
@@ -345,7 +343,7 @@ export default {
         date: moment().format(this.$root.settings.dateFormat),
         selectedAccount: this.accounts[0],
         type: 'credit-card',
-        state: 'fa fa-circle-o'
+        state: ['far', 'circle']
       }
     },
 

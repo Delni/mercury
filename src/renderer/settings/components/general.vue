@@ -5,11 +5,13 @@
         <div class="notification is-dark is-30h">
           <p class="title is-marginless">{{'SETTINGS.TABS.GENERAL.THEME' | translate}}</p>
           <div class="field">
-            <input id="dark-theme" type="checkbox" name="dark-theme" class="switch is-rounded" v-model="settings.theme === 'dark'" @click="settings.theme = 'dark'">
+            <input id="dark-theme" type="checkbox" name="dark-theme" class="switch is-rounded"
+                   v-model="settings.theme === 'dark'" @click="settings.theme = 'dark'">
             <label for="dark-theme">{{'SETTINGS.TABS.GENERAL.DARK_THEME' | translate}}</label>
           </div>
           <div class="field">
-            <input id="light-theme" type="checkbox" name="light-theme" class="switch is-rounded" v-model="settings.theme === 'light'" @click="settings.theme = 'light'">
+            <input id="light-theme" type="checkbox" name="light-theme" class="switch is-rounded"
+                   v-model="settings.theme === 'light'" @click="settings.theme = 'light'">
             <label for="light-theme">{{'SETTINGS.TABS.GENERAL.LIGHT_THEME' | translate}}</label>
           </div>
         </div>
@@ -20,7 +22,8 @@
         <div class="notification is-dark is-30h">
           <p class="title is-marginless">{{'SETTINGS.TABS.GENERAL.DATEFORMAT' | translate}}</p>
           <div class="field">
-            <input type="text" class="input" v-model="settings.dateFormat" :placeholder="'SETTINGS.TABS.GENERAL.SAMPLE_CALENDAR' | translate">
+            <input type="text" class="input" v-model="settings.dateFormat"
+                   :placeholder="'SETTINGS.TABS.GENERAL.SAMPLE_CALENDAR' | translate">
           </div>
           <p class="subtitle">{{'SETTINGS.TABS.GENERAL.TEST' | translate}}: {{ dateFormatTester }}</p>
         </div>
@@ -34,8 +37,8 @@
           <div class="field has-addons is-marginless">
             <div class="control">
               <a class="button is-tag is-primary">
-                  <font-awesome-icon icon="language" />
-                </a>
+                <font-awesome-icon icon="language"/>
+              </a>
             </div>
             <div class="control select is-primary">
               <select v-model="settings.language">
@@ -55,20 +58,14 @@
           <div class="field has-addons is-marginless">
             <div class="control">
               <a class="button is-tag is-primary">
-                  <font-awesome-icon :icon="currencyIcon(settings.defaultCurrency)" />
-                </a>
+                <font-awesome-icon :icon="currencyIcon(settings.defaultCurrency)" fixed-width/>
+              </a>
             </div>
             <div class="control select is-primary">
               <select v-model="settings.defaultCurrency">
-                <option value="btc">Bitcoin</option>
-                <option value="usd">Dollar</option>
-                <option value="eur">Euro</option>
-                <option value="try">Lira</option>
-                <option value="gbp">{{ "CURRENCIES.POUND" | translate }}</option>
-                <option value="inr">Rupee</option>
-                <option value="rub">Rouble</option>
-                <option value="cny">Yen</option>
-                <option value="money">{{ "CURRENCIES.OTHER" | translate }}</option>
+                <option :value="currency.key" v-for="currency in currencies">{{currencyTranslation(currency.name)}}
+                </option>
+                <option value="money" disabled>{{ 'CURRENCIES.OTHER' | translate }}</option>
               </select>
             </div>
           </div>
@@ -84,11 +81,21 @@
             </div>
             <div class="control select is-primary">
               <select class="select" v-model="settings.defaultTimeSpan">
-                <option value="days">{{ (settings.defaultOffset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"days"| translate}}</option>
-                <option value="weeks">{{ (settings.defaultOffset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"weeks"| translate}}</option>
-                <option value="months">{{ (settings.defaultOffset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"months"| translate}}</option>
-                <option value="quarters">{{ (settings.defaultOffset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"quarters"| translate}}</option>
-                <option value="years">{{ (settings.defaultOffset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"years"| translate}}</option>
+                <option value="days">{{ (settings.defaultOffset > 1 ? 'TIME_SPAN.PLURAL.':'TIME_SPAN.SINGULAR.')+'days'|
+                  translate}}
+                </option>
+                <option value="weeks">{{ (settings.defaultOffset > 1 ?
+                  'TIME_SPAN.PLURAL.':'TIME_SPAN.SINGULAR.')+'weeks'| translate}}
+                </option>
+                <option value="months">{{ (settings.defaultOffset > 1 ?
+                  'TIME_SPAN.PLURAL.':'TIME_SPAN.SINGULAR.')+'months'| translate}}
+                </option>
+                <option value="quarters">{{ (settings.defaultOffset > 1 ?
+                  'TIME_SPAN.PLURAL.':'TIME_SPAN.SINGULAR.')+'quarters'| translate}}
+                </option>
+                <option value="years">{{ (settings.defaultOffset > 1 ?
+                  'TIME_SPAN.PLURAL.':'TIME_SPAN.SINGULAR.')+'years'| translate}}
+                </option>
               </select>
             </div>
           </div>
@@ -102,11 +109,14 @@
 <script>
 import moment from 'moment'
 import { currencyIcon } from '../../util/icons'
+import CURRENCIES from '../../../config/currencies.json'
+import { currencyTranslation } from '../../util/translation'
 
 export default {
   data: function () {
     return {
-      settings: this.$root.settings
+      settings: this.$root.settings,
+      currencies: CURRENCIES
     }
   },
   computed: {
@@ -120,6 +130,9 @@ export default {
   methods: {
     currencyIcon (currency) {
       return currencyIcon(currency)
+    },
+    currencyTranslation (currency) {
+      return currencyTranslation(currency)
     }
   }
 }
