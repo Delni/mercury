@@ -41,18 +41,16 @@
       }
     },
     created: function () {
-      const dbPath = path.join(__static, 'data/template.sqlite')
-
       let $root = this.$root
       if (!$root.settings.lastfile) {
-        $root.db = new Database(dbPath)
+        $root.db = new Database()
       } else {
         try {
           $root.db = new Database($root.settings.lastfile)
           ipcRenderer.send('file-to-save', $root.settings.lastfile)
         } catch (e) {
           console.warn(e.message)
-          $root.db = new Database(dbPath)
+          $root.db = new Database()
         }
       }
       this.updateAccountsList()

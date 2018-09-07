@@ -1,14 +1,19 @@
 import moment from 'moment'
 import fs from 'fs'
 import SQL from 'sql.js'
+import Migrator from '../util/migrator'
+
 export default class Database {
   constructor (file = null) {
     if (file != null) {
       const filebuffer = fs.readFileSync(file)
       this.sql = new SQL.Database(filebuffer)
     } else {
-      throw new Error('No file provided', 'Database.class.js', 7)
+      this.sql = new SQL.Database()
     }
+
+    // TODO only on app start
+    Migrator.migrate(this)
   }
 
   exec (sqlstr) {

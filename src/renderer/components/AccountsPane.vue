@@ -124,6 +124,7 @@ import {ipcRenderer, remote} from 'electron'
 import jsonfile from 'jsonfile'
 import path from 'path'
 import Vue from 'vue'
+import Migrator from '../util/migrator'
 
 export default {
   name: 'accounts-pane',
@@ -243,8 +244,9 @@ export default {
     })
 
     ipcRenderer.on('open-new-file', () => {
-      const dbPath = path.join(__static, 'data/template.sqlite')
-      vm.$root.db = new Database(dbPath)
+      vm.$root.db = new Database()
+      // TODO only on app start
+      Migrator.migrate(vm.$root.db)
       vm.updateAccountsList()
       vm.$root.$emit('toggle-tab', 0)
       vm.showUnsavedTag()
