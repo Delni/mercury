@@ -13,5 +13,4 @@ thumbs.db
 !.gitkeep
 package-lock\.json
 *.log
-yarn\.lock
 .idea/
