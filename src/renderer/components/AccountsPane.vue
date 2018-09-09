@@ -133,7 +133,7 @@ import Vue from 'vue'
 import { currencyIcon } from '../util/icons'
 import { configTranslation } from '../util/translation'
 import CURRENCIES from '../../config/currencies.json'
-import Migrator from '../util/migrator'
+import Migrator from '../../util/migrator'
 
 export default {
   name: 'accounts-pane',

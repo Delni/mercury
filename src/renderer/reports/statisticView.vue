@@ -55,7 +55,7 @@ import Database from '@/assets/Database.class'
 import chartJS from 'chart.js' // eslint-disable-line
 import moment from 'moment'
 import Vue from 'vue'
-import Migrator from '../util/migrator'
+import Migrator from '../../util/migrator'
 
 export default {
   components: { toggleButton, report },

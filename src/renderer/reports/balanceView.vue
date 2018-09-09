@@ -55,7 +55,6 @@
 </template>
 
 <script>
-  import icon from '@/components/common/icon'
   import report from '@/reports/components/report'
 
   import { ipcRenderer } from 'electron'
@@ -63,7 +62,7 @@
   import chartJS from 'chart.js' // eslint-disable-line
   import moment from 'moment'
   import Vue from 'vue'
-  import Migrator from '../util/migrator'
+  import Migrator from '../../util/migrator'
 
   // Use datepart SQL to filter by week / month / day / quarter /
   // https://docs.microsoft.com/en-us/sql/t-sql/functions/datepart-transact-sql?view=sql-server-2017
@@ -76,33 +75,15 @@
     {backgroundColor: 'rgba(125, 50, 221, 0.2)', borderColor: '#5e32dd'}
   ]
 
-export default {
-  components: {icon, report},
-  data: function () {
-    return {
-      db: null,
-      myChart: null,
-      firstCustomDate: null,
-      lastCustomDate: null,
-      accounts: [],
-      options: {
-        period: 'thismonth',
-        firstDate: moment().startOf('month').format('YYYY-MM-DD'),
-        lastDate: moment().endOf('month').format('YYYY-MM-DD'),
-        allDates: false
-      },
-      timesSpan: [
-        {value: 'thismonth', label: 'TIME.TM'},
-        {value: 'lastmonth', label: 'TIME.LM'},
-        {value: 'thisquarter', label: 'TIME.TQ'},
-        {value: 'lastquarter', label: 'TIME.LQ'},
-        {value: 'thisyear', label: 'TIME.TY'},
-        {value: 'lastyear', label: 'TIME.LY'},
-        {value: '', label: 'TIME.*'}
-      ],
-      config: {
-        type: 'line',
-        data: {datasets: []},
+  export default {
+    components: {report},
+    data: function () {
+      return {
+        db: null,
+        myChart: null,
+        firstCustomDate: null,
+        lastCustomDate: null,
+        accounts: [],
         options: {
           period: 'thismonth',
           firstDate: moment().startOf('month').format('YYYY-MM-DD'),
@@ -122,28 +103,47 @@ export default {
           type: 'line',
           data: {datasets: []},
           options: {
-            legend: {
-              position: 'bottom'
-            },
-            fill: 'bottom',
-            scales: {
-              xAxes: [{
-                type: 'time',
-                time: {
-                  parser: this.$root.settings.dateFormat,
-                  tooltipFormat: this.$root.settings.dateFormat
-                },
-                scaleLabel: {
-                  display: true,
-                  labelString: Vue.filter('translate')('CHART.DATE')
-                }
-              }],
-              yAxes: [{
-                scaleLabel: {
-                  display: true,
-                  labelString: Vue.filter('translate')('CHART.VALUE')
-                }
-              }]
+            period: 'thismonth',
+            firstDate: moment().startOf('month').format('YYYY-MM-DD'),
+            lastDate: moment().endOf('month').format('YYYY-MM-DD'),
+            allDates: false
+          },
+          timesSpan: [
+            {value: 'thismonth', label: 'TIME.TM'},
+            {value: 'lastmonth', label: 'TIME.LM'},
+            {value: 'thisquarter', label: 'TIME.TQ'},
+            {value: 'lastquarter', label: 'TIME.LQ'},
+            {value: 'thisyear', label: 'TIME.TY'},
+            {value: 'lastyear', label: 'TIME.LY'},
+            {value: '', label: 'TIME.*'}
+          ],
+          config: {
+            type: 'line',
+            data: {datasets: []},
+            options: {
+              legend: {
+                position: 'bottom'
+              },
+              fill: 'bottom',
+              scales: {
+                xAxes: [{
+                  type: 'time',
+                  time: {
+                    parser: this.$root.settings.dateFormat,
+                    tooltipFormat: this.$root.settings.dateFormat
+                  },
+                  scaleLabel: {
+                    display: true,
+                    labelString: Vue.filter('translate')('CHART.DATE')
+                  }
+                }],
+                yAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: Vue.filter('translate')('CHART.VALUE')
+                  }
+                }]
+              }
             }
           }
         }
