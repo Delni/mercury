@@ -171,11 +171,11 @@ export default {
       newOperation: {
         date: moment().format(this.$root.settings.dateFormat),
         selectedAccount: this.$root.accounts[0] || {currency: this.$root.settings.defaultCurrency},
-        type: OPERATION_TYPES.filter(x => x.key === 'credit-card')[0],
+        type: OPERATION_TYPES[0],
         state: OPERATION_STATES[0]
       },
       errors: [false, false, false],
-      operationTypes: OPERATION_TYPES
+      operationTypes: OPERATION_TYPES.sort((a, b) => configTranslation(a).localeCompare(configTranslation(b)))
     }
   },
   computed: {
@@ -328,7 +328,7 @@ export default {
       this.newOperation = {
         date: moment().format(this.$root.settings.dateFormat),
         selectedAccount: this.accounts[0],
-        type: OPERATION_TYPES.filter(x => x.key === 'credit-card')[0],
+        type: OPERATION_TYPES[0],
         state: OPERATION_STATES[0]
       }
     },
