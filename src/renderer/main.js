@@ -4,9 +4,7 @@ import axios from 'axios'
 // CSS
 import 'bulma/css/bulma.css'
 import 'bulma-extensions/dist/bulma-extensions.min.css'
-import '@fortawesome/fontawesome-free/css/solid.css'
-import '@fortawesome/fontawesome-free/css/regular.css'
-import '@fortawesome/fontawesome-free/css/fontawesome.css'
+import 'font-awesome/css/font-awesome.css'
 import './assets/sass/master.sass'
 // Components
 import App from '@/App'
