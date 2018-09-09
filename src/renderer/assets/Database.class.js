@@ -1,7 +1,7 @@
 import moment from 'moment'
 import fs from 'fs'
 import SQL from 'sql.js'
-import Migrator from '../util/migrator'
+import Migrator from '../../util/migrator'
 
 export default class Database {
   constructor (file = null) {
@@ -64,7 +64,9 @@ export default class Database {
       this.locallookup(account, amount, date, state)
     }
   }
-
+  run (sql) {
+    return this.sql.run(sql)
+  }
   fullLookup (account) {
     // In Bank
     let sqlstmt = this.sql.prepare(
