@@ -1,4 +1,4 @@
-import Initial from '../../migrations/201809072146-Initial'
+import Initial from '../migrations/201809072146-Initial'
 
 /**
  * List all migrations to iterate over them.
