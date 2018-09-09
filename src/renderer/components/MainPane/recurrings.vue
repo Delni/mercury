@@ -371,7 +371,7 @@ export default {
               vm.newRecurringOperation = {
                 date: moment().format(this.$root.settings.dateFormat),
                 selectedAccount: this.$root.accounts[0],
-                type: 'credit-card',
+                type: OPERATION_TYPES.filter(x => x.key === 'credit-card')[0],
                 offset: 1,
                 timespan: 'days'
               }
@@ -422,7 +422,7 @@ export default {
               vm.newRecurringOperation = {
                 date: moment().format(this.$root.settings.dateFormat),
                 selectedAccount: this.$root.accounts[0],
-                type: 'credit-card',
+                type: OPERATION_TYPES.filter(x => x.key === 'credit-card')[0],
                 offset: 1,
                 timespan: 'days'
               }
@@ -455,7 +455,7 @@ export default {
         this.newRecurringOperation = {
           date: moment().format(this.$root.settings.dateFormat),
           selectedAccount: this.$root.accounts[0],
-          type: 'credit-card',
+          type: OPERATION_TYPES.filter(x => x.key === 'credit-card')[0],
           offset: 1,
           timespan: 'days'
         }

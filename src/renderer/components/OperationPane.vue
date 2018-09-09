@@ -105,26 +105,16 @@
         </custom-field>
 
         <div class="field is-grouped">
-          <p class="control">{{"State" | translate }} :</p>
+          <p class="control">{{"State" | translate }}:</p>
           <p class="control">
             <a class="button is-outlined is-primary is-small" @click="toggleState(newOperation.state)" v-model="newOperation.state" @keyup.enter="isEditing? confirmEdition():addOperation()">
-              <font-awesome-icon size="sm" :icon="newOperation.state"/>
+              <font-awesome-icon size="sm" :icon="newOperation.state.icon"/>
             </a>
           </p>
           <div class="control field has-addons flex">
-            <p class="control">
-              <a  class="button is-outlined is-dark is-small" >
-                <font-awesome-icon size="sm" :icon="['far', 'circle']"/>
-              </a>
-            </p>
-            <p class="control">
-              <a  class="button is-outlined is-dark is-small" >
-                <font-awesome-icon size="sm" icon="circle"/>
-              </a>
-            </p>
-            <p class="control">
-              <a  class="button is-outlined is-dark is-small" >
-                <font-awesome-icon size="sm" icon="check-circle"/>
+            <p class="control" v-for="state in states">
+              <a class="button is-outlined is-dark is-small" :title="configTranslation(state.name)">
+                <font-awesome-icon size="sm" :icon="state.icon"/>
               </a>
             </p>
             <small v-model="helper"></small>
@@ -160,6 +150,7 @@ import Vue from 'vue'
 import { stateIcon, currencyIcon } from '../util/icons'
 import { configTranslation } from '../util/translation'
 import { parseLocalizedString } from '../filters'
+import OPERATION_STATES from '../../config/operation-states'
 import OPERATION_TYPES from '../../config/operation-types'
 
 export default {
@@ -173,7 +164,7 @@ export default {
       categoryInput: false,
       labelInput: false,
       isEditing: false,
-      states: [['far', 'circle'], 'circle', 'check-circle'],
+      states: OPERATION_STATES,
       helper: '-',
       settings: this.$root.settings,
       accounts: this.$root.accounts,
@@ -181,7 +172,7 @@ export default {
         date: moment().format(this.$root.settings.dateFormat),
         selectedAccount: this.$root.accounts[0] || {currency: this.$root.settings.defaultCurrency},
         type: OPERATION_TYPES.filter(x => x.key === 'credit-card')[0],
-        state: ['far', 'circle']
+        state: OPERATION_STATES[0]
       },
       errors: [false, false, false],
       operationTypes: OPERATION_TYPES
@@ -263,7 +254,7 @@ export default {
 
         let data = [
           this.newOperation.date,
-          this.newOperation.state,
+          this.newOperation.state.key,
           this.newOperation.beneficiary,
           this.newOperation.category,
           this.newOperation.label,
@@ -298,7 +289,7 @@ export default {
       let oldOperation = Vue.util.extend({}, this.newOperation)
       this.newOperation = {
         date: moment().format(this.$root.settings.dateFormat),
-        state: ['far', 'circle'],
+        state: OPERATION_STATES[0],
         beneficiary: oldOperation.beneficiary,
         category: oldOperation.category,
         label: oldOperation.label,
@@ -337,8 +328,8 @@ export default {
       this.newOperation = {
         date: moment().format(this.$root.settings.dateFormat),
         selectedAccount: this.accounts[0],
-        type: 'credit-card',
-        state: ['far', 'circle']
+        type: OPERATION_TYPES.filter(x => x.key === 'credit-card')[0],
+        state: OPERATION_STATES[0]
       }
     },
 
@@ -358,7 +349,7 @@ export default {
           let data = [
             this.newOperation.selectedAccount.name,
             this.newOperation.date,
-            this.newOperation.state,
+            this.newOperation.state.key,
             this.newOperation.beneficiary,
             this.newOperation.category,
             this.newOperation.label,

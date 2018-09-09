@@ -12,7 +12,6 @@ export function configTranslation (obj) {
   } else {
     name = obj.toString()
   }
-
   return name.startsWith('$')
     ? translate(name.replace('$', ''))
     : name

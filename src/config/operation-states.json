@@ -1,0 +1,19 @@
+[
+  {
+    "name": "$MAIN_PANE.ACCOUNTS.REGISTERED",
+    "key": "registered",
+    "icon": [
+      "far", "circle"
+    ]
+  },
+  {
+    "name": "$MAIN_PANE.ACCOUNTS.CHECKED",
+    "key": "checked",
+    "icon": "circle"
+  },
+  {
+    "name": "$MAIN_PANE.ACCOUNTS.VERIFIED",
+    "key": "verified",
+    "icon": "check-circle"
+  }
+]

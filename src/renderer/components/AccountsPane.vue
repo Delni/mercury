@@ -11,7 +11,7 @@
         <p class="control">
           <a class="button is-primary is-small is-outlined" @click="showCreateModal()">
             <span class="icon is-small">
-              <i class="fas fa-plus-square"></i>
+              <font-awesome-icon icon="plus-square"></font-awesome-icon>
             </span>
             <span>{{'ACCOUNTS_PANE.ADD' | translate }}</span>
           </a>

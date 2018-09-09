@@ -14,7 +14,7 @@
 
     <custom-field is-control="true" fa="adjust" type="select is-primary" >
       <select v-model="filters.state" @change="$root.$emit('update-filters')" style="width: 8vw">
-        <option v-for="state in states" :value="state.value">{{state.label | translate}}</option>
+        <option v-for="state in states" :value="state.key">{{ configTranslation(state.name) }}</option>
       </select>
     </custom-field>
     <custom-field is-control="true" fa="balance-scale" type="select is-primary" >
@@ -39,6 +39,10 @@ import {ipcRenderer} from 'electron'
 import moment from 'moment'
 import Vue from 'vue'
 
+import {configTranslation} from '../../../util/translation'
+
+import OPERATION_STATES from '../../../../config/operation-states'
+
 export default {
   components: {
     customField
@@ -55,10 +59,8 @@ export default {
         {value: moment(0).format('YYYY-MM-DD'), label: 'TIME.*'}
       ],
       states: [
-        {value: '*', label: 'MAIN_PANE.ACCOUNTS.ALL'},
-        {value: 'far circle', label: 'MAIN_PANE.ACCOUNTS.REGISTERED'},
-        {value: 'fas circle', label: 'MAIN_PANE.ACCOUNTS.CHECKED'},
-        {value: 'fas check-circle', label: 'MAIN_PANE.ACCOUNTS.VERIFIED'}
+        {key: '*', name: '$MAIN_PANE.ACCOUNTS.ALL', icon: 'star-of-life'},
+        ...OPERATION_STATES
       ],
       amounts: [
         {value: '*', label: 'MAIN_PANE.ACCOUNTS.ANY'},
@@ -90,6 +92,9 @@ export default {
         amount: '*'
       }
       this.$root.$emit('update-filters')
+    },
+    configTranslation (str) {
+      return configTranslation(str)
     }
   },
   created: function () {
