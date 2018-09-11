@@ -63,7 +63,7 @@
   import chartJS from 'chart.js' // eslint-disable-line
   import moment from 'moment'
   import Vue from 'vue'
-  import Migrator from '../util/migrator'
+  import Migrator from '../../util/migrator'
 
   // Use datepart SQL to filter by week / month / day / quarter /
   // https://docs.microsoft.com/en-us/sql/t-sql/functions/datepart-transact-sql?view=sql-server-2017

@@ -124,7 +124,7 @@ import {ipcRenderer, remote} from 'electron'
 import jsonfile from 'jsonfile'
 import path from 'path'
 import Vue from 'vue'
-import Migrator from '../util/migrator'
+import Migrator from '../../util/migrator'
 
 export default {
   name: 'accounts-pane',
