@@ -16,6 +16,9 @@ export default class Database {
     Migrator.migrate(this)
   }
 
+  run (sql) {
+    return this.sql.run(sql)
+  }
   exec (sqlstr) {
     const aux = this.sql.exec(sqlstr)[0]
     if (aux === undefined) throw new Error('Empty response', 'Database.class.js', 15)
