@@ -19,21 +19,24 @@ export default {
       currentVersion = db.exec('SELECT name FROM version_history ORDER BY name DESC LIMIT 1')
       currentVersion = currentVersion.length > 0 ? parseInt(currentVersion[0]) : 0
     } catch (e) {
-      console.error(e)
+      console.error('Error while reading from version_history: ' + e)
+      if (e.message.includes('no such table: version_history')) {
+        // create version history if table is not existent
+        // insert initial
+        db.run('CREATE TABLE version_history (name varchar(128))')
 
-      // create version history if table is not existent
-      db.run('CREATE TABLE version_history (name varchar(128))')
-      this.migrate(db) // retry migration
-      return // don't continue because retry already continues
+        // skip initial migration and insert it manually if db is valid
+        if (checkOldDb(db)) {
+          console.log('Database matches old database schema. Migrating to new schema.')
+          db.run(`INSERT INTO version_history (name) VALUES ('${Initial.name}')`)
+        } else {
+          migrateScript(db, Initial)
+        }
+      }
+      return // don't continue when errors occur
     }
 
     let newMigrations = migrationScripts.filter(x => parseInt(x.name) > currentVersion)
-
-    // skip initial migration and insert it manually
-    if (checkOldDb(db)) {
-      db.run(`INSERT INTO version_history (name) VALUES ('${Initial.name}')`)
-      newMigrations = newMigrations.slice(1)
-    }
 
     newMigrations.forEach(migration => {
       migrateScript(db, migration)
