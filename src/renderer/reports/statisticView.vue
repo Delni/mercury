@@ -55,8 +55,8 @@ import { ipcRenderer } from 'electron'
 import Database from '@/assets/Database.class'
 import chartJS from 'chart.js' // eslint-disable-line
 import moment from 'moment'
-import path from 'path'
 import Vue from 'vue'
+import Migrator from '../../util/migrator'
 
 export default {
   components: { icon, toggleButton, report },
@@ -301,19 +301,21 @@ export default {
     }
   },
   mounted: function () {
-    const dbPath = path.join(__static, 'data/template.sqlite')
     const ctx = document.getElementById('myChart')
 
     if (!this.$root.settings.lastfile) {
-      this.db = new Database(dbPath)
+      this.db = new Database()
     } else {
       try {
         this.db = new Database(this.$root.settings.lastfile)
       } catch (e) {
         console.warn(e.message)
-        this.db = new Database(dbPath)
+        this.db = new Database()
       }
     }
+    // TODO only on app start
+    Migrator.migrate(this.db)
+
     this.updateConfig()
     if (this.$root.settings.theme === 'dark') {
       this.config.options.legend.labels = {fontColor: 'rgb(237, 237, 237)'}

@@ -56,8 +56,8 @@ import { ipcRenderer } from 'electron'
 import Database from '@/assets/Database.class'
 import chartJS from 'chart.js' // eslint-disable-line
 import moment from 'moment'
-import path from 'path'
 import Vue from 'vue'
+import Migrator from '../../util/migrator'
 
 // Use datepart SQL to filter by week / month / day / quarter /
 // https://docs.microsoft.com/en-us/sql/t-sql/functions/datepart-transact-sql?view=sql-server-2017
@@ -295,19 +295,20 @@ export default {
     }
   },
   mounted: function () {
-    const dbPath = path.join(__static, 'data/template.sqlite')
     const ctx = document.getElementById('myChart')
 
     if (!this.$root.settings.lastfile) {
-      this.db = new Database(dbPath)
+      this.db = new Database()
     } else {
       try {
         this.db = new Database(this.$root.settings.lastfile)
       } catch (e) {
         console.warn(e.message)
-        this.db = new Database(dbPath)
+        this.db = new Database()
       }
     }
+    // TODO only on app start
+    Migrator.migrate(this.db)
     this.getAccounts(this)
     // <!-- HERE -->
     this.updateConfig()
