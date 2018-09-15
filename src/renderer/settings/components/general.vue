@@ -5,12 +5,12 @@
         <div class="notification is-dark is-30h">
           <p class="title is-marginless">{{'SETTINGS.TABS.GENERAL.THEME' | translate}}</p>
           <div class="field">
-            <input id="dark-theme" type="checkbox" name="dark-theme" class="switch is-rounded"
+            <input id="dark-theme" type="checkbox" name="dark-theme" class="switch is-rounded is-small"
                    v-model="settings.theme === 'dark'" @click="settings.theme = 'dark'">
             <label for="dark-theme">{{'SETTINGS.TABS.GENERAL.DARK_THEME' | translate}}</label>
           </div>
           <div class="field">
-            <input id="light-theme" type="checkbox" name="light-theme" class="switch is-rounded"
+            <input id="light-theme" type="checkbox" name="light-theme" class="switch is-rounded is-small"
                    v-model="settings.theme === 'light'" @click="settings.theme = 'light'">
             <label for="light-theme">{{'SETTINGS.TABS.GENERAL.LIGHT_THEME' | translate}}</label>
           </div>
