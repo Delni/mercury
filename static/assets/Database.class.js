@@ -63,7 +63,7 @@ export default class Database {
   fullLookup (account) {
     // In Bank
     let sqlstmt = this.sql.prepare(
-      'UPDATE Accounts SET inBank = Coalesce(Accounts.baseAmount+(SELECT SUM(amount) FROM OPERATION WHERE account_name =:name AND state=\'fa fa-check-circle\' AND date<=:date), Accounts.baseAmount) WHERE name =:name2'
+      'UPDATE Accounts SET inBank = Coalesce(Accounts.baseAmount+(SELECT SUM(amount) FROM OPERATION WHERE account_name =:name AND state=\'verified\' AND date<=:date), Accounts.baseAmount) WHERE name =:name2'
     )
     sqlstmt.run({
       ':name': account,
@@ -100,7 +100,7 @@ export default class Database {
   newlookup (lastlookup, account) {
     // In Bank
     let sqlstmt = this.sql.prepare(
-      'UPDATE Accounts SET inBank = (Accounts.inBank+(SELECT SUM(amount) FROM OPERATION LEFT JOIN Accounts ON OPERATION.account_name=Accounts.name WHERE account_name =:name AND OPERATION.date<=:date AND OPERATION.date>Accounts.lastlookup AND state=\'fa fa-check-circle\')) WHERE name =:name2'
+      'UPDATE Accounts SET inBank = (Accounts.inBank+(SELECT SUM(amount) FROM OPERATION LEFT JOIN Accounts ON OPERATION.account_name=Accounts.name WHERE account_name =:name AND OPERATION.date<=:date AND OPERATION.date>Accounts.lastlookup AND state=\'verified\')) WHERE name =:name2'
     )
     sqlstmt.bind({
       ':name': account,
@@ -134,7 +134,7 @@ export default class Database {
   }
 
   locallookup (account, operation, dateBTF, stateBTF) {
-    if (stateBTF === 'fa fa-check-circle' && !moment(dateBTF, 'YYYY-MM-DD').isAfter(moment())) {
+    if (stateBTF === 'verified' && !moment(dateBTF, 'YYYY-MM-DD').isAfter(moment())) {
       this.sql.run('UPDATE Accounts SET future = (Accounts.future+' + operation + '), inBank = (Accounts.inBank+' + operation + '), today = (Accounts.today+' + operation + '), future = (Accounts.future+' + operation + ') WHERE name =\'' + account + '\'')
     } else if (moment(dateBTF, 'YYYY-MM-DD').isAfter(moment())) {
       this.sql.run('UPDATE Accounts SET future = (Accounts.future+' + operation + ') WHERE name =\'' + account + '\'')
@@ -231,7 +231,7 @@ export default class Database {
 
   launchPending (id) {
     let resSQL = this.exec('SELECT * FROM Recurrings WHERE id=' + id)[0]
-    this.insertOperation(resSQL.account_name, [resSQL.date, 'fa fa-circle-o', resSQL.beneficiary, resSQL.category, resSQL.label, resSQL.amount, resSQL.type], 'YYYY-MM-DD')
+    this.insertOperation(resSQL.account_name, [resSQL.date, 'registered', resSQL.beneficiary, resSQL.category, resSQL.label, resSQL.amount, resSQL.type], 'YYYY-MM-DD')
     let newDate = moment(resSQL.date, 'YYYY-MM-DD').add(resSQL.offset, resSQL.timespan).format('YYYY-MM-DD')
     resSQL.times = Number(resSQL.times)
     if (resSQL.times !== null) {

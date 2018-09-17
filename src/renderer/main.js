@@ -4,7 +4,6 @@ import axios from 'axios'
 // CSS
 import 'bulma/css/bulma.css'
 import 'bulma-extensions/dist/bulma-extensions.min.css'
-import 'font-awesome/css/font-awesome.css'
 import './assets/sass/master.sass'
 // Components
 import App from '@/App'
@@ -13,10 +12,12 @@ import jsonfile from 'jsonfile'
 import path from 'path'
 import moment from 'moment'
 import {ipcRenderer} from 'electron'
+import './icons'
 import './filters'
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = axios
+
 Vue.config.productionTip = false
 
 let globSettings = jsonfile.readFileSync(path.join(__static, 'settings.json'))

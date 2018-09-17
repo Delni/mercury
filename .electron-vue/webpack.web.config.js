@@ -46,6 +46,19 @@ let webConfig = {
         exclude: /node_modules/
       },
       {
+        test: /\.sass$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              indentedSyntax: true
+            }
+          }
+        ]
+      },
+      {
         test: /\.vue$/,
         use: {
           loader: 'vue-loader',

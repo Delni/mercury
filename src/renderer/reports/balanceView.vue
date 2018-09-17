@@ -1,10 +1,10 @@
 <template lang="html">
-  <report title="REPORTS.BALANCE.TITLE" color="danger" icon="fa-line-chart">
+  <report title="REPORTS.BALANCE.TITLE" color="danger" icon="chart-line">
     <p class="subtitle is-5">{{ 'REPORTS.COMMON.TIME_SPAN' | translate}}</p>
     <div class="field has-addons">
       <div class="control">
         <a class="button is-primary is-tag">
-          <icon fa="fa-calendar"/>
+          <font-awesome-icon icon="calendar"/>
         </a>
       </div>
       <div class="control select is-primary">
@@ -20,7 +20,7 @@
       <div class="control field has-addons column">
         <div class="control">
           <a class="button is-primary is-tag">
-            <icon fa="fa-calendar-minus-o"/>
+            <font-awesome-icon icon="calendar-plus"/>
           </a>
         </div>
         <div class="control" style="width: 10vw">
@@ -36,7 +36,7 @@
       <div class="control field has-addons column">
         <div class="control">
           <a class="button is-primary is-tag">
-            <icon fa="fa-calendar-plus-o"/>
+            <font-awesome-icon icon="calendar-minus"/>
           </a>
         </div>
         <div class="control" style="width: 10vw">
@@ -55,7 +55,6 @@
 </template>
 
 <script>
-  import icon from '@/components/common/icon'
   import report from '@/reports/components/report'
 
   import { ipcRenderer } from 'electron'
@@ -77,7 +76,7 @@
   ]
 
   export default {
-    components: {icon, report},
+    components: {report},
     data: function () {
       return {
         db: null,
@@ -104,28 +103,47 @@
           type: 'line',
           data: {datasets: []},
           options: {
-            legend: {
-              position: 'bottom'
-            },
-            fill: 'bottom',
-            scales: {
-              xAxes: [{
-                type: 'time',
-                time: {
-                  parser: this.$root.settings.dateFormat,
-                  tooltipFormat: this.$root.settings.dateFormat
-                },
-                scaleLabel: {
-                  display: true,
-                  labelString: Vue.filter('translate')('CHART.DATE')
-                }
-              }],
-              yAxes: [{
-                scaleLabel: {
-                  display: true,
-                  labelString: Vue.filter('translate')('CHART.VALUE')
-                }
-              }]
+            period: 'thismonth',
+            firstDate: moment().startOf('month').format('YYYY-MM-DD'),
+            lastDate: moment().endOf('month').format('YYYY-MM-DD'),
+            allDates: false
+          },
+          timesSpan: [
+            {value: 'thismonth', label: 'TIME.TM'},
+            {value: 'lastmonth', label: 'TIME.LM'},
+            {value: 'thisquarter', label: 'TIME.TQ'},
+            {value: 'lastquarter', label: 'TIME.LQ'},
+            {value: 'thisyear', label: 'TIME.TY'},
+            {value: 'lastyear', label: 'TIME.LY'},
+            {value: '', label: 'TIME.*'}
+          ],
+          config: {
+            type: 'line',
+            data: {datasets: []},
+            options: {
+              legend: {
+                position: 'bottom'
+              },
+              fill: 'bottom',
+              scales: {
+                xAxes: [{
+                  type: 'time',
+                  time: {
+                    parser: this.$root.settings.dateFormat,
+                    tooltipFormat: this.$root.settings.dateFormat
+                  },
+                  scaleLabel: {
+                    display: true,
+                    labelString: Vue.filter('translate')('CHART.DATE')
+                  }
+                }],
+                yAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: Vue.filter('translate')('CHART.VALUE')
+                  }
+                }]
+              }
             }
           }
         }

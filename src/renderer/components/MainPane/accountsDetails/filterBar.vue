@@ -6,7 +6,7 @@
       </select>
     </custom-field>
 
-    <custom-field is-control="true" fa="calendar-o" type="select is-primary" >
+    <custom-field is-control="true" fa="calendar" type="select is-primary">
       <select v-model="filters.date" @change="$root.$emit('update-filters')" style="width: 12vw">
         <option v-for="time in timesSpan" :value="time.value">{{time.label | translate}}</option>
       </select>
@@ -14,7 +14,7 @@
 
     <custom-field is-control="true" fa="adjust" type="select is-primary" >
       <select v-model="filters.state" @change="$root.$emit('update-filters')" style="width: 8vw">
-        <option v-for="state in states" :value="state.value">{{state.label | translate}}</option>
+        <option v-for="state in states" :value="state.key">{{ configTranslation(state.name) }}</option>
       </select>
     </custom-field>
     <custom-field is-control="true" fa="balance-scale" type="select is-primary" >
@@ -24,25 +24,27 @@
     </custom-field>
 
     <p class="control">
-      <a class="button is-primary" @click="showAdvancedFilters()"><icon fa="filter" /></a>
+      <a class="button is-primary" @click="showAdvancedFilters()"><font-awesome-icon icon="filter" /></a>
     </p>
     <p class="control">
-      <a class="button is-primary" @click="resetFilters()"><icon fa="refresh" /></a>
+      <a class="button is-primary" @click="resetFilters()"><font-awesome-icon icon="sync" /></a>
     </p>
   </nav>
 </template>
 
 <script>
-import icon from '@/components/common/icon.vue'
 import customField from '@/components/common/customField.vue'
 
 import {ipcRenderer} from 'electron'
 import moment from 'moment'
 import Vue from 'vue'
 
+import {configTranslation} from '../../../util/translation'
+
+import OPERATION_STATES from '../../../../config/operation-states'
+
 export default {
   components: {
-    icon,
     customField
   },
   data: function () {
@@ -57,10 +59,8 @@ export default {
         {value: moment(0).format('YYYY-MM-DD'), label: 'TIME.*'}
       ],
       states: [
-        {value: '*', label: 'MAIN_PANE.ACCOUNTS.ALL'},
-        {value: 'fa fa-circle-o', label: 'MAIN_PANE.ACCOUNTS.REGISTERED'},
-        {value: 'fa fa-circle', label: 'MAIN_PANE.ACCOUNTS.CHECKED'},
-        {value: 'fa fa-check-circle', label: 'MAIN_PANE.ACCOUNTS.VERIFIED'}
+        {key: '*', name: '$MAIN_PANE.ACCOUNTS.ALL', icon: 'star-of-life'},
+        ...OPERATION_STATES
       ],
       amounts: [
         {value: '*', label: 'MAIN_PANE.ACCOUNTS.ANY'},
@@ -92,6 +92,9 @@ export default {
         amount: '*'
       }
       this.$root.$emit('update-filters')
+    },
+    configTranslation (str) {
+      return configTranslation(str)
     }
   },
   created: function () {

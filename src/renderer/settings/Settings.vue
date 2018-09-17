@@ -4,11 +4,11 @@
         <div class="hero-head">
           <p class="title">
             <span style="margin-left:2%; -webkit-app-region: drag">
-              <icon size="is-large has-text-info" fa="sliders" />
+              <font-awesome-icon size="lg" class="has-text-info" icon="sliders-h" />
               <span>{{'SETTINGS.TITLE' | translate}}</span>
             </span>
-            <a onclick="window.close()" class="button is-outlined is-danger pull-right">
-              <icon fa="fa-times"/>
+            <a onclick="window.close()" class="button is-outlined is-danger is-pulled-right">
+              <font-awesome-icon icon="times"/>
             </a>
           </p>
         </div>
@@ -18,7 +18,9 @@
               <ul>
                 <li v-for="tab in tabs" :class="{'is-active': activeTab === tab.key}">
                   <a @click="toggleTab(tab.key)">
-                    <icon :fa="tab.icon"/>
+                    <span class="icon">
+                      <font-awesome-icon :icon="tab.icon"/>
+                    </span>
                     <span>{{ 'SETTINGS.TABS.TITLES.'+ tab.translate | translate}}</span>
                   </a>
                 </li>
@@ -32,8 +34,11 @@
           </div>
         </div>
         <div class="hero-footer">
-          <a class="button is-outlined is-info pull-right"  :class="{'is-loading' : loading}" @click="save()">
-            <icon fa="save"/> &nbsp; {{ "SETTINGS.SAVE" | translate}}
+          <a class="button is-outlined is-info is-pulled-right"  :class="{'is-loading' : loading}" @click="save()">
+            <span class="icon">
+              <font-awesome-icon icon="save"/>
+            </span>&nbsp;
+            {{ "SETTINGS.SAVE" | translate}}
           </a>
         </div>
     </section>
@@ -41,7 +46,6 @@
 </template>
 
 <script>
-import icon from '@/components/common/icon'
 import general from '@/settings/components/general'
 import savedValues from '@/settings/components/savedValues'
 import exchange from '@/settings/components/exchange'
@@ -53,7 +57,7 @@ import path from 'path'
 import Vue from 'vue'
 
 export default {
-  components: { icon, general, savedValues, exchange, about },
+  components: { general, savedValues, exchange, about },
   data: function () {
     return {
       loading: false,
@@ -61,7 +65,7 @@ export default {
       settings: this.$root.settings,
       tabs: [
         {key: 'general', icon: 'cogs', translate: 'GENERAL'},
-        {key: 'savedValues', icon: 'bookmark-o', translate: 'SAVED_VALUES'},
+        {key: 'savedValues', icon: 'bookmark', translate: 'SAVED_VALUES'},
         // {key: 'exchange', icon: 'globe', translate: 'CURRENCIES'},
         {key: 'about', icon: 'heart', translate: 'ABOUT'}
       ]

@@ -7,7 +7,7 @@
       <div class="notification is-black column is-4">
         <div class="columns is-centered">
           <span class="column is-5 is-size-5 has-text-centered has-text-danger">{{balanceDown | format}}</span>
-          <span class="column is-2 is-size-5 has-text-centered"><icon fa="balance-scale"/></span>
+          <span class="column is-2 is-size-5 has-text-centered"><font-awesome-icon icon="balance-scale"/></span>
           <span class="column is-5 is-size-5 has-text-centered has-text-success">{{balanceUp | format}}</span>
         </div>
       </div>
@@ -19,35 +19,59 @@
           <tr class="has-text-centered">
             <th><a class="link" @click="changeOrder('state')">
               {{'MAIN_PANE.ACCOUNTS.TABLE.HEAD.STATE' | translate}}
-              <span v-if="orderBy === 'state'"><icon v-if="order === 'asc'" fa="chevron-up" /><icon v-else fa="chevron-down" /></span>
+              <span v-if="orderBy === 'state'">
+                <font-awesome-icon icon="chevron-up" v-if="order === 'asc'" />
+                <font-awesome-icon icon="chevron-down" v-else/>
+              </span>
             </a></th>
             <th><a class="link" @click="changeOrder('date')">
               {{'MAIN_PANE.ACCOUNTS.TABLE.HEAD.DATE' | translate}}
-              <span v-if="orderBy === 'date'"><icon v-if="order === 'asc'" fa="chevron-up" /><icon v-else fa="chevron-down" /></span>
+              <span v-if="orderBy === 'date'">
+                <font-awesome-icon icon="chevron-up" v-if="order === 'asc'" />
+                <font-awesome-icon icon="chevron-down" v-else/>
+              </span>
             </a></th>
             <th><a class="link" @click="changeOrder('type')">
               {{'MAIN_PANE.ACCOUNTS.TABLE.HEAD.TYPE' | translate}}
-              <span v-if="orderBy === 'type'"><icon v-if="order === 'asc'" fa="chevron-up" /><icon v-else fa="chevron-down" /></span>
+              <span v-if="orderBy === 'type'">
+                <font-awesome-icon icon="chevron-up" v-if="order === 'asc'" />
+                <font-awesome-icon icon="chevron-down" v-else/>
+              </span>
             </a></th>
             <th><a class="link" @click="changeOrder('beneficiary')">
               {{'MAIN_PANE.ACCOUNTS.TABLE.HEAD.BENEFICIARY' | translate}}
-              <span v-if="orderBy === 'beneficiary'"><icon v-if="order === 'asc'" fa="chevron-up" /><icon v-else fa="chevron-down" /></span>
+              <span v-if="orderBy === 'beneficiary'">
+                <font-awesome-icon icon="chevron-up" v-if="order === 'asc'" />
+                <font-awesome-icon icon="chevron-down" v-else/>
+              </span>
             </a></th>
             <th><a class="link" @click="changeOrder('category')">
               {{'MAIN_PANE.ACCOUNTS.TABLE.HEAD.CATEGORY' | translate}}
-              <span v-if="orderBy === 'category'"><icon v-if="order === 'asc'" fa="chevron-up" /><icon v-else fa="chevron-down" /></span>
+              <span v-if="orderBy === 'category'">
+                <font-awesome-icon icon="chevron-up" v-if="order === 'asc'" />
+                <font-awesome-icon icon="chevron-down" v-else/>
+              </span>
             </a></th>
             <th><a class="link" @click="changeOrder('label')">
               {{'MAIN_PANE.ACCOUNTS.TABLE.HEAD.LABEL' | translate}}
-              <span v-if="orderBy === 'label'"><icon v-if="order === 'asc'" fa="chevron-up" /><icon v-else fa="chevron-down" /></span>
+              <span v-if="orderBy === 'label'">
+                <font-awesome-icon icon="chevron-up" v-if="order === 'asc'" />
+                <font-awesome-icon icon="chevron-down" v-else/>
+              </span>
             </a></th>
             <th><a class="link" @click="changeOrder('debit')">
               {{'MAIN_PANE.ACCOUNTS.TABLE.HEAD.DEBIT' | translate}}
-              <span v-if="orderBy === 'debit'"><icon v-if="order === 'asc'" fa="chevron-up" /><icon v-else fa="chevron-down" /></span>
+              <span v-if="orderBy === 'debit'">
+                <font-awesome-icon icon="chevron-up" v-if="order === 'asc'" />
+                <font-awesome-icon icon="chevron-down" v-else/>
+              </span>
             </a></th>
             <th><a class="link" @click="changeOrder('collection')">
               {{'MAIN_PANE.ACCOUNTS.TABLE.HEAD.COLLECTION' | translate}}
-              <span v-if="orderBy === 'collection'"><icon v-if="order === 'asc'" fa="chevron-up" /><icon v-else fa="chevron-down" /></span>
+              <span v-if="orderBy === 'collection'">
+                <font-awesome-icon icon="chevron-up" v-if="order === 'asc'" />
+                <font-awesome-icon icon="chevron-down" v-else/>
+              </span>
             </a></th>
           </tr>
         </thead>
@@ -63,9 +87,9 @@
                 :key="row.id"
                 :class="{'is-selected': row.isClicked, 'is-future': isFuture(row)}"
                 @click="editRow(row)">
-              <td class="has-text-centered"><icon :fa="row.state"/></td>
+              <td class="has-text-centered"><font-awesome-icon :icon="stateIcon(row)"/></td>
               <td>{{row.date}}</td>
-              <td class="has-text-centered"><icon :fa="row.type" /></td>
+              <td class="has-text-centered"><font-awesome-icon :icon="row.type" /></td>
               <td><div class="is-not-too-large">{{row.beneficiary}}</div></td>
               <td>{{row.category}}</td>
               <td><div class="is-not-too-large">{{row.label}}</div></td>
@@ -80,16 +104,15 @@
 
 <script>
 import filterBar from '@/components/MainPane/accountsDetails/filterBar'
-import icon from '@/components/common/icon'
 
 import _ from 'lodash'
 import moment from 'moment'
 import Vue from 'vue'
+import {stateIcon} from '../../util/icons'
 
 export default {
   components: {
-    filterBar,
-    icon
+    filterBar
   },
   data: function () {
     return {
@@ -120,7 +143,9 @@ export default {
     isFuture: function (row) {
       return moment(row.date, this.$root.settings.dateFormat).isAfter(moment())
     },
-
+    stateIcon (row) {
+      return stateIcon(row.state)
+    },
     changeOrder: function (filter) {
       if (filter === 'debit' || filter === 'collection') {
         if (filter === 'debit') {

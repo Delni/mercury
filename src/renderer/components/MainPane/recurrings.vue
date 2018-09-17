@@ -1,31 +1,41 @@
 <template lang="html">
   <div>
     <p class="title is-marginless">
-      <icon size="is-medium" class="has-text-success" fa="fa-recycle"/>
+      <font-awesome-icon class="has-text-success" icon="recycle"/>
       {{'MAIN_PANE.RECURRINGS.TITLE' | translate}}
     </p>
     <!-- <recurring-bar /> -->
     <nav class="level">
       <div class="level-item">
         <a class="button is-info" @click="showRecModal('create')">
-          <icon fa="fa-plus-circle" /> <span>{{ "MAIN_PANE.RECURRINGS.BAR.CREATE" | translate}}</span>
+          <span class="icon">
+            <font-awesome-icon icon="plus-circle" />
+          </span>
+          <span>{{ "MAIN_PANE.RECURRINGS.BAR.CREATE" | translate}}</span>
         </a>
       </div>
       <div class="level-item">
         <a class="button is-large is-danger" @click="showRecModal('launch')">
-          <icon size="is-medium" fa="fa-rocket" /> <span>{{ "MAIN_PANE.RECURRINGS.BAR.LAUNCH" | translate}}</span>
+          <span class="icon">
+            <font-awesome-icon icon="rocket" />
+          </span>
+          <span>{{ "MAIN_PANE.RECURRINGS.BAR.LAUNCH" | translate}}</span>
         </a>
       </div>
       <div class="level-item">
         <a class="button is-success" @click="showRecModal('edit')">
-          <icon fa="fa-pencil" /> <span>{{ "MAIN_PANE.RECURRINGS.BAR.EDIT" | translate}}</span>
+          <span class="icon">
+            <font-awesome-icon icon="pencil-alt" />
+          </span>
+          <span>{{ "MAIN_PANE.RECURRINGS.BAR.EDIT" | translate}}</span>
         </a>
       </div>
     </nav>
     <!-- <recurring-modal /> -->
     <modal :active="recModalActive"
            :icon="modalConfig.icon"
-           :close="closeRecModal" width="60vw">
+           :close="closeRecModal" width="60vw"
+          v-if="modalConfig.icon">
       <div v-if="modalConfig.translate !== 'LAUNCH'">
         <p class="title">{{'MAIN_PANE.RECURRINGS.MODAL.TITLE.'+modalConfig.translate| translate}}</p>
         <div class="columns">
@@ -37,7 +47,7 @@
 
             <div class="field has-addons flex">
               <div class="control">
-                <a class="button is-tag is-primary"><icon fa="retweet"/></a>
+                <a class="button is-tag is-primary"><font-awesome-icon icon="retweet"/></a>
               </div>
               <div class="control" style="width: 4vw">
                 <input class="input" type="number" min="1" v-model="newRecurringOperation.offset">
@@ -56,8 +66,8 @@
             <div class="field has-addons flex">
               <div class="control">
                 <a class="button is-primary" @click="newRecurringOperation.hasRepeat = !newRecurringOperation.hasRepeat; $forceUpdate()">
-                  <icon fa="check" v-if="newRecurringOperation.hasRepeat"/>
-                  <icon fa="times" v-else/>
+                  <font-awesome-icon icon="check" v-if="newRecurringOperation.hasRepeat"/>
+                  <font-awesome-icon icon="times" v-else/>
                 </a>
               </div>
               <div class="control flex">
@@ -74,7 +84,7 @@
           </div>
           <div class="content column">
 
-            <custom-field class="flex" fa="bank" type="select is-primary">
+            <custom-field class="flex" fa="university" type="select is-primary">
               <select id="op-account" name="op-account" v-model="newRecurringOperation.selectedAccount">
                 <option v-for="account in accounts" :value="account">{{account.name}}</option>
               </select>
@@ -83,35 +93,27 @@
             <div class="field has-addons flex" data='op-add-btn'>
               <div class="control">
                 <a class="button is-primary is-tag" id="op-type-btn">
-                  <icon :fa="'fa-' + newRecurringOperation.type"/>
+                  <font-awesome-icon :icon="newRecurringOperation.type.icon"/>
                 </a>
               </div>
               <div class="control select is-primary" style="margin:0; flex:1">
                 <select name="op-type" id="op-type" v-model="newRecurringOperation.type">
-                    <option value="" disabled>{{"OPERATION_TYPE.DEFAULT" | translate }}</option>
-                    <option value="credit-card">{{"OPERATION_TYPE.CREDIT_CARD" | translate }}</option>
-                    <option value="pencil-square-o">{{"OPERATION_TYPE.CHECK" | translate }}</option>
-                    <option value="money">{{"OPERATION_TYPE.CASH" | translate }}</option>
-                    <option value="exchange">{{"OPERATION_TYPE.TRANSFER" | translate }}</option>
-                    <option value="refresh">{{"OPERATION_TYPE.INTERNAL_TRANSFER" | translate }}</option>
-                    <option value="share">{{"OPERATION_TYPE.PERMANENT_TRANSFER" | translate }}</option>
-                    <option value="desktop">{{"OPERATION_TYPE.ELECTRONIC" | translate }}</option>
-                    <option value="paypal">PayPal</option>
-                    <option value="inbox">{{"OPERATION_TYPE.DEPOSIT" | translate }}</option>
-                    <option value="bank">{{"OPERATION_TYPE.BANK_CHARGE" | translate }}</option>
-                    <option value="stop-circle-o">{{"OPERATION_TYPE.DIRECT_LEVY" | translate }}</option>
-                  </select>
+                  <option value="" disabled>{{"OPERATION_TYPE.DEFAULT" | translate }}</option>
+                  <option :value="operationType" v-for="operationType in operationTypes">
+                    {{configTranslation(operationType.name)}}
+                  </option>
+                </select>
               </div>
             </div>
 
-            <custom-field class="flex" :fa="newRecurringOperation.selectedAccount.currency">
+            <custom-field class="flex" :fa="currencyIcon(newRecurringOperation.selectedAccount.currency)">
               <input class="input" type="number" :placeholder="'0.00' | format" v-model="newRecurringOperation.amount">
             </custom-field>
 
           </div>
           <div class="content column">
 
-            <custom-field class="flex" fa="building-o">
+            <custom-field class="flex" fa="building">
               <input class="input typeahead " id="op-benef" type="text" :placeholder="'OPERATION_PANE.PLACEHOLDERS.BENEFICIARY' | translate" v-model="newRecurringOperation.beneficiary"/>
             </custom-field>
 
@@ -126,12 +128,8 @@
           </div>
         </div>
         <div class="field">
-          <p class="control pull-left">
-            <a class="button is-info" @click="modalConfig.callback">{{'MAIN_PANE.RECURRINGS.MODAL.CONFIRM_BUTTON.'+modalConfig.translate| translate}}</a>
-          </p>
-          <p class="control pull-right">
-            <a class="button is-danger" @click="closeRecModal()">{{'CANCEL'| translate}}</a>
-          </p>
+          <a class="button is-info left" @click="modalConfig.callback">{{'MAIN_PANE.RECURRINGS.MODAL.CONFIRM_BUTTON.'+modalConfig.translate| translate}}</a>
+          <a class="button is-danger is-pulled-right" @click="closeRecModal()">{{'CANCEL'| translate}}</a>
           <p v-if="modalConfig.translate === 'EDIT'" class="level-item">
             <a class="button is-warning" @click="deleteRecuring(newRecurringOperation.id)">{{'DELETE' | translate}}</a>
           </p>
@@ -156,7 +154,9 @@
             </select>
           </div>
           <div class="control">
-            <a class="button is-warning" :class="{'is-outlined': this.$root.settings.theme === 'dark', 'is-loading': launching}" @click="launchPending()"><icon fa="rocket" /></a>
+            <a class="button is-warning" :class="{'is-outlined': this.$root.settings.theme === 'dark', 'is-loading': launching}" @click="launchPending()">
+              <font-awesome-icon icon="rocket" />
+            </a>
           </div>
         </form>
         <hr>
@@ -177,7 +177,7 @@
                 :key="recurring.id"
                 :class="{'is-selected': recurring.isSelected}">
               <td class="has-text-centered">{{recurring.date | date}}</td>
-              <td class="has-text-centered"><icon :fa="recurring.type" /></td>
+              <td class="has-text-centered"><font-awesome-icon :icon="recurring.type" /></td>
               <td class="has-text-centered">{{recurring.beneficiary}}</td>
               <td class="has-text-centered">{{recurring.category}}</td>
               <td class="has-text-centered">{{recurring.label}}</td>
@@ -191,17 +191,18 @@
 </template>
 
 <script>
-import icon from '@/components/common/icon'
 import modal from '@/components/common/modal'
 import customField from '@/components/common/customField'
 
 import { ipcRenderer, remote } from 'electron'
 import moment from 'moment'
 import Vue from 'vue'
+import { currencyIcon, stateIcon } from '../../util/icons'
+import { configTranslation } from '../../util/translation'
+import OPERATION_TYPES from '../../../config/operation-types'
 
 export default {
   components: {
-    icon,
     modal,
     customField
   },
@@ -220,10 +221,11 @@ export default {
       newRecurringOperation: {
         date: moment().format(this.$root.settings.dateFormat),
         selectedAccount: this.$root.accounts[0],
-        type: 'credit-card',
+        type: OPERATION_TYPES[0],
         offset: 1,
         timespan: 'days'
-      }
+      },
+      operationTypes: OPERATION_TYPES
     }
   },
 
@@ -232,7 +234,12 @@ export default {
       this.recurrings = this.$root.db.exec('SELECT id,date,type,beneficiary,category,label,amount, account_name FROM Recurrings ORDER BY date ASC')
       this.recurrings.map(r => { r.isSelected = false; r.selectedAccount = this.$root.accounts.find(a => a.name === r.account_name) })
     },
-
+    currencyIcon (currency) {
+      return currencyIcon(currency)
+    },
+    stateIcon (state) {
+      return stateIcon(state)
+    },
     contextMenu: function (recurring) {
       let vm = this
       let contextualMenu = new remote.Menu()
@@ -347,7 +354,7 @@ export default {
                 vm.newRecurringOperation.selectedAccount.name,
                 [
                   vm.newRecurringOperation.amount,
-                  vm.newRecurringOperation.type,
+                  vm.newRecurringOperation.type.key,
                   vm.newRecurringOperation.beneficiary,
                   vm.newRecurringOperation.category,
                   vm.newRecurringOperation.label,
@@ -364,7 +371,7 @@ export default {
               vm.newRecurringOperation = {
                 date: moment().format(this.$root.settings.dateFormat),
                 selectedAccount: this.$root.accounts[0],
-                type: 'credit-card',
+                type: OPERATION_TYPES[0],
                 offset: 1,
                 timespan: 'days'
               }
@@ -398,7 +405,7 @@ export default {
                 vm.newRecurringOperation.selectedAccount.name,
                 [
                   vm.newRecurringOperation.amount,
-                  vm.newRecurringOperation.type,
+                  vm.newRecurringOperation.type.key,
                   vm.newRecurringOperation.beneficiary,
                   vm.newRecurringOperation.category,
                   vm.newRecurringOperation.label,
@@ -415,7 +422,7 @@ export default {
               vm.newRecurringOperation = {
                 date: moment().format(this.$root.settings.dateFormat),
                 selectedAccount: this.$root.accounts[0],
-                type: 'credit-card',
+                type: OPERATION_TYPES[0],
                 offset: 1,
                 timespan: 'days'
               }
@@ -448,7 +455,7 @@ export default {
         this.newRecurringOperation = {
           date: moment().format(this.$root.settings.dateFormat),
           selectedAccount: this.$root.accounts[0],
-          type: 'credit-card',
+          type: OPERATION_TYPES[0],
           offset: 1,
           timespan: 'days'
         }
@@ -459,6 +466,9 @@ export default {
       }
       this.$root.$emit('edit-operation:clean')
       this.$forceUpdate()
+    },
+    configTranslation (name) {
+      return configTranslation(name)
     }
   },
   created: function () {

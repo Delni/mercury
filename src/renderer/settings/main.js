@@ -2,15 +2,14 @@ import Vue from 'vue'
 import axios from 'axios'
 
 // CSS
-import 'bulma/css/bulma.css'
-import 'bulma-extensions/dist/bulma-extensions.min.css'
-import 'font-awesome/css/font-awesome.css'
+import '../assets/sass/master.sass'
 // Components
 import Settings from '@/settings/Settings.vue'
 // nodeModules
 import path from 'path'
 import i18njs from 'i18njs'
 import jsonfile from 'jsonfile'
+import './../icons'
 
 let globSettings = jsonfile.readFileSync(path.join(__static, 'settings.json'))
 
