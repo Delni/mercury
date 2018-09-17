@@ -4,7 +4,7 @@
     <div class="field has-addons">
       <div class="control">
         <a class="button is-primary is-tag">
-          <font-awesome-icon fa="calendar"/>
+          <font-awesome-icon icon="calendar"/>
         </a>
       </div>
       <div class="control select is-primary">
@@ -20,7 +20,7 @@
       <div class="control field has-addons column">
         <div class="control">
           <a class="button is-primary is-tag">
-            <font-awesome-icon fa="calendar-plus"/>
+            <font-awesome-icon icon="calendar-plus"/>
           </a>
         </div>
         <div class="control" style="width: 10vw">
@@ -36,7 +36,7 @@
       <div class="control field has-addons column">
         <div class="control">
           <a class="button is-primary is-tag">
-            <font-awesome-icon fa="calendar-minus"/>
+            <font-awesome-icon icon="calendar-minus"/>
           </a>
         </div>
         <div class="control" style="width: 10vw">
