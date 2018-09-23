@@ -5,6 +5,7 @@ import axios from 'axios'
 import 'bulma/css/bulma.css'
 import 'bulma-extensions/dist/bulma-extensions.min.css'
 import 'font-awesome/css/font-awesome.css'
+import '../assets/sass/master.sass'
 // Components
 import ChronoView from '@/reports/chronoView.vue'
 // nodeModules

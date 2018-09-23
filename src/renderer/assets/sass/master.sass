@@ -46,6 +46,9 @@ abbr
   border-bottom: 1px solid #282c34
   border-radius: 5px 5px 0 0
 
+.tab:not(.is-active)
+  border-bottom: 1px solid gray
+
 .is-main-pane
   width: 95vw
   height: 90vh
@@ -172,7 +175,7 @@ strong, .card-header-title
 /* recurrings.vue */
 .is-table-overflown-2
   height: 40vh
-  overflow: scroll
+  overflow-y: scroll
 
 .is-table-overflown-2 > table
   margin-bottom: 10vh
