@@ -84,11 +84,11 @@
             </div>
             <div class="control select is-primary">
               <select class="select" v-model="settings.defaultTimeSpan">
-                <option value="days">{{ (settings.defaultOffset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"days"| translate}}</option>
-                <option value="weeks">{{ (settings.defaultOffset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"weeks"| translate}}</option>
-                <option value="months">{{ (settings.defaultOffset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"months"| translate}}</option>
-                <option value="quarters">{{ (settings.defaultOffset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"quarters"| translate}}</option>
-                <option value="years">{{ (settings.defaultOffset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"years"| translate}}</option>
+                <option value="day">{{ (settings.defaultOffset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"days"| translate}}</option>
+                <option value="week">{{ (settings.defaultOffset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"weeks"| translate}}</option>
+                <option value="month">{{ (settings.defaultOffset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"months"| translate}}</option>
+                <option value="quarter">{{ (settings.defaultOffset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"quarters"| translate}}</option>
+                <option value="year">{{ (settings.defaultOffset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"years"| translate}}</option>
               </select>
             </div>
           </div>

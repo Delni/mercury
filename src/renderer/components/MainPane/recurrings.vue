@@ -44,11 +44,11 @@
               </div>
               <div class="control select is-primary">
                 <select class="select" v-model="newRecurringOperation.timespan">
-                  <option value="days">{{ (newRecurringOperation.offset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"days"| translate}}</option>
-                  <option value="weeks">{{ (newRecurringOperation.offset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"weeks"| translate}}</option>
-                  <option value="months">{{ (newRecurringOperation.offset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"months"| translate}}</option>
-                  <option value="quarters">{{ (newRecurringOperation.offset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"quarters"| translate}}</option>
-                  <option value="years">{{ (newRecurringOperation.offset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"years"| translate}}</option>
+                  <option value="day">{{ (newRecurringOperation.offset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"days"| translate}}</option>
+                  <option value="week">{{ (newRecurringOperation.offset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"weeks"| translate}}</option>
+                  <option value="month">{{ (newRecurringOperation.offset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"months"| translate}}</option>
+                  <option value="quarter">{{ (newRecurringOperation.offset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"quarters"| translate}}</option>
+                  <option value="year">{{ (newRecurringOperation.offset > 1 ? "TIME_SPAN.PLURAL.":"TIME_SPAN.SINGULAR.")+"years"| translate}}</option>
                 </select>
               </div>
             </div>
@@ -222,7 +222,7 @@ export default {
         selectedAccount: this.$root.accounts[0],
         type: 'credit-card',
         offset: 1,
-        timespan: 'days'
+        timespan: this.$root.settings.defaultTimeSpan
       }
     }
   },
@@ -463,6 +463,7 @@ export default {
   },
   created: function () {
     this.getData()
+    console.log(this.newRecurringOperation)
   }
 }
 </script>
