@@ -1,6 +1,69 @@
 {
+  "COMMON": {
+    "CANCEL": "Cancel",
+    "CHART": {
+      "DATE": "Date",
+      "VALUE": "Value"
+    },
+    "CONTINUE": "Continue",
+    "CREATE": "Create",
+    "CURRENCIES": {
+      "DEFAULT": "currency",
+      "OTHER": "Other",
+      "POUND": "Pound"
+    },
+    "DELETE": "Delete",
+    "NO_DATA": "No data to display",
+    "OPERATION_TYPE": {
+      "BANK_CHARGE": "Bank charge",
+      "CASH": "Cash",
+      "CHECK": "Check",
+      "CREDIT_CARD": "Credit card",
+      "DEFAULT": "operation type",
+      "DEPOSIT": "Deposit",
+      "DIRECT_LEVY": "Direct levy",
+      "ELECTRONIC": "Electronic payment",
+      "INTERNAL_TRANSFER": "Internal transfer",
+      "PERMANENT_TRANSFER": "Permanent transfer",
+      "TRANSFER": "Transfer"
+    },
+    "OPTIONS": "Options",
+    "OTHER": "Other",
+    "TIME": {
+      "*": "All dates",
+      "L30": "Last 30 days",
+      "LM": "Last month",
+      "LQ": "Last quarter",
+      "LY": "Last year",
+      "TIME": "Time",
+      "TM": "This month",
+      "TQ": "This quarter",
+      "TY": "This year"
+    },
+    "TIME_SPAN": {
+      "PLURAL": {
+        "days": "days",
+        "months": "months",
+        "quarters": "quarters",
+        "weeks": "weeks",
+        "years": "years"
+      },
+      "SINGULAR": {
+        "days": "day",
+        "months": "month",
+        "quarters": "quarter",
+        "weeks": "week",
+        "years": "year"
+      }
+    },
+    "WARNING": "Warning !"
+  },
   "MAIN": {
     "MENU": {
+      "ABOUT": {
+        "DEFAULT": "About",
+        "VERSION": "Version \t"
+      },
       "FILE": {
         "DEFAULT": "File",
         "NEW_FILE": "New File",
@@ -9,161 +72,147 @@
         "SAVE_AS": "Save as",
         "SETTINGS": "Settings"
       },
-      "REPORTS":{
-        "DEFAULT": "Reports",
-        "TIME": "Time report",
-        "STATISTIC": "Statistic report",
-        "BALANCE": "Balance report"
-      },
-      "WINDOWS": {
-        "DEFAULT": "Windows"
-      },
       "HELP": {
         "LEARN": "Learn more"
       },
-      "ABOUT": {
-        "DEFAULT": "About",
-        "VERSION": "Version \t"
+      "REPORTS": {
+        "BALANCE": "Balance report",
+        "DEFAULT": "Reports",
+        "STATISTIC": "Statistic report",
+        "TIME": "Time report"
+      },
+      "WINDOWS": {
+        "DEFAULT": "Windows"
       }
     },
     "TOUCHBAR": {
-      "TABS": {
-        "DASHBOARD": "Dashboard",
-        "ACCOUNTS": "Accounts",
-        "RECURRINGS": "Recurring operations"
-      },
       "STATS": {
         "CATEGORIES": "Categories",
         "TIME_SPAN": "Time span"
+      },
+      "TABS": {
+        "ACCOUNTS": "Accounts",
+        "DASHBOARD": "Dashboard",
+        "RECURRINGS": "Recurring operations"
       }
     }
   },
-
   "RENDERER": {
     "ACCOUNTS_PANE": {
-      "DEFAULT": "Accounts",
       "ADD": "Add an account",
-
-      "MODAL": {
-        "TITLE": "Add a new account ...",
-        "PLACEHOLDER": "Account's name",
-        "CURRENT_AMOUNT": "Current amount"
+      "CARDS": {
+        "BANK": "Bank: ",
+        "FUTURE": "Future: ",
+        "TODAY": "Today: "
       },
-
       "CONFIRM": {
         "DELETE_ACCOUNT": "You are going to delete the account \"{{=name}}\"\n\nAre you sure?"
       },
-
-      "CARDS": {
-        "BANK": "Bank: ",
-        "TODAY": "Today: ",
-        "FUTURE": "Future: "
+      "DEFAULT": "Accounts",
+      "MODAL": {
+        "CURRENT_AMOUNT": "Current amount",
+        "PLACEHOLDER": "Account's name",
+        "TITLE": "Add a new account ..."
       }
     },
-
     "MAIN_PANE": {
-      "NO_DATA": {
-        "TITLE": "No data !",
-        "SUBTITLE": "<span>Create an <span  class=\"has-text-primary link\" @click=\"showCreateModal\">account</span> to start or <span class=\"has-text-info link\" @click=\"ipc.send('open-file')\">open a file</span></span>"
-      },
-
-      "TABS": {
-        "DASHBOARD": "Dashboard",
-        "ACCOUNTS": "Accounts detail",
-        "RECURRINGS": "Recurring operations"
-      },
-
-      "DASHBOARD": {
-        "TOP": "Top outcome",
-        "QUICK_ACCESS": "Quick Access",
-        "ACCESSES": {
-          "OPEN": "Open the",
-          "OPEN_PLURAL": "Open the",
-          "CHRONOCHART": "chronochart",
-          "RECURRING": "recurring operations",
-          "STATISTIC": "statistic report",
-          "BALANCE": "balance report",
-          "DETAIL": "accounts' detail",
-          "SETTINGS": "settings"
-        }
-      },
-
       "ACCOUNTS": {
         "ALL": "All",
-        "REGISTERED": "Regist.",
-        "CHECKED": "Checked",
-        "VERIFIED": "Verified",
         "ANY": "Any",
-        "INCOME": "Income",
+        "CHECKED": "Checked",
         "DEBIT": "Debit",
         "FILTERS": {
           "NOTIF": {
-            "TITLE": "🚧 Work in progress 🚧",
-            "BODY": "Please wait for future update"
+            "BODY": "Please wait for future update",
+            "TITLE": "🚧 Work in progress 🚧"
           }
         },
+        "INCOME": "Income",
+        "REGISTERED": "Regist.",
         "TABLE": {
           "HEAD": {
-            "STATE": "State",
-            "DATE": "Date",
-            "TYPE": "Type",
             "BENEFICIARY": "Beneficiary",
             "CATEGORY": "Category",
-            "LABEL": "Label",
+            "COLLECTION": "Income",
+            "DATE": "Date",
             "DEBIT": "Outcome",
-            "COLLECTION": "Income"
+            "LABEL": "Label",
+            "STATE": "State",
+            "TYPE": "Type"
           }
-        }
+        },
+        "VERIFIED": "Verified"
       },
-
+      "DASHBOARD": {
+        "ACCESSES": {
+          "BALANCE": "balance report",
+          "CHRONOCHART": "chronochart",
+          "DETAIL": "accounts' detail",
+          "OPEN": "Open the",
+          "OPEN_PLURAL": "Open the",
+          "RECURRING": "recurring operations",
+          "SETTINGS": "settings",
+          "STATISTIC": "statistic report"
+        },
+        "QUICK_ACCESS": "Quick Access",
+        "TOP": "Top outcome"
+      },
+      "NO_DATA": {
+        "SUBTITLE": "<span>Create an <span  class=\"has-text-primary link\" @click=\"showCreateModal\">account</span> to start or <span class=\"has-text-info link\" @click=\"ipc.send('open-file')\">open a file</span></span>",
+        "TITLE": "No data !"
+      },
       "RECURRINGS": {
-        "TITLE": "Recurring operations",
         "BAR": {
           "CREATE": "Create",
-          "LAUNCH": "Launch",
+          "DELETE": "Delete",
           "EDIT": "Edit",
-          "DELETE": "Delete"
+          "LAUNCH": "Launch"
         },
-        "POPUP": {
-          "TITLE": "Mission complete !",
-          "BODY": "{{=length}} operation added !",
-          "BODY_PLURAL": "{{=length}} operations added !",
-          "CONFIRM_DELETE": "You are going to delete an operation.\n\nAre you sure?"
-        },
-        "NO_DATA": {
-          "TITLE": "No operation selected !",
-          "BODY": "Click on a line before editing it"
+        "CONTEXTUAL": {
+          "ACCOUNT": "Account",
+          "LEFT": "{{=left}} time left",
+          "LEFT_PLURAL": "{{=left}} times left",
+          "NEXT": "Next time",
+          "RECURRENCE": "Recurring : each ",
+          "RECURRENCES": "Recurring : each "
         },
         "MODAL": {
+          "CONFIRM_BUTTON": {
+            "CREATE": "Create",
+            "EDIT": "Edit"
+          },
+          "LAUNCH_FOR": "Launch pending operations for the next",
           "TITLE": {
             "CREATE": "Create a new recurring operation",
             "EDIT": "Edit",
             "LAUNCH": "Launch operations"
-          },
-          "LAUNCH_FOR": "Launch pending operations for the next",
-          "CONFIRM_BUTTON": {
-            "CREATE": "Create",
-            "EDIT": "Edit"
           }
         },
-        "CONTEXTUAL": {
-          "ACCOUNT": "Account",
-          "NEXT": "Next time",
-          "RECURRENCE": "Recurring : each ",
-          "RECURRENCES": "Recurring : each ",
-          "LEFT": "{{=left}} time left",
-          "LEFT_PLURAL": "{{=left}} times left"
-        }
+        "NO_DATA": {
+          "BODY": "Click on a line before editing it",
+          "TITLE": "No operation selected !"
+        },
+        "POPUP": {
+          "BODY": "{{=length}} operation added !",
+          "BODY_PLURAL": "{{=length}} operations added !",
+          "CONFIRM_DELETE": "You are going to delete an operation.\n\nAre you sure?",
+          "TITLE": "Mission complete !"
+        },
+        "TITLE": "Recurring operations"
+      },
+      "TABS": {
+        "ACCOUNTS": "Accounts detail",
+        "DASHBOARD": "Dashboard",
+        "RECURRINGS": "Recurring operations"
       }
     },
-
     "OPERATION_PANE": {
-      "DEFAULT": "Operation",
-      "EDITING": "Edition",
-      "EDIT": "Edit",
-      "INHERIT": "Inherit",
       "ADD": "Add",
       "CONFIRM": "You are going to delete an operation\n\nAre you sure?",
+      "DEFAULT": "Operation",
+      "EDIT": "Edit",
+      "EDITING": "Edition",
+      "INHERIT": "Inherit",
       "PLACEHOLDERS": {
         "BENEFICIARY": "Beneficiary",
         "CATEGORY": "Category",
@@ -171,134 +220,72 @@
         "RECURRING": "Recurring"
       }
     },
-
     "REPORTS": {
-      "COMMON": {
-        "TIME_SPAN": "Time span",
-        "CUSTOM_TIME_SPAN": "Custom time span ",
-        "PLACEHOLDERS": {
-          "PICK_DATE": "Pick a date"
-        }
-      },
-      "STATISTIC": {
-        "TITLE": "Statistic report",
-        "DISPLAY": "Display",
-        "ORDER": "Order by",
-        "LEGEND": "Legend",
-        "CATEGORIES": "Categories",
-        "PREVIOUS": " Add previous data"
-      },
       "BALANCE": {
         "TITLE": "Balance report"
       },
       "CHRONO": {
-        "TITLE": "Timely report",
-        "FLOOR_DATA": "Display data floored to 0",
         "CUSTOM_TIME_SPAN": "Custom time span ",
+        "FLOOR_DATA": "Display data floored to 0",
         "TIME_SPAN": "Time span ",
+        "TITLE": "Timely report",
         "WARNING_ZONE": "Warning zone"
+      },
+      "COMMON": {
+        "CUSTOM_TIME_SPAN": "Custom time span ",
+        "PLACEHOLDERS": {
+          "PICK_DATE": "Pick a date"
+        },
+        "TIME_SPAN": "Time span"
+      },
+      "STATISTIC": {
+        "CATEGORIES": "Categories",
+        "DISPLAY": "Display",
+        "LEGEND": "Legend",
+        "ORDER": "Order by",
+        "PREVIOUS": " Add previous data",
+        "TITLE": "Statistic report"
       }
     },
-
     "SETTINGS": {
-      "TITLE": "Settings",
       "SAVE": "Save",
       "TABS": {
-        "TITLES": {
-          "GENERAL": "General",
-          "SAVED_VALUES": "Saved values",
-          "CURRENCIES": "Exchange rates",
-          "ABOUT": "About"
-        },
         "ABOUT": {
-          "DOWNLOAD": "Download last version !",
-          "THANKS": "Thank you for downloading Mercury.",
-          "VERSION": "Software version :",
-          "UP_TO_DATE": "Your software is up to date",
-          "UPDATE_AVAILABLE": "The new version {{=version}} is available !",
-          "ME": "This software is developped on my free time, and I hope it will suit you!",
           "CONTACT": "Do not hesitate to give me a feedback in case of problem (<a class=\"link has-text-info\" href=\"mailto:nicolas.delauney@outlook.fr\">nicolas.delauney@outlook.fr</a>)",
-          "TECHNO": "Mercury is powered by <span class=\"has-text-info\">Electron</span> and <span class=\"has-text-success\">VueJS</span>, bundle by electron-vue."
+          "DOWNLOAD": "Download last version !",
+          "ME": "This software is developped on my free time, and I hope it will suit you!",
+          "TECHNO": "Mercury is powered by <span class=\"has-text-info\">Electron</span> and <span class=\"has-text-success\">VueJS</span>, bundle by electron-vue.",
+          "THANKS": "Thank you for downloading Mercury.",
+          "UPDATE_AVAILABLE": "The new version {{=version}} is available !",
+          "UP_TO_DATE": "Your software is up to date",
+          "VERSION": "Software version :"
         },
         "GENERAL": {
-          "THEME": "Themes",
           "DARK_THEME": "Dark theme",
-          "LIGHT_THEME": "Light theme",
-          "LANGUAGE": "Language",
-          "RECURRING": "Reccuring",
-          "DEFAULT_CURRENCY": "Currency",
           "DATEFORMAT": "Date format",
-          "TEST": "Sample ",
-          "USE_CALENDAR": "Use the calendar",
-          "SAMPLE_CALENDAR": "Test",
+          "DATE_UPDATE": "The date format will be updated on relaunch of Mercury",
+          "DEFAULT_CURRENCY": "Currency",
+          "LANGUAGE": "Language",
           "LANGUAGE_UPDATE": "The language will be updated on relaunch of Mercury",
-          "DATE_UPDATE": "The date format will be updated on relaunch of Mercury"
+          "LIGHT_THEME": "Light theme",
+          "RECURRING": "Reccuring",
+          "SAMPLE_CALENDAR": "Test",
+          "TEST": "Sample ",
+          "THEME": "Themes",
+          "USE_CALENDAR": "Use the calendar"
         },
         "SAVED_VALUES": {
           "BENEFICIARIES": "Beneficiaries",
           "CATEGORIES": "Categories"
+        },
+        "TITLES": {
+          "ABOUT": "About",
+          "CURRENCIES": "Exchange rates",
+          "GENERAL": "General",
+          "SAVED_VALUES": "Saved values"
         }
-      }
-    }
-  },
-
-  "COMMON": {
-    "CREATE": "Create",
-    "CONTINUE": "Continue",
-    "CANCEL": "Cancel",
-    "DELETE": "Delete",
-    "OPTIONS": "Options",
-    "OTHER": "Other",
-    "WARNING": "Warning !",
-    "NO_DATA": "No data to display",
-    "CHART": {
-      "DATE": "Date",
-      "VALUE": "Value"
-    },
-    "TIME": {
-      "L30": "Last 30 days",
-      "TM": "This month",
-      "LM": "Last month",
-      "TQ": "This quarter",
-      "LQ": "Last quarter",
-      "TY": "This year",
-      "LY": "Last year",
-      "*": "All dates",
-      "TIME": "Time"
-    },
-    "TIME_SPAN": {
-      "PLURAL": {
-        "days": "days",
-        "weeks": "weeks",
-        "months": "months",
-        "quarters": "quarters",
-        "years": "years"
       },
-      "SINGULAR": {
-        "days": "day",
-        "weeks": "week",
-        "months": "month",
-        "quarters": "quarter",
-        "years": "year"
-      }
-    },
-    "OPERATION_TYPE": {
-      "DEFAULT": "operation type",
-      "CREDIT_CARD": "Credit card",
-      "CHECK": "Check",
-      "CASH": "Cash",
-      "TRANSFER": "Transfer",
-      "INTERNAL_TRANSFER": "Internal transfer",
-      "PERMANENT_TRANSFER": "Permanent transfer",
-      "ELECTRONIC": "Electronic payment",
-      "DEPOSIT": "Deposit",
-      "BANK_CHARGE": "Bank charge",
-      "DIRECT_LEVY": "Direct levy"
-    },
-    "CURRENCIES": {
-      "DEFAULT": "currency",
-      "POUND": "Pound",
-      "OTHER": "Other"
+      "TITLE": "Settings"
     }
   }
 }

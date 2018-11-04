@@ -1,6 +1,68 @@
 {
+  "COMMON": {
+    "CANCEL": "Anuluj",
+    "CHART": {
+      "DATE": "Data",
+      "VALUE": "Wartość"
+    },
+    "CONTINUE": "Dalej",
+    "CREATE": "Utwórz",
+    "CURRENCIES": {
+      "DEFAULT": "waluta",
+      "OTHER": "Inne",
+      "POUND": "Funt"
+    },
+    "DELETE": "Usuń",
+    "NO_DATA": "Brak danych do wyświetlenia",
+    "OPERATION_TYPE": {
+      "BANK_CHARGE": "Opłata bankowa",
+      "CASH": "Gotówka",
+      "CHECK": "Czek",
+      "CREDIT_CARD": "Karta kredytowa",
+      "DEFAULT": "typ operacji",
+      "DEPOSIT": "Wpłata",
+      "DIRECT_LEVY": "Podatek",
+      "ELECTRONIC": "Płatność elektroniczna",
+      "INTERNAL_TRANSFER": "Przelew wewnętrzny",
+      "PERMANENT_TRANSFER": "Stały przelew",
+      "TRANSFER": "Przelew"
+    },
+    "OPTIONS": "Opcje",
+    "OTHER": "Inne",
+    "TIME": {
+      "*": "Wszystkie daty",
+      "L30": "Ostatnie 30 dni",
+      "LM": "Poprzedni miesiąc",
+      "LQ": "Poprzedni kwartał",
+      "LY": "Poprzedni rok",
+      "TM": "Ten miesiąc",
+      "TQ": "Ten kwartał",
+      "TY": "Ten rok"
+    },
+    "TIME_SPAN": {
+      "PLURAL": {
+        "days": "dni",
+        "months": "miesiące",
+        "quarters": "kwartały",
+        "weeks": "tygodnie",
+        "years": "lata"
+      },
+      "SINGULAR": {
+        "days": "dzień",
+        "months": "miesiąc",
+        "quarters": "kwartał",
+        "weeks": "tydzień",
+        "years": "rok"
+      }
+    },
+    "WARNING": "Ostrzeżenie !"
+  },
   "MAIN": {
     "MENU": {
+      "ABOUT": {
+        "DEFAULT": "About",
+        "VERSION": "Wersja \t"
+      },
       "FILE": {
         "DEFAULT": "Plik",
         "NEW_FILE": "Nowy plik",
@@ -9,294 +71,219 @@
         "SAVE_AS": "Zapisz jako",
         "SETTINGS": "Ustawienia"
       },
-      "REPORTS":{
-        "DEFAULT": "Raporty",
-        "TIME": "Raport czasowy",
-        "STATISTIC": "Raport statystyczny",
-        "BALANCE": "Raport salda"
-      },
-      "WINDOWS": {
-        "DEFAULT": "Widok"
-      },
       "HELP": {
         "LEARN": "Czytaj więcej"
       },
-      "ABOUT": {
-        "DEFAULT": "About",
-        "VERSION": "Wersja \t"
+      "REPORTS": {
+        "BALANCE": "Raport salda",
+        "DEFAULT": "Raporty",
+        "STATISTIC": "Raport statystyczny",
+        "TIME": "Raport czasowy"
+      },
+      "WINDOWS": {
+        "DEFAULT": "Widok"
       }
     },
     "TOUCHBAR": {
-      "TABS": {
-        "DASHBOARD": "Ekran główny",
-        "ACCOUNTS": "Konta",
-        "RECURRINGS": "Operacje cykliczne"
-      },
       "STATS": {
         "CATEGORIES": "Kategorie",
         "TIME_SPAN": "Okres czasu"
+      },
+      "TABS": {
+        "ACCOUNTS": "Konta",
+        "DASHBOARD": "Ekran główny",
+        "RECURRINGS": "Operacje cykliczne"
       }
     }
   },
-
   "RENDERER": {
     "ACCOUNTS_PANE": {
-      "DEFAULT": "Konta",
       "ADD": "Dodaj konto",
-
-      "MODAL": {
-        "TITLE": "Dodaj nowe konto ...",
-        "PLACEHOLDER": "Nazwa konta",
-        "CURRENT_AMOUNT": "Stan konta"
+      "CARDS": {
+        "BANK": "Bank: ",
+        "FUTURE": "Przyszłe: ",
+        "TODAY": "Dzisiaj: "
       },
-
       "CONFIRM": {
         "DELETE_ACCOUNT": "Zamierzasz usunąć konto \"{{=name}}\"\n\nJesteś pewien?"
       },
-
-      "CARDS": {
-        "BANK": "Bank: ",
-        "TODAY": "Dzisiaj: ",
-        "FUTURE": "Przyszłe: "
+      "DEFAULT": "Konta",
+      "MODAL": {
+        "CURRENT_AMOUNT": "Stan konta",
+        "PLACEHOLDER": "Nazwa konta",
+        "TITLE": "Dodaj nowe konto ..."
       }
     },
-
     "MAIN_PANE": {
-      "NO_DATA": {
-        "TITLE": "Brak danych !",
-        "SUBTITLE": "<span>Utwórz <span  class=\"has-text-primary link\" @click=\"showCreateModal\">konto</span> aby rozpocząć, albo <span class=\"has-text-info link\" @click=\"ipc.send('open-file')\">otwórz plik</span></span>"
-      },
-
-      "TABS": {
-        "DASHBOARD": "Ekran główny",
-        "ACCOUNTS": "Szczegóły konta",
-        "RECURRINGS": "Operacje cykliczne"
-      },
-
-      "DASHBOARD": {
-        "TOP": "Wydatki",
-        "QUICK_ACCESS": "Szybki dostęp",
-        "ACCESSES": {
-          "OPEN": "Otwórz",
-          "OPEN_PLURAL": "Otwórz",
-          "CHRONOCHART": "wykres",
-          "RECURRING": "operacje cykilczne",
-          "STATISTIC": "raport statystyczny",
-          "BALANCE": "Raport salda",
-          "DETAIL": "szczegóły konta",
-          "SETTINGS": "ustawienia"
-        }
-      },
-
       "ACCOUNTS": {
         "ALL": "Wszystko",
-        "REGISTERED": "Zarej.",
-        "CHECKED": "Sprawdzone",
-        "VERIFIED": "Zweryfikowane",
         "ANY": "Brak",
-        "INCOME": "Dochód",
+        "CHECKED": "Sprawdzone",
         "DEBIT": "Wydatki",
         "FILTERS": {
           "NOTIF": {
-            "TITLE": "🚧 W przygotowaniu 🚧",
-            "BODY": "Proszę czekać na przyszłą aktualizację"
+            "BODY": "Proszę czekać na przyszłą aktualizację",
+            "TITLE": "🚧 W przygotowaniu 🚧"
           }
         },
+        "INCOME": "Dochód",
+        "REGISTERED": "Zarej.",
         "TABLE": {
           "HEAD": {
-            "STATE": "Status",
-            "DATE": "Data",
-            "TYPE": "Typ",
             "BENEFICIARY": "Beneficjent",
             "CATEGORY": "Kategoria",
-            "LABEL": "Etykieta",
+            "COLLECTION": "Dochód",
+            "DATE": "Data",
             "DEBIT": "Wydatek",
-            "COLLECTION": "Dochód"
+            "LABEL": "Etykieta",
+            "STATE": "Status",
+            "TYPE": "Typ"
           }
-        }
+        },
+        "VERIFIED": "Zweryfikowane"
       },
-
+      "DASHBOARD": {
+        "ACCESSES": {
+          "BALANCE": "Raport salda",
+          "CHRONOCHART": "wykres",
+          "DETAIL": "szczegóły konta",
+          "OPEN": "Otwórz",
+          "OPEN_PLURAL": "Otwórz",
+          "RECURRING": "operacje cykilczne",
+          "SETTINGS": "ustawienia",
+          "STATISTIC": "raport statystyczny"
+        },
+        "QUICK_ACCESS": "Szybki dostęp",
+        "TOP": "Wydatki"
+      },
+      "NO_DATA": {
+        "SUBTITLE": "<span>Utwórz <span  class=\"has-text-primary link\" @click=\"showCreateModal\">konto</span> aby rozpocząć, albo <span class=\"has-text-info link\" @click=\"ipc.send('open-file')\">otwórz plik</span></span>",
+        "TITLE": "Brak danych !"
+      },
       "RECURRINGS": {
-        "TITLE": "Operacje cykliczne",
         "BAR": {
           "CREATE": "Utwórz",
-          "LAUNCH": "Uruchom",
+          "DELETE": "Usuń",
           "EDIT": "Edytuj",
-          "DELETE": "Usuń"
+          "LAUNCH": "Uruchom"
         },
-        "POPUP": {
-          "TITLE": "Misja ukończona !",
-          "BODY": "{{=length}} operacja dodana !",
-          "BODY_PLURAL": "{{=length}} operacje dodane !",
-          "CONFIRM_DELETE": "Zamierzasz usunąc operację.\n\nJesteś pewien?"
-        },
-        "NO_DATA": {
-          "TITLE": "Nie wybrano żadnej operacji !",
-          "BODY": "Kliknij linię przed jej edycją"
+        "CONTEXTUAL": {
+          "ACCOUNT": "Konto",
+          "LEFT": "{{=left}} czas upłynął",
+          "LEFT_PLURAL": "{{=left}} czasu upłynęło",
+          "NEXT": "Następne wykonanie",
+          "RECURRENCE": "Powtarzanie : co ",
+          "RECURRENCES": "Powtarzanie : co "
         },
         "MODAL": {
+          "CONFIRM_BUTTON": {
+            "CREATE": "Utwórz",
+            "EDIT": "Edytuj"
+          },
+          "LAUNCH_FOR": "Uruchom oczekujące operacje na następny miesiąc",
           "TITLE": {
             "CREATE": "Utwórz nową operację cykliczną",
             "EDIT": "Edytuj",
             "LAUNCH": "Uruchom operacje"
-          },
-          "LAUNCH_FOR": "Uruchom oczekujące operacje na następny miesiąc",
-          "CONFIRM_BUTTON": {
-            "CREATE": "Utwórz",
-            "EDIT": "Edytuj"
           }
         },
-        "CONTEXTUAL": {
-          "ACCOUNT": "Konto",
-          "NEXT": "Następne wykonanie",
-          "RECURRENCE": "Powtarzanie : co ",
-          "RECURRENCES": "Powtarzanie : co ",
-          "LEFT": "{{=left}} czas upłynął",
-          "LEFT_PLURAL": "{{=left}} czasu upłynęło"
-        }
+        "NO_DATA": {
+          "BODY": "Kliknij linię przed jej edycją",
+          "TITLE": "Nie wybrano żadnej operacji !"
+        },
+        "POPUP": {
+          "BODY": "{{=length}} operacja dodana !",
+          "BODY_PLURAL": "{{=length}} operacje dodane !",
+          "CONFIRM_DELETE": "Zamierzasz usunąc operację.\n\nJesteś pewien?",
+          "TITLE": "Misja ukończona !"
+        },
+        "TITLE": "Operacje cykliczne"
+      },
+      "TABS": {
+        "ACCOUNTS": "Szczegóły konta",
+        "DASHBOARD": "Ekran główny",
+        "RECURRINGS": "Operacje cykliczne"
       }
     },
-
     "OPERATION_PANE": {
-      "DEFAULT": "Operacje",
-      "EDITING": "Edycje",
-      "EDIT": "Edytuj",
-      "INHERIT": "Kopiuj",
       "ADD": "Dodaj",
       "CONFIRM": "Zamierzasz usunąć operację \n\nJesteś pewien?",
+      "DEFAULT": "Operacje",
+      "EDIT": "Edytuj",
+      "EDITING": "Edycje",
+      "INHERIT": "Kopiuj",
       "PLACEHOLDERS": {
         "BENEFICIARY": "Beneficjent",
         "CATEGORY": "Kategoria",
         "LABEL": "Etykieta"
       }
     },
-
     "REPORTS": {
-      "COMMON": {
-        "TIME_SPAN": "Okres czasu",
-        "CUSTOM_TIME_SPAN": "Wybrany okres czasu ",
-        "PLACEHOLDERS": {
-          "PICK_DATE": "Wybierz datę"
-        }
-      },
-      "STATISTIC": {
-        "TITLE": "Raport statystyczny",
-        "DISPLAY": "Wykres",
-        "ORDER": "Sortuj",
-        "LEGEND": "% / zł",
-        "CATEGORIES": "Kategorie",
-        "PREVIOUS": " Dodaj poprzednie dane"
-      },
       "BALANCE": {
         "TITLE": "Raport salda"
       },
       "CHRONO": {
-        "TITLE": "Raport czasowy",
-        "FLOOR_DATA": "Wyświetl dane do poziomu 0",
         "CUSTOM_TIME_SPAN": "Wybrany okres czasu ",
+        "FLOOR_DATA": "Wyświetl dane do poziomu 0",
         "TIME_SPAN": "Okres czasu",
+        "TITLE": "Raport czasowy",
         "WARNING_ZONE": "Finanse na minusie"
+      },
+      "COMMON": {
+        "CUSTOM_TIME_SPAN": "Wybrany okres czasu ",
+        "PLACEHOLDERS": {
+          "PICK_DATE": "Wybierz datę"
+        },
+        "TIME_SPAN": "Okres czasu"
+      },
+      "STATISTIC": {
+        "CATEGORIES": "Kategorie",
+        "DISPLAY": "Wykres",
+        "LEGEND": "% / zł",
+        "ORDER": "Sortuj",
+        "PREVIOUS": " Dodaj poprzednie dane",
+        "TITLE": "Raport statystyczny"
       }
     },
-
     "SETTINGS": {
-      "TITLE": "Ustawienia",
       "SAVE": "Zapisz",
       "TABS": {
-        "TITLES": {
-          "GENERAL": "Ogólne",
-          "SAVED_VALUES": "Zapisane wartości",
-          "CURRENCIES": "Kurs waluty",
-          "ABOUT": "About"
-        },
         "ABOUT": {
-          "DOWNLOAD": "Pobierz aktualną wersję !",
-          "THANKS": "Dziękuję za pobranie Mercury.",
-          "VERSION": "Wersja oprogramowania :",
-          "UP_TO_DATE": "Twoje oprogramowanie jest aktualne",
-          "UPDATE_AVAILABLE": "Nowa wersja {{=version}} jest dostępna !",
-          "ME": "Aplikacja rozwijana jest w moim wolnym czasie, mam nadzieję, że Ci to odpowiada!",
           "CONTACT": "Nie wahaj się przekazywać mi informacji o problemach i błędach (<a class=\"link has-text-info\" href=\"mailto:nicolas.delauney@outlook.fr\">nicolas.delauney@outlook.fr</a>)",
-          "TECHNO": "Mercury is powered by <span class=\"has-text-info\">Electron</span> and <span class=\"has-text-success\">VueJS</span>, bundle by electron-vue."
+          "DOWNLOAD": "Pobierz aktualną wersję !",
+          "ME": "Aplikacja rozwijana jest w moim wolnym czasie, mam nadzieję, że Ci to odpowiada!",
+          "TECHNO": "Mercury is powered by <span class=\"has-text-info\">Electron</span> and <span class=\"has-text-success\">VueJS</span>, bundle by electron-vue.",
+          "THANKS": "Dziękuję za pobranie Mercury.",
+          "UPDATE_AVAILABLE": "Nowa wersja {{=version}} jest dostępna !",
+          "UP_TO_DATE": "Twoje oprogramowanie jest aktualne",
+          "VERSION": "Wersja oprogramowania :"
         },
         "GENERAL": {
-          "THEME": "Motyw",
           "DARK_THEME": "Ciemny motyw",
-          "LIGHT_THEME": "Jasny motyw",
-          "LANGUAGE": "Język",
-          "RECURRING": "Przesunięcie",
-          "DEFAULT_CURRENCY": "Waluta",
           "DATEFORMAT": "Format daty",
-          "TEST": "Przykład ",
-          "USE_CALENDAR": "Użyj kalendarza",
-          "SAMPLE_CALENDAR": "Test",
+          "DATE_UPDATE": "Format daty zostanie zmieniony po ponownym uruchomieniu Mercury",
+          "DEFAULT_CURRENCY": "Waluta",
+          "LANGUAGE": "Język",
           "LANGUAGE_UPDATE": "Język zostanie zmieniony po ponownym uruchomieniu Mercury",
-          "DATE_UPDATE": "Format daty zostanie zmieniony po ponownym uruchomieniu Mercury"
+          "LIGHT_THEME": "Jasny motyw",
+          "RECURRING": "Przesunięcie",
+          "SAMPLE_CALENDAR": "Test",
+          "TEST": "Przykład ",
+          "THEME": "Motyw",
+          "USE_CALENDAR": "Użyj kalendarza"
         },
         "SAVED_VALUES": {
           "BENEFICIARIES": "Beneficjenci",
           "CATEGORIES": "Kategorie"
+        },
+        "TITLES": {
+          "ABOUT": "About",
+          "CURRENCIES": "Kurs waluty",
+          "GENERAL": "Ogólne",
+          "SAVED_VALUES": "Zapisane wartości"
         }
-      }
-    }
-  },
-
-  "COMMON": {
-    "CREATE": "Utwórz",
-    "CONTINUE": "Dalej",
-    "CANCEL": "Anuluj",
-    "DELETE": "Usuń",
-    "OPTIONS": "Opcje",
-    "OTHER": "Inne",
-    "WARNING": "Ostrzeżenie !",
-    "NO_DATA": "Brak danych do wyświetlenia",
-    "CHART": {
-      "DATE": "Data",
-      "VALUE": "Wartość"
-    },
-    "TIME": {
-      "L30": "Ostatnie 30 dni",
-      "TM": "Ten miesiąc",
-      "LM": "Poprzedni miesiąc",
-      "TQ": "Ten kwartał",
-      "LQ": "Poprzedni kwartał",
-      "TY": "Ten rok",
-      "LY": "Poprzedni rok",
-      "*": "Wszystkie daty"
-    },
-    "TIME_SPAN": {
-      "PLURAL": {
-        "days": "dni",
-        "weeks": "tygodnie",
-        "months": "miesiące",
-        "quarters": "kwartały",
-        "years": "lata"
       },
-      "SINGULAR": {
-        "days": "dzień",
-        "weeks": "tydzień",
-        "months": "miesiąc",
-        "quarters": "kwartał",
-        "years": "rok"
-      }
-    },
-    "OPERATION_TYPE": {
-      "DEFAULT": "typ operacji",
-      "CREDIT_CARD": "Karta kredytowa",
-      "CHECK": "Czek",
-      "CASH": "Gotówka",
-      "TRANSFER": "Przelew",
-      "INTERNAL_TRANSFER": "Przelew wewnętrzny",
-      "PERMANENT_TRANSFER": "Stały przelew",
-      "ELECTRONIC": "Płatność elektroniczna",
-      "DEPOSIT": "Wpłata",
-      "BANK_CHARGE": "Opłata bankowa",
-      "DIRECT_LEVY": "Podatek"
-    },
-    "CURRENCIES": {
-      "DEFAULT": "waluta",
-      "POUND": "Funt",
-      "OTHER": "Inne"
+      "TITLE": "Ustawienia"
     }
   }
 }
