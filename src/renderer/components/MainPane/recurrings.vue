@@ -125,15 +125,15 @@
 
           </div>
         </div>
-        <div class="field">
-          <p class="control pull-left">
+        <div class="level">
+          <p class="control level-left">
             <a class="button is-info" @click="modalConfig.callback">{{'MAIN_PANE.RECURRINGS.MODAL.CONFIRM_BUTTON.'+modalConfig.translate| translate}}</a>
-          </p>
-          <p class="control pull-right">
-            <a class="button is-danger" @click="closeRecModal()">{{'CANCEL'| translate}}</a>
           </p>
           <p v-if="modalConfig.translate === 'EDIT'" class="level-item">
             <a class="button is-warning" @click="deleteRecuring(newRecurringOperation.id)">{{'DELETE' | translate}}</a>
+          </p>
+          <p class="control level-right">
+            <a class="button is-danger" @click="closeRecModal()">{{'CANCEL'| translate}}</a>
           </p>
         </div>
       </div>
