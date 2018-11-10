@@ -7,7 +7,9 @@ import chartJS from 'chart.js' // eslint-disable-line
 
 let globSettings = jsonfile.readFileSync(path.join(__static, 'settings.json'))
 
-const lang = jsonfile.readFileSync(`${__static}/lang/${globSettings.language}_.json`)
+const lang = jsonfile.readFileSync(
+  `${__static}/lang/${globSettings.language}_.json`
+)
 i18njs.add(globSettings.language, '', lang)
 i18njs.setLang(globSettings.language)
 
@@ -15,10 +17,10 @@ export default class ChronoChart {
   constructor (ctx, accounts, db) {
     this.belowZ = false
     this.colors = [
-      {backgroundColor: 'rgba(50, 115, 221,0.2)', borderColor: '#3273dc'},
-      {backgroundColor: 'rgba(50, 221, 72, 0.2)', borderColor: '#32dd61'},
-      {backgroundColor: 'rgba(125, 50, 221, 0.2)', borderColor: '#5e32dd'},
-      {backgroundColor: 'rgba(221, 188, 50, 0.2)', borderColor: '#d9dd32'}
+      { backgroundColor: 'rgba(50, 115, 221,0.2)', borderColor: '#3273dc' },
+      { backgroundColor: 'rgba(50, 221, 72, 0.2)', borderColor: '#32dd61' },
+      { backgroundColor: 'rgba(125, 50, 221, 0.2)', borderColor: '#5e32dd' },
+      { backgroundColor: 'rgba(221, 188, 50, 0.2)', borderColor: '#d9dd32' }
     ]
     this.config = {
       type: 'line',
@@ -29,40 +31,54 @@ export default class ChronoChart {
         },
         fill: 'bottom',
         scales: {
-          xAxes: [{
-            type: 'time',
-            time: {
-              parser: 'DD/MM/YYYY',
-              tooltipFormat: 'DD/MM/YYYY'
-            },
-            scaleLabel: {
-              display: true,
-              labelString: i18njs.get('.COMMON.CHART.DATE')
+          xAxes: [
+            {
+              type: 'time',
+              time: {
+                parser: 'DD/MM/YYYY',
+                tooltipFormat: 'DD/MM/YYYY'
+              },
+              scaleLabel: {
+                display: true,
+                labelString: i18njs.get('.COMMON.CHART.DATE')
+              }
             }
-          }],
-          yAxes: [{
-            scaleLabel: {
-              display: true,
-              labelString: i18njs.get('.COMMON.CHART.VALUE')
+          ],
+          yAxes: [
+            {
+              scaleLabel: {
+                display: true,
+                labelString: i18njs.get('.COMMON.CHART.VALUE')
+              }
             }
-          }]
+          ]
         }
       }
     }
     this.ctx = ctx
     this.db = db
-    this.config.data = {datasets: []}
+    this.config.data = { datasets: [] }
     for (let i = 0; i < accounts.length; i++) {
       const colors = this.colorsPicker()
       let data
       try {
-        data = this.db.exec(`SELECT date, amount FROM ChronoBase WHERE account='${accounts[i].name}' AND date>='${moment().subtract(1, 'months').format('YYYY-MM-DD')}' AND date<='${moment().format('YYYY-MM-DD')}' GROUP BY date`)
+        data = this.db.exec(
+          `SELECT date, amount FROM ChronoBase WHERE account='${
+            accounts[i].name
+          }' AND date>='${moment()
+            .subtract(1, 'months')
+            .format('YYYY-MM-DD')}' AND date<='${moment().format(
+            'YYYY-MM-DD'
+          )}' GROUP BY date`
+        )
       } catch (e) {
         data = []
         console.warn(e)
       }
       const newDataset = {
-        label: this.currencyConverter(accounts[i].currency),
+        label: `${accounts[i].name} (${this.currencyConverter(
+          accounts[i].currency
+        )})`,
         backgroundColor: colors.backgroundColor,
         borderColor: colors.borderColor,
         borderWidth: 1,
@@ -70,16 +86,17 @@ export default class ChronoChart {
       }
       let lastDate
       for (let j = 0; j < data.length; j++) {
-        newDataset.data.push(
-          {
-            x: moment(data[j].Date, 'YYYY-MM-DD').format('DD/MM/YYYY'),
-            y: data[j].amount.toFixed(2)
-          })
+        newDataset.data.push({
+          x: moment(data[j].Date, 'YYYY-MM-DD').format('DD/MM/YYYY'),
+          y: data[j].amount.toFixed(2)
+        })
         if (data[j].amount < 0) this.belowZ = true
         lastDate = data[j].Date
       }
       const newforeDataset = {
-        label: this.currencyConverter(accounts[i].currency),
+        label: `${accounts[i].name} (${this.currencyConverter(
+          accounts[i].currency
+        )})`,
         backgroundColor: colors.backgroundColor,
         borderColor: colors.borderColor,
         borderWidth: 1,
@@ -88,17 +105,20 @@ export default class ChronoChart {
       }
       let foredata
       try {
-        foredata = this.db.exec(`SELECT date, amount FROM ChronoBase WHERE account='${accounts[i].name}' AND date>='${lastDate}' GROUP BY date`)
+        foredata = this.db.exec(
+          `SELECT date, amount FROM ChronoBase WHERE account='${
+            accounts[i].name
+          }' AND date>='${lastDate}' GROUP BY date`
+        )
       } catch (e) {
         console.warn(e)
         foredata = []
       }
       for (let j = 0; j < foredata.length; j++) {
-        newforeDataset.data.push(
-          {
-            x: moment(foredata[j].Date, 'YYYY-MM-DD').format('DD/MM/YYYY'),
-            y: foredata[j].amount.toFixed(2)
-          })
+        newforeDataset.data.push({
+          x: moment(foredata[j].Date, 'YYYY-MM-DD').format('DD/MM/YYYY'),
+          y: foredata[j].amount.toFixed(2)
+        })
         if (foredata[j].amount.toFixed(2) < 0) this.belowZ = true
       }
       this.config.data.datasets.push(newDataset)
@@ -148,17 +168,19 @@ export default class ChronoChart {
       borderWidth: 1,
       pointRadius: 0,
       fill: 'bottom',
-      data: [
-        {x: firstDate, y: 0},
-        {x: lastDate, y: 0}
-      ]
+      data: [{ x: firstDate, y: 0 }, { x: lastDate, y: 0 }]
     })
   }
 
   lastof (datasets) {
     let lastDate = '1901-01-01'
     for (let i = 0; i < datasets.length; i++) {
-      lastDate = (moment(datasets[i].data[datasets[i].data.length - 1].x, 'YYYY-MM-DD').isAfter(moment(lastDate, 'YYYY-MM-DD'))) ? datasets[i].data[datasets[i].data.length - 1].x : lastDate
+      lastDate = moment(
+        datasets[i].data[datasets[i].data.length - 1].x,
+        'YYYY-MM-DD'
+      ).isAfter(moment(lastDate, 'YYYY-MM-DD'))
+        ? datasets[i].data[datasets[i].data.length - 1].x
+        : lastDate
     }
     return lastDate
   }
@@ -166,16 +188,30 @@ export default class ChronoChart {
   firstof (datasets) {
     let firstDate = '01/01/2999'
     for (let i = 0; i < datasets.length; i++) {
-      firstDate = (moment(datasets[i].data[0].x, 'DD/MM/YYYY').isBefore(moment(firstDate, 'DD/MM/YYYY'))) ? datasets[i].data[0].x : firstDate
+      firstDate = moment(datasets[i].data[0].x, 'DD/MM/YYYY').isBefore(
+        moment(firstDate, 'DD/MM/YYYY')
+      )
+        ? datasets[i].data[0].x
+        : firstDate
     }
     return firstDate
   }
 
   refresh (accounts) {
     for (let i = 0; i < accounts.length; i += 2) {
-      const data = this.db.exec(`SELECT date, amount FROM ChronoBase WHERE account='${accounts[i].name}' AND date>='${moment().subtract(1, 'months').format('YYYY-MM-DD')}' AND date<='${moment().format('YYYY-MM-DD')}' GROUP BY date`)
+      const data = this.db.exec(
+        `SELECT date, amount FROM ChronoBase WHERE account='${
+          accounts[i].name
+        }' AND date>='${moment()
+          .subtract(1, 'months')
+          .format('YYYY-MM-DD')}' AND date<='${moment().format(
+          'YYYY-MM-DD'
+        )}' GROUP BY date`
+      )
       let lastDate
-      if (typeof this.config.data.datasets[i] === 'undefined') throw new Error('No #' + i + ' dataset found')
+      if (typeof this.config.data.datasets[i] === 'undefined') {
+        throw new Error('No #' + i + ' dataset found')
+      }
       for (let j = 0; j < data.length; j++) {
         this.config.data.datasets[i].data[j] = {
           x: moment(data[j].Date, 'YYYY-MM-DD').format('DD/MM/YYYY'),
@@ -186,7 +222,11 @@ export default class ChronoChart {
       while (this.config.data.datasets[i].data.length !== data.length) {
         this.config.data.datasets[i].data.pop()
       }
-      const foredata = this.db.exec(`SELECT date, amount FROM ChronoBase WHERE account='${accounts[i].name}' AND date>='${lastDate}' GROUP BY date`)
+      const foredata = this.db.exec(
+        `SELECT date, amount FROM ChronoBase WHERE account='${
+          accounts[i].name
+        }' AND date>='${lastDate}' GROUP BY date`
+      )
       for (let j = 0; j < foredata.length; j++) {
         this.config.data.datasets[i + 1].data[j] = {
           x: moment(foredata[j].Date, 'YYYY-MM-DD').format('DD/MM/YYYY'),
