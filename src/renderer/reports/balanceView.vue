@@ -13,6 +13,19 @@
         </select>
       </div>
     </div>
+    <p class="subtitle is-5">{{ 'REPORTS.COMMON.TIME_SPAN' | translate}}</p>
+    <div class="field has-addons">
+      <div class="control">
+        <a class="button is-primary is-tag">
+          <icon fa="fa-arrows-h"/>
+        </a>
+      </div>
+      <div class="control select is-primary">
+        <select v-model="options.aggreg" @change="throwAggreg()">
+          <option v-for="aggreg in aggregTypes" :value="aggreg.value">{{aggreg.label | translate}}</option>
+        </select>
+      </div>
+    </div>
     <hr>
     <p class="subtitle is-5">{{ 'REPORTS.COMMON.CUSTOM_TIME_SPAN' | translate}}</p>
     <div class="field columns">
@@ -87,10 +100,16 @@
         accounts: [],
         options: {
           period: 'thismonth',
+          aggreg: 'W',
           firstDate: moment().startOf('month').format('YYYY-MM-DD'),
           lastDate: moment().endOf('month').format('YYYY-MM-DD'),
           allDates: false
         },
+        aggregTypes: [
+          {value: 'Y', label: 'TIME.Y'},
+          {value: 'W', label: 'TIME.W'},
+          {value: 'm', label: 'TIME.M'}
+        ],
         timesSpan: [
           {value: 'thismonth', label: 'TIME.TM'},
           {value: 'lastmonth', label: 'TIME.LM'},
@@ -157,9 +176,9 @@
           let data = null
           try {
             if (this.options.allDates) {
-              data = this.db.exec(`SELECT date, SUM(amount) as amount FROM OPERATION WHERE account_name="${this.accounts[i].name}" GROUP BY date`)
+              data = this.db.exec(`SELECT date, SUM(amount) as amount FROM OPERATION WHERE account_name="${this.accounts[i].name}" GROUP BY strftime('%${this.options.aggreg}', date)`)
             } else {
-              data = this.db.exec(`SELECT date, SUM(amount) as amount FROM OPERATION WHERE account_name="${this.accounts[i].name}" AND date BETWEEN "${this.options.firstDate}" AND "${this.options.lastDate}" GROUP BY date`)
+              data = this.db.exec(`SELECT date, SUM(amount) as amount FROM OPERATION WHERE account_name="${this.accounts[i].name}" AND date BETWEEN "${this.options.firstDate}" AND "${this.options.lastDate}" GROUP BY strftime('%${this.options.aggreg}', date)`)
             }
           } catch (e) {
             data = [{date: moment().format('YYYY-MM-DD'), amount: 0}]
@@ -219,6 +238,11 @@
           default:
             this.options.allDates = true
         }
+        this.updateConfig()
+        this.myChart.update()
+      },
+
+      throwAggreg: function () {
         this.updateConfig()
         this.myChart.update()
       },

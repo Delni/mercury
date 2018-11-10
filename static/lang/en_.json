@@ -35,10 +35,13 @@
       "LM": "Last month",
       "LQ": "Last quarter",
       "LY": "Last year",
+      "M": "by months",
       "TIME": "Time",
       "TM": "This month",
       "TQ": "This quarter",
-      "TY": "This year"
+      "TY": "This year",
+      "W": "by weeks",
+      "Y": "by years"
     },
     "TIME_SPAN": {
       "PLURAL": {

@@ -35,9 +35,13 @@
       "LM": "Poprzedni miesiąc",
       "LQ": "Poprzedni kwartał",
       "LY": "Poprzedni rok",
+      "M": "miesiące",
+      "TIME": "Razy",
       "TM": "Ten miesiąc",
       "TQ": "Ten kwartał",
-      "TY": "Ten rok"
+      "TY": "Ten rok",
+      "W": "przez tygodnie",
+      "Y": "przez lata"
     },
     "TIME_SPAN": {
       "PLURAL": {
@@ -215,7 +219,8 @@
       "PLACEHOLDERS": {
         "BENEFICIARY": "Beneficjent",
         "CATEGORY": "Kategoria",
-        "LABEL": "Etykieta"
+        "LABEL": "Etykieta",
+        "RECURRING": "Nawracający"
       }
     },
     "REPORTS": {

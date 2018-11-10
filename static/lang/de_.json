@@ -35,10 +35,13 @@
       "LM": "Letzten Monat",
       "LQ": "Letztes Quartal",
       "LY": "Letztes Jahr",
-      "TIME": "Zeit",
+      "M": "nach Monaten",
+      "TIME": "Mal",
       "TM": "Diesen Monat",
       "TQ": "Dieses Quartal",
-      "TY": "Dieses Jahr"
+      "TY": "Dieses Jahr",
+      "W": "von Wochen",
+      "Y": "nach Jahren"
     },
     "TIME_SPAN": {
       "PLURAL": {

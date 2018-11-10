@@ -35,10 +35,13 @@
       "LM": "Le mois préc.",
       "LQ": "Le trimestre préc.",
       "LY": "L'année préc.",
-      "TIME": "Temps",
+      "M": "par mois",
+      "TIME": "Fois",
       "TM": "Ce mois",
       "TQ": "Ce trimestre",
-      "TY": "Cette année"
+      "TY": "Cette année",
+      "W": "par semaines",
+      "Y": "par années"
     },
     "TIME_SPAN": {
       "PLURAL": {
